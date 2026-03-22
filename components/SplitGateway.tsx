@@ -47,50 +47,24 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
     const tradesVideo = tradesVideoRef.current;
     const jobsVideo = jobsVideoRef.current;
     
-    let tradesFrameId: number;
-    let jobsFrameId: number;
-
-    const reverseLoop = (video: HTMLVideoElement, side: 'trades' | 'jobs') => {
-      if (video.currentTime <= 0.1) {
-        video.currentTime = video.duration || 5;
-      } else {
-        video.currentTime -= 0.033;
-      }
-      
-      if (side === 'trades') {
-        tradesFrameId = requestAnimationFrame(() => reverseLoop(video, 'trades'));
-      } else {
-        jobsFrameId = requestAnimationFrame(() => reverseLoop(video, 'jobs'));
-      }
-    };
-
     const shouldPlayTrades = isMobile || hovered === 'skilled-trades';
     const shouldPlayJobs = isMobile || hovered === 'finance-it';
 
-    if (shouldPlayTrades && tradesVideo) {
-      if (tradesVideo.readyState >= 1) {
-        tradesFrameId = requestAnimationFrame(() => reverseLoop(tradesVideo, 'trades'));
+    if (tradesVideo) {
+      if (shouldPlayTrades) {
+        tradesVideo.play().catch(() => {});
       } else {
-        tradesVideo.addEventListener('loadedmetadata', () => {
-          tradesFrameId = requestAnimationFrame(() => reverseLoop(tradesVideo, 'trades'));
-        }, { once: true });
+        tradesVideo.pause();
       }
     }
 
-    if (shouldPlayJobs && jobsVideo) {
-      if (jobsVideo.readyState >= 1) {
-        jobsFrameId = requestAnimationFrame(() => reverseLoop(jobsVideo, 'jobs'));
+    if (jobsVideo) {
+      if (shouldPlayJobs) {
+        jobsVideo.play().catch(() => {});
       } else {
-        jobsVideo.addEventListener('loadedmetadata', () => {
-          jobsFrameId = requestAnimationFrame(() => reverseLoop(jobsVideo, 'jobs'));
-        }, { once: true });
+        jobsVideo.pause();
       }
     }
-
-    return () => {
-      cancelAnimationFrame(tradesFrameId);
-      cancelAnimationFrame(jobsFrameId);
-    };
   }, [hovered, isMobile]);
 
   const getClipPath = (side: 'left' | 'right') => {
@@ -135,6 +109,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
           <video
             ref={jobsVideoRef}
             src={videos['finance-it']}
+            autoPlay
             muted
             loop
             playsInline
@@ -201,6 +176,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
            <video
             ref={tradesVideoRef}
             src={videos['skilled-trades']}
+            autoPlay
             muted
             loop
             playsInline

@@ -13,7 +13,8 @@ import {
   X, 
   Loader2, 
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  Download
 } from 'lucide-react';
 
 interface AdminPortalProps {
@@ -133,6 +134,47 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
     }
   };
 
+  const exportToCSV = (data: any[], filename: string) => {
+    if (data.length === 0) return;
+    
+    const headers = Object.keys(data[0]);
+    const csvRows = [
+      headers.join(','),
+      ...data.map(row => 
+        headers.map(header => {
+          const val = row[header];
+          const escaped = ('' + val).replace(/"/g, '""');
+          return `"${escaped}"`;
+        }).join(',')
+      )
+    ];
+    
+    const csvContent = csvRows.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', filename);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleExportJobs = () => {
+    const exportData = jobs.map(({ id, responsibilities, requirements, ...rest }) => ({
+      ...rest,
+      responsibilities: responsibilities.join('; '),
+      requirements: requirements.join('; ')
+    }));
+    exportToCSV(exportData, 'certus_jobs_export.csv');
+  };
+
+  const handleExportLinkedIn = () => {
+    const exportData = linkedinPosts.map(({ id, avatar, ...rest }) => rest);
+    exportToCSV(exportData, 'certus_linkedin_posts_export.csv');
+  };
+
   if (!isLoggedIn) {
     return (
       <div className="min-h-screen bg-brand-dark flex items-center justify-center p-6">
@@ -231,24 +273,33 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                 <h2 className="text-3xl font-bold tracking-tight">Manage <span className="text-brand-silver">Job Openings</span></h2>
                 <p className="text-gray-500 text-sm mt-1">Add, edit or remove active mandates from the job board.</p>
               </div>
-              <button 
-                onClick={() => setEditingJob({ 
-                  title: '', 
-                  location: '', 
-                  salary: '', 
-                  summary: '', 
-                  ref: `TRD-${Math.floor(Math.random() * 9000) + 1000}`,
-                  domain: 'skilled-trades',
-                  type: 'Full-Time',
-                  posted: 'Just now',
-                  responsibilities: [],
-                  requirements: []
-                })}
-                className="bg-brand-silver hover:bg-white text-black px-6 py-3 rounded-sm font-bold uppercase tracking-widest text-xs flex items-center gap-2 transition-all"
-              >
-                <Plus size={16} />
-                Post New Job
-              </button>
+              <div className="flex items-center gap-4">
+                <button 
+                  onClick={handleExportJobs}
+                  className="bg-brand-navy/50 hover:bg-brand-navy text-white px-4 py-3 rounded-sm font-bold uppercase tracking-widest text-xs flex items-center gap-2 transition-all border border-white/10"
+                >
+                  <Download size={16} />
+                  Export CSV
+                </button>
+                <button 
+                  onClick={() => setEditingJob({ 
+                    title: '', 
+                    location: '', 
+                    salary: '', 
+                    summary: '', 
+                    ref: `TRD-${Math.floor(Math.random() * 9000) + 1000}`,
+                    domain: 'skilled-trades',
+                    type: 'Full-Time',
+                    posted: 'Just now',
+                    responsibilities: [],
+                    requirements: []
+                  })}
+                  className="bg-brand-silver hover:bg-white text-black px-6 py-3 rounded-sm font-bold uppercase tracking-widest text-xs flex items-center gap-2 transition-all"
+                >
+                  <Plus size={16} />
+                  Post New Job
+                </button>
+              </div>
             </div>
 
             {loading && !editingJob ? (
@@ -300,20 +351,29 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                 <h2 className="text-3xl font-bold tracking-tight">Manage <span className="text-brand-silver">LinkedIn Feed</span></h2>
                 <p className="text-gray-500 text-sm mt-1">Control the insights appearing on the Market Intelligence section.</p>
               </div>
-              <button 
-                onClick={() => setEditingPost({ 
-                  author: 'Tyler Ortolano', 
-                  role: 'Managing Partner', 
-                  content: '', 
-                  image: '',
-                  date: 'Just now',
-                  avatar: 'https://res.cloudinary.com/dvbubqhpp/image/upload/v1710947667/tyler-avatar_eiabfr.jpg'
-                })}
-                className="bg-[#0077B5] hover:bg-white hover:text-[#0077B5] text-white px-6 py-3 rounded-sm font-bold uppercase tracking-widest text-xs flex items-center gap-2 transition-all"
-              >
-                <Plus size={16} />
-                Add LinkedIn Post
-              </button>
+              <div className="flex items-center gap-4">
+                <button 
+                  onClick={handleExportLinkedIn}
+                  className="bg-brand-navy/50 hover:bg-brand-navy text-white px-4 py-3 rounded-sm font-bold uppercase tracking-widest text-xs flex items-center gap-2 transition-all border border-white/10"
+                >
+                  <Download size={16} />
+                  Export CSV
+                </button>
+                <button 
+                  onClick={() => setEditingPost({ 
+                    author: 'Tyler Ortolano', 
+                    role: 'Managing Partner', 
+                    content: '', 
+                    image: '',
+                    date: 'Just now',
+                    avatar: 'https://res.cloudinary.com/dvbubqhpp/image/upload/v1710947667/tyler-avatar_eiabfr.jpg'
+                  })}
+                  className="bg-[#0077B5] hover:bg-white hover:text-[#0077B5] text-white px-6 py-3 rounded-sm font-bold uppercase tracking-widest text-xs flex items-center gap-2 transition-all"
+                >
+                  <Plus size={16} />
+                  Add LinkedIn Post
+                </button>
+              </div>
             </div>
 
             {loading && !editingPost ? (

@@ -17,7 +17,181 @@ if (process.env.SENDGRID_API_KEY) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 }
 
+// In-memory storage
+let jobs = [
+  { 
+      id: "1", 
+      domain: 'skilled-trades',
+      ref: 'TRD-2401', 
+      title: 'Lead Heavy Duty Mechanic', 
+      location: 'Edmonton, AB', 
+      type: 'Full-Time', 
+      salary: '$48 - $55 / hr', 
+      posted: '2 days ago',
+      summary: "A high-visibility leadership role for a Journeyman HD Mechanic, responsible for overseeing a fleet of mining and heavy construction equipment.",
+      responsibilities: [
+          "Lead a team of 15+ mechanics and apprentices in a high-volume shop environment.",
+          "Oversee preventative maintenance programs for a diverse fleet of CAT and Komatsu equipment.",
+          "Manage shop P&L and parts inventory to ensure maximum uptime.",
+          "Mentor junior technicians and ensure strict adherence to safety protocols."
+      ],
+      requirements: [
+          "Journeyman Heavy Duty Mechanic certification (Red Seal preferred).",
+          "10+ years of experience in heavy equipment maintenance.",
+          "Proven leadership experience in a shop foreman or lead hand capacity.",
+          "Deep expertise in hydraulic systems and electronic diagnostics."
+      ],
+      createdAt: new Date().toISOString()
+  },
+  { 
+      id: "2", 
+      domain: 'skilled-trades',
+      ref: 'TRD-2404', 
+      title: 'Industrial Electrician', 
+      location: 'Hamilton, ON', 
+      type: 'Full-Time', 
+      salary: '$42 - $48 / hr', 
+      posted: '1 week ago',
+      summary: "Joining a leading manufacturing facility to oversee plant-wide electrical maintenance and automation systems.",
+      responsibilities: [
+          "Troubleshoot and repair complex industrial control systems and PLC logic.",
+          "Perform preventative maintenance on high-voltage distribution systems.",
+          "Collaborate with engineering teams on equipment upgrades and commissioning.",
+          "Ensure compliance with all electrical codes and safety standards."
+      ],
+      requirements: [
+          "442A or 309A Electrician license.",
+          "5+ years of experience in an industrial manufacturing environment.",
+          "Strong proficiency in Allen-Bradley or Siemens PLC troubleshooting.",
+          "Experience with VFDs and industrial motor controls."
+      ],
+      createdAt: new Date().toISOString()
+  }
+];
+
+let linkedinPosts = [
+  {
+    id: "1",
+    author: 'Tyler Ortolano',
+    role: 'Managing Partner',
+    content: 'Excited to announce that Certus Group has successfully placed a Lead Heavy Duty Mechanic for one of our key mining partners in Alberta. The skilled trades market remains highly competitive, and we are proud to connect top-tier talent with industry leaders. #SkilledTrades #Recruitment #CertusGroup',
+    date: '2d ago',
+    avatar: 'https://res.cloudinary.com/dvbubqhpp/image/upload/v1710947667/tyler-avatar_eiabfr.jpg',
+    createdAt: new Date().toISOString()
+  },
+  {
+    id: "2",
+    author: 'Certus Group',
+    role: 'Executive Search',
+    content: 'We are currently seeing a surge in demand for Industrial Electricians across Ontario. If you are a licensed professional looking for your next challenge, check out our latest openings. #IndustrialElectrician #HamiltonJobs #Manufacturing',
+    date: '5d ago',
+    avatar: 'https://res.cloudinary.com/dvbubqhpp/image/upload/v1710947667/certus-logo-avatar_eiabfr.jpg',
+    createdAt: new Date().toISOString()
+  }
+];
+
+// Auth middleware (simple for demo)
+const adminAuth = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader === `Bearer ${process.env.ADMIN_PASSWORD || 'certusadmin'}`) {
+    next();
+  } else {
+    res.status(401).json({ error: "Unauthorized" });
+  }
+};
+
 // API routes
+app.post("/api/auth/login", (req, res) => {
+  const { username, password } = req.body;
+  const expectedUser = process.env.ADMIN_USERNAME || 'tyler';
+  const expectedPass = process.env.ADMIN_PASSWORD || 'certusadmin';
+
+  if (username === expectedUser && password === expectedPass) {
+    res.json({ token: expectedPass });
+  } else {
+    res.status(401).json({ error: "Invalid credentials" });
+  }
+});
+
+app.get("/api/jobs", (req, res) => {
+  const { domain } = req.query;
+  let filteredJobs = [...jobs];
+  if (domain) {
+    filteredJobs = filteredJobs.filter(j => j.domain === domain);
+  }
+  res.json(filteredJobs.sort((a, b) => b.createdAt.localeCompare(a.createdAt)));
+});
+
+app.post("/api/jobs", adminAuth, (req, res) => {
+  const newJob = { 
+    ...req.body, 
+    id: Math.random().toString(36).substr(2, 9),
+    createdAt: new Date().toISOString()
+  };
+  jobs.push(newJob);
+  res.status(201).json(newJob);
+});
+
+app.put("/api/jobs/:id", adminAuth, (req, res) => {
+  const { id } = req.params;
+  const index = jobs.findIndex(j => j.id === id);
+  if (index !== -1) {
+    jobs[index] = { ...jobs[index], ...req.body, updatedAt: new Date().toISOString() };
+    res.json(jobs[index]);
+  } else {
+    res.status(404).json({ error: "Job not found" });
+  }
+});
+
+app.delete("/api/jobs/:id", adminAuth, (req, res) => {
+  const { id } = req.params;
+  jobs = jobs.filter(j => j.id !== id);
+  res.json({ success: true });
+});
+
+app.get("/api/linkedin-posts", (req, res) => {
+  res.json(linkedinPosts.sort((a, b) => b.createdAt.localeCompare(a.createdAt)));
+});
+
+app.post("/api/linkedin-posts", adminAuth, (req, res) => {
+  const newPost = { 
+    ...req.body, 
+    id: Math.random().toString(36).substr(2, 9),
+    createdAt: new Date().toISOString()
+  };
+  linkedinPosts.push(newPost);
+  res.status(201).json(newPost);
+});
+
+app.delete("/api/linkedin-posts/:id", adminAuth, (req, res) => {
+  const { id } = req.params;
+  linkedinPosts = linkedinPosts.filter(p => p.id !== id);
+  res.json({ success: true });
+});
+
+// Export CSV routes
+app.get("/api/export/jobs", adminAuth, (req, res) => {
+  const header = "ID,Ref,Title,Location,Type,Salary,Domain,Posted,CreatedAt\n";
+  const rows = jobs.map(j => 
+    `"${j.id}","${j.ref}","${j.title}","${j.location}","${j.type}","${j.salary}","${j.domain}","${j.posted}","${j.createdAt}"`
+  ).join("\n");
+  
+  res.setHeader('Content-Type', 'text/csv');
+  res.setHeader('Content-Disposition', 'attachment; filename=jobs_export.csv');
+  res.send(header + rows);
+});
+
+app.get("/api/export/linkedin", adminAuth, (req, res) => {
+  const header = "ID,Author,Role,Content,Date,CreatedAt\n";
+  const rows = linkedinPosts.map(p => 
+    `"${p.id}","${p.author}","${p.role}","${p.content.replace(/"/g, '""')}","${p.date}","${p.createdAt}"`
+  ).join("\n");
+  
+  res.setHeader('Content-Type', 'text/csv');
+  res.setHeader('Content-Disposition', 'attachment; filename=linkedin_export.csv');
+  res.send(header + rows);
+});
+
 app.post("/api/contact", async (req, res) => {
   const { email, name } = req.body;
 
