@@ -1,0 +1,62 @@
+{
+  "entities": {
+    "Job": {
+      "title": "Job Posting",
+      "description": "A job opening listing",
+      "type": "object",
+      "properties": {
+        "id": { "type": "number" },
+        "domain": { "type": "string" },
+        "ref": { "type": "string" },
+        "title": { "type": "string" },
+        "location": { "type": "string" },
+        "type": { "type": "string" },
+        "salary": { "type": "string" },
+        "posted": { "type": "string" },
+        "summary": { "type": "string" },
+        "responsibilities": { "type": "array", "items": { "type": "string" } },
+        "requirements": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["domain", "ref", "title", "location", "type", "salary", "posted", "summary"]
+    },
+    "LinkedInPost": {
+      "title": "LinkedIn Post",
+      "description": "A social media post from LinkedIn",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "author": { "type": "string" },
+        "role": { "type": "string" },
+        "content": { "type": "string" },
+        "date": { "type": "string" },
+        "avatar": { "type": "string" }
+      },
+      "required": ["author", "role", "content", "date", "avatar"]
+    },
+    "User": {
+      "title": "User Profile",
+      "description": "User account information and roles",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "user"] }
+      },
+      "required": ["uid", "email", "role"]
+    }
+  },
+  "firestore": {
+    "jobs": {
+      "schema": "Job",
+      "description": "Collection of job postings"
+    },
+    "linkedin_posts": {
+      "schema": "LinkedInPost",
+      "description": "Collection of LinkedIn posts"
+    },
+    "users": {
+      "schema": "User",
+      "description": "Collection of user profiles and roles"
+    }
+  }
+}

@@ -1,0 +1,118 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: jobs
+    // Fields:
+    //   - id: number (required)
+    //   - domain: string (required)
+    //   - ref: string (required)
+    //   - title: string (required)
+    //   - location: string (required)
+    //   - type: string (required)
+    //   - salary: string (required)
+    //   - posted: string (required)
+    //   - summary: string (required)
+    //   - responsibilities: list (optional)
+    //   - requirements: list (optional)
+    //
+    // Collection: linkedin_posts
+    // Fields:
+    //   - id: string (required)
+    //   - author: string (required)
+    //   - role: string (required)
+    //   - content: string (required)
+    //   - date: string (required)
+    //   - avatar: string (required)
+    //
+    // Collection: users
+    // Fields:
+    //   - uid: string (required)
+    //   - email: string (required)
+    //   - role: string (required)
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() &&
+        (request.auth.token.email == "tyler.ortolano95@gmail.com" ||
+         (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin'));
+    }
+
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+
+    function isValidJob(data) {
+      return hasRequiredFields(['domain', 'ref', 'title', 'location', 'type', 'salary', 'posted', 'summary']) &&
+             data.domain is string && data.domain.size() < 100 &&
+             data.ref is string && data.ref.size() < 50 &&
+             data.title is string && data.title.size() < 200 &&
+             data.location is string && data.location.size() < 200 &&
+             data.type is string && data.type.size() < 100 &&
+             data.salary is string && data.salary.size() < 100 &&
+             data.posted is string && data.posted.size() < 100 &&
+             data.summary is string && data.summary.size() < 5000 &&
+             (!('createdAt' in data) || data.createdAt is string) &&
+             (!('updatedAt' in data) || data.updatedAt is string);
+    }
+
+    function isValidLinkedInPost(data) {
+      return hasRequiredFields(['author', 'role', 'content', 'date', 'avatar']) &&
+             data.author is string && data.author.size() < 100 &&
+             data.role is string && data.role.size() < 100 &&
+             data.content is string && data.content.size() < 10000 &&
+             data.date is string && data.date.size() < 100 &&
+             data.avatar is string && data.avatar.size() < 1000 &&
+             (!('createdAt' in data) || data.createdAt is string) &&
+             (!('updatedAt' in data) || data.updatedAt is string);
+    }
+
+    function isValidUser(data) {
+      return hasRequiredFields(['uid', 'email', 'role']) &&
+             data.uid is string && data.uid == request.auth.uid &&
+             data.email is string && data.email.size() < 200 &&
+             data.role in ['admin', 'user'];
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /users/{userId} {
+      allow read: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+      allow create: if isAuthenticated() && request.auth.uid == userId && isValidUser(request.resource.data) && request.resource.data.role == 'user';
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    match /jobs/{jobId} {
+      allow read: if true;
+      allow create: if isAdmin() && isValidJob(request.resource.data);
+      allow update: if isAdmin() && isValidJob(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    match /linkedin_posts/{postId} {
+      allow read: if true;
+      allow create: if isAdmin() && isValidLinkedInPost(request.resource.data);
+      allow update: if isAdmin() && isValidLinkedInPost(request.resource.data);
+      allow delete: if isAdmin();
+    }
+  }
+}

@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Certus Group | Executive Search</title>
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Outfit', 'sans-serif'],
+              serif: ['Playfair Display', 'serif'],
+              cursive: ['Dancing Script', 'cursive'],
+              nourd: ['Nourd', 'Outfit', 'sans-serif'],
+            },
+            colors: {
+              brand: {
+                silver: '#9FA8B5', // Logo Silver (Accent)
+                steel: '#5B6C7F',  // Logo Steel
+                navy: '#38393A',   // User's Slate Color
+                dark: '#0E141E',   // Darkest
+                white: '#FFFFFF',
+                logistics: '#38393A', // User's Slate Color (Predominant)
+                accent: '#68696c'    // Brand accent color
+              }
+            },
+            boxShadow: {
+              'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+              'elegant': '0 20px 40px -10px rgba(0, 0, 0, 0.3)',
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.5s ease-out forwards',
+              'slide-up': 'slideUp 0.8s ease-out forwards',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #0E141E;
+        color: #f8fafc;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      /* Professional scrollbar */
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0E141E;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #5B6C7F;
+      }
+      
+      .text-balance {
+        text-wrap: balance;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
