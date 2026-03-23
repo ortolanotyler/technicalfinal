@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Domain, Section } from '../types';
+import { Section } from '../types';
 import { ArrowRight } from 'lucide-react';
 import Header from './Header';
 
 interface SplitGatewayProps {
-  onSelect: (domain: Domain) => void;
+  onSelect: (target: 'landing' | 'sectors') => void;
   onViewJobs: () => void;
-  onNavigate?: (sectionId: string, domainHint?: Domain) => void;
+  onNavigate?: (sectionId: string) => void;
 }
 
 const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNavigate }) => {
@@ -89,19 +89,15 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
     <div className="relative h-screen w-full overflow-hidden bg-brand-dark font-sans selection:bg-brand-silver selection:text-black">
       
       <Header 
-        onReset={() => {}} 
-        domain={null} 
-        onSwitch={(d) => onSelect(d)} 
         onViewJobs={onViewJobs}
         onNavigate={onNavigate} 
-        hoveredDomain={hovered === 'sectors' ? 'skilled-trades' : hovered as Domain}
       />
 
       {/* CORE INDUSTRIES (Bottom on Mobile, Right on Desktop) */}
       <div 
         className={`${isMobile ? 'absolute inset-0 h-full' : 'absolute inset-0 h-full'} w-full cursor-pointer ${steelBg} transition-all duration-700 overflow-hidden active:scale-[0.98] md:active:scale-100`}
         style={{ clipPath: isMobile ? getClipPath('right') : 'none' }}
-        onClick={() => onNavigate?.(Section.INDUSTRIES, 'skilled-trades')}
+        onClick={() => onNavigate?.(Section.HERO)}
         onMouseEnter={() => !isMobile && setHovered('sectors')}
         onMouseLeave={() => !isMobile && setHovered(null)}
       >
@@ -168,7 +164,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
       <div 
         className={`${isMobile ? 'absolute inset-0 h-full z-30' : 'absolute inset-0 h-full z-30 drop-shadow-[20px_0_50px_rgba(0,0,0,0.5)]'} w-full cursor-pointer overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.98] md:active:scale-100`}
         style={{ clipPath: getClipPath('left') }}
-        onClick={() => onSelect('skilled-trades')}
+        onClick={() => onSelect('landing')}
         onMouseEnter={() => !isMobile && setHovered('skilled-trades')}
         onMouseLeave={() => !isMobile && setHovered(null)}
       >

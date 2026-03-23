@@ -252,7 +252,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
               onClick={() => setActiveTab('linkedin')}
               className={`px-4 py-2 text-xs font-bold uppercase tracking-widest transition-all ${activeTab === 'linkedin' ? 'text-brand-silver border-b-2 border-brand-silver' : 'text-gray-500 hover:text-white'}`}
             >
-              LinkedIn Feed
+              Feed
             </button>
           </nav>
         </div>
@@ -347,7 +347,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
           <div className="space-y-8">
             <div className="flex justify-between items-center">
               <div>
-                <h2 className="text-3xl font-bold tracking-tight">Manage <span className="text-brand-silver">LinkedIn Feed</span></h2>
+                <h2 className="text-3xl font-bold tracking-tight">Manage <span className="text-brand-silver">Feed</span></h2>
                 <p className="text-gray-500 text-sm mt-1">Control the insights appearing on the Market Intelligence section.</p>
               </div>
               <div className="flex items-center gap-4">
@@ -370,7 +370,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                   className="bg-[#0077B5] hover:bg-white hover:text-[#0077B5] text-white px-6 py-3 rounded-sm font-bold uppercase tracking-widest text-xs flex items-center gap-2 transition-all"
                 >
                   <Plus size={16} />
-                  Add LinkedIn Post
+                  Add Post
                 </button>
               </div>
             </div>
@@ -516,7 +516,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm">
           <div className="bg-brand-dark border border-white/10 w-full max-w-lg rounded-sm shadow-2xl flex flex-col">
             <div className="p-6 border-b border-white/10 flex justify-between items-center">
-              <h3 className="text-xl font-bold">Add LinkedIn Insight</h3>
+              <h3 className="text-xl font-bold">Add Insight</h3>
               <button onClick={() => setEditingPost(null)} className="text-gray-500 hover:text-white"><X size={24} /></button>
             </div>
             <div className="p-8 space-y-6">

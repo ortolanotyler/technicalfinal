@@ -31,9 +31,6 @@ const LinkedInFeed: React.FC = () => {
                 <Linkedin className="text-white" size={24} fill="currentColor" />
               </div>
             </div>
-            <h2 className="text-4xl md:text-7xl font-medium text-white tracking-tighter leading-none">
-              LinkedIn
-            </h2>
           </div>
           
           <div className="flex flex-col items-end gap-4">
@@ -175,7 +172,7 @@ const LinkedInFeed: React.FC = () => {
                 rel="noopener noreferrer"
                 className="bg-[#0077B5] hover:bg-white hover:text-[#0077B5] text-white px-6 py-3 rounded-sm font-bold uppercase tracking-widest text-[10px] flex items-center gap-2 transition-all shadow-lg shadow-[#0077B5]/20"
               >
-                View on LinkedIn
+                View Post
               </a>
             </div>
           </div>

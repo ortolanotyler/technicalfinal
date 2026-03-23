@@ -157,7 +157,7 @@ const Contact: React.FC = () => {
                             <div className="flex flex-col">
                                 <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1 group-hover/link:text-gray-400 transition-colors">Social</span>
                                 <span className="text-xs md:text-sm font-medium text-white group-hover/link:text-brand-silver transition-colors flex items-center gap-2">
-                                    Follow on LinkedIn <ArrowUpRight size={14} className="opacity-0 group-hover/link:opacity-100 transition-opacity translate-y-1 group-hover/link:translate-y-0" />
+                                    Follow on Network <ArrowUpRight size={14} className="opacity-0 group-hover/link:opacity-100 transition-opacity translate-y-1 group-hover/link:translate-y-0" />
                                 </span>
                             </div>
                             <div className={`

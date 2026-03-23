@@ -158,7 +158,7 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
                 </div>
 
                 <div className="space-y-2">
-                   <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">LinkedIn Profile</label>
+                   <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Profile URL</label>
                    <div className="relative group">
                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                        <Linkedin size={18} className="text-gray-600 group-focus-within:text-gray-400 transition-colors" />

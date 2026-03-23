@@ -140,7 +140,7 @@ const Header: React.FC<HeaderProps> = ({ onViewJobs, onNavigate }) => {
           <div className="space-y-1">
              {[
                  { id: Section.INDUSTRIES, label: 'Practice Sectors', sub: 'Industry Expertise' },
-                 { id: Section.INSIGHTS, label: 'Social', sub: 'LinkedIn Feed' },
+                 { id: Section.INSIGHTS, label: 'Social', sub: 'Social Feed' },
                  { id: 'JOBS', label: 'Job Openings', sub: 'Career Opportunities', action: onViewJobs },
                  { id: Section.CONTACT, label: 'Contact Us', sub: 'Global Reach' },
              ].map((link, idx) => (
