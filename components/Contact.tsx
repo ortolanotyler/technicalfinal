@@ -91,10 +91,10 @@ const Contact: React.FC = () => {
                     <div className={`absolute -right-20 -top-20 w-64 h-64 rounded-full blur-[80px] transition-all duration-700 ${theme.glow}`}></div>
 
                     <div className="mb-8 md:mb-12 relative">
-                        <span className="font-sans font-bold text-2xl md:text-3xl text-white tracking-[0.2em] block mb-1">
+                        <span className="font-sans font-bold text-2xl md:text-3xl text-white tracking-tight block mb-1">
                             CERTUS<span className="text-brand-accent">GROUP</span>
                         </span>
-                        <span className="text-gray-500 text-[9px] md:text-[10px] uppercase tracking-[0.4em]">Executive Search</span>
+                        <span className="text-gray-500 text-[9px] md:text-[10px] uppercase tracking-[0.4em]">Technical Search</span>
                     </div>
 
                     <div className="space-y-8 md:space-y-10">

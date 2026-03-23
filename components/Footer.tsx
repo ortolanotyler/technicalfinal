@@ -50,7 +50,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                             CERTUS<span className="text-brand-accent">GROUP</span>
                         </span>
                         <span className="text-brand-silver/60 text-[10px] uppercase tracking-[0.4em] mt-1 font-bold">
-                            Skilled Trades & Operations
+                            Technical Search
                         </span>
                     </div>
                     <p className="text-gray-400 text-sm leading-relaxed max-w-sm font-light">
