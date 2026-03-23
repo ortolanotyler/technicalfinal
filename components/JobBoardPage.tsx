@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Domain, JobPosting } from '../types';
-import { ArrowLeft, Search, MapPin, DollarSign, Clock, X, ArrowRight } from 'lucide-react';
+import { JobPosting } from '../types';
+import { ArrowLeft, MapPin, DollarSign, Clock, ArrowRight } from 'lucide-react';
 import JobDetailDrawer from './JobDetailDrawer';
 import { jobService } from '../services/jobService';
 
 interface JobBoardPageProps {
-  domain: Domain;
   onBack: () => void;
 }
 
-const JobBoardPage: React.FC<JobBoardPageProps> = ({ domain, onBack }) => {
-  const isTrades = domain === 'skilled-trades';
+const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack }) => {
   const [selectedJob, setSelectedJob] = useState<JobPosting | null>(null);
   const [jobs, setJobs] = useState<JobPosting[]>([]);
   const [loading, setLoading] = useState(true);
@@ -18,17 +16,17 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ domain, onBack }) => {
   useEffect(() => {
     const fetchJobs = async () => {
       setLoading(true);
-      const data = await jobService.getJobsByDomain(domain);
+      const data = await jobService.getJobsByDomain();
       setJobs(data);
       setLoading(false);
     };
     fetchJobs();
-  }, [domain]);
+  }, []);
 
   // Theme Config synced with Services
   const theme = {
     accent: 'text-brand-silver',
-    bg: domain === 'skilled-trades' ? 'bg-brand-logistics' : 'bg-brand-navy',
+    bg: 'bg-brand-logistics',
     borderFocus: 'focus:border-brand-silver/50',
     cardGradient: 'from-brand-silver/[0.05]',
     cardBorderHover: 'group-hover:border-brand-silver/30',
@@ -142,7 +140,6 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ domain, onBack }) => {
             job={selectedJob} 
             isOpen={!!selectedJob} 
             onClose={() => setSelectedJob(null)} 
-            isSupply={isTrades} 
         />
     </div>
   );

@@ -21,7 +21,6 @@ if (process.env.SENDGRID_API_KEY) {
 let jobs = [
   { 
       id: "1", 
-      domain: 'skilled-trades',
       ref: 'TRD-2401', 
       title: 'Lead Heavy Duty Mechanic', 
       location: 'Edmonton, AB', 
@@ -45,7 +44,6 @@ let jobs = [
   },
   { 
       id: "2", 
-      domain: 'skilled-trades',
       ref: 'TRD-2404', 
       title: 'Industrial Electrician', 
       location: 'Hamilton, ON', 
@@ -114,12 +112,7 @@ app.post("/api/auth/login", (req, res) => {
 });
 
 app.get("/api/jobs", (req, res) => {
-  const { domain } = req.query;
-  let filteredJobs = [...jobs];
-  if (domain) {
-    filteredJobs = filteredJobs.filter(j => j.domain === domain);
-  }
-  res.json(filteredJobs.sort((a, b) => b.createdAt.localeCompare(a.createdAt)));
+  res.json(jobs.sort((a, b) => b.createdAt.localeCompare(a.createdAt)));
 });
 
 app.post("/api/jobs", adminAuth, (req, res) => {
@@ -171,9 +164,9 @@ app.delete("/api/linkedin-posts/:id", adminAuth, (req, res) => {
 
 // Export CSV routes
 app.get("/api/export/jobs", adminAuth, (req, res) => {
-  const header = "ID,Ref,Title,Location,Type,Salary,Domain,Posted,CreatedAt\n";
+  const header = "ID,Ref,Title,Location,Type,Salary,Posted,CreatedAt\n";
   const rows = jobs.map(j => 
-    `"${j.id}","${j.ref}","${j.title}","${j.location}","${j.type}","${j.salary}","${j.domain}","${j.posted}","${j.createdAt}"`
+    `"${j.id}","${j.ref}","${j.title}","${j.location}","${j.type}","${j.salary}","${j.posted}","${j.createdAt}"`
   ).join("\n");
   
   res.setHeader('Content-Type', 'text/csv');

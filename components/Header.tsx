@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowRight, RefreshCw } from 'lucide-react';
-import { Section, Domain } from '../types';
+import { Menu, X, ArrowRight } from 'lucide-react';
+import { Section } from '../types';
 
 interface HeaderProps {
-  onReset: () => void;
-  domain: Domain;
-  onSwitch: (domain: Domain) => void;
   onViewJobs: () => void;
-  onNavigate?: (sectionId: string, domainHint?: Domain) => void;
-  hoveredDomain?: Domain;
+  onNavigate?: (sectionId: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onReset, domain, onSwitch, onViewJobs, onNavigate, hoveredDomain }) => {
+const Header: React.FC<HeaderProps> = ({ onViewJobs, onNavigate }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -33,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({ onReset, domain, onSwitch, onViewJobs, 
   const scrollTo = (id: string) => {
     setMobileMenuOpen(false);
     if (onNavigate) {
-      onNavigate(id, hoveredDomain || undefined);
+      onNavigate(id);
       return;
     }
     
@@ -43,14 +39,7 @@ const Header: React.FC<HeaderProps> = ({ onReset, domain, onSwitch, onViewJobs, 
     }
   };
 
-  const getLogoSubtitle = () => {
-    const activeDomain = hoveredDomain || domain;
-    if (activeDomain === 'skilled-trades') return 'TECHNICAL SEARCH';
-    if (activeDomain === 'finance-it') return 'EXECUTIVE SEARCH';
-    return 'TECHNICAL SEARCH';
-  };
-
-  const logoSubtitleText = getLogoSubtitle();
+  const logoSubtitleText = 'TECHNICAL SEARCH';
 
   return (
     <>
@@ -63,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({ onReset, domain, onSwitch, onViewJobs, 
           <div className="flex justify-between items-center h-16">
             
             {/* Logo Section */}
-            <div className="flex-shrink-0 flex items-center cursor-pointer group select-none relative z-[70]" onClick={onReset}>
+            <div className="flex-shrink-0 flex items-center cursor-pointer group select-none relative z-[70]" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               <img 
                 src="https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png" 
                 className="w-10 h-10 mr-3 opacity-80 group-hover:opacity-100 transition-opacity duration-300 grayscale brightness-[2]"
@@ -184,14 +173,6 @@ const Header: React.FC<HeaderProps> = ({ onReset, domain, onSwitch, onViewJobs, 
 
           {/* Footer of Menu */}
           <div className="mt-auto pt-10 border-t border-white/5 flex flex-col gap-6">
-              <div className="flex items-center justify-between">
-                  <div className="flex flex-col">
-                      <span className="text-[9px] font-bold text-white/30 uppercase tracking-[0.2em] mb-1">Current Sector</span>
-                      <span className="text-sm font-bold text-brand-silver uppercase tracking-widest">
-                          {domain === 'skilled-trades' ? 'Skilled Trades & Operations' : 'Technical Search'}
-                      </span>
-                  </div>
-              </div>
               <p className="text-[10px] text-white/20 uppercase tracking-[0.3em] text-center">
                   © {new Date().getFullYear()} Certus Group Executive Search
               </p>

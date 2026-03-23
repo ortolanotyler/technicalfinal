@@ -8,12 +8,10 @@ export enum Section {
   ADMIN = 'admin'
 }
 
-export type Domain = 'skilled-trades' | 'finance-it' | null;
-export type View = 'landing' | 'jobs' | 'admin';
+export type View = 'gateway' | 'landing' | 'jobs' | 'admin';
 
 export interface JobPosting {
   id: string | number;
-  domain: Domain;
   ref: string;
   title: string;
   location: string;
@@ -23,6 +21,8 @@ export interface JobPosting {
   summary: string;
   responsibilities: string[];
   requirements: string[];
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface LinkedInPost {
@@ -33,6 +33,8 @@ export interface LinkedInPost {
   date: string;
   avatar: string;
   image?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface AdminCredentials {

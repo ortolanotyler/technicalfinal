@@ -1,12 +1,8 @@
 import React from 'react';
-import { Domain, Section } from '../types';
+import { Section } from '../types';
 
-interface IndustriesServedProps {
-  domain: Domain;
-}
-
-const IndustriesServed: React.FC<IndustriesServedProps> = ({ domain }) => {
-  const tradesCategories = [
+const IndustriesServed: React.FC = () => {
+  const categories = [
     {
       category: "Fleet & Transport",
       description: "Keeping the logistics backbone moving with elite truck and transport mechanics.",
@@ -32,35 +28,6 @@ const IndustriesServed: React.FC<IndustriesServedProps> = ({ domain }) => {
       roles: ["Millwright", "Industrial Electrician", "Maintenance Manager", "PLC Technician", "Reliability Tech", "Safety Coordinator", "Conveyor Specialist", "Machinist", "Welder/Fabricator", "Instrumentation Tech", "Pipefitter", "Rigging Specialist"]
     }
   ];
-
-  const financeITCategories = [
-    {
-      category: "Financial Leadership",
-      description: "Strategic financial management for industrial enterprises and corporations.",
-      image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=800",
-      roles: ["CFO", "VP of Finance", "Controller", "Director of FP&A", "Internal Auditor", "Tax Manager", "Treasury Lead", "Financial Analyst", "Accounting Manager", "Risk Manager", "Compliance Officer", "Strategic Planner"]
-    },
-    {
-      category: "Enterprise Technology",
-      description: "Full-stack technology leadership for modern industrial enterprises.",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800",
-      roles: ["CTO", "VP of Technology", "IT Director", "Software Architect", "Full Stack Developer", "Cloud Architect", "Cybersecurity Lead", "ERP Specialist", "Product Manager", "DevOps Engineer", "Business Analyst", "Project Manager"]
-    },
-    {
-      category: "Industrial Technology",
-      description: "Bridging the gap between OT and IT with specialists in industrial automation and networks.",
-      image: "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&q=80&w=800",
-      roles: ["Industrial IT Manager", "Automation Engineer", "SCADA Specialist", "MES Engineer", "OT Security Analyst", "Systems Integrator", "Network Architect", "Data Engineer", "IoT Specialist", "Control Systems Lead", "Digital Transformation Lead", "Infrastructure Manager"]
-    },
-    {
-      category: "Operations Leadership",
-      description: "Strategic management for manufacturing, logistics, and industrial facilities.",
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800",
-      roles: ["Director of Operations", "Plant Manager", "Production Manager", "General Manager", "Operations Manager", "Supply Chain Director", "Logistics Manager", "Quality Assurance Lead", "Lean Specialist", "Six Sigma Black Belt", "Facility Manager", "EHS Manager"]
-    }
-  ];
-
-  const categories = domain === 'skilled-trades' ? tradesCategories : financeITCategories;
 
   return (
     <section id={Section.INDUSTRIES} className="relative py-36 bg-brand-dark overflow-hidden font-sans">

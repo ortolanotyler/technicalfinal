@@ -1,27 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Section, Domain, JobPosting } from '../types';
+import { Section, JobPosting } from '../types';
 import { MapPin, ArrowRight } from 'lucide-react';
 import { jobService } from '../services/jobService';
 
 interface JobBoardProps {
-  domain?: Domain;
   onViewMore: () => void;
 }
 
-const JobBoard: React.FC<JobBoardProps> = ({ domain, onViewMore }) => {
+const JobBoard: React.FC<JobBoardProps> = ({ onViewMore }) => {
   const [jobs, setJobs] = useState<JobPosting[]>([]);
   const [hoveredJob, setHoveredJob] = useState<number | null>(null);
-  const isFinanceIT = domain === 'finance-it';
 
   useEffect(() => {
     const fetchJobs = async () => {
-      if (domain) {
-        const allJobs = await jobService.getJobsByDomain(domain);
-        setJobs(allJobs.slice(0, 4));
-      }
+      const allJobs = await jobService.getJobsByDomain();
+      setJobs(allJobs.slice(0, 4));
     };
     fetchJobs();
-  }, [domain]);
+  }, []);
 
   // Theme Config - Monochrome Brand
   const theme = {
@@ -33,7 +29,7 @@ const JobBoard: React.FC<JobBoardProps> = ({ domain, onViewMore }) => {
     button: 'border-brand-steel/30 text-brand-silver hover:bg-brand-steel hover:text-white',
     iconColor: 'text-brand-silver',
     sectionBg: 'bg-[#0F151E]',
-    cardBg: domain === 'skilled-trades' ? 'bg-brand-logistics/30' : 'bg-brand-navy/30'
+    cardBg: 'bg-brand-logistics/30'
   };
 
   return (

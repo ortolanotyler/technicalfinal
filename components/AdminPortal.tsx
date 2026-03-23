@@ -288,7 +288,6 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                     salary: '', 
                     summary: '', 
                     ref: `TRD-${Math.floor(Math.random() * 9000) + 1000}`,
-                    domain: 'skilled-trades',
                     type: 'Full-Time',
                     posted: 'Just now',
                     responsibilities: [],
@@ -433,13 +432,12 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Sector</label>
-                  <select 
-                    value={editingJob.domain}
-                    onChange={(e) => setEditingJob({...editingJob, domain: e.target.value as any})}
-                    className="w-full bg-brand-navy/30 border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-silver"
-                  >
-                    <option value="skilled-trades">Skilled Trades & Operations</option>
-                  </select>
+                  <input 
+                    type="text" 
+                    value="Skilled Trades & Operations"
+                    disabled
+                    className="w-full bg-brand-navy/10 border border-white/5 rounded-sm px-4 py-3 text-gray-500 text-sm focus:outline-none"
+                  />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-6">

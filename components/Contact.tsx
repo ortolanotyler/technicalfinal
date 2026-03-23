@@ -1,12 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Section, Domain } from '../types';
+import { Section } from '../types';
 import { Building2, Phone, Mail, Linkedin, ArrowRight, ArrowUpRight } from 'lucide-react';
 
-interface ContactProps {
-  domain?: Domain;
-}
-
-const Contact: React.FC<ContactProps> = ({ domain }) => {
+const Contact: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');

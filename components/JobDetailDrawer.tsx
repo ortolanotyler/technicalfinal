@@ -8,10 +8,9 @@ interface JobDetailDrawerProps {
   job: JobPosting | null;
   isOpen: boolean;
   onClose: () => void;
-  isSupply: boolean;
 }
 
-const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose, isSupply }) => {
+const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose }) => {
   const [visible, setVisible] = useState(false);
   const [isApplying, setIsApplying] = useState(false);
 
@@ -167,7 +166,6 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose,
         job={job}
         isOpen={isApplying}
         onClose={() => setIsApplying(false)}
-        isSupply={isSupply}
       />
     )}
     </>

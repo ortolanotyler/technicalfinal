@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Linkedin, ExternalLink, Loader2, X } from 'lucide-react';
-import { Domain, Section, LinkedInPost } from '../types';
+import { Section, LinkedInPost } from '../types';
 import { jobService } from '../services/jobService';
 
-interface LinkedInFeedProps {
-  domain: Domain;
-}
-
-const LinkedInFeed: React.FC<LinkedInFeedProps> = ({ domain }) => {
+const LinkedInFeed: React.FC = () => {
   const [posts, setPosts] = useState<LinkedInPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedPost, setSelectedPost] = useState<LinkedInPost | null>(null);
@@ -34,10 +30,9 @@ const LinkedInFeed: React.FC<LinkedInFeedProps> = ({ domain }) => {
               <div className="w-12 h-12 bg-[#0077B5] flex items-center justify-center rounded-sm shadow-lg shadow-[#0077B5]/20">
                 <Linkedin className="text-white" size={24} fill="currentColor" />
               </div>
-              <span className="text-brand-silver text-xs font-bold uppercase tracking-[0.4em]">Market Intelligence</span>
             </div>
             <h2 className="text-4xl md:text-7xl font-medium text-white tracking-tighter leading-none">
-              LinkedIn <span className="text-brand-silver italic font-serif font-light">Insights</span>
+              LinkedIn
             </h2>
           </div>
           
@@ -103,9 +98,6 @@ const LinkedInFeed: React.FC<LinkedInFeedProps> = ({ domain }) => {
                   )}
                   
                   <div className="mt-auto pt-6 border-t border-white/5 flex items-center text-gray-500">
-                    <div className="text-[10px] uppercase tracking-widest font-bold text-brand-silver/50">
-                      Insight Shared
-                    </div>
                   </div>
                 </div>
               </div>

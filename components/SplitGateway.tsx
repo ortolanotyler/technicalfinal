@@ -22,7 +22,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
 
   const videos = {
     'skilled-trades': "https://res.cloudinary.com/dvbubqhpp/video/upload/v1774055761/20654636-uhd_3840_2160_30fps_himwzn.mp4",
-    'finance-it': "https://res.cloudinary.com/dvbubqhpp/video/upload/v1773668089/13653860_1080_1920_30fps_xvbelr.mp4"
+    'sectors': "https://res.cloudinary.com/dvbubqhpp/video/upload/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.mp4"
   };
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
     const jobsVideo = jobsVideoRef.current;
     
     const shouldPlayTrades = isMobile || hovered === 'skilled-trades';
-    const shouldPlayJobs = isMobile || hovered === 'finance-it';
+    const shouldPlayJobs = isMobile || hovered === 'sectors';
 
     if (tradesVideo) {
       if (shouldPlayTrades) {
@@ -78,7 +78,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
     }
     
     if (side === 'left') {
-      if (hovered === 'finance-it') return 'polygon(0 0, 45% 0, 25% 100%, 0 100%)'; 
+      if (hovered === 'sectors') return 'polygon(0 0, 45% 0, 25% 100%, 0 100%)'; 
       if (hovered === 'skilled-trades') return 'polygon(0 0, 95% 0, 75% 100%, 0 100%)';   
       return 'polygon(0 0, 75% 0, 55% 100%, 0 100%)'; 
     }
@@ -94,7 +94,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
         onSwitch={(d) => onSelect(d)} 
         onViewJobs={onViewJobs}
         onNavigate={onNavigate} 
-        hoveredDomain={hovered as Domain}
+        hoveredDomain={hovered === 'sectors' ? 'skilled-trades' : hovered as Domain}
       />
 
       {/* CORE INDUSTRIES (Bottom on Mobile, Right on Desktop) */}
@@ -102,19 +102,19 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
         className={`${isMobile ? 'absolute inset-0 h-full' : 'absolute inset-0 h-full'} w-full cursor-pointer ${steelBg} transition-all duration-700 overflow-hidden active:scale-[0.98] md:active:scale-100`}
         style={{ clipPath: isMobile ? getClipPath('right') : 'none' }}
         onClick={() => onNavigate?.(Section.INDUSTRIES, 'skilled-trades')}
-        onMouseEnter={() => !isMobile && setHovered('finance-it')}
+        onMouseEnter={() => !isMobile && setHovered('sectors')}
         onMouseLeave={() => !isMobile && setHovered(null)}
       >
         <div className="absolute inset-0 z-0 overflow-hidden">
           <video
             ref={jobsVideoRef}
-            src={videos['finance-it']}
+            src={videos['sectors']}
             autoPlay
             muted
             loop
             playsInline
             preload="auto"
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1500ms] ease-out ${hovered === 'finance-it' ? 'scale-105 opacity-60 grayscale-0' : 'opacity-20 grayscale scale-100'}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1500ms] ease-out ${hovered === 'sectors' ? 'scale-105 opacity-60 grayscale-0' : 'opacity-20 grayscale scale-100'}`}
           />
           
           <div className="absolute inset-0 bg-brand-dark/40"></div>
@@ -137,16 +137,16 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
             )}
             {!isMobile && (
               <div className="flex flex-col items-end gap-4">
-                 <div className={`h-px bg-white/50 transition-all duration-500 ${hovered === 'finance-it' ? 'w-24' : 'w-12'}`}></div>
+                 <div className={`h-px bg-white/50 transition-all duration-500 ${hovered === 'sectors' ? 'w-24' : 'w-12'}`}></div>
               </div>
             )}
             <div className={`flex flex-col ${isMobile ? 'items-center' : 'items-end'} gap-2 md:gap-5`}>
-              {['Operations Leadership', 'Industrial Technology', 'Supply Chain & Logistics', 'Enterprise IT'].map((role, i) => (
+              {['Fleet & Transport', 'Shop Leadership', 'Heavy Duty Mechanics', 'Industrial Maintenance'].map((role, i) => (
                 <div key={i} className="flex items-center gap-4 group/item">
                   {isMobile ? null : (
-                    <div className={`w-1 h-1 rounded-full transition-all duration-300 ${hovered === 'finance-it' || isMobile ? 'bg-brand-silver' : 'bg-white/20'}`}></div>
+                    <div className={`w-1 h-1 rounded-full transition-all duration-300 ${hovered === 'sectors' || isMobile ? 'bg-brand-silver' : 'bg-white/20'}`}></div>
                   )}
-                  <span className={`text-[9px] md:text-xs font-bold uppercase tracking-[0.3em] transition-all duration-300 ${hovered === 'finance-it' || isMobile ? 'text-white' : 'text-white/40'}`}>
+                  <span className={`text-[9px] md:text-xs font-bold uppercase tracking-[0.3em] transition-all duration-300 ${hovered === 'sectors' || isMobile ? 'text-white' : 'text-white/40'}`}>
                     {role}
                   </span>
                   {isMobile ? null : null}
@@ -155,9 +155,9 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
             </div>
             
             <div className={`flex ${isMobile ? 'justify-center' : 'justify-end'} pt-2 md:pt-8`}>
-               <div className={`group flex items-center gap-4 text-[9px] md:text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 ${hovered === 'finance-it' || isMobile ? 'text-white' : 'text-white/40'}`}>
+               <div className={`group flex items-center gap-4 text-[9px] md:text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 ${hovered === 'sectors' || isMobile ? 'text-white' : 'text-white/40'}`}>
                  <span>Explore Sectors</span>
-                 <ArrowRight size={20} md:size={24} strokeWidth={1.5} className={`transition-transform duration-300 ${hovered === 'finance-it' ? 'translate-x-2' : ''}`} />
+                 <ArrowRight size={20} md:size={24} strokeWidth={1.5} className={`transition-transform duration-300 ${hovered === 'sectors' ? 'translate-x-2' : ''}`} />
                </div>
             </div>
           </div>
@@ -195,7 +195,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
            ></div>
         </div>
         
-        <div className={`${isMobile ? 'absolute top-0 left-0 h-[55%] w-full items-center px-8 text-center pt-16 md:pt-20' : 'absolute top-0 left-0 h-full w-[50%] md:w-[60%] lg:w-[55%] items-start pl-10 lg:pl-24 text-left'} flex flex-col justify-center z-40 transition-all duration-700 ${hovered === 'finance-it' ? 'opacity-30 -translate-x-12 blur-sm' : 'opacity-100 translate-x-0'}`}>
+        <div className={`${isMobile ? 'absolute top-0 left-0 h-[55%] w-full items-center px-8 text-center pt-16 md:pt-20' : 'absolute top-0 left-0 h-full w-[50%] md:w-[60%] lg:w-[55%] items-start pl-10 lg:pl-24 text-left'} flex flex-col justify-center z-40 transition-all duration-700 ${hovered === 'sectors' ? 'opacity-30 -translate-x-12 blur-sm' : 'opacity-100 translate-x-0'}`}>
           <div className="space-y-4 md:space-y-12 max-w-xl transform transition-transform duration-500 active:scale-95">
              {!isMobile && (
                <div className="space-y-6">

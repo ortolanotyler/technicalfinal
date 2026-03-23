@@ -1,13 +1,12 @@
 import React from 'react';
 import { Linkedin, Mail, ArrowUpRight } from 'lucide-react';
-import { Section, Domain } from '../types';
+import { Section } from '../types';
 
 interface FooterProps {
-    domain?: Domain;
     onNavigate?: (id: string) => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ domain, onNavigate }) => {
+const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   // Dynamic Theme Configuration - Monochrome Brand
   const theme = {
     accent: 'text-brand-silver',

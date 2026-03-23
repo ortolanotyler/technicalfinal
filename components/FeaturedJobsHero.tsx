@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Briefcase, MapPin, DollarSign, ArrowRight, Loader2, Clock } from 'lucide-react';
-import { Domain, JobPosting } from '../types';
+import { JobPosting } from '../types';
 import { jobService } from '../services/jobService';
 import ApplicationModal from './ApplicationModal';
 
 interface FeaturedJobsHeroProps {
-  domain: Domain;
   onViewJobs: () => void;
 }
 
-const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ domain, onViewJobs }) => {
+const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ onViewJobs }) => {
   const [jobs, setJobs] = useState<JobPosting[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedJob, setSelectedJob] = useState<JobPosting | null>(null);
@@ -18,12 +17,12 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ domain, onViewJobs 
   useEffect(() => {
     const fetchJobs = async () => {
       setLoading(true);
-      const jobsData = await jobService.getJobsByDomain(domain);
+      const jobsData = await jobService.getJobsByDomain();
       setJobs(jobsData.slice(0, 3)); // Show top 3 jobs
       setLoading(false);
     };
     fetchJobs();
-  }, [domain]);
+  }, []);
 
   const handleJobClick = (job: JobPosting) => {
     setSelectedJob(job);
@@ -53,13 +52,12 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ domain, onViewJobs 
               <div className="w-12 h-12 bg-brand-silver/10 flex items-center justify-center rounded-sm">
                 <Briefcase className="text-brand-silver" size={24} />
               </div>
-              <span className="text-brand-silver text-xs font-bold uppercase tracking-[0.4em]">Priority Mandates</span>
             </div>
             <h2 className="text-4xl md:text-7xl font-medium text-white tracking-tighter leading-none">
               Active <span className="text-brand-silver italic font-serif font-light">Searches</span>
             </h2>
             <p className="mt-8 text-gray-400 text-lg md:text-xl font-light max-w-xl leading-relaxed">
-              Strategic leadership and technical roles currently under search for our {domain === 'skilled-trades' ? 'Skilled Trades' : 'Industrial'} partners.
+              Strategic leadership and technical roles currently under search for our Skilled Trades partners.
             </p>
           </div>
           
@@ -131,7 +129,6 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ domain, onViewJobs 
           job={selectedJob}
           isOpen={isApplying}
           onClose={() => setIsApplying(false)}
-          isSupply={domain === 'skilled-trades'}
         />
       )}
     </section>

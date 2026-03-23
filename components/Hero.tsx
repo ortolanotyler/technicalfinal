@@ -1,13 +1,7 @@
 import React from 'react';
-import { ArrowRight, Wrench, Settings, Truck, ShieldCheck } from 'lucide-react';
-import { Section, Domain } from '../types';
+import { Section } from '../types';
 
-interface HeroProps {
-  domain: Domain;
-}
-
-const Hero: React.FC<HeroProps> = ({ domain }) => {
-  const isTrades = domain === 'skilled-trades';
+const Hero: React.FC = () => {
   const videoRef = React.useRef<HTMLVideoElement>(null);
   
   // Unified video asset for landing page per user request
@@ -21,18 +15,12 @@ const Hero: React.FC<HeroProps> = ({ domain }) => {
   }, []);
 
   const brandSilver = 'text-brand-silver'; 
-  const sectorTint = isTrades ? 'bg-brand-logistics/10' : 'bg-brand-navy/10';
+  const sectorTint = 'bg-brand-logistics/10';
 
-  const content = isTrades ? {
+  const content = {
     label: "Certainty Delivered.",
     titleLine1: "Skilled Trades",
     titleLine2: "& Operations",
-    p1: "Founded by Managing Director, Steven Franzese, The Certus Group was created in response to “Big Box” style recruitment. With over 15 years of industry and recruitment knowledge, we utilize subject matter experts to implement precise hiring based on specific cultural and motivational requirements.",
-    p2: "We strive to eliminate false start hiring while driving revenue growth. At the forefront of our delivery is longevity and quantifiable success through providing candidates with measurable achievement."
-  } : {
-    label: "Certainty Delivered.",
-    titleLine1: "Industrial",
-    titleLine2: "Excellence.",
     p1: "Founded by Managing Director, Steven Franzese, The Certus Group was created in response to “Big Box” style recruitment. With over 15 years of industry and recruitment knowledge, we utilize subject matter experts to implement precise hiring based on specific cultural and motivational requirements.",
     p2: "We strive to eliminate false start hiring while driving revenue growth. At the forefront of our delivery is longevity and quantifiable success through providing candidates with measurable achievement."
   };

@@ -7,10 +7,9 @@ interface ApplicationModalProps {
   job: JobPosting;
   isOpen: boolean;
   onClose: () => void;
-  isSupply: boolean;
 }
 
-const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClose, isSupply }) => {
+const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClose }) => {
   const [step, setStep] = useState<'form' | 'submitting' | 'success' | 'error'>('form');
   const [fileName, setFileName] = useState<string | null>(null);
   const [formData, setFormData] = useState({
