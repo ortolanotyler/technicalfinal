@@ -51,58 +51,65 @@ const IndustriesServed: React.FC = () => {
            </h2>
         </div>
 
-        {/* 2x2 Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl">
+        {/* Refined Grid Layout - 4 Columns on desktop for better density */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.map((cat, idx) => (
             <div 
               key={idx} 
-              className="group/card relative min-h-[400px] md:min-h-[450px] overflow-hidden bg-black border border-white/10 rounded-sm transition-all duration-700 hover:border-white/30 flex flex-col"
+              className="group relative aspect-[3/4] overflow-hidden bg-[#151619] border border-white/5 rounded-xl transition-all duration-500 hover:border-brand-silver/40 flex flex-col shadow-elegant"
             >
-              {/* Image Layer with reversed transition */}
-              <div className="absolute inset-0 z-0 overflow-hidden">
+              {/* Background Image with subtle zoom */}
+              <div className="absolute inset-0 z-0">
                 <img 
                   src={cat.image} 
                   alt={cat.category}
-                  className="w-full h-full object-cover transition-all duration-1000 group-hover/card:scale-110 group-hover/card:opacity-40 group-hover/card:grayscale"
+                  className="w-full h-full object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-30 group-hover:scale-110 transition-all duration-1000 ease-out"
                 />
-                {/* Darkening overlay on hover */}
-                <div className="absolute inset-0 bg-black/20 group-hover/card:bg-black/80 transition-all duration-700 z-10"></div>
+                {/* Gradient Overlay for legibility */}
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/60 to-transparent transition-all duration-500 group-hover:via-brand-dark/80"></div>
               </div>
 
-              {/* Corner Graphic Accent */}
-              <div className="absolute top-6 right-6 md:top-8 md:right-8 w-8 h-8 border-t border-r border-white/20 group-hover/card:border-brand-silver transition-colors z-20"></div>
+              {/* Technical Index Number */}
+              <div className="absolute top-6 left-6 font-mono text-[10px] tracking-widest text-brand-silver/30 group-hover:text-brand-silver transition-colors z-20">
+                SEC_0{idx + 1}
+              </div>
+
+              {/* Corner Accent */}
+              <div className="absolute top-6 right-6 w-4 h-4 border-t border-r border-white/10 group-hover:border-brand-silver/40 transition-all z-20"></div>
 
               {/* Content Area */}
-              <div className="relative flex-grow p-6 md:p-12 flex flex-col justify-end z-20 mt-auto">
+              <div className="relative z-20 mt-auto p-6 md:p-8 flex flex-col h-full justify-end overflow-hidden">
                 
-                {/* Category & Description */}
-                <div className="mb-4 md:mb-6 space-y-3 md:space-y-4 transform transition-all duration-700 group-hover/card:-translate-y-2">
-                   <h3 className="text-xl md:text-3xl font-bold text-white leading-tight tracking-tight drop-shadow-lg">
+                {/* Title & Description */}
+                <div className="space-y-3 transform transition-all duration-500 group-hover:-translate-y-4">
+                   <h3 className="text-2xl font-bold text-white leading-tight tracking-tight drop-shadow-2xl">
                       {cat.category}
                    </h3>
-                   <p className="text-white/0 group-hover/card:text-white/90 text-[10px] md:text-xs leading-relaxed max-w-md transition-all duration-500 opacity-0 group-hover/card:opacity-100 line-clamp-3 md:line-clamp-none">
+                   <p className="text-[11px] text-white/70 leading-relaxed opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100">
                       {cat.description}
                    </p>
                 </div>
 
-                {/* Role Tags Grid */}
-                <div className="pt-4 md:pt-6 border-t border-white/0 group-hover/card:border-white/20 transition-all duration-700 opacity-0 group-hover/card:opacity-100 translate-y-4 group-hover/card:translate-y-0">
-                   <div className="flex flex-wrap gap-1.5 md:gap-2">
-                      {cat.roles.map((role, rIdx) => (
-                        <div 
-                          key={rIdx}
-                          className="bg-white/10 border border-white/20 px-1.5 py-0.5 md:px-2 md:py-1 text-[7px] md:text-[9px] font-bold uppercase tracking-widest text-white rounded-sm whitespace-nowrap hover:bg-white hover:text-black transition-colors"
-                        >
-                          {role}
-                        </div>
-                      ))}
+                {/* Role Tags - Revealed on hover with a slide-up effect */}
+                <div className="mt-0 max-h-0 group-hover:max-h-[300px] opacity-0 group-hover:opacity-100 transition-all duration-700 ease-in-out overflow-y-auto scrollbar-hide">
+                   <div className="pt-4 border-t border-white/10 mt-4">
+                      <div className="flex flex-wrap gap-1.5 pb-4">
+                         {cat.roles.map((role, rIdx) => (
+                           <span 
+                             key={rIdx}
+                             className="bg-white/5 border border-white/10 px-2 py-0.5 text-[8px] font-medium uppercase tracking-wider text-brand-silver/90 rounded-sm whitespace-nowrap hover:bg-brand-silver hover:text-brand-dark transition-colors duration-300"
+                           >
+                             {role}
+                           </span>
+                         ))}
+                      </div>
                    </div>
                 </div>
 
               </div>
 
-              {/* Light Sweep Effect */}
-              <div className="absolute inset-0 pointer-events-none opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 bg-gradient-to-tr from-brand-silver/5 via-transparent to-white/5"></div>
+              {/* Subtle Glow Sweep */}
+              <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-tr from-brand-silver/5 via-transparent to-white/5"></div>
             </div>
           ))}
         </div>

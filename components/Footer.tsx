@@ -60,7 +60,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                         Specialized recruitment for Heavy Duty Mechanics, Industrial Maintenance, and Shop Leadership across North America.
                     </p>
                     <div className="flex gap-4">
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className={`w-12 h-12 flex items-center justify-center border rounded-sm transition-all duration-300 ${theme.button}`}>
+                        <a href="https://www.linkedin.com/showcase/111821157/" target="_blank" rel="noopener noreferrer" className={`w-12 h-12 flex items-center justify-center border rounded-sm transition-all duration-300 ${theme.button}`}>
                             <Linkedin size={20} strokeWidth={1.5} />
                         </a>
                          <a href="mailto:info@certusgroup.com" className={`w-12 h-12 flex items-center justify-center border rounded-sm transition-all duration-300 ${theme.button}`}>
