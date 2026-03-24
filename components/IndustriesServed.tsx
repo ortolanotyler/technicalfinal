@@ -6,25 +6,25 @@ const IndustriesServed: React.FC = () => {
     {
       category: "Fleet & Transport",
       description: "Keeping the logistics backbone moving with elite truck and transport mechanics.",
-      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800",
+      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=60&w=600",
       roles: ["Truck Mechanic", "Fleet Manager", "Trailer Tech", "Service Advisor", "Parts Manager", "Diagnostic Specialist", "Reefer Technician", "Alignment Specialist", "Shop Lead", "Warranty Administrator", "Tire Technician", "Fuel Systems Tech"]
     },
     {
       category: "Shop Leadership",
       description: "Placing the management talent that drives operational efficiency in industrial shops.",
-      image: "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&q=80&w=800",
+      image: "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&q=60&w=600",
       roles: ["Service Manager", "Operations Director", "Branch Manager", "Fixed Ops Director", "Regional Manager", "General Manager", "Service Director", "Production Manager", "Quality Control Lead", "Safety Manager", "Inventory Controller", "HR Business Partner"]
     },
     {
       category: "Heavy Duty Mechanics",
       description: "Specialized recruitment for off-road, mining, and heavy construction equipment specialists.",
-      image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=800",
+      image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=60&w=600",
       roles: ["HD Mechanic", "Field Service Tech", "Shop Foreman", "Master Technician", "Hydraulic Specialist", "Engine Rebuilder", "Component Rebuilder", "Lube Technician", "Service Coordinator", "Diagnostic Lead", "Track Specialist", "Undercarriage Tech"]
     },
     {
       category: "Industrial Maintenance",
       description: "Certified experts for plant maintenance, shutdowns, and industrial commissioning.",
-      image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=800",
+      image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=60&w=600",
       roles: ["Millwright", "Industrial Electrician", "Maintenance Manager", "PLC Technician", "Reliability Tech", "Safety Coordinator", "Conveyor Specialist", "Machinist", "Welder/Fabricator", "Instrumentation Tech", "Pipefitter", "Rigging Specialist"]
     }
   ];
@@ -63,6 +63,7 @@ const IndustriesServed: React.FC = () => {
                 <img 
                   src={cat.image} 
                   alt={cat.category}
+                  loading="lazy"
                   className="w-full h-full object-cover opacity-30 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000 ease-out"
                 />
                 {/* Gradient Overlay - Dramatic reveal with legibility protection */}

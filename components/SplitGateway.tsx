@@ -21,8 +21,13 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
   const silverText = 'text-brand-silver'; 
 
   const videos = {
-    'skilled-trades': "https://res.cloudinary.com/dvbubqhpp/video/upload/v1774055761/20654636-uhd_3840_2160_30fps_himwzn.mp4",
-    'sectors': "https://res.cloudinary.com/dvbubqhpp/video/upload/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.mp4"
+    'skilled-trades': "https://res.cloudinary.com/dvbubqhpp/video/upload/q_auto,f_auto,w_1280/v1774055761/20654636-uhd_3840_2160_30fps_himwzn.mp4",
+    'sectors': "https://res.cloudinary.com/dvbubqhpp/video/upload/q_auto,f_auto,w_1280/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.mp4"
+  };
+
+  const posters = {
+    'skilled-trades': "https://res.cloudinary.com/dvbubqhpp/video/upload/so_0/v1774055761/20654636-uhd_3840_2160_30fps_himwzn.jpg",
+    'sectors': "https://res.cloudinary.com/dvbubqhpp/video/upload/so_0/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.jpg"
   };
 
   useEffect(() => {
@@ -110,6 +115,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
             loop
             playsInline
             preload="auto"
+            poster={posters['sectors']}
             className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1500ms] ease-out ${hovered === 'sectors' ? 'scale-105 opacity-60 grayscale-0' : 'opacity-20 grayscale scale-100'}`}
           />
           
@@ -177,6 +183,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
             loop
             playsInline
             preload="auto"
+            poster={posters['skilled-trades']}
             className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1500ms] ease-out ${hovered === 'skilled-trades' ? 'scale-105 opacity-60 grayscale-0' : 'opacity-20 grayscale scale-100'}`}
            />
 
