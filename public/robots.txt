@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://certusgroup.com/sitemap.xml

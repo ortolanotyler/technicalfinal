@@ -78,6 +78,49 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ onViewJobs }) => {
           </div>
         ) : (
           <div className="space-y-4">
+            {/* JobPosting Structured Data */}
+            {jobs.map((job) => (
+              <script
+                key={`schema-${job.id}`}
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "JobPosting",
+                    "title": job.title,
+                    "description": job.summary || job.title,
+                    "datePosted": new Date().toISOString().split('T')[0], // Use current date as fallback
+                    "validThrough": new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    "employmentType": "FULL_TIME",
+                    "hiringOrganization": {
+                      "@type": "Organization",
+                      "name": "Certus Group",
+                      "sameAs": "https://certusgroup.com/",
+                      "logo": "https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png"
+                    },
+                    "jobLocation": {
+                      "@type": "Place",
+                      "address": {
+                        "@type": "PostalAddress",
+                        "addressLocality": job.location.split(',')[0].trim(),
+                        "addressRegion": job.location.split(',')[1]?.trim() || "ON",
+                        "addressCountry": "CA"
+                      }
+                    },
+                    "baseSalary": {
+                      "@type": "MonetaryAmount",
+                      "currency": "CAD",
+                      "value": {
+                        "@type": "QuantitativeValue",
+                        "value": job.salary,
+                        "unitText": "YEAR"
+                      }
+                    }
+                  })
+                }}
+              />
+            ))}
+            
             {jobs.map((job) => (
               <div 
                 key={job.id}

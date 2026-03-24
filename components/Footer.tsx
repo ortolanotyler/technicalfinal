@@ -31,9 +31,12 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         
         {/* 1. WATERMARK LAYER - Massive visual anchor */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-            <h1 className="text-[25vw] font-bold text-brand-silver/[0.02] leading-none absolute -top-10 -left-10 select-none font-sans tracking-tighter uppercase">
+            <div 
+                aria-hidden="true"
+                className="text-[25vw] font-bold text-brand-silver/[0.02] leading-none absolute -top-10 -left-10 select-none font-sans tracking-tighter uppercase"
+            >
                 CERTUS
-            </h1>
+            </div>
         </div>
 
         {/* Ambient Glow */}

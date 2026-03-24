@@ -74,35 +74,47 @@ const Header: React.FC<HeaderProps> = ({ onViewJobs, onNavigate }) => {
                   { id: Section.INDUSTRIES, label: 'Sectors' },
                   { id: Section.INSIGHTS, label: 'Social' }
               ].map((item) => (
-                  <button 
+                  <a 
                       key={item.id}
-                      onClick={() => scrollTo(item.id)} 
+                      href={`#${item.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollTo(item.id);
+                      }} 
                       className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/60 hover:text-white relative group/nav transition-all duration-300 py-2"
                   >
                       {item.label}
                       {/* Premium Underline Animation */}
                       <span className="absolute bottom-0 left-0 w-full h-[1px] bg-brand-silver/30 scale-x-0 group-hover/nav:scale-x-100 origin-center transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)]"></span>
                       <span className="absolute bottom-0 left-0 w-full h-[1px] bg-brand-silver scale-x-0 group-hover/nav:scale-x-100 origin-center transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] blur-[1px] opacity-0 group-hover/nav:opacity-50"></span>
-                  </button>
+                  </a>
               ))}
 
-              <button 
-                  onClick={onViewJobs} 
+              <a 
+                  href="#jobs"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onViewJobs();
+                  }} 
                   className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/60 hover:text-white relative group/nav transition-all duration-300 py-2"
               >
                   Job Openings
                   <span className="absolute bottom-0 left-0 w-full h-[1px] bg-brand-silver/30 scale-x-0 group-hover/nav:scale-x-100 origin-center transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)]"></span>
                   <span className="absolute bottom-0 left-0 w-full h-[1px] bg-brand-silver scale-x-0 group-hover/nav:scale-x-100 origin-center transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] blur-[1px] opacity-0 group-hover/nav:opacity-50"></span>
-              </button>
+              </a>
               
               {/* Domain Switcher Removed as Executive & IT is redundant */}
 
-              <button 
-                onClick={() => scrollTo(Section.CONTACT)} 
+              <a 
+                href={`#${Section.CONTACT}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo(Section.CONTACT);
+                }} 
                 className="bg-white text-brand-dark hover:bg-brand-silver px-8 py-3 rounded-sm font-bold text-[10px] uppercase tracking-[0.2em] transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg"
               >
                 Contact
-              </button>
+              </a>
             </div>
 
             {/* Mobile/Small Tablet Trigger (Below 1024px) */}

@@ -65,7 +65,7 @@ const Hero: React.FC = () => {
           maskImage: 'radial-gradient(circle at bottom left, black 30%, transparent 80%)', 
           WebkitMaskImage: 'radial-gradient(circle at bottom left, black 30%, transparent 80%)' 
         }}
-        alt=""
+        alt="Certus Group Logo Watermark"
       />
 
       {/* 3. LAYER: Primary Content Grid */}

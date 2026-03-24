@@ -66,6 +66,7 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack }) => {
         {/* Roles Grid */}
         <main className="flex-grow pt-24 pb-24 px-6 lg:px-8 z-10">
             <div className="max-w-7xl mx-auto">
+                <h1 className="sr-only">Certus Group Technical Search - Job Board</h1>
                 <div className="mb-12">
                     <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
                         Active <span className="text-brand-silver italic font-serif font-light">Mandates</span>
@@ -76,6 +77,48 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack }) => {
                 </div>
                 {jobs.length > 0 ? (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        {/* JobPosting Structured Data */}
+                        {jobs.map((job) => (
+                            <script
+                                key={`schema-${job.id}`}
+                                type="application/ld+json"
+                                dangerouslySetInnerHTML={{
+                                    __html: JSON.stringify({
+                                        "@context": "https://schema.org",
+                                        "@type": "JobPosting",
+                                        "title": job.title,
+                                        "description": job.summary || job.title,
+                                        "datePosted": new Date().toISOString().split('T')[0],
+                                        "validThrough": new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                                        "employmentType": "FULL_TIME",
+                                        "hiringOrganization": {
+                                            "@type": "Organization",
+                                            "name": "Certus Group",
+                                            "sameAs": "https://certusgroup.com/",
+                                            "logo": "https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png"
+                                        },
+                                        "jobLocation": {
+                                            "@type": "Place",
+                                            "address": {
+                                                "@type": "PostalAddress",
+                                                "addressLocality": job.location.split(',')[0].trim(),
+                                                "addressRegion": job.location.split(',')[1]?.trim() || "ON",
+                                                "addressCountry": "CA"
+                                            }
+                                        },
+                                        "baseSalary": {
+                                            "@type": "MonetaryAmount",
+                                            "currency": "CAD",
+                                            "value": {
+                                                "@type": "QuantitativeValue",
+                                                "value": job.salary,
+                                                "unitText": "YEAR"
+                                            }
+                                        }
+                                    })
+                                }}
+                            />
+                        ))}
                         {jobs.map((job) => (
                             <div 
                                 key={job.id} 
