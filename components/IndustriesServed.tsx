@@ -5,27 +5,23 @@ const IndustriesServed: React.FC = () => {
   const categories = [
     {
       category: "Fleet & Transport",
-      description: "Keeping the logistics backbone moving with elite truck and transport mechanics.",
-      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=60&w=600",
-      roles: ["Truck Mechanic", "Fleet Manager", "Trailer Tech", "Service Advisor", "Parts Manager", "Diagnostic Specialist", "Reefer Technician", "Alignment Specialist", "Shop Lead", "Warranty Administrator", "Tire Technician", "Fuel Systems Tech"]
+      description: "Keeping the logistics backbone moving with elite truck and transport mechanics. We specialize in sourcing highly skilled technicians for heavy-duty fleet operations, ensuring maximum uptime and operational safety across North American transport networks.",
+      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=60&w=600"
     },
     {
-      category: "Shop Leadership",
-      description: "Placing the management talent that drives operational efficiency in industrial shops.",
-      image: "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&q=60&w=600",
-      roles: ["Service Manager", "Operations Director", "Branch Manager", "Fixed Ops Director", "Regional Manager", "General Manager", "Service Director", "Production Manager", "Quality Control Lead", "Safety Manager", "Inventory Controller", "HR Business Partner"]
+      category: "Technical Leadership",
+      description: "Placing the management talent that drives operational efficiency in industrial shops. From Service Managers to Operations Directors, we identify leaders with the technical depth and strategic vision to optimize shop performance and team productivity.",
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=60&w=600"
     },
     {
       category: "Heavy Duty Mechanics",
-      description: "Specialized recruitment for off-road, mining, and heavy construction equipment specialists.",
-      image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=60&w=600",
-      roles: ["HD Mechanic", "Field Service Tech", "Shop Foreman", "Master Technician", "Hydraulic Specialist", "Engine Rebuilder", "Component Rebuilder", "Lube Technician", "Service Coordinator", "Diagnostic Lead", "Track Specialist", "Undercarriage Tech"]
+      description: "Specialized recruitment for off-road, mining, and heavy construction equipment specialists. We connect top-tier HD mechanics with industry-leading firms, focusing on expertise in hydraulics, engine diagnostics, and complex component rebuilding.",
+      image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=60&w=600"
     },
     {
       category: "Industrial Maintenance",
-      description: "Certified experts for plant maintenance, shutdowns, and industrial commissioning.",
-      image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=60&w=600",
-      roles: ["Millwright", "Industrial Electrician", "Maintenance Manager", "PLC Technician", "Reliability Tech", "Safety Coordinator", "Conveyor Specialist", "Machinist", "Welder/Fabricator", "Instrumentation Tech", "Pipefitter", "Rigging Specialist"]
+      description: "Certified experts for plant maintenance, shutdowns, and industrial commissioning. Our network includes specialized millwrights and electricians who ensure the reliability and safety of critical industrial infrastructure through precise preventative maintenance.",
+      image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=60&w=600"
     }
   ];
 
@@ -77,29 +73,13 @@ const IndustriesServed: React.FC = () => {
               <div className="relative z-20 mt-auto p-6 md:p-8 flex flex-col h-full justify-end">
                 
                 {/* Title & Description */}
-                <div className="space-y-3 transform transition-all duration-500 group-hover:-translate-y-4">
-                   <h3 className="text-2xl font-bold text-white leading-tight tracking-tight drop-shadow-2xl">
+                <div className="space-y-4 transform transition-all duration-500 group-hover:-translate-y-2">
+                   <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight tracking-tight drop-shadow-2xl">
                       {cat.category}
                    </h3>
-                   <p className="text-[11px] text-white leading-relaxed opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100 drop-shadow-md">
+                   <p className="text-xs md:text-[13px] text-white/90 leading-relaxed opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-100 drop-shadow-lg font-light">
                       {cat.description}
                    </p>
-                </div>
-
-                {/* Role Tags - Fully revealed on hover */}
-                <div className="mt-0 max-h-0 group-hover:max-h-[400px] opacity-0 group-hover:opacity-100 transition-all duration-700 ease-in-out overflow-hidden">
-                   <div className="pt-4 border-t border-white/20 mt-4">
-                      <div className="flex flex-wrap gap-1.5">
-                         {cat.roles.map((role, rIdx) => (
-                           <span 
-                             key={rIdx}
-                             className="bg-brand-dark/60 backdrop-blur-sm border border-white/10 px-2 py-0.5 text-[8px] font-medium uppercase tracking-wider text-white rounded-sm whitespace-nowrap hover:bg-brand-silver hover:text-brand-dark transition-colors duration-300"
-                           >
-                             {role}
-                           </span>
-                         ))}
-                      </div>
-                   </div>
                 </div>
 
               </div>

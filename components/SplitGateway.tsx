@@ -143,7 +143,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
               </div>
             )}
             <div className={`flex flex-col ${isMobile ? 'items-center' : 'items-end'} gap-2 md:gap-5`}>
-              {['Fleet & Transport', 'Shop Leadership', 'Heavy Duty Mechanics', 'Industrial Maintenance'].map((role, i) => (
+              {['Fleet & Transport', 'Technical Leadership', 'Heavy Duty Mechanics', 'Industrial Maintenance'].map((role, i) => (
                 <div key={i} className="flex items-center gap-4 group/item">
                   {isMobile ? null : (
                     <div className={`w-1 h-1 rounded-full transition-all duration-300 ${hovered === 'sectors' || isMobile ? 'bg-brand-silver' : 'bg-white/20'}`}></div>

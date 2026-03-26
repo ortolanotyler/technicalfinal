@@ -57,7 +57,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                         </span>
                     </div>
                     <p className="text-gray-400 text-sm leading-relaxed max-w-sm font-light">
-                        Specialized recruitment for Heavy Duty Mechanics, Industrial Maintenance, and Shop Leadership across North America.
+                        Specialized recruitment for Heavy Duty Mechanics, Industrial Maintenance, and Technical Leadership across North America.
                     </p>
                     <div className="flex gap-4">
                         <a href="https://www.linkedin.com/showcase/111821157/" target="_blank" rel="noopener noreferrer" className={`w-12 h-12 flex items-center justify-center border rounded-sm transition-all duration-300 ${theme.button}`}>
