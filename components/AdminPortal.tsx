@@ -289,7 +289,6 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                     summary: '', 
                     ref: `TRD-${Math.floor(Math.random() * 9000) + 1000}`,
                     type: 'Full-Time',
-                    posted: 'Just now',
                     responsibilities: [],
                     requirements: []
                   })}
@@ -319,8 +318,6 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                           <span>{job.location}</span>
                           <span>•</span>
                           <span>{job.ref}</span>
-                          <span>•</span>
-                          <span>{job.posted}</span>
                         </div>
                       </div>
                     </div>

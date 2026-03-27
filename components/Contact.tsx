@@ -128,7 +128,7 @@ const Contact: React.FC = () => {
                             <div>
                                 <h4 className="text-white text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1 md:mb-2 opacity-80">Direct Line</h4>
                                 <p className="text-gray-400 font-light text-xs md:text-sm tracking-wide">
-                                    (1 855) 323 7887
+                                    (437) 295 1799
                                 </p>
                             </div>
                         </div>

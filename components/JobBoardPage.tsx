@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { JobPosting } from '../types';
-import { ArrowLeft, MapPin, DollarSign, Clock, ArrowRight } from 'lucide-react';
+import { ArrowLeft, MapPin, DollarSign, ArrowRight } from 'lucide-react';
 import JobDetailDrawer from './JobDetailDrawer';
 import { jobService } from '../services/jobService';
 import SEO from './SEO';
@@ -99,10 +99,6 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack }) => {
                                         <span className="font-mono text-[10px] text-gray-600 uppercase tracking-widest px-2 py-1 border border-white/5 rounded-sm">
                                             REF: {job.ref}
                                         </span>
-                                        <div className="flex items-center gap-2 text-gray-600 text-[10px] font-bold uppercase tracking-widest">
-                                            <Clock size={12} />
-                                            <span>{job.posted}</span>
-                                        </div>
                                     </div>
 
                                     <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-brand-silver transition-colors tracking-tight leading-tight text-balance">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Briefcase, MapPin, DollarSign, ArrowRight, Loader2, Clock } from 'lucide-react';
+import { Briefcase, MapPin, DollarSign, ArrowRight, Loader2 } from 'lucide-react';
 import { JobPosting } from '../types';
 import { jobService } from '../services/jobService';
 import ApplicationModal from './ApplicationModal';
@@ -96,10 +96,6 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ onViewJobs }) => {
                     <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest px-2 py-1 bg-white/5 rounded-sm border border-white/5">
                       {job.ref}
                     </span>
-                    <div className="flex items-center gap-2 text-[10px] text-brand-silver/60 font-bold uppercase tracking-widest">
-                      <Clock size={12} />
-                      <span>{job.posted}</span>
-                    </div>
                   </div>
                   
                   <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-brand-silver transition-colors leading-tight">

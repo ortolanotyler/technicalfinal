@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { JobPosting } from '../types';
-import { X, MapPin, DollarSign, Check, ArrowRight, Calendar } from 'lucide-react';
+import { X, MapPin, DollarSign, Check, ArrowRight } from 'lucide-react';
 import ApplicationModal from './ApplicationModal';
 
 interface JobDetailDrawerProps {
@@ -62,9 +62,6 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
                 <div className="flex items-center gap-3 mb-3">
                     <span className={`text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-1 rounded-sm border ${theme.border} ${theme.accent} ${theme.bgSoft}`}>
                         REF: {job.ref}
-                    </span>
-                    <span className="text-gray-500 text-xs uppercase tracking-wider flex items-center gap-1">
-                        <Calendar size={12} /> Posted {job.posted}
                     </span>
                 </div>
                 <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight">{job.title}</h2>
