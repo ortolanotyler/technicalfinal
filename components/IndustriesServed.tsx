@@ -58,7 +58,7 @@ const IndustriesServed: React.FC = () => {
               <div className="absolute inset-0 z-0">
                 <img 
                   src={cat.image} 
-                  alt={cat.category}
+                  alt={`${cat.category} Recruitment Services - Certus Technical Search`}
                   loading="lazy"
                   className="w-full h-full object-cover opacity-30 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-1000 ease-out"
                 />

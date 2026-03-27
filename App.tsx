@@ -52,11 +52,14 @@ const App: React.FC = () => {
   const renderContent = () => {
     if (view === 'gateway') {
       return (
-        <SplitGateway 
-          onSelect={handleGatewaySelect} 
-          onViewJobs={() => setView('jobs')}
-          onNavigate={handleNavigate}
-        />
+        <>
+          <SEO isGateway={true} />
+          <SplitGateway 
+            onSelect={handleGatewaySelect} 
+            onViewJobs={() => setView('jobs')}
+            onNavigate={handleNavigate}
+          />
+        </>
       );
     }
 

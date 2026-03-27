@@ -81,7 +81,7 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack }) => {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         {/* JobPosting Structured Data */}
                         {jobs.map((job) => (
-                            <SEO key={`seo-${job.id}`} job={job} title={`${job.title} in ${job.location}`} />
+                            <SEO key={`seo-${job.id}`} job={job} schemaOnly={true} />
                         ))}
                         {jobs.map((job) => (
                             <div 
