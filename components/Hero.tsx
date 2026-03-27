@@ -22,11 +22,11 @@ const Hero: React.FC = () => {
     label: "Certainty Delivered.",
     titleLine1: "Certus Technical",
     titleLine2: "Search",
-    p1: "Certus Technical Search is part of The Certus Group of Companies Inc. Founded in 2008, The Certus Group has been operating in the technical space for over 15 years. Our Skilled Trades division specializes in connecting licensed and certified professionals with leading employers across construction, manufacturing, transportation, heavy equipment, and industrial services. We understand the urgency, compliance requirements, and operational demands of skilled trades hiring, and we deliver talent that keeps projects moving and businesses running."
+    p1: "Certus Technical Search is part of The Certus Group of Companies Inc. Founded in 2008, The Certus Group has been operating in the technical space for over 15 years. Our Technical division specializes in connecting licensed and certified professionals with leading employers across material handling, manufacturing, transportation, heavy equipment, and industrial services. We understand the urgency, compliance requirements, and operational demands of skilled trades hiring, and we deliver talent that keeps projects moving and businesses running."
   };
 
   return (
-    <section id={Section.HERO} className="relative h-[100svh] w-full flex items-center overflow-hidden bg-brand-dark">
+    <section id={Section.HERO} className="relative min-h-[100svh] w-full flex items-center overflow-hidden bg-brand-dark py-20 md:py-32">
       
       <div className="absolute inset-0 z-0 overflow-hidden">
         <video 
@@ -72,10 +72,10 @@ const Hero: React.FC = () => {
       {/* 3. LAYER: Primary Content Grid */}
       <div className="max-w-7xl w-full mx-auto px-6 lg:px-8 relative z-20">
         
-        <div className="flex flex-col items-start pt-24 md:pt-32 max-w-4xl">
+        <div className="flex flex-col items-start max-w-4xl">
           
           {/* Headline - Now Top Left Aligned */}
-          <h1 className="text-[10vw] sm:text-[8vw] md:text-[7vw] lg:text-[8.5rem] font-medium text-white leading-[0.85] md:leading-[0.82] tracking-tighter mb-12 md:mb-16 select-none relative flex flex-col items-start">
+          <h1 className="text-[10vw] sm:text-[8vw] md:text-[7vw] lg:text-[8.5rem] font-medium text-white leading-[0.85] md:leading-[0.82] tracking-tighter mb-8 md:mb-12 select-none relative flex flex-col items-start">
               <span className="block animate-[slideUp_1.2s_cubic-bezier(0.16,1,0.3,1)_forwards] opacity-0">
                   {content.titleLine1}
               </span>
@@ -85,7 +85,7 @@ const Hero: React.FC = () => {
           </h1>
 
           {/* About Content - Now Below Headline */}
-          <div className="space-y-8 animate-[fadeIn_1.2s_ease-out_0.6s_forwards] opacity-0 max-w-2xl">
+          <div className="space-y-6 animate-[fadeIn_1.2s_ease-out_0.6s_forwards] opacity-0 max-w-2xl">
              <div className="flex items-center gap-4">
                 <div className="w-12 h-[1px] bg-brand-silver"></div>
                 <span className="text-brand-silver font-bold tracking-[0.3em] text-[10px] uppercase">{content.label}</span>
@@ -100,6 +100,7 @@ const Hero: React.FC = () => {
         </div>
 
       </div>
+
 
       {/* SECTION DIVIDER */}
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-brand-dark to-transparent z-10 pointer-events-none"></div>
