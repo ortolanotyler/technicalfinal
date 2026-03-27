@@ -22,7 +22,7 @@ const Hero: React.FC = () => {
     label: "Certainty Delivered.",
     titleLine1: "Certus Technical",
     titleLine2: "Search",
-    p1: "Certus Group Technical Search is part of The Certus Group of Companies Inc. Founded in 2008, Certus Group has been operating in the technical space for over 15 years. Our Skilled Trades division specializes in connecting licensed and certified professionals with leading employers across construction, manufacturing, transportation, heavy equipment, and industrial services. We understand the urgency, compliance requirements, and operational demands of skilled trades hiring, and we deliver talent that keeps projects moving and businesses running."
+    p1: "Certus Technical Search is part of The Certus Group of Companies Inc. Founded in 2008, The Certus Group has been operating in the technical space for over 15 years. Our Skilled Trades division specializes in connecting licensed and certified professionals with leading employers across construction, manufacturing, transportation, heavy equipment, and industrial services. We understand the urgency, compliance requirements, and operational demands of skilled trades hiring, and we deliver talent that keeps projects moving and businesses running."
   };
 
   return (
