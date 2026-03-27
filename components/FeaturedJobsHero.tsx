@@ -56,9 +56,6 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ onViewJobs }) => {
             <h2 className="text-4xl md:text-7xl font-medium text-white tracking-tighter leading-none">
               Active <span className="text-brand-silver italic font-serif font-light">Searches</span>
             </h2>
-            <p className="mt-8 text-gray-400 text-lg md:text-xl font-light max-w-xl leading-relaxed">
-              Strategic leadership and technical roles currently under search for our Skilled Trades partners.
-            </p>
           </div>
           
           <button 
