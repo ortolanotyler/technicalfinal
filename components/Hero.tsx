@@ -20,10 +20,9 @@ const Hero: React.FC = () => {
 
   const content = {
     label: "Certainty Delivered.",
-    titleLine1: "Skilled Trades",
-    titleLine2: "& Operations",
-    p1: "Founded by Managing Director, Steven Franzese, The Certus Group was created in response to “Big Box” style recruitment. With over 15 years of industry and recruitment knowledge, we utilize subject matter experts to implement precise hiring based on specific cultural and motivational requirements.",
-    p2: "We strive to eliminate false start hiring while driving revenue growth. At the forefront of our delivery is longevity and quantifiable success through providing candidates with measurable achievement."
+    titleLine1: "Certus Technical",
+    titleLine2: "Search",
+    p1: "Certus Group Technical Search is part of The Certus Group of Companies Inc. Founded in 2008, Certus Group has been operating in the technical space for over 15 years. Our Skilled Trades division specializes in connecting licensed and certified professionals with leading employers across construction, manufacturing, transportation, heavy equipment, and industrial services. We understand the urgency, compliance requirements, and operational demands of skilled trades hiring, and we deliver talent that keeps projects moving and businesses running."
   };
 
   return (
@@ -94,9 +93,6 @@ const Hero: React.FC = () => {
              <div className="space-y-6">
                 <p className="text-gray-300 font-light text-sm md:text-base leading-relaxed text-justify">
                     {content.p1}
-                </p>
-                <p className="text-gray-400 font-light text-xs md:text-sm leading-relaxed text-justify italic">
-                    {content.p2}
                 </p>
              </div>
           </div>

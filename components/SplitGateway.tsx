@@ -208,7 +208,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
                </div>
              )}
              <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-[10rem] font-normal text-white leading-[0.9] md:leading-[0.8] tracking-tighter">
-              Skilled Trades <span className="whitespace-nowrap"><span className={`font-cursive ${silverText} mx-2 md:mx-4`}>&</span> <span className={`font-serif italic font-light ${silverText} drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)]`}>Operations</span></span>
+              Certus Technical <span className={`font-serif italic font-light ${silverText} ml-2 md:ml-4 drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)]`}>Search</span>
              </h2>
              <div className={`flex ${isMobile ? 'justify-center' : 'justify-end md:justify-start'} pt-2 md:pt-8`}>
                <div className={`group flex items-center gap-4 text-[9px] md:text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 ${hovered === 'skilled-trades' || isMobile ? 'text-white' : 'text-white/40'}`}>
