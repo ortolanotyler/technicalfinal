@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { HelmetProvider } from 'react-helmet-async';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import LinkedInFeed from './components/LinkedInFeed';
@@ -9,6 +10,7 @@ import JobBoardPage from './components/JobBoardPage';
 import AdminPortal from './components/AdminPortal';
 import IndustriesServed from './components/IndustriesServed';
 import SplitGateway from './components/SplitGateway';
+import SEO from './components/SEO';
 import { View, Section } from './types';
 
 const App: React.FC = () => {
@@ -47,51 +49,60 @@ const App: React.FC = () => {
     }
   };
 
-  if (view === 'gateway') {
+  const renderContent = () => {
+    if (view === 'gateway') {
+      return (
+        <SplitGateway 
+          onSelect={handleGatewaySelect} 
+          onViewJobs={() => setView('jobs')}
+          onNavigate={handleNavigate}
+        />
+      );
+    }
+
+    if (view === 'jobs') {
+      return <JobBoardPage onBack={() => setView('landing')} />;
+    }
+
+    if (view === 'admin') {
+        return <AdminPortal onExit={() => setView('landing')} />;
+    }
+
     return (
-      <SplitGateway 
-        onSelect={handleGatewaySelect} 
-        onViewJobs={() => setView('jobs')}
-        onNavigate={handleNavigate}
-      />
+      <div className="min-h-screen font-sans opacity-0 animate-[fadeIn_1.2s_ease-out_forwards] transition-colors duration-1000 bg-brand-dark text-white selection:bg-brand-silver selection:text-black">
+        <SEO />
+        <style>{`
+          @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+        `}</style>
+        
+        {/* Global Background (Solid) - Video is now handled within components like Hero for cleaner flow */}
+        <div className="fixed inset-0 z-[-1] bg-brand-dark"></div>
+
+        <Header 
+          onViewJobs={() => setView('jobs')}
+          onNavigate={handleNavigate} 
+        />
+        
+        <main className="relative z-10">
+          <Hero />
+          <IndustriesServed />
+          <LinkedInFeed />
+          <FeaturedJobsHero onViewJobs={() => setView('jobs')} />
+          <Contact />
+        </main>
+        
+        <Footer onNavigate={(id) => handleNavigate(id)} />
+      </div>
     );
-  }
-
-  if (view === 'jobs') {
-    return <JobBoardPage onBack={() => setView('landing')} />;
-  }
-
-  if (view === 'admin') {
-      return <AdminPortal onExit={() => setView('landing')} />;
-  }
+  };
 
   return (
-    <div className="min-h-screen font-sans opacity-0 animate-[fadeIn_1.2s_ease-out_forwards] transition-colors duration-1000 bg-brand-dark text-white selection:bg-brand-silver selection:text-black">
-      <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-      `}</style>
-      
-      {/* Global Background (Solid) - Video is now handled within components like Hero for cleaner flow */}
-      <div className="fixed inset-0 z-[-1] bg-brand-dark"></div>
-
-      <Header 
-        onViewJobs={() => setView('jobs')}
-        onNavigate={handleNavigate} 
-      />
-      
-      <main className="relative z-10">
-        <Hero />
-        <IndustriesServed />
-        <LinkedInFeed />
-        <FeaturedJobsHero onViewJobs={() => setView('jobs')} />
-        <Contact />
-      </main>
-      
-      <Footer onNavigate={(id) => handleNavigate(id)} />
-    </div>
+    <HelmetProvider>
+      {renderContent()}
+    </HelmetProvider>
   );
 };
 
