@@ -192,7 +192,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
              <div className={`flex ${isMobile ? 'justify-center' : 'justify-end md:justify-start'} pt-2 md:pt-8`}>
                <div className={`group flex items-center gap-4 text-[9px] md:text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 ${hovered === 'skilled-trades' || isMobile ? 'text-white' : 'text-white/40'}`}>
                  <ArrowRight size={20} md:size={24} strokeWidth={1.5} className={`transition-transform duration-300 ${hovered === 'skilled-trades' ? 'translate-x-2' : ''}`} />
-                 <span>Trades Search</span>
+                 <span>About Us</span>
                </div>
             </div>
           </div>
