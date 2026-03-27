@@ -20,7 +20,7 @@ const IndustriesServed: React.FC = () => {
     },
     {
       category: "Industrial Maintenance",
-      description: "Certified experts for plant maintenance, shutdowns, and industrial commissioning. Our network includes specialized millwrights and electricians who ensure the reliability and safety of critical industrial infrastructure through precise preventative maintenance.",
+      description: "Certified experts for plant maintenance, shutdowns, and industrial commissioning. We deliver specialized talent that ensures the reliability and safety of critical industrial infrastructure through precise preventative maintenance.",
       image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=60&w=600"
     }
   ];
