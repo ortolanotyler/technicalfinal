@@ -21,13 +21,13 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
   const silverText = 'text-brand-silver'; 
 
   const videos = {
-    'skilled-trades': "https://res.cloudinary.com/dvbubqhpp/video/upload/q_auto,f_auto,w_1280/v1774055761/20654636-uhd_3840_2160_30fps_himwzn.mp4",
-    'sectors': "https://res.cloudinary.com/dvbubqhpp/video/upload/q_auto,f_auto,w_1280/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.mp4"
+    'skilled-trades': "https://res.cloudinary.com/dvbubqhpp/video/upload/q_auto,f_auto,w_1080,vc_h264/v1774055761/20654636-uhd_3840_2160_30fps_himwzn.mp4",
+    'sectors': "https://res.cloudinary.com/dvbubqhpp/video/upload/q_auto,f_auto,w_1080,vc_h264/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.mp4"
   };
 
   const posters = {
-    'skilled-trades': "https://res.cloudinary.com/dvbubqhpp/video/upload/so_0/v1774055761/20654636-uhd_3840_2160_30fps_himwzn.jpg",
-    'sectors': "https://res.cloudinary.com/dvbubqhpp/video/upload/so_0/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.jpg"
+    'skilled-trades': "https://res.cloudinary.com/dvbubqhpp/video/upload/so_0,w_1080/v1774055761/20654636-uhd_3840_2160_30fps_himwzn.jpg",
+    'sectors': "https://res.cloudinary.com/dvbubqhpp/video/upload/so_0,w_1080/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.jpg"
   };
 
   useEffect(() => {
@@ -48,29 +48,8 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
     };
   }, []);
 
-  useEffect(() => {
-    const tradesVideo = tradesVideoRef.current;
-    const jobsVideo = jobsVideoRef.current;
-    
-    const shouldPlayTrades = isMobile || hovered === 'skilled-trades';
-    const shouldPlayJobs = isMobile || hovered === 'sectors';
-
-    if (tradesVideo) {
-      if (shouldPlayTrades) {
-        tradesVideo.play().catch(() => {});
-      } else {
-        tradesVideo.pause();
-      }
-    }
-
-    if (jobsVideo) {
-      if (shouldPlayJobs) {
-        jobsVideo.play().catch(() => {});
-      } else {
-        jobsVideo.pause();
-      }
-    }
-  }, [hovered, isMobile]);
+  // Removed manual play/pause logic to prevent stuttering. 
+  // Videos now loop continuously and visibility is handled via opacity/filters.
 
   const getClipPath = (side: 'left' | 'right') => {
     if (isMobile) {
@@ -116,7 +95,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
             playsInline
             preload="auto"
             poster={posters['sectors']}
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1500ms] ease-out ${hovered === 'sectors' ? 'scale-105 opacity-60 grayscale-0' : 'opacity-20 grayscale scale-100'}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1500ms] ease-out ${hovered === 'sectors' ? 'opacity-60 grayscale-0' : 'opacity-20 grayscale'}`}
           />
           
           <div className="absolute inset-0 bg-brand-dark/40"></div>
@@ -184,7 +163,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
             playsInline
             preload="auto"
             poster={posters['skilled-trades']}
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1500ms] ease-out ${hovered === 'skilled-trades' ? 'scale-105 opacity-60 grayscale-0' : 'opacity-20 grayscale scale-100'}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1500ms] ease-out ${hovered === 'skilled-trades' ? 'opacity-60 grayscale-0' : 'opacity-20 grayscale'}`}
            />
 
            <div className="absolute inset-0 bg-black/30"></div>
