@@ -63,9 +63,13 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                         <a href="https://www.linkedin.com/showcase/certus-technical-search/" target="_blank" rel="noopener noreferrer" className={`w-12 h-12 flex items-center justify-center border rounded-sm transition-all duration-300 ${theme.button}`}>
                             <Linkedin size={20} strokeWidth={1.5} />
                         </a>
-                         <a href="mailto:info@certusgroup.com" className={`w-12 h-12 flex items-center justify-center border rounded-sm transition-all duration-300 ${theme.button}`}>
+                         <button 
+                            onClick={() => handleNav(Section.CONTACT)}
+                            className={`w-12 h-12 flex items-center justify-center border rounded-sm transition-all duration-300 ${theme.button}`}
+                            aria-label="Contact us"
+                         >
                             <Mail size={20} strokeWidth={1.5} />
-                        </a>
+                        </button>
                     </div>
                 </div>
 
