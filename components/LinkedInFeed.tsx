@@ -52,7 +52,7 @@ const LinkedInFeed: React.FC = () => {
             <Loader2 className="text-brand-silver animate-spin" size={40} />
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-start">
             {posts.map((post) => (
               <div 
                 key={post.id} 
@@ -79,24 +79,21 @@ const LinkedInFeed: React.FC = () => {
                     <Linkedin size={14} className="text-[#0077B5]" />
                   </div>
                   
-                  <p className="text-gray-300 text-sm font-light leading-relaxed mb-6 line-clamp-4">
+                  <p className="text-gray-300 text-sm font-light leading-relaxed mb-6 whitespace-pre-wrap">
                     {post.content}
                   </p>
 
-                  {/* Post Image - Now under the text */}
+                  {/* Post Image - Full image display */}
                   {typeof post.image === 'string' && post.image.trim() !== '' && (
-                    <div className="aspect-video overflow-hidden rounded-sm mb-6 border border-white/5">
+                    <div className="w-full overflow-hidden rounded-sm mb-6 border border-white/5 bg-black/20">
                       <img 
                         src={post.image} 
                         alt="Post visual" 
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                        className="w-full h-auto object-contain group-hover:scale-[1.02] transition-all duration-700"
                         referrerPolicy="no-referrer"
                       />
                     </div>
                   )}
-                  
-                  <div className="mt-auto pt-6 border-t border-white/5 flex items-center text-gray-500">
-                  </div>
                 </div>
               </div>
             ))}
@@ -164,18 +161,10 @@ const LinkedInFeed: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-6 border-t border-white/10 bg-brand-navy/20 flex justify-between items-center">
+            <div className="p-6 border-t border-white/10 bg-brand-navy/20 flex justify-center items-center">
               <div className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-silver/40">
                 © Certus Group Intelligence
               </div>
-              <a 
-                href="https://www.linkedin.com/company/certus-group-executive-search" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="bg-[#0077B5] hover:bg-white hover:text-[#0077B5] text-white px-6 py-3 rounded-sm font-bold uppercase tracking-widest text-[10px] flex items-center gap-2 transition-all shadow-lg shadow-[#0077B5]/20"
-              >
-                View Post
-              </a>
             </div>
           </div>
         </div>
