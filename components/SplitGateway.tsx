@@ -138,7 +138,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
             <div className={`flex ${isMobile ? 'justify-center' : 'justify-end'} pt-2 md:pt-8`}>
                <div className={`group flex items-center gap-4 text-[9px] md:text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 ${hovered === 'sectors' || isMobile ? 'text-white' : 'text-white/40'}`}>
                  <span>Explore Sectors</span>
-                 <ArrowRight size={20} md:size={24} strokeWidth={1.5} className={`transition-transform duration-300 ${hovered === 'sectors' ? 'translate-x-2' : ''}`} />
+                 <ArrowRight strokeWidth={1.5} className={`w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 ${hovered === 'sectors' ? 'translate-x-2' : ''}`} />
                </div>
             </div>
           </div>
@@ -191,7 +191,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
              </h1>
              <div className={`flex ${isMobile ? 'justify-center' : 'justify-end md:justify-start'} pt-2 md:pt-8`}>
                <div className={`group flex items-center gap-4 text-[9px] md:text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 ${hovered === 'skilled-trades' || isMobile ? 'text-white' : 'text-white/40'}`}>
-                 <ArrowRight size={20} md:size={24} strokeWidth={1.5} className={`transition-transform duration-300 ${hovered === 'skilled-trades' ? 'translate-x-2' : ''}`} />
+                 <ArrowRight strokeWidth={1.5} className={`w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 ${hovered === 'skilled-trades' ? 'translate-x-2' : ''}`} />
                  <span>About Us</span>
                </div>
             </div>

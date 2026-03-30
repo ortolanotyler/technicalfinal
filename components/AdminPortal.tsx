@@ -79,9 +79,13 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
   const handleLogin = async () => {
     setLoading(true);
     setError(null);
-    const success = await jobService.login();
-    if (!success) {
-      setError('Login failed. Please try again.');
+    try {
+      const success = await jobService.login();
+      if (!success) {
+        setError('Login failed. This may be due to a popup blocker or unauthorized domain. Please check your browser settings and Firebase console.');
+      }
+    } catch (err: any) {
+      setError(`Login error: ${err.message || 'Unknown error'}`);
     }
     setLoading(false);
   };

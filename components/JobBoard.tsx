@@ -9,7 +9,7 @@ interface JobBoardProps {
 
 const JobBoard: React.FC<JobBoardProps> = ({ onViewMore }) => {
   const [jobs, setJobs] = useState<JobPosting[]>([]);
-  const [hoveredJob, setHoveredJob] = useState<number | null>(null);
+  const [hoveredJob, setHoveredJob] = useState<string | number | null>(null);
 
   useEffect(() => {
     const fetchJobs = async () => {

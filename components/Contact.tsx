@@ -105,7 +105,7 @@ const Contact: React.FC = () => {
                                 ${theme.accent} transition-all duration-300
                                 ${theme.iconBg} ${theme.iconColor}
                             `}>
-                                <Building2 size={18} md:size={20} strokeWidth={1.5} className="drop-shadow-lg" />
+                                <Building2 strokeWidth={1.5} className="w-[18px] h-[18px] md:w-5 md:h-5 drop-shadow-lg" />
                             </div>
                             <div>
                                 <h4 className="text-white text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1 md:mb-2 opacity-80">Headquarters</h4>
@@ -123,7 +123,7 @@ const Contact: React.FC = () => {
                                 ${theme.accent} transition-all duration-300
                                 ${theme.iconBg} ${theme.iconColor}
                             `}>
-                                <Phone size={18} md:size={20} strokeWidth={1.5} className="drop-shadow-lg" />
+                                <Phone strokeWidth={1.5} className="w-[18px] h-[18px] md:w-5 md:h-5 drop-shadow-lg" />
                             </div>
                             <div>
                                 <h4 className="text-white text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1 md:mb-2 opacity-80">Direct Line</h4>
@@ -140,7 +140,7 @@ const Contact: React.FC = () => {
                                 ${theme.accent} transition-all duration-300
                                 ${theme.iconBg} ${theme.iconColor}
                             `}>
-                                <Mail size={18} md:size={20} strokeWidth={1.5} className="drop-shadow-lg" />
+                                <Mail strokeWidth={1.5} className="w-[18px] h-[18px] md:w-5 md:h-5 drop-shadow-lg" />
                             </div>
                             <div>
                                 <h4 className="text-white text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1 md:mb-2 opacity-80">Inquiries</h4>
@@ -164,7 +164,7 @@ const Contact: React.FC = () => {
                                 w-8 h-8 md:w-10 md:h-10 rounded-sm border border-white/10 flex items-center justify-center 
                                 ${theme.accent} group-hover/link:bg-white group-hover/link:text-brand-dark transition-all duration-300
                             `}>
-                                <Linkedin size={16} md:size={18} strokeWidth={1.5} />
+                                <Linkedin strokeWidth={1.5} className="w-4 h-4 md:w-[18px] md:h-[18px]" />
                             </div>
                         </a>
                     </div>
