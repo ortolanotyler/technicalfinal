@@ -122,7 +122,6 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     &copy; {new Date().getFullYear()} Certus Group. All rights reserved.
                 </p>
                 <div className="flex items-center gap-8">
-                    <a href="#" className="text-gray-600 hover:text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-colors">Privacy</a>
                     <button 
                         onClick={() => handleNav(Section.ADMIN)}
                         className="text-gray-600 hover:text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-colors"

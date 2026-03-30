@@ -7,9 +7,10 @@ import SEO from './SEO';
 
 interface JobBoardPageProps {
   onBack: () => void;
+  initialJobId?: string | null;
 }
 
-const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack }) => {
+const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => {
   const [selectedJob, setSelectedJob] = useState<JobPosting | null>(null);
   const [jobs, setJobs] = useState<JobPosting[]>([]);
   const [loading, setLoading] = useState(true);
@@ -20,9 +21,30 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack }) => {
       const data = await jobService.getJobsByDomain();
       setJobs(data);
       setLoading(false);
+      
+      // Handle initial job selection from URL
+      if (initialJobId && data.length > 0) {
+        const job = data.find(j => String(j.id) === initialJobId);
+        if (job) {
+          setSelectedJob(job);
+        }
+      }
     };
     fetchJobs();
-  }, []);
+  }, [initialJobId]);
+
+  // Update URL when selected job changes
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (selectedJob) {
+      const newPath = `/jobs/${selectedJob.id}`;
+      if (path !== newPath) {
+        window.history.pushState({}, '', newPath);
+      }
+    } else if (path.startsWith('/jobs/')) {
+      window.history.pushState({}, '', '/jobs');
+    }
+  }, [selectedJob]);
 
   // Theme Config synced with Services
   const theme = {

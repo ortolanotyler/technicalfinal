@@ -21,8 +21,9 @@ const LinkedInFeed: React.FC = () => {
     fetchPosts();
 
     const handleResize = () => {
-      if (window.innerWidth >= 1024) setVisibleItems(3);
-      else if (window.innerWidth >= 768) setVisibleItems(2);
+      if (window.innerWidth >= 1280) setVisibleItems(4);
+      else if (window.innerWidth >= 1024) setVisibleItems(3);
+      else if (window.innerWidth >= 640) setVisibleItems(2);
       else setVisibleItems(1);
     };
     handleResize();
@@ -123,7 +124,7 @@ const LinkedInFeed: React.FC = () => {
                       className="bg-brand-navy/20 border border-white/5 rounded-sm overflow-hidden flex flex-col h-full group hover:border-brand-silver/30 transition-all duration-500 cursor-pointer"
                     >
                       {/* Post Content */}
-                      <div className="p-6 flex-grow flex flex-col">
+                      <div className="p-5 flex-grow flex flex-col">
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center gap-2">
                             <div className="w-8 h-8 bg-white/5 border border-white/10 rounded-full flex items-center justify-center overflow-hidden">
@@ -142,13 +143,13 @@ const LinkedInFeed: React.FC = () => {
                           <Linkedin size={14} className="text-[#0077B5]" />
                         </div>
                         
-                        <p className="text-gray-300 text-sm font-light leading-relaxed mb-6 line-clamp-[10] whitespace-pre-wrap">
+                        <p className="text-gray-300 text-xs font-light leading-relaxed mb-4 line-clamp-[5] whitespace-pre-wrap">
                           {post.content}
                         </p>
 
                         {/* Post Image */}
                         {typeof post.image === 'string' && post.image.trim() !== '' && (
-                          <div className="w-full overflow-hidden rounded-sm mb-6 border border-white/5 bg-black/20 mt-auto">
+                          <div className="w-full overflow-hidden rounded-sm mb-4 border border-white/5 bg-black/20 mt-auto">
                             <img 
                               src={post.image} 
                               alt="Post visual" 
@@ -166,7 +167,7 @@ const LinkedInFeed: React.FC = () => {
             
             {/* Carousel Navigation Arrows */}
             {posts.length > visibleItems && (
-              <div className="flex justify-center items-center gap-6 mt-12">
+              <div className="flex justify-center items-center gap-6 mt-8">
                 <button 
                   onClick={prevPost}
                   className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:border-brand-silver/50 transition-all active:scale-95"

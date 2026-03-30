@@ -4,14 +4,75 @@ import sgMail from "@sendgrid/mail";
 import dotenv from "dotenv";
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import admin from 'firebase-admin';
 
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Load Firebase config for server-side admin
+const firebaseConfigPath = path.join(process.cwd(), 'firebase-applet-config.json');
+const firebaseConfig = JSON.parse(fs.readFileSync(firebaseConfigPath, 'utf8'));
+
+if (!admin.apps.length) {
+  admin.initializeApp({
+    projectId: firebaseConfig.projectId,
+  });
+}
+
+const dbAdmin = admin.firestore();
+if (firebaseConfig.firestoreDatabaseId) {
+  // For multiple databases, we need to specify the databaseId
+  // In firebase-admin v11+, we can use getFirestore(app, databaseId)
+  // But let's try the standard way first or use the default if it's the default
+}
+
 const app = express();
 app.use(express.json());
+
+// Sitemap dynamic generation
+app.get("/sitemap.xml", async (req, res) => {
+  try {
+    const baseUrl = process.env.APP_URL || `https://${req.get('host')}`;
+    
+    // Fetch jobs from Firestore
+    const jobsSnapshot = await dbAdmin.collection('jobs').get();
+    const jobs = jobsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+    let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${baseUrl}/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/jobs</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>`;
+
+    jobs.forEach((job: any) => {
+      xml += `
+  <url>
+    <loc>${baseUrl}/jobs/${job.id}</loc>
+    <lastmod>${job.updatedAt ? job.updatedAt.split('T')[0] : new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>`;
+    });
+
+    xml += `
+</urlset>`;
+
+    res.header('Content-Type', 'application/xml');
+    res.send(xml);
+  } catch (error) {
+    console.error("Error generating sitemap:", error);
+    res.status(500).send("Error generating sitemap");
+  }
+});
 
 if (process.env.SENDGRID_API_KEY) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);

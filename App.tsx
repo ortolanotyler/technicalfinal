@@ -15,12 +15,36 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { View, Section } from './types';
 
 const App: React.FC = () => {
-  const [view, setView] = useState<View>('gateway');
+  const [view, setView] = useState<View>(() => {
+    const path = window.location.pathname;
+    if (path.startsWith('/jobs')) return 'jobs';
+    if (path === '/admin') return 'admin';
+    return 'gateway';
+  });
+
+  const [initialJobId, setInitialJobId] = useState<string | null>(() => {
+    const path = window.location.pathname;
+    if (path.startsWith('/jobs/')) {
+      return path.split('/jobs/')[1];
+    }
+    return null;
+  });
 
   // Ensure window scrolls to top on navigation/state change
   useEffect(() => {
     if (view !== 'gateway') {
       window.scrollTo(0, 0);
+    }
+    
+    // Update URL to match view
+    const path = window.location.pathname;
+    let newPath = '/';
+    if (view === 'jobs') newPath = '/jobs';
+    else if (view === 'admin') newPath = '/admin';
+    else if (view === 'landing') newPath = '/';
+    
+    if (path !== newPath && !path.startsWith('/jobs/')) {
+      window.history.pushState({}, '', newPath);
     }
   }, [view]);
 
@@ -65,7 +89,7 @@ const App: React.FC = () => {
     }
 
     if (view === 'jobs') {
-      return <JobBoardPage onBack={() => setView('landing')} />;
+      return <JobBoardPage onBack={() => setView('landing')} initialJobId={initialJobId} />;
     }
 
     if (view === 'admin') {
