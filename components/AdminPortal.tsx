@@ -34,7 +34,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
   
   const [editingJob, setEditingJob] = useState<Partial<JobPosting> | null>(null);
   const [editingPost, setEditingPost] = useState<Partial<LinkedInPost> | null>(null);
-  const [confirmDelete, setConfirmDelete] = useState<{ type: 'job' | 'post', id: number | string } | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState<{ type: 'job' | 'post', id: string | number } | null>(null);
 
   useEffect(() => {
     if (jobService.isLoggedIn()) {
@@ -78,14 +78,14 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
     setIsLoggedIn(false);
   };
 
-  const handleDeleteJob = async (id: number) => {
+  const handleDeleteJob = (id: string | number) => {
     setConfirmDelete({ type: 'job', id });
   };
 
-  const executeDeleteJob = async (id: number) => {
+  const executeDeleteJob = async (id: string | number) => {
     try {
       await jobService.deleteJob(id);
-      setJobs(jobs.filter(j => j.id !== id));
+      setJobs(jobs.filter(j => String(j.id) !== String(id)));
       setConfirmDelete(null);
     } catch (err) {
       setError('Failed to delete job');
@@ -106,14 +106,14 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
     }
   };
 
-  const handleDeletePost = async (id: string) => {
+  const handleDeletePost = (id: string | number) => {
     setConfirmDelete({ type: 'post', id });
   };
 
-  const executeDeletePost = async (id: string) => {
+  const executeDeletePost = async (id: string | number) => {
     try {
-      await jobService.deleteLinkedInPost(id);
-      setLinkedinPosts(linkedinPosts.filter(p => p.id !== id));
+      await jobService.deleteLinkedInPost(String(id));
+      setLinkedinPosts(linkedinPosts.filter(p => String(p.id) !== String(id)));
       setConfirmDelete(null);
     } catch (err) {
       setError('Failed to delete post');
@@ -321,7 +321,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex items-center gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                       <button 
                         onClick={() => setEditingJob(job)}
                         className="p-2 text-gray-400 hover:text-white transition-colors"
@@ -392,7 +392,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                       </div>
                       <button 
                         onClick={() => handleDeletePost(post.id)}
-                        className="p-2 text-gray-400 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100"
+                        className="p-2 text-gray-400 hover:text-red-400 transition-colors opacity-100 md:opacity-0 md:group-hover:opacity-100"
                       >
                         <Trash2 size={16} />
                       </button>
@@ -573,7 +573,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                 Cancel
               </button>
               <button 
-                onClick={() => confirmDelete.type === 'job' ? executeDeleteJob(confirmDelete.id as number) : executeDeletePost(confirmDelete.id as string)}
+                onClick={() => confirmDelete.type === 'job' ? executeDeleteJob(confirmDelete.id) : executeDeletePost(confirmDelete.id)}
                 className="flex-1 py-3 text-xs font-bold uppercase tracking-widest bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition-all border border-red-500/20 rounded-sm"
               >
                 Delete
