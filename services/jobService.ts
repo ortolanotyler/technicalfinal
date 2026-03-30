@@ -68,87 +68,86 @@ const INITIAL_LINKEDIN: Partial<LinkedInPost>[] = [
 ];
 
 const STORAGE_KEYS = {
-  JOBS: 'certus_jobs',
-  POSTS: 'certus_posts',
-  AUTH: 'certus_is_logged_in'
+  AUTH_TOKEN: 'certus_auth_token',
+  AUTH_USER: 'certus_auth_user'
 };
 
-const getStoredData = <T>(key: string, initial: T): T => {
-  const stored = localStorage.getItem(key);
-  if (!stored) {
-    localStorage.setItem(key, JSON.stringify(initial));
-    return initial;
-  }
-  return JSON.parse(stored);
-};
-
-const setStoredData = <T>(key: string, data: T): void => {
-  localStorage.setItem(key, JSON.stringify(data));
+const getAuthHeaders = () => {
+  const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+  return {
+    'Content-Type': 'application/json',
+    'x-admin-password': token || ''
+  };
 };
 
 export const jobService = {
   seedDatabase: async (): Promise<void> => {
-    // LocalStorage handles its own seeding in getStoredData
-    getStoredData(STORAGE_KEYS.JOBS, INITIAL_JOBS);
-    getStoredData(STORAGE_KEYS.POSTS, INITIAL_LINKEDIN);
+    // Backend handles its own seeding
   },
 
   getJobs: async (): Promise<JobPosting[]> => {
-    return getStoredData(STORAGE_KEYS.JOBS, INITIAL_JOBS);
+    const res = await fetch('/api/jobs');
+    if (!res.ok) throw new Error('Failed to fetch jobs');
+    return res.json();
   },
 
   getJobsByDomain: async (): Promise<JobPosting[]> => {
-    return getStoredData(STORAGE_KEYS.JOBS, INITIAL_JOBS);
+    return jobService.getJobs();
   },
 
   saveJob: async (job: JobPosting): Promise<void> => {
-    const jobs = getStoredData(STORAGE_KEYS.JOBS, INITIAL_JOBS);
-    if (job.id) {
-      const index = jobs.findIndex(j => j.id === job.id);
-      if (index !== -1) {
-        jobs[index] = { ...job, updatedAt: new Date().toISOString() } as any;
-      } else {
-        jobs.push({ ...job, createdAt: new Date().toISOString() });
-      }
-    } else {
-      const newJob = { 
-        ...job, 
-        id: Date.now(),
-        createdAt: new Date().toISOString() 
-      };
-      jobs.push(newJob);
-    }
-    setStoredData(STORAGE_KEYS.JOBS, jobs);
+    const isNew = !job.id || typeof job.id === 'number'; // Initial seed IDs are numbers
+    const url = isNew ? '/api/jobs' : `/api/jobs/${job.id}`;
+    const method = isNew ? 'POST' : 'PUT';
+
+    const res = await fetch(url, {
+      method,
+      headers: getAuthHeaders(),
+      body: JSON.stringify(job)
+    });
+
+    if (!res.ok) throw new Error('Failed to save job');
   },
 
   deleteJob: async (id: string | number): Promise<void> => {
-    const jobs = getStoredData(STORAGE_KEYS.JOBS, INITIAL_JOBS);
-    const filtered = jobs.filter(j => j.id.toString() !== id.toString());
-    setStoredData(STORAGE_KEYS.JOBS, filtered);
+    const res = await fetch(`/api/jobs/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders()
+    });
+
+    if (!res.ok) throw new Error('Failed to delete job');
   },
 
-  login: async (email: string, password: string): Promise<boolean> => {
-    // Simple mock login for demo purposes
-    if ((email === 'tyler' || email === 'tyler.ortolano95@gmail.com') && password === 'certusadmin') {
-      localStorage.setItem(STORAGE_KEYS.AUTH, 'true');
+  login: async (username: string, password: string): Promise<boolean> => {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, data.token);
+      localStorage.setItem(STORAGE_KEYS.AUTH_USER, username);
       return true;
     }
     return false;
   },
 
   logout: async (): Promise<void> => {
-    localStorage.removeItem(STORAGE_KEYS.AUTH);
+    localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
+    localStorage.removeItem(STORAGE_KEYS.AUTH_USER);
   },
 
   isLoggedIn: (): boolean => {
-    return localStorage.getItem(STORAGE_KEYS.AUTH) === 'true';
+    return !!localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
   },
 
   onAuthChange: (callback: (user: any | null) => void) => {
-    // Mock auth change listener
     const checkAuth = () => {
-      const isLoggedIn = localStorage.getItem(STORAGE_KEYS.AUTH) === 'true';
-      callback(isLoggedIn ? { email: 'tyler@certusgroup.com' } : null);
+      const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+      const user = localStorage.getItem(STORAGE_KEYS.AUTH_USER);
+      callback(token ? { email: user } : null);
     };
     window.addEventListener('storage', checkAuth);
     checkAuth();
@@ -156,30 +155,27 @@ export const jobService = {
   },
 
   getLinkedInPosts: async (): Promise<LinkedInPost[]> => {
-    return getStoredData(STORAGE_KEYS.POSTS, INITIAL_LINKEDIN) as LinkedInPost[];
+    const res = await fetch('/api/linkedin-posts');
+    if (!res.ok) throw new Error('Failed to fetch posts');
+    return res.json();
   },
 
   saveLinkedInPost: async (post: Partial<LinkedInPost>): Promise<void> => {
-    const posts = getStoredData(STORAGE_KEYS.POSTS, INITIAL_LINKEDIN);
-    if (post.id) {
-      const index = posts.findIndex(p => p.id === post.id);
-      if (index !== -1) {
-        posts[index] = { ...post, updatedAt: new Date().toISOString() };
-      }
-    } else {
-      const newPost = { 
-        ...post, 
-        id: Date.now().toString(),
-        createdAt: new Date().toISOString() 
-      };
-      posts.push(newPost);
-    }
-    setStoredData(STORAGE_KEYS.POSTS, posts);
+    const res = await fetch('/api/linkedin-posts', {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(post)
+    });
+
+    if (!res.ok) throw new Error('Failed to save post');
   },
 
   deleteLinkedInPost: async (id: string): Promise<void> => {
-    const posts = getStoredData(STORAGE_KEYS.POSTS, INITIAL_LINKEDIN);
-    const filtered = posts.filter(p => p.id !== id);
-    setStoredData(STORAGE_KEYS.POSTS, filtered);
+    const res = await fetch(`/api/linkedin-posts/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders()
+    });
+
+    if (!res.ok) throw new Error('Failed to delete post');
   }
 };

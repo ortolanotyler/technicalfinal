@@ -90,8 +90,10 @@ let linkedinPosts = [
 
 // Auth middleware (simple for demo)
 const adminAuth = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  const authHeader = req.headers.authorization;
-  if (authHeader === `Bearer ${process.env.ADMIN_PASSWORD || 'certusadmin'}`) {
+  const adminPassword = req.headers['x-admin-password'];
+  const expectedPass = process.env.ADMIN_PASSWORD || 'certusadmin';
+
+  if (adminPassword === expectedPass) {
     next();
   } else {
     res.status(401).json({ error: "Unauthorized" });
