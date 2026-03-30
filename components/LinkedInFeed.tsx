@@ -137,7 +137,6 @@ const LinkedInFeed: React.FC = () => {
                             </div>
                             <div className="flex flex-col">
                               <span className="text-xs font-bold text-white leading-none">Certus Technical Search</span>
-                              <span className="text-[10px] text-gray-500 mt-1">{post.date}</span>
                             </div>
                           </div>
                           <Linkedin size={14} className="text-[#0077B5]" />
@@ -225,7 +224,6 @@ const LinkedInFeed: React.FC = () => {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-xs font-bold text-white leading-none">Certus Technical Search</span>
-                  <span className="text-[9px] text-gray-500 mt-1">{selectedPost.date}</span>
                 </div>
               </div>
 
