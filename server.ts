@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 import admin from 'firebase-admin';
+import { getFirestore } from 'firebase-admin/firestore';
 
 dotenv.config();
 
@@ -13,32 +14,42 @@ const __dirname = path.dirname(__filename);
 
 // Load Firebase config for server-side admin
 const firebaseConfigPath = path.join(process.cwd(), 'firebase-applet-config.json');
-const firebaseConfig = JSON.parse(fs.readFileSync(firebaseConfigPath, 'utf8'));
+let dbAdmin: any;
 
-if (!admin.apps.length) {
-  admin.initializeApp({
-    projectId: firebaseConfig.projectId,
-  });
-}
-
-const dbAdmin = admin.firestore();
-if (firebaseConfig.firestoreDatabaseId) {
-  // For multiple databases, we need to specify the databaseId
-  // In firebase-admin v11+, we can use getFirestore(app, databaseId)
-  // But let's try the standard way first or use the default if it's the default
+try {
+  const firebaseConfig = JSON.parse(fs.readFileSync(firebaseConfigPath, 'utf8'));
+  
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      projectId: firebaseConfig.projectId,
+    });
+  }
+  
+  // Use the specific database if provided, otherwise default
+  dbAdmin = getFirestore(firebaseConfig.firestoreDatabaseId || '(default)');
+  console.log(`Firebase Admin initialized with database: ${firebaseConfig.firestoreDatabaseId || '(default)'}`);
+} catch (error) {
+  console.error("Error initializing Firebase Admin:", error);
 }
 
 const app = express();
-app.use(express.json());
 
-// Sitemap dynamic generation
+// Sitemap dynamic generation - Register this EARLY
 app.get("/sitemap.xml", async (req, res) => {
+  console.log("Sitemap request received");
   try {
     const baseUrl = process.env.APP_URL || `https://${req.get('host')}`;
+    console.log(`Generating sitemap with baseUrl: ${baseUrl}`);
     
     // Fetch jobs from Firestore
-    const jobsSnapshot = await dbAdmin.collection('jobs').get();
-    const jobs = jobsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    let jobs: any[] = [];
+    if (dbAdmin) {
+      const jobsSnapshot = await dbAdmin.collection('jobs').get();
+      jobs = jobsSnapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() }));
+      console.log(`Fetched ${jobs.length} jobs for sitemap`);
+    } else {
+      console.warn("dbAdmin not initialized, sitemap will be partial");
+    }
 
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -66,13 +77,16 @@ app.get("/sitemap.xml", async (req, res) => {
     xml += `
 </urlset>`;
 
-    res.header('Content-Type', 'application/xml');
-    res.send(xml);
+    res.set('Content-Type', 'application/xml');
+    res.status(200).send(xml);
+    console.log("Sitemap sent successfully");
   } catch (error) {
     console.error("Error generating sitemap:", error);
-    res.status(500).send("Error generating sitemap");
+    res.status(500).set('Content-Type', 'text/plain').send("Error generating sitemap");
   }
 });
+
+app.use(express.json());
 
 if (process.env.SENDGRID_API_KEY) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
