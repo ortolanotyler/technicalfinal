@@ -97,12 +97,14 @@ export const jobService = {
     try {
       const { id, ...data } = job;
       if (id && typeof id === 'string') {
+        console.log(`[jobService] Updating job ${id}`);
         const jobRef = doc(db, path, id);
         await updateDoc(jobRef, {
           ...data,
           updatedAt: Timestamp.now().toDate().toISOString()
         });
       } else {
+        console.log('[jobService] Adding new job');
         await addDoc(collection(db, path), {
           ...data,
           createdAt: Timestamp.now().toDate().toISOString(),
@@ -203,12 +205,14 @@ export const jobService = {
     try {
       const { id, ...data } = post;
       if (id && typeof id === 'string') {
+        console.log(`[jobService] Updating LinkedIn post ${id}`);
         const postRef = doc(db, path, id);
         await updateDoc(postRef, {
           ...data,
           updatedAt: Timestamp.now().toDate().toISOString()
         });
       } else {
+        console.log('[jobService] Adding new LinkedIn post');
         await addDoc(collection(db, path), {
           ...data,
           createdAt: Timestamp.now().toDate().toISOString(),

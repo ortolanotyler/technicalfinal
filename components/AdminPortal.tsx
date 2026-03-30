@@ -119,13 +119,17 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
 
   const handleSaveJob = async () => {
     if (!editingJob) return;
+    console.log('[AdminPortal] Saving job:', editingJob);
     setLoading(true);
+    setError(null);
     try {
       await jobService.saveJob(editingJob as JobPosting);
+      console.log('[AdminPortal] Job saved successfully');
       setEditingJob(null);
       fetchData();
-    } catch (err) {
-      setError('Failed to save job');
+    } catch (err: any) {
+      console.error('[AdminPortal] Failed to save job:', err);
+      setError(`Failed to save job: ${err.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }
@@ -152,13 +156,17 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
 
   const handleSavePost = async () => {
     if (!editingPost) return;
+    console.log('[AdminPortal] Saving post:', editingPost);
     setLoading(true);
+    setError(null);
     try {
       await jobService.saveLinkedInPost(editingPost);
+      console.log('[AdminPortal] Post saved successfully');
       setEditingPost(null);
       fetchData();
-    } catch (err) {
-      setError('Failed to save post');
+    } catch (err: any) {
+      console.error('[AdminPortal] Failed to save post:', err);
+      setError(`Failed to save post: ${err.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }
@@ -457,6 +465,12 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
               <button onClick={() => setEditingJob(null)} className="text-gray-500 hover:text-white"><X size={24} /></button>
             </div>
             <div className="p-8 overflow-y-auto space-y-6">
+              {error && (
+                <div className="flex items-center gap-2 text-red-400 text-xs bg-red-400/10 p-3 rounded-sm">
+                  <AlertCircle size={14} />
+                  {error}
+                </div>
+              )}
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Job Title</label>
@@ -557,6 +571,12 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
               <button onClick={() => setEditingPost(null)} className="text-gray-500 hover:text-white"><X size={24} /></button>
             </div>
             <div className="p-8 space-y-6">
+              {error && (
+                <div className="flex items-center gap-2 text-red-400 text-xs bg-red-400/10 p-3 rounded-sm">
+                  <AlertCircle size={14} />
+                  {error}
+                </div>
+              )}
               <div className="space-y-2">
                 <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Post Content</label>
                 <textarea 
