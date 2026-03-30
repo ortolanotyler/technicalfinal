@@ -102,13 +102,19 @@ const adminAuth = (req: express.Request, res: express.Response, next: express.Ne
 
 // API routes
 app.post("/api/auth/login", (req, res) => {
-  const { username, password } = req.body;
-  const expectedUser = process.env.ADMIN_USERNAME || 'tyler';
-  const expectedPass = process.env.ADMIN_PASSWORD || 'certusadmin';
+  const username = (req.body.username || "").trim();
+  const password = (req.body.password || "").trim();
+  
+  const expectedUser = (process.env.ADMIN_USERNAME || 'tyler').trim();
+  const expectedPass = (process.env.ADMIN_PASSWORD || 'certusadmin').trim();
+
+  console.log(`[Auth] Login attempt for: "${username}"`);
 
   if (username === expectedUser && password === expectedPass) {
+    console.log(`[Auth] Login successful for: "${username}"`);
     res.json({ token: expectedPass });
   } else {
+    console.log(`[Auth] Login failed for: "${username}". Expected user: "${expectedUser}"`);
     res.status(401).json({ error: "Invalid credentials" });
   }
 });

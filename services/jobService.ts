@@ -76,7 +76,7 @@ const getAuthHeaders = () => {
   const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
   return {
     'Content-Type': 'application/json',
-    'x-admin-password': token || ''
+    'Authorization': token ? `Bearer ${token}` : ''
   };
 };
 
