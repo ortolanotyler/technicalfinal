@@ -21,13 +21,13 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
   const silverText = 'text-brand-silver'; 
 
   const videos = {
-    'skilled-trades': "https://res.cloudinary.com/dvbubqhpp/video/upload/q_auto,f_auto,w_1080,vc_h264/v1774055761/20654636-uhd_3840_2160_30fps_himwzn.mp4",
-    'sectors': "https://res.cloudinary.com/dvbubqhpp/video/upload/q_auto,f_auto,w_1080,vc_h264/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.mp4"
+    'skilled-trades': "https://res.cloudinary.com/dvbubqhpp/video/upload/q_auto,f_auto,w_1920,c_limit,vc_h264/v1774055761/20654636-uhd_3840_2160_30fps_himwzn.mp4",
+    'sectors': "https://res.cloudinary.com/dvbubqhpp/video/upload/q_auto,f_auto,w_1920,c_limit,vc_h264/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.mp4"
   };
 
   const posters = {
-    'skilled-trades': "https://res.cloudinary.com/dvbubqhpp/video/upload/so_0,w_1080/v1774055761/20654636-uhd_3840_2160_30fps_himwzn.jpg",
-    'sectors': "https://res.cloudinary.com/dvbubqhpp/video/upload/so_0,w_1080/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.jpg"
+    'skilled-trades': "https://res.cloudinary.com/dvbubqhpp/video/upload/so_0,w_1080,q_auto,f_auto/v1774055761/20654636-uhd_3840_2160_30fps_himwzn.jpg",
+    'sectors': "https://res.cloudinary.com/dvbubqhpp/video/upload/so_0,w_1080,q_auto,f_auto/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.jpg"
   };
 
   useEffect(() => {
@@ -79,8 +79,12 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
 
       {/* CORE INDUSTRIES (Bottom on Mobile, Right on Desktop) */}
       <div 
-        className={`${isMobile ? 'absolute inset-0 h-full' : 'absolute inset-0 h-full'} w-full cursor-pointer ${steelBg} transition-all duration-700 overflow-hidden active:scale-[0.98] md:active:scale-100`}
-        style={{ clipPath: isMobile ? getClipPath('right') : 'none' }}
+        className={`${isMobile ? 'absolute inset-0 h-full' : 'absolute inset-0 h-full'} w-full cursor-pointer ${steelBg} transition-all duration-[800ms] ease-[cubic-bezier(0.23,1,0.32,1)] overflow-hidden active:scale-[0.98] md:active:scale-100 will-change-[clip-path,transform]`}
+        style={{ 
+          clipPath: isMobile ? getClipPath('right') : 'none',
+          transform: 'translateZ(0)',
+          backfaceVisibility: 'hidden'
+        }}
         onClick={() => onNavigate?.(Section.HERO)}
         onMouseEnter={() => !isMobile && setHovered('sectors')}
         onMouseLeave={() => !isMobile && setHovered(null)}
@@ -95,10 +99,11 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
             playsInline
             preload="auto"
             poster={posters['sectors']}
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1500ms] ease-out ${hovered === 'sectors' ? 'opacity-60 grayscale-0' : 'opacity-20 grayscale'}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-out will-change-opacity ${hovered === 'sectors' ? 'opacity-60' : 'opacity-20'}`}
+            style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
           />
           
-          <div className="absolute inset-0 bg-brand-dark/40"></div>
+          <div className={`absolute inset-0 bg-brand-dark/40 transition-opacity duration-700 ${hovered === 'sectors' ? 'opacity-0' : 'opacity-100'}`}></div>
           <div 
             className="absolute inset-0 z-10 opacity-20 pointer-events-none transition-opacity duration-700"
             style={{
@@ -147,8 +152,12 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
 
       {/* SKILLED TRADES (Top on Mobile, Left on Desktop) */}
       <div 
-        className={`${isMobile ? 'absolute inset-0 h-full z-30' : 'absolute inset-0 h-full z-30 drop-shadow-[20px_0_50px_rgba(0,0,0,0.5)]'} w-full cursor-pointer overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] active:scale-[0.98] md:active:scale-100`}
-        style={{ clipPath: getClipPath('left') }}
+        className={`${isMobile ? 'absolute inset-0 h-full z-30' : 'absolute inset-0 h-full z-30'} w-full cursor-pointer overflow-hidden transition-all duration-[800ms] ease-[cubic-bezier(0.23,1,0.32,1)] active:scale-[0.98] md:active:scale-100 will-change-[clip-path,transform]`}
+        style={{ 
+          clipPath: getClipPath('left'),
+          transform: 'translateZ(0)',
+          backfaceVisibility: 'hidden'
+        }}
         onClick={() => onSelect('landing')}
         onMouseEnter={() => !isMobile && setHovered('skilled-trades')}
         onMouseLeave={() => !isMobile && setHovered(null)}
@@ -163,10 +172,11 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
             playsInline
             preload="auto"
             poster={posters['skilled-trades']}
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1500ms] ease-out ${hovered === 'skilled-trades' ? 'opacity-60 grayscale-0' : 'opacity-20 grayscale'}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-out will-change-opacity ${hovered === 'skilled-trades' ? 'opacity-60' : 'opacity-20'}`}
+            style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
            />
 
-           <div className="absolute inset-0 bg-black/30"></div>
+           <div className={`absolute inset-0 bg-black/30 transition-opacity duration-700 ${hovered === 'skilled-trades' ? 'opacity-0' : 'opacity-100'}`}></div>
            <div 
             className="absolute inset-0 z-10 opacity-20 pointer-events-none transition-opacity duration-700"
             style={{

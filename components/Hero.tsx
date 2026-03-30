@@ -5,8 +5,8 @@ const Hero: React.FC = () => {
   const videoRef = React.useRef<HTMLVideoElement>(null);
   
   // Optimized video asset with Cloudinary transformations for faster loading
-  const videoSrc = "https://res.cloudinary.com/dvbubqhpp/video/upload/q_auto,f_auto,w_1080,vc_h264/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.mp4";
-  const videoPoster = "https://res.cloudinary.com/dvbubqhpp/video/upload/so_0,w_1080/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.jpg";
+  const videoSrc = "https://res.cloudinary.com/dvbubqhpp/video/upload/q_auto,f_auto,w_1920,c_limit,vc_h264/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.mp4";
+  const videoPoster = "https://res.cloudinary.com/dvbubqhpp/video/upload/so_0,w_1080,q_auto,f_auto/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.jpg";
 
   React.useEffect(() => {
     if (videoRef.current) {
@@ -38,7 +38,8 @@ const Hero: React.FC = () => {
           playsInline
           preload="auto"
           poster={videoPoster}
-          className="w-full h-full object-cover transition-opacity duration-1000 opacity-40 grayscale-[40%] brightness-[0.8]"
+          className="w-full h-full object-cover transition-opacity duration-1000 opacity-40 grayscale-[40%] brightness-[0.8] will-change-opacity"
+          style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
         >
           <source src={videoSrc} type="video/mp4" />
         </video>

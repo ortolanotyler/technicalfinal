@@ -44,8 +44,8 @@ const Header: React.FC<HeaderProps> = ({ onViewJobs, onNavigate }) => {
   return (
     <>
       <nav 
-          className={`fixed w-full z-[60] py-4 transition-all duration-500 ease-in-out ${
-            scrolled ? 'bg-brand-dark/90 backdrop-blur-md border-b border-white/5 py-3' : 'bg-transparent'
+          className={`fixed top-0 left-0 w-full z-[60] transition-all duration-500 ease-in-out will-change-[background-color,padding] ${
+            scrolled ? 'bg-brand-dark/95 backdrop-blur-md border-b border-white/5 py-3' : 'bg-brand-dark/0 border-transparent py-5'
           }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">

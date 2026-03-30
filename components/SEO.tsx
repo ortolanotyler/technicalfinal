@@ -56,7 +56,7 @@ const SEO: React.FC<SEOProps> = ({
       "availableLanguage": ["English", "French"]
     },
     "sameAs": [
-      "https://linkedin.com/company/certus-group"
+      "https://www.linkedin.com/showcase/certus-technical-search/"
     ],
     "areaServed": "North America",
     "foundingDate": "2008"

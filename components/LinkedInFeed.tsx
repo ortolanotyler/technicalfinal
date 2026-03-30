@@ -89,7 +89,7 @@ const LinkedInFeed: React.FC = () => {
               </div>
             )}
             <a 
-              href="https://www.linkedin.com/company/certus-group-executive-search" 
+              href="https://www.linkedin.com/showcase/certus-technical-search/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="group flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-white hover:text-brand-silver transition-colors"
