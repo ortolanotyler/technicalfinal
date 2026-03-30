@@ -1,11 +1,6 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // TEMPORARY: Allow EVERYTHING for debugging
-    match /{allPaths=**} {
-      allow read, write: if true;
-    }
-
     // Helper functions
     function isAuthenticated() {
       return request.auth != null;
@@ -18,14 +13,18 @@ service cloud.firestore {
 
     // Jobs collection
     match /jobs/{jobId} {
+      // Publicly readable
       allow read: if true;
-      allow write: if isAuthenticated();
+      // Only admins can write
+      allow write: if isAdmin();
     }
 
     // LinkedIn posts collection
     match /linkedinPosts/{postId} {
+      // Publicly readable
       allow read: if true;
-      allow write: if isAuthenticated();
+      // Only admins can write
+      allow write: if isAdmin();
     }
 
     // Users collection (for roles)
