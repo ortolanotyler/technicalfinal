@@ -91,10 +91,6 @@ const IndustriesServed: React.FC = () => {
         </div>
       </div>
 
-      {/* Decorative Page Coord */}
-      <div className="absolute bottom-6 right-8 opacity-10 font-mono text-[8px] tracking-[1em] text-white uppercase pointer-events-none">
-        SECT_INDEX: TR_4.0
-      </div>
     </section>
   );
 };
