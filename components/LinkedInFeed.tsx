@@ -15,7 +15,7 @@ const LinkedInFeed: React.FC = () => {
     const fetchPosts = async () => {
       setLoading(true);
       const data = await jobService.getLinkedInPosts();
-      setPosts(data.slice(0, 6));
+      setPosts(data);
       setLoading(false);
     };
     fetchPosts();
