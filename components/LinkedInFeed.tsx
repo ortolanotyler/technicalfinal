@@ -53,6 +53,16 @@ const LinkedInFeed: React.FC = () => {
     });
   };
 
+  const onDragEnd = (_: any, info: any) => {
+    const threshold = 50;
+    const velocityThreshold = 500;
+    if (info.offset.x < -threshold || info.velocity.x < -velocityThreshold) {
+      nextPost();
+    } else if (info.offset.x > threshold || info.velocity.x > velocityThreshold) {
+      prevPost();
+    }
+  };
+
   return (
     <section id={Section.INSIGHTS} className="py-24 bg-brand-dark relative overflow-hidden">
       {/* Background elements */}
@@ -69,25 +79,7 @@ const LinkedInFeed: React.FC = () => {
             </div>
           </div>
           
-          <div className="flex flex-col items-end gap-6">
-            {posts.length > visibleItems && (
-              <div className="flex items-center gap-4">
-                <button 
-                  onClick={prevPost}
-                  className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:border-brand-silver/50 transition-all active:scale-95"
-                  aria-label="Previous post"
-                >
-                  <ChevronLeft size={24} />
-                </button>
-                <button 
-                  onClick={nextPost}
-                  className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:border-brand-silver/50 transition-all active:scale-95"
-                  aria-label="Next post"
-                >
-                  <ChevronRight size={24} />
-                </button>
-              </div>
-            )}
+          <div className="flex flex-col items-end justify-end">
             <a 
               href="https://www.linkedin.com/showcase/certus-technical-search/" 
               target="_blank" 
@@ -106,10 +98,14 @@ const LinkedInFeed: React.FC = () => {
           </div>
         ) : (
           <div className="relative">
-            <div className="overflow-hidden px-1">
+            <div className="overflow-hidden px-1 touch-pan-y">
               <motion.div 
-                className="flex"
-                animate={{ x: `-${currentIndex * (100 / visibleItems)}%` }}
+                className="flex cursor-grab active:cursor-grabbing"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.1}
+                onDragEnd={onDragEnd}
+                animate={{ x: `-${currentIndex * (100 / posts.length)}%` }}
                 transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
                 style={{ 
                   display: 'flex',
@@ -168,17 +164,23 @@ const LinkedInFeed: React.FC = () => {
               </motion.div>
             </div>
             
-            {/* Carousel Indicators */}
+            {/* Carousel Navigation Arrows */}
             {posts.length > visibleItems && (
-              <div className="flex justify-center gap-3 mt-12">
-                {Array.from({ length: Math.max(0, posts.length - visibleItems + 1) }).map((_, idx) => (
-                  <button 
-                    key={idx}
-                    onClick={() => setCurrentIndex(idx)}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${currentIndex === idx ? 'bg-brand-silver w-8' : 'bg-white/10 w-4 hover:bg-white/20'}`}
-                    aria-label={`Go to slide ${idx + 1}`}
-                  />
-                ))}
+              <div className="flex justify-center items-center gap-6 mt-12">
+                <button 
+                  onClick={prevPost}
+                  className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:border-brand-silver/50 transition-all active:scale-95"
+                  aria-label="Previous post"
+                >
+                  <ChevronLeft size={24} />
+                </button>
+                <button 
+                  onClick={nextPost}
+                  className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white/10 hover:border-brand-silver/50 transition-all active:scale-95"
+                  aria-label="Next post"
+                >
+                  <ChevronRight size={24} />
+                </button>
               </div>
             )}
           </div>
