@@ -80,12 +80,16 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
     setLoading(true);
     setError(null);
     try {
-      const success = await jobService.login();
-      if (!success) {
-        setError('Login failed. This may be due to a popup blocker or unauthorized domain. Please check your browser settings and Firebase console.');
-      }
+      await jobService.login();
     } catch (err: any) {
-      setError(`Login error: ${err.message || 'Unknown error'}`);
+      console.error('[AdminPortal] Login error:', err);
+      if (err.code === 'auth/popup-blocked') {
+        setError('Login failed: Popup was blocked. Please allow popups for this site in your browser settings.');
+      } else if (err.code === 'auth/unauthorized-domain') {
+        setError(`Login failed: This domain is not authorized in the Firebase Console. Please add "${window.location.hostname}" to the "Authorized domains" list in Firebase Authentication settings.`);
+      } else {
+        setError(`Login failed: ${err.message || 'Unknown error'}. Please check your browser settings and Firebase console.`);
+      }
     }
     setLoading(false);
   };

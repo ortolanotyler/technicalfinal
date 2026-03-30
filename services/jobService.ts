@@ -132,9 +132,10 @@ export const jobService = {
       const result = await signInWithPopup(auth, provider);
       console.log('[Auth] Sign-In successful, user:', result.user.email);
       return !!result.user;
-    } catch (error) {
+    } catch (error: any) {
       console.error('[Auth] Login error:', error);
-      return false;
+      // Throw the error so the UI can handle it specifically
+      throw error;
     }
   },
 
