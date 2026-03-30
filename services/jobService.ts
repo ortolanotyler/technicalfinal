@@ -51,19 +51,19 @@ const INITIAL_JOBS: JobPosting[] = [
 const INITIAL_LINKEDIN: Partial<LinkedInPost>[] = [
   {
     id: '1',
-    author: 'Tyler Ortolano',
-    role: 'Managing Partner',
+    author: 'Certus Technical Search',
+    role: 'Technical Search & Recruitment',
     content: 'Excited to announce that Certus Group has successfully placed a Lead Heavy Duty Mechanic for one of our key mining partners in Alberta. The skilled trades market remains highly competitive, and we are proud to connect top-tier talent with industry leaders. #SkilledTrades #Recruitment #CertusGroup',
     date: '2d ago',
-    avatar: 'https://res.cloudinary.com/dvbubqhpp/image/upload/v1710947667/tyler-avatar_eiabfr.jpg'
+    avatar: 'https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png'
   },
   {
     id: '2',
-    author: 'Certus Group',
-    role: 'Executive Search',
+    author: 'Certus Technical Search',
+    role: 'Technical Search & Recruitment',
     content: 'We are currently seeing a surge in demand for Industrial Electricians across Ontario. If you are a licensed professional looking for your next challenge, check out our latest openings. #IndustrialElectrician #HamiltonJobs #Manufacturing',
     date: '5d ago',
-    avatar: 'https://res.cloudinary.com/dvbubqhpp/image/upload/v1710947667/certus-logo-avatar_eiabfr.jpg'
+    avatar: 'https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png'
   }
 ];
 

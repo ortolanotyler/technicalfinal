@@ -63,15 +63,16 @@ const LinkedInFeed: React.FC = () => {
                 <div className="p-6 flex-grow flex flex-col">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-brand-silver/10 rounded-full flex items-center justify-center text-brand-silver font-bold text-[10px] overflow-hidden">
-                        {post.avatar ? (
-                          <img src={post.avatar} alt={post.author} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                        ) : (
-                          "CG"
-                        )}
+                      <div className="w-8 h-8 bg-white/5 border border-white/10 rounded-full flex items-center justify-center overflow-hidden">
+                        <img 
+                          src="https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png" 
+                          className="w-5 h-5 opacity-80 grayscale brightness-[2]"
+                          alt="Certus Logo"
+                          referrerPolicy="no-referrer"
+                        />
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-xs font-bold text-white leading-none">{post.author}</span>
+                        <span className="text-xs font-bold text-white leading-none">Certus Technical Search</span>
                         <span className="text-[10px] text-gray-500 mt-1">{post.date}</span>
                       </div>
                     </div>
@@ -130,16 +131,17 @@ const LinkedInFeed: React.FC = () => {
 
             <div className="overflow-y-auto p-6 md:p-10">
               <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 bg-brand-silver/10 rounded-full flex items-center justify-center text-brand-silver font-bold text-sm overflow-hidden border border-brand-silver/20">
-                  {selectedPost.avatar ? (
-                    <img src={selectedPost.avatar} alt={selectedPost.author} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                  ) : (
-                    "CG"
-                  )}
+                <div className="w-12 h-12 bg-white/5 border border-white/10 rounded-full flex items-center justify-center overflow-hidden">
+                  <img 
+                    src="https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png" 
+                    className="w-7 h-7 opacity-80 grayscale brightness-[2]"
+                    alt="Certus Logo"
+                    referrerPolicy="no-referrer"
+                  />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-lg font-bold text-white leading-none">{selectedPost.author}</span>
-                  <span className="text-xs text-brand-silver/60 mt-1.5 font-medium tracking-wider uppercase">{selectedPost.role || 'Certus Group Insight'}</span>
+                  <span className="text-lg font-bold text-white leading-none">Certus Technical Search</span>
+                  <span className="text-xs text-brand-silver/60 mt-1.5 font-medium tracking-wider uppercase">Technical Search & Recruitment</span>
                   <span className="text-[10px] text-gray-500 mt-1">{selectedPost.date}</span>
                 </div>
               </div>
