@@ -35,6 +35,8 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
   const [editingJob, setEditingJob] = useState<Partial<JobPosting> | null>(null);
   const [editingPost, setEditingPost] = useState<Partial<LinkedInPost> | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<{ type: 'job' | 'post', id: string | number } | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   useEffect(() => {
     if (jobService.isLoggedIn()) {
@@ -79,16 +81,21 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
   };
 
   const handleDeleteJob = (id: string | number) => {
+    setDeleteError(null);
     setConfirmDelete({ type: 'job', id });
   };
 
   const executeDeleteJob = async (id: string | number) => {
+    setIsDeleting(true);
+    setDeleteError(null);
     try {
       await jobService.deleteJob(id);
       setJobs(jobs.filter(j => String(j.id) !== String(id)));
       setConfirmDelete(null);
     } catch (err) {
-      setError('Failed to delete job');
+      setDeleteError('Failed to delete job. Please try again.');
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -107,16 +114,21 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
   };
 
   const handleDeletePost = (id: string | number) => {
+    setDeleteError(null);
     setConfirmDelete({ type: 'post', id });
   };
 
   const executeDeletePost = async (id: string | number) => {
+    setIsDeleting(true);
+    setDeleteError(null);
     try {
       await jobService.deleteLinkedInPost(String(id));
       setLinkedinPosts(linkedinPosts.filter(p => String(p.id) !== String(id)));
       setConfirmDelete(null);
     } catch (err) {
-      setError('Failed to delete post');
+      setDeleteError('Failed to delete post. Please try again.');
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -562,21 +574,37 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
       {confirmDelete && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm">
           <div className="bg-brand-dark border border-white/10 w-full max-w-sm rounded-sm shadow-2xl p-8 text-center">
-            <AlertCircle className="mx-auto text-red-400 mb-4" size={48} />
+            <AlertCircle className={`mx-auto mb-4 ${deleteError ? 'text-red-500' : 'text-red-400'}`} size={48} />
             <h3 className="text-xl font-bold mb-2">Confirm Deletion</h3>
-            <p className="text-gray-400 text-sm mb-8">This action is permanent and cannot be undone. Are you sure you want to proceed?</p>
+            <p className="text-gray-400 text-sm mb-6">This action is permanent and cannot be undone. Are you sure you want to proceed?</p>
+            
+            {deleteError && (
+              <div className="mb-6 p-3 bg-red-500/10 border border-red-500/20 rounded-sm text-red-400 text-xs">
+                {deleteError}
+              </div>
+            )}
+
             <div className="flex gap-4">
               <button 
-                onClick={() => setConfirmDelete(null)}
-                className="flex-1 py-3 text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-all border border-white/10 rounded-sm"
+                onClick={() => {
+                  if (!isDeleting) setConfirmDelete(null);
+                }}
+                disabled={isDeleting}
+                className="flex-1 py-3 text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-all border border-white/10 rounded-sm disabled:opacity-50"
               >
                 Cancel
               </button>
               <button 
                 onClick={() => confirmDelete.type === 'job' ? executeDeleteJob(confirmDelete.id) : executeDeletePost(confirmDelete.id)}
-                className="flex-1 py-3 text-xs font-bold uppercase tracking-widest bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition-all border border-red-500/20 rounded-sm"
+                disabled={isDeleting}
+                className="flex-1 py-3 text-xs font-bold uppercase tracking-widest bg-red-600 text-white hover:bg-red-500 transition-all rounded-sm flex items-center justify-center gap-2 disabled:opacity-50"
               >
-                Delete
+                {isDeleting ? (
+                  <>
+                    <Loader2 size={14} className="animate-spin" />
+                    Deleting...
+                  </>
+                ) : 'Delete'}
               </button>
             </div>
           </div>
