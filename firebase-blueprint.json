@@ -1,0 +1,51 @@
+{
+  "entities": {
+    "JobPosting": {
+      "title": "Job Posting",
+      "description": "A job posting entity",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "The unique identifier for the job posting" },
+        "ref": { "type": "string", "description": "The reference number for the job" },
+        "title": { "type": "string", "description": "The job title" },
+        "location": { "type": "string", "description": "The job location" },
+        "type": { "type": "string", "description": "The job type (e.g., Full-time, Contract)" },
+        "salary": { "type": "string", "description": "The salary range" },
+        "posted": { "type": "string", "description": "The date the job was posted" },
+        "summary": { "type": "string", "description": "A summary of the job" },
+        "responsibilities": { "type": "array", "items": { "type": "string" }, "description": "A list of job responsibilities" },
+        "requirements": { "type": "array", "items": { "type": "string" }, "description": "A list of job requirements" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "The creation timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "The last update timestamp" }
+      },
+      "required": ["ref", "title", "location", "type", "salary", "summary", "responsibilities", "requirements"]
+    },
+    "LinkedInPost": {
+      "title": "LinkedIn Post",
+      "description": "A LinkedIn post entity",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "The unique identifier for the LinkedIn post" },
+        "author": { "type": "string", "description": "The author of the post" },
+        "role": { "type": "string", "description": "The role of the author" },
+        "content": { "type": "string", "description": "The content of the post" },
+        "date": { "type": "string", "description": "The date of the post" },
+        "avatar": { "type": "string", "description": "The avatar URL of the author" },
+        "image": { "type": "string", "description": "An optional image URL for the post" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "The creation timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "The last update timestamp" }
+      },
+      "required": ["author", "role", "content", "date", "avatar"]
+    }
+  },
+  "firestore": {
+    "/jobs": {
+      "schema": "JobPosting",
+      "description": "A collection of job postings"
+    },
+    "/linkedinPosts": {
+      "schema": "LinkedInPost",
+      "description": "A collection of LinkedIn posts"
+    }
+  }
+}

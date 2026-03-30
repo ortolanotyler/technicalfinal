@@ -4,8 +4,20 @@ import path from "path";
 import sgMail from "@sendgrid/mail";
 import dotenv from "dotenv";
 import { fileURLToPath } from 'url';
+import admin from "firebase-admin";
+import { getFirestore } from "firebase-admin/firestore";
+import firebaseConfig from './firebase-applet-config.json' assert { type: 'json' };
 
 dotenv.config();
+
+// Initialize Firebase Admin
+const adminApp = !admin.apps.length 
+  ? admin.initializeApp({ projectId: firebaseConfig.projectId })
+  : admin.app();
+
+const db = getFirestore(adminApp, firebaseConfig.firestoreDatabaseId);
+const jobsCol = db.collection("jobs");
+const postsCol = db.collection("linkedinPosts");
 
 console.log(`[Startup] ADMIN_USERNAME set: ${!!process.env.ADMIN_USERNAME}`);
 console.log(`[Startup] ADMIN_PASSWORD set: ${!!process.env.ADMIN_PASSWORD}`);
@@ -20,76 +32,94 @@ if (process.env.SENDGRID_API_KEY) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 }
 
-// In-memory storage
-let jobs = [
-  { 
-      id: "1", 
-      ref: 'TRD-2401', 
-      title: 'Lead Heavy Duty Mechanic', 
-      location: 'Edmonton, AB', 
-      type: 'Full-Time', 
-      salary: '$48 - $55 / hr', 
-      posted: '2 days ago',
-      summary: "A high-visibility leadership role for a Journeyman HD Mechanic, responsible for overseeing a fleet of mining and heavy construction equipment.",
-      responsibilities: [
-          "Lead a team of 15+ mechanics and apprentices in a high-volume shop environment.",
-          "Oversee preventative maintenance programs for a diverse fleet of CAT and Komatsu equipment.",
-          "Manage shop P&L and parts inventory to ensure maximum uptime.",
-          "Mentor junior technicians and ensure strict adherence to safety protocols."
-      ],
-      requirements: [
-          "Journeyman Heavy Duty Mechanic certification (Red Seal preferred).",
-          "10+ years of experience in heavy equipment maintenance.",
-          "Proven leadership experience in a shop foreman or lead hand capacity.",
-          "Deep expertise in hydraulic systems and electronic diagnostics."
-      ],
-      createdAt: new Date().toISOString()
-  },
-  { 
-      id: "2", 
-      ref: 'TRD-2404', 
-      title: 'Industrial Electrician', 
-      location: 'Hamilton, ON', 
-      type: 'Full-Time', 
-      salary: '$42 - $48 / hr', 
-      posted: '1 week ago',
-      summary: "Joining a leading manufacturing facility to oversee plant-wide electrical maintenance and automation systems.",
-      responsibilities: [
-          "Troubleshoot and repair complex industrial control systems and PLC logic.",
-          "Perform preventative maintenance on high-voltage distribution systems.",
-          "Collaborate with engineering teams on equipment upgrades and commissioning.",
-          "Ensure compliance with all electrical codes and safety standards."
-      ],
-      requirements: [
-          "442A or 309A Electrician license.",
-          "5+ years of experience in an industrial manufacturing environment.",
-          "Strong proficiency in Allen-Bradley or Siemens PLC troubleshooting.",
-          "Experience with VFDs and industrial motor controls."
-      ],
-      createdAt: new Date().toISOString()
-  }
-];
+// Seed Firestore if empty
+async function seedFirestore() {
+  try {
+    const jobsSnapshot = await jobsCol.limit(1).get();
+    if (jobsSnapshot.empty) {
+      console.log("[Seeding] Adding initial jobs to Firestore...");
+      const initialJobs = [
+        { 
+            ref: 'TRD-2401', 
+            title: 'Lead Heavy Duty Mechanic', 
+            location: 'Edmonton, AB', 
+            type: 'Full-Time', 
+            salary: '$48 - $55 / hr', 
+            posted: '2 days ago',
+            summary: "A high-visibility leadership role for a Journeyman HD Mechanic, responsible for overseeing a fleet of mining and heavy construction equipment.",
+            responsibilities: [
+                "Lead a team of 15+ mechanics and apprentices in a high-volume shop environment.",
+                "Oversee preventative maintenance programs for a diverse fleet of CAT and Komatsu equipment.",
+                "Manage shop P&L and parts inventory to ensure maximum uptime.",
+                "Mentor junior technicians and ensure strict adherence to safety protocols."
+            ],
+            requirements: [
+                "Journeyman Heavy Duty Mechanic certification (Red Seal preferred).",
+                "10+ years of experience in heavy equipment maintenance.",
+                "Proven leadership experience in a shop foreman or lead hand capacity.",
+                "Deep expertise in hydraulic systems and electronic diagnostics."
+            ],
+            createdAt: new Date().toISOString()
+        },
+        { 
+            ref: 'TRD-2404', 
+            title: 'Industrial Electrician', 
+            location: 'Hamilton, ON', 
+            type: 'Full-Time', 
+            salary: '$42 - $48 / hr', 
+            posted: '1 week ago',
+            summary: "Joining a leading manufacturing facility to oversee plant-wide electrical maintenance and automation systems.",
+            responsibilities: [
+                "Troubleshoot and repair complex industrial control systems and PLC logic.",
+                "Perform preventative maintenance on high-voltage distribution systems.",
+                "Collaborate with engineering teams on equipment upgrades and commissioning.",
+                "Ensure compliance with all electrical codes and safety standards."
+            ],
+            requirements: [
+                "442A or 309A Electrician license.",
+                "5+ years of experience in an industrial manufacturing environment.",
+                "Strong proficiency in Allen-Bradley or Siemens PLC troubleshooting.",
+                "Experience with VFDs and industrial motor controls."
+            ],
+            createdAt: new Date().toISOString()
+        }
+      ];
+      for (const job of initialJobs) {
+        await jobsCol.add(job);
+      }
+    }
 
-let linkedinPosts = [
-  {
-    id: "1",
-    author: 'Tyler Ortolano',
-    role: 'Managing Partner',
-    content: 'Excited to announce that Certus Group has successfully placed a Lead Heavy Duty Mechanic for one of our key mining partners in Alberta. The skilled trades market remains highly competitive, and we are proud to connect top-tier talent with industry leaders. #SkilledTrades #Recruitment #CertusGroup',
-    date: '2d ago',
-    avatar: 'https://res.cloudinary.com/dvbubqhpp/image/upload/v1710947667/tyler-avatar_eiabfr.jpg',
-    createdAt: new Date().toISOString()
-  },
-  {
-    id: "2",
-    author: 'Certus Group',
-    role: 'Executive Search',
-    content: 'We are currently seeing a surge in demand for Industrial Electricians across Ontario. If you are a licensed professional looking for your next challenge, check out our latest openings. #IndustrialElectrician #HamiltonJobs #Manufacturing',
-    date: '5d ago',
-    avatar: 'https://res.cloudinary.com/dvbubqhpp/image/upload/v1710947667/certus-logo-avatar_eiabfr.jpg',
-    createdAt: new Date().toISOString()
+    const postsSnapshot = await postsCol.limit(1).get();
+    if (postsSnapshot.empty) {
+      console.log("[Seeding] Adding initial LinkedIn posts to Firestore...");
+      const initialPosts = [
+        {
+          author: 'Tyler Ortolano',
+          role: 'Managing Partner',
+          content: 'Excited to announce that Certus Group has successfully placed a Lead Heavy Duty Mechanic for one of our key mining partners in Alberta. The skilled trades market remains highly competitive, and we are proud to connect top-tier talent with industry leaders. #SkilledTrades #Recruitment #CertusGroup',
+          date: '2d ago',
+          avatar: 'https://res.cloudinary.com/dvbubqhpp/image/upload/v1710947667/tyler-avatar_eiabfr.jpg',
+          createdAt: new Date().toISOString()
+        },
+        {
+          author: 'Certus Group',
+          role: 'Executive Search',
+          content: 'We are currently seeing a surge in demand for Industrial Electricians across Ontario. If you are a licensed professional looking for your next challenge, check out our latest openings. #IndustrialElectrician #HamiltonJobs #Manufacturing',
+          date: '5d ago',
+          avatar: 'https://res.cloudinary.com/dvbubqhpp/image/upload/v1710947667/certus-logo-avatar_eiabfr.jpg',
+          createdAt: new Date().toISOString()
+        }
+      ];
+      for (const post of initialPosts) {
+        await postsCol.add(post);
+      }
+    }
+  } catch (error) {
+    console.error("[Seeding] Error seeding Firestore:", error);
   }
-];
+}
+
+seedFirestore();
 
 // Auth middleware (simple for demo)
 const adminAuth = (req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -101,6 +131,27 @@ const adminAuth = (req: express.Request, res: express.Response, next: express.Ne
   } else {
     res.status(401).json({ error: "Unauthorized" });
   }
+};
+
+// Firestore Error Handler
+enum OperationType {
+  CREATE = 'create',
+  UPDATE = 'update',
+  DELETE = 'delete',
+  LIST = 'list',
+  GET = 'get',
+  WRITE = 'write',
+}
+
+const handleFirestoreError = (error: any, operation: OperationType, path: string) => {
+  console.error(`[Firestore Error] ${operation} on ${path}:`, error);
+  const errInfo = {
+    error: error.message || String(error),
+    operationType: operation,
+    path: path,
+    code: error.code
+  };
+  return errInfo;
 };
 
 // API routes
@@ -124,78 +175,119 @@ app.post("/api/auth/login", (req, res) => {
   }
 });
 
-app.get("/api/jobs", (req, res) => {
-  res.json(jobs.sort((a, b) => b.createdAt.localeCompare(a.createdAt)));
-});
-
-app.post("/api/jobs", adminAuth, (req, res) => {
-  const newJob = { 
-    ...req.body, 
-    id: Math.random().toString(36).substr(2, 9),
-    createdAt: new Date().toISOString()
-  };
-  jobs.push(newJob);
-  res.status(201).json(newJob);
-});
-
-app.put("/api/jobs/:id", adminAuth, (req, res) => {
-  const { id } = req.params;
-  const index = jobs.findIndex(j => j.id === id);
-  if (index !== -1) {
-    jobs[index] = { ...jobs[index], ...req.body, updatedAt: new Date().toISOString() };
-    res.json(jobs[index]);
-  } else {
-    res.status(404).json({ error: "Job not found" });
+app.get("/api/jobs", async (req, res) => {
+  try {
+    const snapshot = await jobsCol.orderBy("createdAt", "desc").get();
+    const jobsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    res.json(jobsList);
+  } catch (error) {
+    res.status(500).json(handleFirestoreError(error, OperationType.LIST, "jobs"));
   }
 });
 
-app.delete("/api/jobs/:id", adminAuth, (req, res) => {
-  const { id } = req.params;
-  jobs = jobs.filter(j => j.id !== id);
-  res.json({ success: true });
+app.post("/api/jobs", adminAuth, async (req, res) => {
+  try {
+    const newJob = { 
+      ...req.body, 
+      createdAt: new Date().toISOString()
+    };
+    const docRef = await jobsCol.add(newJob);
+    res.status(201).json({ id: docRef.id, ...newJob });
+  } catch (error) {
+    res.status(500).json(handleFirestoreError(error, OperationType.CREATE, "jobs"));
+  }
 });
 
-app.get("/api/linkedin-posts", (req, res) => {
-  res.json(linkedinPosts.sort((a, b) => b.createdAt.localeCompare(a.createdAt)));
+app.put("/api/jobs/:id", adminAuth, async (req, res) => {
+  try {
+    const id = req.params.id as string;
+    const updateData = { ...req.body, updatedAt: new Date().toISOString() };
+    await jobsCol.doc(id).update(updateData);
+    const updatedDoc = await jobsCol.doc(id).get();
+    res.json({ id: updatedDoc.id, ...updatedDoc.data() });
+  } catch (error) {
+    res.status(500).json(handleFirestoreError(error, OperationType.UPDATE, `jobs/${req.params.id}`));
+  }
 });
 
-app.post("/api/linkedin-posts", adminAuth, (req, res) => {
-  const newPost = { 
-    ...req.body, 
-    id: Math.random().toString(36).substr(2, 9),
-    createdAt: new Date().toISOString()
-  };
-  linkedinPosts.push(newPost);
-  res.status(201).json(newPost);
+app.delete("/api/jobs/:id", adminAuth, async (req, res) => {
+  try {
+    const id = req.params.id as string;
+    await jobsCol.doc(id).delete();
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json(handleFirestoreError(error, OperationType.DELETE, `jobs/${req.params.id}`));
+  }
 });
 
-app.delete("/api/linkedin-posts/:id", adminAuth, (req, res) => {
-  const { id } = req.params;
-  linkedinPosts = linkedinPosts.filter(p => p.id !== id);
-  res.json({ success: true });
+app.get("/api/linkedin-posts", async (req, res) => {
+  try {
+    const snapshot = await postsCol.orderBy("createdAt", "desc").get();
+    const postsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    res.json(postsList);
+  } catch (error) {
+    res.status(500).json(handleFirestoreError(error, OperationType.LIST, "linkedinPosts"));
+  }
+});
+
+app.post("/api/linkedin-posts", adminAuth, async (req, res) => {
+  try {
+    const newPost = { 
+      ...req.body, 
+      createdAt: new Date().toISOString()
+    };
+    const docRef = await postsCol.add(newPost);
+    res.status(201).json({ id: docRef.id, ...newPost });
+  } catch (error) {
+    res.status(500).json(handleFirestoreError(error, OperationType.CREATE, "linkedinPosts"));
+  }
+});
+
+app.delete("/api/linkedin-posts/:id", adminAuth, async (req, res) => {
+  try {
+    const id = req.params.id as string;
+    await postsCol.doc(id).delete();
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json(handleFirestoreError(error, OperationType.DELETE, `linkedinPosts/${req.params.id}`));
+  }
 });
 
 // Export CSV routes
-app.get("/api/export/jobs", adminAuth, (req, res) => {
-  const header = "ID,Ref,Title,Location,Type,Salary,Posted,CreatedAt\n";
-  const rows = jobs.map(j => 
-    `"${j.id}","${j.ref}","${j.title}","${j.location}","${j.type}","${j.salary}","${j.posted}","${j.createdAt}"`
-  ).join("\n");
-  
-  res.setHeader('Content-Type', 'text/csv');
-  res.setHeader('Content-Disposition', 'attachment; filename=jobs_export.csv');
-  res.send(header + rows);
+app.get("/api/export/jobs", adminAuth, async (req, res) => {
+  try {
+    const snapshot = await jobsCol.orderBy("createdAt", "desc").get();
+    const jobsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() as any }));
+    
+    const header = "ID,Ref,Title,Location,Type,Salary,Posted,CreatedAt\n";
+    const rows = jobsList.map(j => 
+      `"${j.id}","${j.ref}","${j.title}","${j.location}","${j.type}","${j.salary}","${j.posted}","${j.createdAt}"`
+    ).join("\n");
+    
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename=jobs_export.csv');
+    res.send(header + rows);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to export jobs" });
+  }
 });
 
-app.get("/api/export/linkedin", adminAuth, (req, res) => {
-  const header = "ID,Author,Role,Content,Date,CreatedAt\n";
-  const rows = linkedinPosts.map(p => 
-    `"${p.id}","${p.author}","${p.role}","${p.content.replace(/"/g, '""')}","${p.date}","${p.createdAt}"`
-  ).join("\n");
-  
-  res.setHeader('Content-Type', 'text/csv');
-  res.setHeader('Content-Disposition', 'attachment; filename=linkedin_export.csv');
-  res.send(header + rows);
+app.get("/api/export/linkedin", adminAuth, async (req, res) => {
+  try {
+    const snapshot = await postsCol.orderBy("createdAt", "desc").get();
+    const postsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() as any }));
+
+    const header = "ID,Author,Role,Content,Date,CreatedAt\n";
+    const rows = postsList.map(p => 
+      `"${p.id}","${p.author}","${p.role}","${p.content.replace(/"/g, '""')}","${p.date}","${p.createdAt}"`
+    ).join("\n");
+    
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename=linkedin_export.csv');
+    res.send(header + rows);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to export posts" });
+  }
 });
 
 app.post("/api/contact", async (req, res) => {

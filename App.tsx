@@ -11,6 +11,7 @@ import AdminPortal from './components/AdminPortal';
 import IndustriesServed from './components/IndustriesServed';
 import SplitGateway from './components/SplitGateway';
 import SEO from './components/SEO';
+import ErrorBoundary from './components/ErrorBoundary';
 import { View, Section } from './types';
 
 const App: React.FC = () => {
@@ -103,9 +104,11 @@ const App: React.FC = () => {
   };
 
   return (
-    <HelmetProvider>
-      {renderContent()}
-    </HelmetProvider>
+    <ErrorBoundary>
+      <HelmetProvider>
+        {renderContent()}
+      </HelmetProvider>
+    </ErrorBoundary>
   );
 };
 
