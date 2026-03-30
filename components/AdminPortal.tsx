@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { JobPosting, LinkedInPost } from '../types';
 import { jobService } from '../services/jobService';
+import { User } from 'firebase/auth';
 import { 
   LayoutDashboard, 
   Briefcase, 
@@ -14,7 +15,8 @@ import {
   Loader2, 
   CheckCircle2,
   AlertCircle,
-  Download
+  Download,
+  ShieldCheck
 } from 'lucide-react';
 
 interface AdminPortalProps {
@@ -22,9 +24,8 @@ interface AdminPortalProps {
 }
 
 const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [user, setUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'jobs' | 'linkedin'>('jobs');
@@ -39,10 +40,24 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (jobService.isLoggedIn()) {
-      setIsLoggedIn(true);
-      fetchData();
-    }
+    const unsubscribe = jobService.onAuthChange(async (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        const adminStatus = await jobService.isAdmin(currentUser);
+        setIsAdmin(adminStatus);
+        if (adminStatus) {
+          fetchData();
+        } else {
+          setError('Access denied. You do not have administrator privileges.');
+        }
+      } else {
+        setIsAdmin(false);
+        setJobs([]);
+        setLinkedinPosts([]);
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const fetchData = async () => {
@@ -61,23 +76,18 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
     }
   };
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async () => {
     setLoading(true);
     setError(null);
-    const success = await jobService.login(username, password);
-    if (success) {
-      setIsLoggedIn(true);
-      fetchData();
-    } else {
-      setError('Invalid username or password');
+    const success = await jobService.login();
+    if (!success) {
+      setError('Login failed. Please try again.');
     }
     setLoading(false);
   };
 
   const handleLogout = () => {
     jobService.logout();
-    setIsLoggedIn(false);
   };
 
   const handleDeleteJob = (id: string | number) => {
@@ -187,7 +197,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
     exportToCSV(exportData, 'certus_linkedin_posts_export.csv');
   };
 
-  if (!isLoggedIn) {
+  if (!user || !isAdmin) {
     return (
       <div className="min-h-screen bg-brand-dark flex items-center justify-center p-6">
         <div className="w-full max-w-md bg-brand-navy/30 border border-white/10 p-8 rounded-sm shadow-2xl">
@@ -196,29 +206,40 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
             <p className="text-gray-500 text-xs uppercase tracking-widest mt-2">Authorized Personnel Only</p>
           </div>
           
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Username</label>
-              <input 
-                type="text" 
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-silver transition-all"
-                placeholder="tyler"
-              />
-            </div>
-            <div className="space-y-2">
-              <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Password</label>
-              <input 
-                type="password" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-silver transition-all"
-                placeholder="••••••••"
-              />
-            </div>
-            
-            {error && (
+          <div className="space-y-6">
+            {!user ? (
+              <button 
+                onClick={handleLogin}
+                disabled={loading}
+                className="w-full bg-white hover:bg-gray-100 text-black font-bold uppercase tracking-widest text-xs py-4 rounded-sm transition-all flex items-center justify-center gap-3"
+              >
+                {loading ? <Loader2 className="animate-spin" size={16} /> : (
+                  <>
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5" />
+                    Sign in with Google
+                  </>
+                )}
+              </button>
+            ) : (
+              <div className="text-center space-y-4">
+                <div className="flex flex-col items-center gap-3 p-4 bg-red-400/5 border border-red-400/20 rounded-sm">
+                  <ShieldCheck size={32} className="text-red-400" />
+                  <p className="text-red-400 text-xs font-bold uppercase tracking-widest">Access Denied</p>
+                  <p className="text-gray-400 text-xs">
+                    Logged in as <span className="text-white">{user.email}</span>. 
+                    This account does not have administrator privileges.
+                  </p>
+                </div>
+                <button 
+                  onClick={handleLogout}
+                  className="text-gray-500 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors"
+                >
+                  Sign out and try another account
+                </button>
+              </div>
+            )}
+
+            {error && !user && (
               <div className="flex items-center gap-2 text-red-400 text-xs bg-red-400/10 p-3 rounded-sm">
                 <AlertCircle size={14} />
                 {error}
@@ -226,13 +247,12 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
             )}
             
             <button 
-              type="submit" 
-              disabled={loading}
-              className="w-full bg-brand-silver hover:bg-white text-black font-bold uppercase tracking-widest text-xs py-4 rounded-sm transition-all flex items-center justify-center gap-2"
+              onClick={onExit}
+              className="w-full text-gray-500 hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors pt-4"
             >
-              {loading ? <Loader2 className="animate-spin" size={16} /> : 'Login to Dashboard'}
+              Back to Public Site
             </button>
-          </form>
+          </div>
         </div>
       </div>
     );
