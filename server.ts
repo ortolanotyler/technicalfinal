@@ -7,6 +7,9 @@ import { fileURLToPath } from 'url';
 
 dotenv.config();
 
+console.log(`[Startup] ADMIN_USERNAME set: ${!!process.env.ADMIN_USERNAME}`);
+console.log(`[Startup] ADMIN_PASSWORD set: ${!!process.env.ADMIN_PASSWORD}`);
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -91,7 +94,7 @@ let linkedinPosts = [
 // Auth middleware (simple for demo)
 const adminAuth = (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const adminPassword = req.headers['x-admin-password'];
-  const expectedPass = process.env.ADMIN_PASSWORD || 'certusadmin';
+  const expectedPass = (process.env.ADMIN_PASSWORD || 'certusadmin').trim();
 
   if (adminPassword === expectedPass) {
     next();
@@ -109,6 +112,8 @@ app.post("/api/auth/login", (req, res) => {
   const expectedPass = (process.env.ADMIN_PASSWORD || 'certusadmin').trim();
 
   console.log(`[Auth] Login attempt for: "${username}"`);
+  console.log(`[Auth] Expected user length: ${expectedUser.length}, Expected pass length: ${expectedPass.length}`);
+  console.log(`[Auth] Provided user length: ${username.length}, Provided pass length: ${password.length}`);
 
   if (username === expectedUser && password === expectedPass) {
     console.log(`[Auth] Login successful for: "${username}"`);
