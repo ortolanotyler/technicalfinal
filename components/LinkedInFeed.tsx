@@ -79,7 +79,7 @@ const LinkedInFeed: React.FC = () => {
                     <Linkedin size={14} className="text-[#0077B5]" />
                   </div>
                   
-                  <p className="text-gray-300 text-sm font-light leading-relaxed mb-6 whitespace-pre-wrap">
+                  <p className="text-gray-300 text-sm font-light leading-relaxed mb-6 line-clamp-6">
                     {post.content}
                   </p>
 
