@@ -65,7 +65,7 @@ const LinkedInFeed: React.FC = () => {
               <div className="w-12 h-12 bg-[#0077B5] flex items-center justify-center rounded-sm shadow-lg shadow-[#0077B5]/20">
                 <Linkedin className="text-white" size={24} fill="currentColor" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">LinkedIn Insights</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">LinkedIn</h2>
             </div>
           </div>
           
@@ -200,7 +200,7 @@ const LinkedInFeed: React.FC = () => {
                 <div className="w-7 h-7 bg-[#0077B5] flex items-center justify-center rounded-sm">
                   <Linkedin className="text-white" size={14} fill="currentColor" />
                 </div>
-                <span className="text-white text-[10px] font-bold uppercase tracking-[0.2em]">Post Insight</span>
+                <span className="text-white text-[10px] font-bold uppercase tracking-[0.2em]">Post</span>
               </div>
               <button 
                 onClick={() => setSelectedPost(null)} 
