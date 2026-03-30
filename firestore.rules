@@ -1,37 +1,10 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // ===============================================================
-    // Assumed Data Model
-    // ===============================================================
-    //
-    // Collection: jobs
-    // Document ID: auto-generated
-    // Fields:
-    //   - ref: string (required)
-    //   - title: string (required)
-    //   - location: string (required)
-    //   - type: string (required)
-    //   - salary: string (required)
-    //   - summary: string (required)
-    //   - responsibilities: list (required)
-    //   - requirements: list (required)
-    //   - createdAt: timestamp (optional)
-    //   - updatedAt: timestamp (optional)
-    //
-    // Collection: linkedinPosts
-    // Document ID: auto-generated
-    // Fields:
-    //   - author: string (required)
-    //   - role: string (required)
-    //   - content: string (required)
-    //   - date: string (required)
-    //   - avatar: string (required)
-    //   - image: string (optional)
-    //   - createdAt: timestamp (optional)
-    //   - updatedAt: timestamp (optional)
-    //
-    // ===============================================================
+    // TEMPORARY: Allow all authenticated users to read/write everything for debugging
+    match /{allPaths=**} {
+      allow read, write: if request.auth != null;
+    }
 
     // Helper functions
     function isAuthenticated() {
@@ -45,17 +18,13 @@ service cloud.firestore {
 
     // Jobs collection
     match /jobs/{jobId} {
-      // Publicly readable
       allow read: if true;
-      // Temporarily allow any authenticated user to write to isolate the issue
       allow write: if isAuthenticated();
     }
 
     // LinkedIn posts collection
     match /linkedinPosts/{postId} {
-      // Publicly readable
       allow read: if true;
-      // Temporarily allow any authenticated user to write to isolate the issue
       allow write: if isAuthenticated();
     }
 

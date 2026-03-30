@@ -5,10 +5,14 @@ import firebaseConfig from './firebase-applet-config.json';
 
 // Initialize Firebase
 const config = firebaseConfig as any;
+console.log('[Firebase] Initializing with Project ID:', config.projectId);
 const app = initializeApp(config);
 export const auth = getAuth(app);
 
 // Handle "(default)" database ID by passing nothing
+const dbId = config.firestoreDatabaseId || '(default)';
+console.log('[Firebase] Using Firestore Database ID:', dbId);
+
 export const db = (config.firestoreDatabaseId && config.firestoreDatabaseId !== "(default)")
   ? getFirestore(app, config.firestoreDatabaseId)
   : getFirestore(app);
