@@ -393,7 +393,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
             <div className="flex justify-between items-center">
               <div>
                 <h2 className="text-3xl font-bold tracking-tight">Manage <span className="text-brand-silver">Feed</span></h2>
-                <p className="text-gray-500 text-sm mt-1">Control the insights appearing on the Market Intelligence section.</p>
+                <p className="text-gray-500 text-sm mt-1">Control the posts appearing on the Social section.</p>
               </div>
               <div className="flex items-center gap-4">
                 <button 
