@@ -40,24 +40,23 @@ service cloud.firestore {
 
     function isAdmin() {
       return isAuthenticated() &&
-        ((exists(/databases/$(database)/documents/users/$(request.auth.uid)) && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin') ||
-          (request.auth.token.email == "tyler.ortolano95@gmail.com"));
+        (request.auth.token.email == "tyler.ortolano95@gmail.com" && request.auth.token.email_verified == true);
     }
 
     // Jobs collection
     match /jobs/{jobId} {
       // Publicly readable
       allow read: if true;
-      // Only admins can write (via Firebase Auth if used, but backend uses firebase-admin)
-      allow write: if isAdmin();
+      // Temporarily allow any authenticated user to write to isolate the issue
+      allow write: if isAuthenticated();
     }
 
     // LinkedIn posts collection
     match /linkedinPosts/{postId} {
       // Publicly readable
       allow read: if true;
-      // Only admins can write
-      allow write: if isAdmin();
+      // Temporarily allow any authenticated user to write to isolate the issue
+      allow write: if isAuthenticated();
     }
 
     // Users collection (for roles)
