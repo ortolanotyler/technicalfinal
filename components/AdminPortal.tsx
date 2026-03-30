@@ -445,7 +445,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                         <Trash2 size={16} />
                       </button>
                     </div>
-                    <p className="text-gray-300 text-sm font-light leading-relaxed line-clamp-6">
+                    <p className="text-gray-300 text-sm font-light leading-relaxed line-clamp-[12] whitespace-pre-wrap">
                       {post.content}
                     </p>
                     {post.image && post.image.trim() !== '' && (
