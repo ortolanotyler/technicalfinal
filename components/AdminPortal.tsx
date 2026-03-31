@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { JobPosting, LinkedInPost } from '../types';
 import { jobService } from '../services/jobService';
 import { User } from 'firebase/auth';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import remarkBreaks from 'remark-breaks';
 import { 
   LayoutDashboard, 
   Briefcase, 
@@ -445,9 +448,11 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                         <Trash2 size={16} />
                       </button>
                     </div>
-                    <p className="text-gray-300 text-sm font-light leading-relaxed line-clamp-[12] whitespace-pre-wrap">
-                      {post.content}
-                    </p>
+                    <div className="text-gray-300 text-sm font-light leading-relaxed line-clamp-[12] whitespace-pre-wrap prose prose-invert prose-sm max-w-none">
+                      <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
+                        {post.content.replace(/\n\s*\n/g, '\n\n&nbsp;\n\n')}
+                      </ReactMarkdown>
+                    </div>
                     {post.image && post.image.trim() !== '' && (
                       <div className="mt-4 rounded-sm overflow-hidden border border-white/5 bg-black/20">
                         <img src={post.image} alt="Post visual" className="w-full h-auto object-contain" referrerPolicy="no-referrer" />
@@ -553,7 +558,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                   onChange={(e) => setEditingJob({...editingJob, description: e.target.value})}
                   rows={10}
                   className="w-full bg-brand-navy/30 border border-white/10 rounded-sm px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-brand-silver resize-none"
-                  placeholder="Paste the full job description here. Use Markdown for bullet points (* Item) and bold (**Bold**)."
+                  placeholder="Paste the full job description here. Use Markdown for bullet points (* Item) and bold (**Bold**). Multiple newlines will be preserved for extra spacing."
                 />
               </div>
             </div>
@@ -599,7 +604,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                   onChange={(e) => setEditingPost({...editingPost, content: e.target.value})}
                   rows={6}
                   className="w-full bg-brand-navy/30 border border-white/10 rounded-sm px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-brand-silver resize-none"
-                  placeholder="Share a market insight or success story... Use Markdown for formatting."
+                  placeholder="Share a market insight or success story... Use Markdown for formatting. Multiple newlines will be preserved for extra spacing."
                 />
               </div>
               <div className="space-y-2">

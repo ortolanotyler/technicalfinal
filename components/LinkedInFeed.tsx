@@ -156,8 +156,10 @@ const LinkedInFeed: React.FC = () => {
                           <Linkedin size={14} className="text-[#0077B5]" />
                         </div>
                         
-                        <div className="text-gray-300 text-xs font-light leading-relaxed mb-4 line-clamp-[5] prose prose-invert prose-sm max-w-none">
-                          <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>{post.content}</ReactMarkdown>
+                        <div className="text-gray-300 text-xs font-light leading-relaxed mb-4 line-clamp-[5] prose prose-invert prose-sm max-w-none whitespace-pre-wrap">
+                          <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
+                            {post.content.replace(/\n\s*\n/g, '\n\n&nbsp;\n\n')}
+                          </ReactMarkdown>
                         </div>
 
                         {/* Post Image */}
@@ -242,8 +244,10 @@ const LinkedInFeed: React.FC = () => {
               </div>
 
               <div className="space-y-6">
-                <div className="text-gray-200 text-sm md:text-[15px] font-light leading-relaxed prose prose-invert max-w-none">
-                  <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>{selectedPost.content}</ReactMarkdown>
+                <div className="text-gray-200 text-sm md:text-[15px] font-light leading-relaxed prose prose-invert max-w-none whitespace-pre-wrap">
+                  <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
+                    {selectedPost.content.replace(/\n\s*\n/g, '\n\n&nbsp;\n\n')}
+                  </ReactMarkdown>
                 </div>
 
                 {typeof selectedPost.image === 'string' && selectedPost.image.trim() !== '' && (

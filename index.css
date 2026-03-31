@@ -15,13 +15,28 @@
     margin-bottom: 0.5rem;
   }
   .prose p {
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .prose p:last-child {
+    margin-bottom: 0;
+  }
+  .prose ul, .prose ol {
+    margin-bottom: 1.25rem;
+  }
+  .prose li {
+    margin-bottom: 0.5rem;
+  }
+  .prose li p {
+    margin-bottom: 0.25rem;
   }
   .prose h1, .prose h2, .prose h3 {
     color: white;
     font-weight: bold;
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  .prose h1:first-child, .prose h2:first-child, .prose h3:first-child {
+    margin-top: 0;
   }
 }
 
