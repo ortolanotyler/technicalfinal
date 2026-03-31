@@ -22,8 +22,11 @@ const Header: React.FC<HeaderProps> = ({ onViewJobs, onNavigate }) => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
     }
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [mobileMenuOpen]);
 
   const scrollTo = (id: string) => {

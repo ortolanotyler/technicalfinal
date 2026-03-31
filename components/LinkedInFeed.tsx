@@ -64,6 +64,17 @@ const LinkedInFeed: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (selectedPost) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedPost]);
+
   return (
     <section id={Section.INSIGHTS} className="py-24 bg-brand-dark relative overflow-hidden">
       {/* Background elements */}

@@ -20,9 +20,12 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
       document.body.style.overflow = 'hidden';
     } else {
       const timer = setTimeout(() => setVisible(false), 300);
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
       return () => clearTimeout(timer);
     }
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isOpen]);
 
   if (!visible && !isOpen) return null;
