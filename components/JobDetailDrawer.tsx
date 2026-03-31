@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { JobPosting } from '../types';
 import { X, MapPin, DollarSign, Check, ArrowRight } from 'lucide-react';
 import ApplicationModal from './ApplicationModal';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import remarkBreaks from 'remark-breaks';
 
 interface JobDetailDrawerProps {
   job: JobPosting | null;
@@ -107,8 +110,8 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
                             <h3 className="text-sm font-bold uppercase tracking-widest text-white mb-4 flex items-center gap-2">
                                <span className={`w-1 h-4 ${theme.bg}`}></span> Job Description
                             </h3>
-                            <div className="text-gray-400 leading-relaxed font-light text-base whitespace-pre-wrap">
-                                {job.description}
+                            <div className="prose prose-invert prose-sm max-w-none text-gray-400 leading-relaxed font-light text-base">
+                                <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>{job.description}</ReactMarkdown>
                             </div>
                         </section>
                     ) : (

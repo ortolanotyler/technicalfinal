@@ -547,13 +547,13 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Full Job Description (Preserves Formatting)</label>
+                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Full Job Description (Supports Markdown)</label>
                 <textarea 
                   value={editingJob.description || ''}
                   onChange={(e) => setEditingJob({...editingJob, description: e.target.value})}
                   rows={10}
                   className="w-full bg-brand-navy/30 border border-white/10 rounded-sm px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-brand-silver resize-none"
-                  placeholder="Paste the full job description here. Newlines and spacing will be preserved."
+                  placeholder="Paste the full job description here. Use Markdown for bullet points (* Item) and bold (**Bold**)."
                 />
               </div>
             </div>
@@ -593,13 +593,13 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                 </div>
               )}
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Post Content</label>
+                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Post Content (Supports Markdown)</label>
                 <textarea 
                   value={editingPost.content}
                   onChange={(e) => setEditingPost({...editingPost, content: e.target.value})}
                   rows={6}
-                  className="w-full bg-brand-navy/30 border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-silver resize-none"
-                  placeholder="Share a market insight or success story..."
+                  className="w-full bg-brand-navy/30 border border-white/10 rounded-sm px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-brand-silver resize-none"
+                  placeholder="Share a market insight or success story... Use Markdown for formatting."
                 />
               </div>
               <div className="space-y-2">

@@ -3,6 +3,9 @@ import { Linkedin, ExternalLink, Loader2, X, ChevronLeft, ChevronRight } from 'l
 import { Section, LinkedInPost } from '../types';
 import { jobService } from '../services/jobService';
 import { motion, AnimatePresence } from 'motion/react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import remarkBreaks from 'remark-breaks';
 
 const LinkedInFeed: React.FC = () => {
   const [posts, setPosts] = useState<LinkedInPost[]>([]);
@@ -153,9 +156,9 @@ const LinkedInFeed: React.FC = () => {
                           <Linkedin size={14} className="text-[#0077B5]" />
                         </div>
                         
-                        <p className="text-gray-300 text-xs font-light leading-relaxed mb-4 line-clamp-[5] whitespace-pre-wrap">
-                          {post.content}
-                        </p>
+                        <div className="text-gray-300 text-xs font-light leading-relaxed mb-4 line-clamp-[5] prose prose-invert prose-sm max-w-none">
+                          <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>{post.content}</ReactMarkdown>
+                        </div>
 
                         {/* Post Image */}
                         {typeof post.image === 'string' && post.image.trim() !== '' && (
@@ -239,9 +242,9 @@ const LinkedInFeed: React.FC = () => {
               </div>
 
               <div className="space-y-6">
-                <p className="text-gray-200 text-sm md:text-[15px] font-light leading-relaxed whitespace-pre-wrap">
-                  {selectedPost.content}
-                </p>
+                <div className="text-gray-200 text-sm md:text-[15px] font-light leading-relaxed prose prose-invert max-w-none">
+                  <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>{selectedPost.content}</ReactMarkdown>
+                </div>
 
                 {typeof selectedPost.image === 'string' && selectedPost.image.trim() !== '' && (
                   <div className="rounded-sm overflow-hidden border border-white/10 bg-black/20">
