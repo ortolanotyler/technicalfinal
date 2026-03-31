@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Briefcase, MapPin, DollarSign, ArrowRight, Loader2 } from 'lucide-react';
 import { JobPosting } from '../types';
 import { jobService } from '../services/jobService';
-import ApplicationModal from './ApplicationModal';
+import JobDetailDrawer from './JobDetailDrawer';
 
 import SEO from './SEO';
 
@@ -14,7 +14,6 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ onViewJobs }) => {
   const [jobs, setJobs] = useState<JobPosting[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedJob, setSelectedJob] = useState<JobPosting | null>(null);
-  const [isApplying, setIsApplying] = useState(false);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -28,7 +27,6 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ onViewJobs }) => {
 
   const handleJobClick = (job: JobPosting) => {
     setSelectedJob(job);
-    setIsApplying(true);
   };
 
   if (!loading && jobs.length === 0) return null;
@@ -125,10 +123,10 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ onViewJobs }) => {
       </div>
 
       {selectedJob && (
-        <ApplicationModal 
+        <JobDetailDrawer 
           job={selectedJob}
-          isOpen={isApplying}
-          onClose={() => setIsApplying(false)}
+          isOpen={!!selectedJob}
+          onClose={() => setSelectedJob(null)}
         />
       )}
     </section>

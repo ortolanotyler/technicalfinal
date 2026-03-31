@@ -546,6 +546,16 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                   className="w-full bg-brand-navy/30 border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-silver resize-none"
                 />
               </div>
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Full Job Description (Preserves Formatting)</label>
+                <textarea 
+                  value={editingJob.description || ''}
+                  onChange={(e) => setEditingJob({...editingJob, description: e.target.value})}
+                  rows={10}
+                  className="w-full bg-brand-navy/30 border border-white/10 rounded-sm px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-brand-silver resize-none"
+                  placeholder="Paste the full job description here. Newlines and spacing will be preserved."
+                />
+              </div>
             </div>
             <div className="p-6 border-t border-white/10 bg-brand-navy/20 flex justify-end gap-4">
               <button 

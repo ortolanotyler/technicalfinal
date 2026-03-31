@@ -39,19 +39,19 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
 
   return (
     <>
-    <div className="fixed inset-0 z-[60] flex justify-end">
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-8">
       {/* Backdrop */}
       <div 
-        className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}
         onClick={onClose}
       ></div>
 
-      {/* Drawer Panel */}
+      {/* Popup Panel */}
       <div 
         className={`
-          relative w-full max-w-2xl bg-brand-dark border-l border-white/10 h-full shadow-2xl flex flex-col
-          transform transition-transform duration-300 ease-out
-          ${isOpen ? 'translate-x-0' : 'translate-x-full'}
+          relative w-full max-w-3xl bg-brand-dark border border-white/10 rounded-sm shadow-2xl flex flex-col max-h-[90vh]
+          transform transition-all duration-300 ease-out
+          ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}
         `}
       >
         {job && (
@@ -98,45 +98,59 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
                 {/* Main Body */}
                 <div className="p-8 space-y-10">
                     
-                    {/* Summary */}
-                    <section>
-                        <h3 className="text-sm font-bold uppercase tracking-widest text-white mb-4 flex items-center gap-2">
-                           <span className={`w-1 h-4 ${theme.bg}`}></span> Executive Summary
-                        </h3>
-                        <p className="text-gray-400 leading-relaxed font-light text-base">
-                            {job.summary}
-                        </p>
-                    </section>
-
-                    {/* Responsibilities */}
-                    <section>
-                        <h3 className="text-sm font-bold uppercase tracking-widest text-white mb-4 flex items-center gap-2">
-                           <span className={`w-1 h-4 ${theme.bg}`}></span> The Mandate
-                        </h3>
-                        <ul className="space-y-4">
-                            {job.responsibilities.map((item, idx) => (
-                                <li key={idx} className="flex items-start gap-4">
-                                    <div className={`w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 ${theme.bullet}`}></div>
-                                    <span className="text-gray-400 font-light leading-relaxed">{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </section>
-
-                    {/* Requirements */}
-                    <section>
-                        <h3 className="text-sm font-bold uppercase tracking-widest text-white mb-4 flex items-center gap-2">
-                           <span className={`w-1 h-4 ${theme.bg}`}></span> Candidate Profile
-                        </h3>
-                        <ul className="space-y-4">
-                            {job.requirements.map((item, idx) => (
-                                <li key={idx} className="flex items-start gap-4">
-                                    <Check size={16} className={`mt-1 flex-shrink-0 ${theme.accent}`} strokeWidth={2} />
-                                    <span className="text-gray-400 font-light leading-relaxed">{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </section>
+                    {/* Full Description (New) */}
+                    {job.description ? (
+                        <section>
+                            <h3 className="text-sm font-bold uppercase tracking-widest text-white mb-4 flex items-center gap-2">
+                               <span className={`w-1 h-4 ${theme.bg}`}></span> Job Description
+                            </h3>
+                            <div className="text-gray-400 leading-relaxed font-light text-base whitespace-pre-wrap">
+                                {job.description}
+                            </div>
+                        </section>
+                    ) : (
+                        <>
+                            {/* Summary */}
+                            <section>
+                                <h3 className="text-sm font-bold uppercase tracking-widest text-white mb-4 flex items-center gap-2">
+                                   <span className={`w-1 h-4 ${theme.bg}`}></span> Executive Summary
+                                </h3>
+                                <p className="text-gray-400 leading-relaxed font-light text-base">
+                                    {job.summary}
+                                </p>
+                            </section>
+        
+                            {/* Responsibilities */}
+                            <section>
+                                <h3 className="text-sm font-bold uppercase tracking-widest text-white mb-4 flex items-center gap-2">
+                                   <span className={`w-1 h-4 ${theme.bg}`}></span> The Mandate
+                                </h3>
+                                <ul className="space-y-4">
+                                    {job.responsibilities.map((item, idx) => (
+                                        <li key={idx} className="flex items-start gap-4">
+                                            <div className={`w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 ${theme.bullet}`}></div>
+                                            <span className="text-gray-400 font-light leading-relaxed">{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </section>
+        
+                            {/* Requirements */}
+                            <section>
+                                <h3 className="text-sm font-bold uppercase tracking-widest text-white mb-4 flex items-center gap-2">
+                                   <span className={`w-1 h-4 ${theme.bg}`}></span> Candidate Profile
+                                </h3>
+                                <ul className="space-y-4">
+                                    {job.requirements.map((item, idx) => (
+                                        <li key={idx} className="flex items-start gap-4">
+                                            <Check size={16} className={`mt-1 flex-shrink-0 ${theme.accent}`} strokeWidth={2} />
+                                            <span className="text-gray-400 font-light leading-relaxed">{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </section>
+                        </>
+                    )}
                 </div>
             </div>
 

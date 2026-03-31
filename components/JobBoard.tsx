@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Section, JobPosting } from '../types';
 import { MapPin, ArrowRight } from 'lucide-react';
 import { jobService } from '../services/jobService';
+import JobDetailDrawer from './JobDetailDrawer';
 
 interface JobBoardProps {
   onViewMore: () => void;
@@ -10,6 +11,7 @@ interface JobBoardProps {
 const JobBoard: React.FC<JobBoardProps> = ({ onViewMore }) => {
   const [jobs, setJobs] = useState<JobPosting[]>([]);
   const [hoveredJob, setHoveredJob] = useState<string | number | null>(null);
+  const [selectedJob, setSelectedJob] = useState<JobPosting | null>(null);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -18,6 +20,10 @@ const JobBoard: React.FC<JobBoardProps> = ({ onViewMore }) => {
     };
     fetchJobs();
   }, []);
+
+  const handleJobClick = (job: JobPosting) => {
+    setSelectedJob(job);
+  };
 
   // Theme Config - Monochrome Brand
   const theme = {
@@ -86,7 +92,7 @@ const JobBoard: React.FC<JobBoardProps> = ({ onViewMore }) => {
                         `}
                         onMouseEnter={() => setHoveredJob(job.id)}
                         onMouseLeave={() => setHoveredJob(null)}
-                        onClick={onViewMore}
+                        onClick={() => handleJobClick(job)}
                     >
                         {/* Hover Accent Bar */}
                         <div className={`absolute left-0 top-0 bottom-0 w-1 transition-all duration-300 ${hoveredJob === job.id ? theme.bar : 'bg-transparent'}`}></div>
@@ -135,6 +141,14 @@ const JobBoard: React.FC<JobBoardProps> = ({ onViewMore }) => {
         </div>
 
       </div>
+
+      {selectedJob && (
+        <JobDetailDrawer 
+          job={selectedJob}
+          isOpen={!!selectedJob}
+          onClose={() => setSelectedJob(null)}
+        />
+      )}
     </section>
   );
 };

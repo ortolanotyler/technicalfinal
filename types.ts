@@ -19,6 +19,7 @@ export interface JobPosting {
   salary: string;
   posted?: string;
   summary: string;
+  description?: string;
   responsibilities: string[];
   requirements: string[];
   createdAt?: string;
