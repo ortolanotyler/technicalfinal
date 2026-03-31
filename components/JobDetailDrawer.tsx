@@ -55,17 +55,17 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
 
   return (
     <>
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-8">
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center p-0 sm:p-4 md:p-8">
       {/* Backdrop */}
       <div 
-        className={`absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute inset-0 bg-black/90 backdrop-blur-xl transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}
         onClick={onClose}
       ></div>
 
       {/* Popup Panel */}
       <div 
         className={`
-          relative w-full max-w-3xl bg-brand-dark border border-white/10 rounded-sm shadow-2xl flex flex-col max-h-[90vh]
+          relative w-full max-w-3xl bg-brand-dark border-x border-white/10 sm:border sm:rounded-sm shadow-2xl flex flex-col h-full sm:h-auto max-h-full sm:max-h-[90vh]
           transform transition-all duration-300 ease-out
           ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}
         `}
@@ -73,16 +73,16 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
         {job && (
           <>
             {/* Header */}
-            <div className="flex-shrink-0 px-8 py-6 border-b border-white/10 flex justify-between items-start bg-white/[0.02]">
-              <div className="pr-8">
-                <div className="flex items-center gap-3 mb-3">
-                    <span className={`text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-1 rounded-sm border ${theme.border} ${theme.accent} ${theme.bgSoft}`}>
+            <div className="flex-shrink-0 px-6 sm:px-8 py-4 sm:py-6 border-b border-white/10 flex justify-between items-start bg-white/[0.02]">
+              <div className="pr-4 sm:pr-8">
+                <div className="flex items-center gap-3 mb-2 sm:mb-3">
+                    <span className={`text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-1 rounded-sm border ${theme.border} ${theme.accent} ${theme.bgSoft}`}>
                         REF: {job.ref}
                     </span>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight">{job.title}</h2>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-tight">{job.title}</h2>
               </div>
-              <div className="flex items-center gap-2 -mr-2">
+              <div className="flex items-center gap-1 sm:gap-2 -mr-1 sm:-mr-2">
                 <button 
                   onClick={handleShare}
                   className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-sm transition-colors relative group/share"
@@ -112,25 +112,25 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
             <div className="flex-grow overflow-y-auto custom-scrollbar">
                 
                 {/* Meta Grid */}
-                <div className="grid grid-cols-2 gap-4 p-8 border-b border-white/5 bg-white/[0.01]">
+                <div className="grid grid-cols-2 gap-4 p-6 sm:p-8 border-b border-white/5 bg-white/[0.01]">
                     <div className="space-y-1">
-                        <span className="text-xs text-gray-500 uppercase tracking-widest">Location</span>
-                        <div className="flex items-center gap-2 text-gray-300">
-                            <MapPin size={18} strokeWidth={1.5} className={theme.accent} />
+                        <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-widest">Location</span>
+                        <div className="flex items-center gap-2 text-gray-300 text-sm sm:text-base">
+                            <MapPin size={16} strokeWidth={1.5} className={theme.accent} />
                             {job.location}
                         </div>
                     </div>
                     <div className="space-y-1">
-                        <span className="text-xs text-gray-500 uppercase tracking-widest">Compensation</span>
-                        <div className="flex items-center gap-2 text-gray-300">
-                            <DollarSign size={18} strokeWidth={1.5} className={theme.accent} />
+                        <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-widest">Compensation</span>
+                        <div className="flex items-center gap-2 text-gray-300 text-sm sm:text-base">
+                            <DollarSign size={16} strokeWidth={1.5} className={theme.accent} />
                             {job.salary}
                         </div>
                     </div>
                 </div>
 
                 {/* Main Body */}
-                <div className="p-8 space-y-10">
+                <div className="p-6 sm:p-8 space-y-8 sm:space-y-10">
                     
                     {/* Full Description (New) */}
                     {job.description ? (
@@ -191,14 +191,14 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
             </div>
 
             {/* Sticky Footer */}
-            <div className="flex-shrink-0 p-8 border-t border-white/10 bg-brand-dark z-10">
+            <div className="flex-shrink-0 p-6 sm:p-8 border-t border-white/10 bg-brand-dark z-10">
                 <button 
                   onClick={() => setIsApplying(true)}
-                  className={`w-full py-4 font-bold uppercase tracking-widest text-sm rounded-sm transition-all duration-300 shadow-lg flex items-center justify-center gap-3 ${theme.button}`}
+                  className={`w-full py-3 sm:py-4 font-bold uppercase tracking-widest text-xs sm:text-sm rounded-sm transition-all duration-300 shadow-lg flex items-center justify-center gap-3 ${theme.button}`}
                 >
                     Apply for this Position <ArrowRight size={18} />
                 </button>
-                <p className="text-center text-xs text-gray-600 mt-4">
+                <p className="text-center text-[10px] text-gray-600 mt-3 sm:mt-4">
                     Reference ID: <span className="text-gray-400">{job.ref}</span> • Confidentiality Guaranteed
                 </p>
             </div>

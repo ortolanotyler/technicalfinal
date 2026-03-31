@@ -468,13 +468,13 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
 
       {/* Job Editor Modal */}
       {editingJob && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm">
-          <div className="bg-brand-dark border border-white/10 w-full max-w-2xl rounded-sm shadow-2xl flex flex-col max-h-[90vh]">
-            <div className="p-6 border-b border-white/10 flex justify-between items-center">
-              <h3 className="text-xl font-bold">{editingJob.id ? 'Edit' : 'Post'} Job Mandate</h3>
-              <button onClick={() => setEditingJob(null)} className="text-gray-500 hover:text-white"><X size={24} /></button>
+        <div className="fixed inset-0 z-[120] flex items-center justify-center p-0 sm:p-6 bg-black/80 backdrop-blur-sm">
+          <div className="bg-brand-dark border-x border-white/10 sm:border sm:rounded-sm w-full max-w-2xl shadow-2xl flex flex-col h-full sm:h-auto max-h-full sm:max-h-[90vh]">
+            <div className="flex-shrink-0 p-4 sm:p-6 border-b border-white/10 flex justify-between items-center bg-white/[0.02]">
+              <h3 className="text-lg sm:text-xl font-bold">{editingJob.id ? 'Edit' : 'Post'} Job Mandate</h3>
+              <button onClick={() => setEditingJob(null)} className="text-gray-500 hover:text-white p-2"><X size={24} /></button>
             </div>
-            <div className="p-8 overflow-y-auto space-y-6">
+            <div className="flex-grow overflow-y-auto p-6 sm:p-8 space-y-6 custom-scrollbar">
               {error && (
                 <div className="flex items-center gap-2 text-red-400 text-xs bg-red-400/10 p-3 rounded-sm">
                   <AlertCircle size={14} />
@@ -562,17 +562,17 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                 />
               </div>
             </div>
-            <div className="p-6 border-t border-white/10 bg-brand-navy/20 flex justify-end gap-4">
+            <div className="flex-shrink-0 p-4 sm:p-6 border-t border-white/10 bg-brand-navy/20 flex justify-end gap-3 sm:gap-4">
               <button 
                 onClick={() => setEditingJob(null)}
-                className="px-6 py-3 text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-all"
+                className="px-4 sm:px-6 py-2 sm:py-3 text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-all"
               >
                 Cancel
               </button>
               <button 
                 onClick={handleSaveJob}
                 disabled={loading}
-                className="bg-brand-silver hover:bg-white text-black px-8 py-3 rounded-sm font-bold uppercase tracking-widest text-xs flex items-center gap-2 transition-all"
+                className="bg-brand-silver hover:bg-white text-black px-6 sm:px-8 py-2 sm:py-3 rounded-sm font-bold uppercase tracking-widest text-xs flex items-center gap-2 transition-all"
               >
                 {loading ? <Loader2 className="animate-spin" size={16} /> : <Save size={16} />}
                 Save Mandate
@@ -584,13 +584,13 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
 
       {/* Post Editor Modal */}
       {editingPost && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm">
-          <div className="bg-brand-dark border border-white/10 w-full max-w-lg rounded-sm shadow-2xl flex flex-col">
-            <div className="p-6 border-b border-white/10 flex justify-between items-center">
-              <h3 className="text-xl font-bold">Add Insight</h3>
-              <button onClick={() => setEditingPost(null)} className="text-gray-500 hover:text-white"><X size={24} /></button>
+        <div className="fixed inset-0 z-[120] flex items-center justify-center p-0 sm:p-6 bg-black/80 backdrop-blur-sm">
+          <div className="bg-brand-dark border-x border-white/10 sm:border sm:rounded-sm w-full max-w-lg shadow-2xl flex flex-col h-full sm:h-auto max-h-full sm:max-h-[90vh]">
+            <div className="flex-shrink-0 p-4 sm:p-6 border-b border-white/10 flex justify-between items-center bg-white/[0.02]">
+              <h3 className="text-lg sm:text-xl font-bold">Add Insight</h3>
+              <button onClick={() => setEditingPost(null)} className="text-gray-500 hover:text-white p-2"><X size={24} /></button>
             </div>
-            <div className="p-8 space-y-6">
+            <div className="flex-grow overflow-y-auto p-6 sm:p-8 space-y-6 custom-scrollbar">
               {error && (
                 <div className="flex items-center gap-2 text-red-400 text-xs bg-red-400/10 p-3 rounded-sm">
                   <AlertCircle size={14} />
@@ -618,17 +618,17 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                 />
               </div>
             </div>
-            <div className="p-6 border-t border-white/10 bg-brand-navy/20 flex justify-end gap-4">
+            <div className="flex-shrink-0 p-4 sm:p-6 border-t border-white/10 bg-brand-navy/20 flex justify-end gap-3 sm:gap-4">
               <button 
                 onClick={() => setEditingPost(null)}
-                className="px-6 py-3 text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-all"
+                className="px-4 sm:px-6 py-2 sm:py-3 text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-all"
               >
                 Cancel
               </button>
               <button 
                 onClick={handleSavePost}
                 disabled={loading}
-                className="bg-[#0077B5] hover:bg-white hover:text-[#0077B5] text-white px-8 py-3 rounded-sm font-bold uppercase tracking-widest text-xs flex items-center gap-2 transition-all"
+                className="bg-[#0077B5] hover:bg-white hover:text-[#0077B5] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-sm font-bold uppercase tracking-widest text-xs flex items-center gap-2 transition-all"
               >
                 {loading ? <Loader2 className="animate-spin" size={16} /> : <Linkedin size={16} />}
                 Publish Insight

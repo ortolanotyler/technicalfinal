@@ -117,7 +117,7 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
         </header>
 
         {/* Roles Grid */}
-        <main className="flex-grow pt-24 pb-24 px-6 lg:px-8 z-10">
+        <main className="flex-grow pt-24 pb-24 px-6 lg:px-8 relative">
             <SEO title="Active Job Mandates" description="Explore current technical and skilled trades job opportunities at Certus Technical Search." />
             <div className="max-w-7xl mx-auto">
                 <h1 className="sr-only">Certus Group Technical Search - Job Board</h1>

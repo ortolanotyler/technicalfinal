@@ -114,7 +114,7 @@ const App: React.FC = () => {
           onNavigate={handleNavigate} 
         />
         
-        <main className="relative z-10">
+        <main className="relative">
           <Hero />
           <IndustriesServed />
           <LinkedInFeed />

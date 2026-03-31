@@ -77,15 +77,15 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
   };
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6">
+    <div className="fixed inset-0 z-[1100] flex items-center justify-center p-0 sm:p-6">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity duration-300 animate-[fadeIn_0.3s_ease-out]"
+        className="absolute inset-0 bg-black/90 backdrop-blur-xl transition-opacity duration-300 animate-[fadeIn_0.3s_ease-out]"
         onClick={onClose}
       ></div>
 
       {/* Modal Card */}
-      <div className="relative w-full max-w-lg bg-brand-dark border border-white/10 rounded-sm shadow-2xl overflow-hidden animate-[scaleIn_0.3s_ease-out]">
+      <div className="relative w-full max-w-lg bg-brand-dark border-x border-white/10 sm:border sm:rounded-sm shadow-2xl overflow-hidden animate-[scaleIn_0.3s_ease-out] flex flex-col h-full sm:h-auto max-h-full sm:max-h-[85vh]">
         <style>{`
           @keyframes scaleIn {
             from { opacity: 0; transform: scale(0.95); }
@@ -98,10 +98,10 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
         `}</style>
         
         {/* Header */}
-        <div className="flex justify-between items-center px-8 py-6 border-b border-white/10 bg-white/[0.02]">
+        <div className="flex-shrink-0 flex justify-between items-center px-6 sm:px-8 py-4 sm:py-6 border-b border-white/10 bg-white/[0.02]">
            <div>
-             <h3 className="text-xl font-bold text-white tracking-tight">Application</h3>
-             <p className="text-xs text-gray-500 uppercase tracking-wider mt-1 font-mono">REF: {job.ref}</p>
+             <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">Application</h3>
+             <p className="text-[10px] text-gray-500 uppercase tracking-wider mt-0.5 font-mono">REF: {job.ref}</p>
            </div>
            <button 
              onClick={onClose} 
@@ -111,9 +111,9 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
            </button>
         </div>
 
-        <div className="p-8 bg-brand-navy/30">
+        <div className="flex-grow overflow-y-auto p-6 sm:p-8 bg-brand-navy/30 custom-scrollbar">
            {(step === 'form' || step === 'error') && (
-             <form onSubmit={handleSubmit} className="space-y-6">
+             <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
                 {step === 'error' && (
                   <p className="text-red-400 text-xs font-medium text-center">Something went wrong. Please try again.</p>
                 )}
