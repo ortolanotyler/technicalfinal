@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { JobPosting } from '../types';
-import { ArrowLeft, MapPin, DollarSign, ArrowRight } from 'lucide-react';
+import { ArrowLeft, MapPin, DollarSign, ArrowRight, Share2, Check } from 'lucide-react';
 import JobDetailDrawer from './JobDetailDrawer';
 import { jobService } from '../services/jobService';
 import SEO from './SEO';
@@ -14,6 +14,7 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
   const [selectedJob, setSelectedJob] = useState<JobPosting | null>(null);
   const [jobs, setJobs] = useState<JobPosting[]>([]);
   const [loading, setLoading] = useState(true);
+  const [copiedId, setCopiedId] = useState<string | number | null>(null);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -45,6 +46,35 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
       window.history.pushState({}, '', '/jobs');
     }
   }, [selectedJob]);
+
+  const handleShare = (e: React.MouseEvent, jobId: string | number) => {
+    e.stopPropagation();
+    const url = `${window.location.origin}/jobs/${jobId}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopiedId(jobId);
+      setTimeout(() => setCopiedId(null), 2000);
+    });
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      if (path.startsWith('/jobs/')) {
+        const jobId = path.split('/jobs/')[1];
+        const job = jobs.find(j => String(j.id) === jobId);
+        if (job) {
+          setSelectedJob(job);
+        } else {
+          setSelectedJob(null);
+        }
+      } else {
+        setSelectedJob(null);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [jobs]);
 
   // Theme Config synced with Services
   const theme = {
@@ -121,6 +151,22 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
                                         <span className="font-mono text-[10px] text-gray-600 uppercase tracking-widest px-2 py-1 border border-white/5 rounded-sm">
                                             REF: {job.ref}
                                         </span>
+                                        <button 
+                                            onClick={(e) => handleShare(e, job.id)}
+                                            className="p-2 rounded-sm border border-white/5 hover:border-brand-silver/30 hover:bg-white/5 transition-all group/share relative"
+                                            title="Copy Job Link"
+                                        >
+                                            {copiedId === job.id ? (
+                                                <Check size={14} className="text-green-400" />
+                                            ) : (
+                                                <Share2 size={14} className="text-gray-500 group-hover/share:text-brand-silver" />
+                                            )}
+                                            {copiedId === job.id && (
+                                                <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-brand-navy border border-white/10 text-[10px] text-white px-2 py-1 rounded-sm whitespace-nowrap animate-in fade-in slide-in-from-bottom-1">
+                                                    Link Copied
+                                                </span>
+                                            )}
+                                        </button>
                                     </div>
 
                                     <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-brand-silver transition-colors tracking-tight leading-tight text-balance">

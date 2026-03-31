@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { JobPosting } from '../types';
-import { X, MapPin, DollarSign, Check, ArrowRight } from 'lucide-react';
+import { X, MapPin, DollarSign, Check, ArrowRight, Share2 } from 'lucide-react';
 import ApplicationModal from './ApplicationModal';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -16,6 +16,7 @@ interface JobDetailDrawerProps {
 const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose }) => {
   const [visible, setVisible] = useState(false);
   const [isApplying, setIsApplying] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -30,6 +31,15 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
       document.body.style.overflow = '';
     };
   }, [isOpen]);
+
+  const handleShare = () => {
+    if (!job) return;
+    const url = `${window.location.origin}/jobs/${job.id}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   if (!visible && !isOpen) return null;
 
@@ -72,12 +82,30 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
                 </div>
                 <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight">{job.title}</h2>
               </div>
-              <button 
-                onClick={onClose}
-                className="p-2 -mr-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-sm transition-colors"
-              >
-                <X size={24} strokeWidth={1.5} />
-              </button>
+              <div className="flex items-center gap-2 -mr-2">
+                <button 
+                  onClick={handleShare}
+                  className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-sm transition-colors relative group/share"
+                  title="Copy Job Link"
+                >
+                  {copied ? (
+                    <Check size={20} className="text-green-400" />
+                  ) : (
+                    <Share2 size={20} strokeWidth={1.5} />
+                  )}
+                  {copied && (
+                    <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-brand-navy border border-white/10 text-[10px] text-white px-2 py-1 rounded-sm whitespace-nowrap">
+                      Link Copied
+                    </span>
+                  )}
+                </button>
+                <button 
+                  onClick={onClose}
+                  className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-sm transition-colors"
+                >
+                  <X size={24} strokeWidth={1.5} />
+                </button>
+              </div>
             </div>
 
             {/* Scrollable Content */}
