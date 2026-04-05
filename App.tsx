@@ -98,7 +98,7 @@ const App: React.FC = () => {
 
     return (
       <div className="min-h-screen font-sans opacity-0 animate-[fadeIn_1.2s_ease-out_forwards] transition-colors duration-1000 bg-brand-dark text-white selection:bg-brand-silver selection:text-black">
-        <SEO />
+        <SEO title="Certus Technical Search" />
         <style>{`
           @keyframes fadeIn {
             from { opacity: 0; }

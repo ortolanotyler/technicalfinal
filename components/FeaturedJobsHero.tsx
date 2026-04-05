@@ -97,11 +97,6 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ onViewJobs }) => {
           </div>
         ) : (
           <div className="space-y-8">
-            {/* JobPosting Structured Data */}
-            {allJobs.map((job) => (
-              <SEO key={`seo-${job.id}`} job={job} title={`${job.title} in ${job.location}`} />
-            ))}
-            
             <div className="space-y-4">
               {displayedJobs.map((job) => (
                 <div 
@@ -109,6 +104,9 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ onViewJobs }) => {
                   onClick={() => handleJobClick(job)}
                   className="group relative bg-white/[0.02] border border-white/5 p-6 md:p-8 rounded-sm hover:border-brand-silver/40 transition-all duration-500 cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-6"
                 >
+                  {/* SEO Structured Data for each job - schemaOnly to avoid overwriting page title */}
+                  <SEO key={`seo-${job.id}`} job={job} schemaOnly={true} />
+                  
                   {/* Hover Accent */}
                   <div className="absolute top-0 left-0 w-[2px] h-full bg-brand-silver scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-top"></div>
                   
