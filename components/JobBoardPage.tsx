@@ -20,7 +20,13 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
     const fetchJobs = async () => {
       setLoading(true);
       const data = await jobService.getJobsByDomain();
-      setJobs(data);
+      // Sort featured jobs to the top
+      const sortedJobs = [...data].sort((a, b) => {
+        if (a.isFeatured && !b.isFeatured) return -1;
+        if (!a.isFeatured && b.isFeatured) return 1;
+        return 0;
+      });
+      setJobs(sortedJobs);
       setLoading(false);
       
       // Handle initial job selection from URL

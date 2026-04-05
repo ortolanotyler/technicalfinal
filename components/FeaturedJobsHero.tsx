@@ -21,7 +21,13 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ onViewJobs }) => {
     const fetchJobs = async () => {
       setLoading(true);
       const jobsData = await jobService.getJobsByDomain();
-      setAllJobs(jobsData);
+      // Sort featured jobs to the top
+      const sortedJobs = [...jobsData].sort((a, b) => {
+        if (a.isFeatured && !b.isFeatured) return -1;
+        if (!a.isFeatured && b.isFeatured) return 1;
+        return 0;
+      });
+      setAllJobs(sortedJobs);
       setLoading(false);
     };
     fetchJobs();

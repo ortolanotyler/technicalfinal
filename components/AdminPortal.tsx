@@ -19,7 +19,8 @@ import {
   CheckCircle2,
   AlertCircle,
   Download,
-  ShieldCheck
+  ShieldCheck,
+  Star
 } from 'lucide-react';
 
 interface AdminPortalProps {
@@ -117,6 +118,28 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
       setDeleteError('Failed to delete job. Please try again.');
     } finally {
       setIsDeleting(false);
+    }
+  };
+
+  const handleToggleFeatured = async (job: JobPosting) => {
+    const featuredCount = jobs.filter(j => j.isFeatured).length;
+    if (!job.isFeatured && featuredCount >= 3) {
+      setError('You can only feature up to 3 jobs at a time.');
+      setTimeout(() => setError(null), 3000);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await jobService.saveJob({
+        ...job,
+        isFeatured: !job.isFeatured
+      });
+      await fetchData();
+    } catch (err) {
+      setError('Failed to update featured status');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -374,6 +397,13 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                     </div>
                     <div className="flex items-center gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                       <button 
+                        onClick={() => handleToggleFeatured(job)}
+                        className={`p-2 transition-colors ${job.isFeatured ? 'text-yellow-400' : 'text-gray-400 hover:text-yellow-400'}`}
+                        title={job.isFeatured ? "Unfeature Job" : "Feature Job"}
+                      >
+                        <Star size={18} fill={job.isFeatured ? "currentColor" : "none"} />
+                      </button>
+                      <button 
                         onClick={() => setEditingJob(job)}
                         className="p-2 text-gray-400 hover:text-white transition-colors"
                       >
@@ -492,13 +522,22 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Sector</label>
-                  <input 
-                    type="text" 
-                    value="Skilled Trades & Operations"
-                    disabled
-                    className="w-full bg-brand-navy/10 border border-white/5 rounded-sm px-4 py-3 text-gray-500 text-sm focus:outline-none"
-                  />
+                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Featured Status</label>
+                  <button 
+                    onClick={() => {
+                      const featuredCount = jobs.filter(j => j.isFeatured && j.id !== editingJob.id).length;
+                      if (!editingJob.isFeatured && featuredCount >= 3) {
+                        setError('You can only feature up to 3 jobs at a time.');
+                        setTimeout(() => setError(null), 3000);
+                        return;
+                      }
+                      setEditingJob({...editingJob, isFeatured: !editingJob.isFeatured});
+                    }}
+                    className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-sm border transition-all text-xs font-bold uppercase tracking-widest ${editingJob.isFeatured ? 'bg-yellow-400/10 border-yellow-400/50 text-yellow-400' : 'bg-brand-navy/30 border-white/10 text-gray-500 hover:border-white/20'}`}
+                  >
+                    <Star size={14} fill={editingJob.isFeatured ? "currentColor" : "none"} />
+                    {editingJob.isFeatured ? 'Featured' : 'Not Featured'}
+                  </button>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-6">

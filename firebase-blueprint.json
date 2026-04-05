@@ -15,6 +15,7 @@
         "summary": { "type": "string", "description": "A summary of the job" },
         "responsibilities": { "type": "array", "items": { "type": "string" }, "description": "A list of job responsibilities" },
         "requirements": { "type": "array", "items": { "type": "string" }, "description": "A list of job requirements" },
+        "isFeatured": { "type": "boolean", "description": "Whether the job is featured on the landing page" },
         "createdAt": { "type": "string", "format": "date-time", "description": "The creation timestamp" },
         "updatedAt": { "type": "string", "format": "date-time", "description": "The last update timestamp" }
       },

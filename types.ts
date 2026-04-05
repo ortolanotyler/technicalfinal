@@ -22,6 +22,7 @@ export interface JobPosting {
   description?: string;
   responsibilities: string[];
   requirements: string[];
+  isFeatured?: boolean;
   createdAt?: string;
   updatedAt?: string;
 }
