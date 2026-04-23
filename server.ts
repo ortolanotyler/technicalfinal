@@ -183,19 +183,25 @@ app.post("/api/apply", async (req, res) => {
 });
 
 app.post("/api/visitor-log", async (req, res) => {
-  const { location, userAgent } = req.body;
+  const { ip, userAgent, language, referrer, screenResolution, time } = req.body;
 
   if (!process.env.SENDGRID_API_KEY) {
-    console.log("[Dev] Visitor logged:", { location, userAgent });
+    console.log("[Dev] Visitor logged:", { ip, userAgent, language, referrer, screenResolution, time });
     return res.json({ success: true });
   }
 
   const msg = {
     to: "tyler@certusgroup.com",
     from: "tyler@certusgroup.com",
-    subject: `New Site Visitor`,
-    text: `New visitor detected.\n\nLocation: ${location || 'Unknown'}\nUser Agent: ${userAgent || 'Unknown'}`,
-    html: `<h3>New Site Visitor</h3><p>Location: ${location || 'Unknown'}</p><p>User Agent: ${userAgent || 'Unknown'}</p>`,
+    subject: `New Site Visitor - ${ip || 'Unknown IP'}`,
+    text: `New visitor detected at ${time || 'Unknown Time'}.\n\nIP: ${ip}\nUser Agent: ${userAgent}\nLanguage: ${language}\nReferrer: ${referrer || 'Direct'}\nScreen: ${screenResolution}`,
+    html: `<h3>New Site Visitor</h3>
+           <p><strong>Time:</strong> ${time}</p>
+           <p><strong>IP:</strong> ${ip}</p>
+           <p><strong>User Agent:</strong> ${userAgent}</p>
+           <p><strong>Language:</strong> ${language}</p>
+           <p><strong>Referrer:</strong> ${referrer || 'Direct'}</p>
+           <p><strong>Screen:</strong> ${screenResolution}</p>`,
   };
 
   try {
