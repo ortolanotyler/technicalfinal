@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
+import { logVisitor } from './services/visitorLogger';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import LinkedInFeed from './components/LinkedInFeed';
@@ -29,6 +30,13 @@ const App: React.FC = () => {
     }
     return null;
   });
+
+  useEffect(() => {
+    // Log new visitor
+    logVisitor({
+       userAgent: navigator.userAgent
+    }).catch(console.error);
+  }, []); // Run once on mount
 
   // Ensure window scrolls to top on navigation/state change
   useEffect(() => {
@@ -108,7 +116,7 @@ const App: React.FC = () => {
         
         {/* Global Background (Solid) - Video is now handled within components like Hero for cleaner flow */}
         <div className="fixed inset-0 z-[-1] bg-brand-dark"></div>
-
+        
         <Header 
           onViewJobs={() => setView('jobs')}
           onNavigate={handleNavigate} 

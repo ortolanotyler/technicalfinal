@@ -182,6 +182,31 @@ app.post("/api/apply", async (req, res) => {
   }
 });
 
+app.post("/api/visitor-log", async (req, res) => {
+  const { location, userAgent } = req.body;
+
+  if (!process.env.SENDGRID_API_KEY) {
+    console.log("[Dev] Visitor logged:", { location, userAgent });
+    return res.json({ success: true });
+  }
+
+  const msg = {
+    to: "tyler@certusgroup.com",
+    from: "tyler@certusgroup.com",
+    subject: `New Site Visitor`,
+    text: `New visitor detected.\n\nLocation: ${location || 'Unknown'}\nUser Agent: ${userAgent || 'Unknown'}`,
+    html: `<h3>New Site Visitor</h3><p>Location: ${location || 'Unknown'}</p><p>User Agent: ${userAgent || 'Unknown'}</p>`,
+  };
+
+  try {
+    await sgMail.send(msg);
+    res.json({ success: true });
+  } catch (error) {
+    console.error("Error sending visitor email:", error);
+    res.status(500).json({ error: "Failed to send visitor notification" });
+  }
+});
+
 async function setupVite() {
   if (process.env.NODE_ENV !== "production") {
     const { createServer: createViteServer } = await import("vite");

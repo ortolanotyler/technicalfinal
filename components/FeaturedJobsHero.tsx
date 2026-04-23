@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Briefcase, MapPin, DollarSign, ArrowRight, Loader2 } from 'lucide-react';
+import { MapPin, DollarSign, ArrowRight, Loader2 } from 'lucide-react';
 import { JobPosting } from '../types';
 import { jobService } from '../services/jobService';
 import JobDetailDrawer from './JobDetailDrawer';
@@ -76,11 +76,6 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ onViewJobs }) => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-10">
           <div className="max-w-3xl">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 bg-brand-silver/10 flex items-center justify-center rounded-sm">
-                <Briefcase className="text-brand-silver" size={24} />
-              </div>
-            </div>
             <h2 className="text-4xl md:text-7xl font-medium text-white tracking-tighter leading-none">
               Active <span className="text-brand-silver italic font-serif font-light">Searches</span>
             </h2>
