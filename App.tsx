@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
-import { logVisitor } from './services/visitorLogger';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import LinkedInFeed from './components/LinkedInFeed';
@@ -30,13 +29,6 @@ const App: React.FC = () => {
     }
     return null;
   });
-
-  useEffect(() => {
-    // Log new visitor
-    logVisitor({
-       userAgent: navigator.userAgent
-    }).catch(console.error);
-  }, []); // Run once on mount
 
   // Ensure window scrolls to top on navigation/state change
   useEffect(() => {
