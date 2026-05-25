@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { JobPosting } from '../types';
 import { X, MapPin, DollarSign, Check, ArrowRight, Share2 } from 'lucide-react';
 import ApplicationModal from './ApplicationModal';
@@ -72,6 +73,42 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
       >
         {job && (
           <>
+            <Helmet>
+              <script type="application/ld+json">
+                {JSON.stringify({
+                  "@context": "https://schema.org/",
+                  "@type": "JobPosting",
+                  "title": job.title,
+                  "description": job.description || job.summary,
+                  "identifier": {
+                    "@type": "PropertyValue",
+                    "name": "Certus Technical Search",
+                    "value": job.ref
+                  },
+                  "hiringOrganization": {
+                    "@type": "Organization",
+                    "name": "Certus Technical Search",
+                    "sameAs": window.location.origin
+                  },
+                  "jobLocation": {
+                    "@type": "Place",
+                    "address": {
+                      "@type": "PostalAddress",
+                      "addressLocality": job.location
+                    }
+                  },
+                  "baseSalary": {
+                    "@type": "MonetaryAmount",
+                    "currency": "USD",
+                    "value": {
+                      "@type": "QuantitativeValue",
+                      "value": job.salary
+                    }
+                  },
+                  "employmentType": job.type
+                })}
+              </script>
+            </Helmet>
             {/* Header */}
             <div className="flex-shrink-0 px-6 sm:px-8 py-4 sm:py-6 border-b border-white/10 flex justify-between items-start bg-white/[0.02]">
               <div className="pr-4 sm:pr-8">
