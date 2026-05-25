@@ -16,15 +16,18 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
     firstName: '',
     lastName: '',
     email: '',
+    phone: '',
     linkedin: ''
   });
+  const [resumeBase64, setResumeBase64] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (isOpen) {
         setStep('form');
         setFileName(null);
-        setFormData({ firstName: '', lastName: '', email: '', linkedin: '' });
+        setResumeBase64(null);
+        setFormData({ firstName: '', lastName: '', email: '', phone: '', linkedin: '' });
     }
   }, [isOpen]);
 
@@ -50,7 +53,9 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
         body: JSON.stringify({
           ...formData,
           jobTitle: job.title,
-          jobRef: job.ref
+          jobRef: job.ref,
+          resumeBase64,
+          resumeName: fileName
         }),
       });
 
@@ -72,7 +77,14 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setFileName(e.target.files[0].name);
+      const file = e.target.files[0];
+      setFileName(file.name);
+      
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setResumeBase64(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -117,45 +129,58 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
                 {step === 'error' && (
                   <p className="text-red-400 text-xs font-medium text-center">Something went wrong. Please try again.</p>
                 )}
-                <div className="grid grid-cols-2 gap-6">
-                   <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">First Name</label>
-                      <input 
-                        type="text" 
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleInputChange}
-                        required 
-                        className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`}
-                        placeholder="Jane" 
-                      />
-                   </div>
-                   <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Last Name</label>
-                      <input 
-                        type="text" 
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                        required 
-                        className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`} 
-                        placeholder="Doe"
-                      />
-                   </div>
-                </div>
+                    <div className="grid grid-cols-2 gap-6">
+                       <div className="space-y-2">
+                          <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">First Name</label>
+                          <input 
+                            type="text" 
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleInputChange}
+                            required 
+                            className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`}
+                            placeholder="Jane" 
+                          />
+                       </div>
+                       <div className="space-y-2">
+                          <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Last Name</label>
+                          <input 
+                            type="text" 
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleInputChange}
+                            required 
+                            className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`} 
+                            placeholder="Doe"
+                          />
+                       </div>
+                    </div>
 
-                <div className="space-y-2">
-                   <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Email Address</label>
-                   <input 
-                     type="email" 
-                     name="email"
-                     value={formData.email}
-                     onChange={handleInputChange}
-                     required 
-                     className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`}
-                     placeholder="jane.doe@example.com"
-                   />
-                </div>
+                    <div className="grid grid-cols-2 gap-6">
+                       <div className="space-y-2">
+                          <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Email Address</label>
+                          <input 
+                            type="email" 
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            required 
+                            className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`}
+                            placeholder="jane.doe@example.com"
+                          />
+                       </div>
+                       <div className="space-y-2">
+                          <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Phone Number</label>
+                          <input 
+                            type="tel" 
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleInputChange}
+                            className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`} 
+                            placeholder="+1 (555) 000-0000"
+                          />
+                       </div>
+                    </div>
 
                 <div className="space-y-2">
                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Profile URL</label>

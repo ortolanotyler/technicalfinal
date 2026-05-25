@@ -13,8 +13,22 @@ interface JobBoardPageProps {
 const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => {
   const [selectedJob, setSelectedJob] = useState<JobPosting | null>(null);
   const [jobs, setJobs] = useState<JobPosting[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState<string>('All');
+  const [selectedType, setSelectedType] = useState<string>('All');
   const [loading, setLoading] = useState(true);
   const [copiedId, setCopiedId] = useState<string | number | null>(null);
+
+  const filteredJobs = jobs.filter(job => {
+    const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          job.summary.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesLocation = selectedLocation === 'All' || job.location === selectedLocation;
+    const matchesType = selectedType === 'All' || job.type === selectedType;
+    return matchesSearch && matchesLocation && matchesType;
+  });
+
+  const locations = ['All', ...Array.from(new Set(jobs.map(j => j.location)))];
+  const types = ['All', ...Array.from(new Set(jobs.map(j => j.type)))];
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -131,17 +145,34 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
                     <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
                         Active <span className="text-brand-silver italic font-serif font-light">Mandates</span>
                     </h2>
+                    
+                    <div className="mt-8 flex flex-col md:flex-row gap-4">
+                        <input 
+                            type="text" 
+                            placeholder="Search mandates..." 
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="bg-white/[0.02] border border-white/10 rounded-sm px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-brand-silver flex-grow"
+                        />
+                        <select onChange={(e) => setSelectedLocation(e.target.value)} className="bg-white/[0.02] border border-white/10 rounded-sm px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-silver">
+                            {locations.map(loc => <option key={loc} value={loc}>{loc}</option>)}
+                        </select>
+                        <select onChange={(e) => setSelectedType(e.target.value)} className="bg-white/[0.02] border border-white/10 rounded-sm px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-silver">
+                            {types.map(type => <option key={type} value={type}>{type}</option>)}
+                        </select>
+                    </div>
+
                     <p className="mt-4 text-gray-500 text-sm font-light uppercase tracking-widest">
-                        Showing {jobs.length} Priority Search Opportunities
+                        Showing {filteredJobs.length} Priority Search Opportunities
                     </p>
                 </div>
-                {jobs.length > 0 ? (
+                {filteredJobs.length > 0 ? (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         {/* JobPosting Structured Data */}
-                        {jobs.map((job) => (
+                        {filteredJobs.map((job) => (
                             <SEO key={`seo-${job.id}`} job={job} schemaOnly={true} />
                         ))}
-                        {jobs.map((job) => (
+                        {filteredJobs.map((job) => (
                             <div 
                                 key={job.id} 
                                 onClick={() => setSelectedJob(job)}
