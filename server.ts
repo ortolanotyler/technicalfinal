@@ -140,6 +140,8 @@ app.post("/api/apply", async (req, res) => {
     return res.json({ success: true, message: "Dev mode: Application logged to console" });
   }
 
+  console.log('Applying for job:', jobTitle, 'from', email);
+  
   const msg: any = {
     to: "recruit@certusgroup.com",
     from: "tyler@certusgroup.com",
@@ -163,6 +165,7 @@ app.post("/api/apply", async (req, res) => {
   };
 
   if (resumeBase64) {
+    console.log('Adding resume attachment:', resumeName);
     msg.attachments = [
       {
         content: resumeBase64.split(',')[1],
@@ -174,11 +177,16 @@ app.post("/api/apply", async (req, res) => {
   }
 
   try {
+    console.log('Sending email...');
     await sgMail.send(msg);
+    console.log('Email sent successfully');
     res.json({ success: true });
   } catch (error) {
     console.error("Error sending application email:", error);
-    res.status(500).json({ error: "Failed to send application" });
+    if ((error as any).response) {
+        console.error("SendGrid error response body:", JSON.stringify((error as any).response.body, null, 2));
+    }
+    res.status(500).json({ error: "Failed to send application", details: (error as any).message });
   }
 });
 
