@@ -86,10 +86,19 @@ app.get("/sitemap.xml", async (req, res) => {
   }
 });
 
-// Resumes are sent as base64 data URLs in the JSON body. A 5MB file becomes
-// ~6.7MB once base64-encoded, so the default 100kb limit must be raised or
-// applications fail with a 413 before reaching the /api/apply handler.
-app.use(express.json({ limit: '10mb' }));
+// Body parsing. Two environments to satisfy:
+//   - Local (tsx server.ts): nothing parses the body, so express.json() must.
+//   - Vercel (@vercel/node): the platform ALREADY parses JSON bodies and
+//     consumes the request stream before Express runs. Calling express.json()
+//     again makes body-parser wait on an already-ended stream forever, which
+//     hangs the request (the "stuck processing" symptom).
+// So only run express.json() when the body hasn't been parsed yet. Resumes are
+// base64 data URLs, so the limit must be well above the 100kb default.
+const jsonParser = express.json({ limit: '10mb' });
+app.use((req, res, next) => {
+  if (req.body !== undefined && req.body !== null) return next();
+  jsonParser(req, res, next);
+});
 
 // A valid SendGrid key starts with "SG.". Treat anything else (unset, or a
 // placeholder like "a" used in dev) as "no key configured" so we fall back to
