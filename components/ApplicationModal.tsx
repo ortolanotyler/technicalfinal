@@ -20,13 +20,20 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
     linkedin: ''
   });
   const [resumeBase64, setResumeBase64] = useState<string | null>(null);
+  const [fileError, setFileError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Vercel rejects request bodies over 4.5MB, and base64 encoding inflates the
+  // file by ~33%, so the real safe original-file size is ~3MB. Guard for it
+  // client-side so applicants get a clear message instead of a server failure.
+  const MAX_FILE_BYTES = 3 * 1024 * 1024;
 
   useEffect(() => {
     if (isOpen) {
         setStep('form');
         setFileName(null);
         setResumeBase64(null);
+        setFileError(null);
         setFormData({ firstName: '', lastName: '', email: '', phone: '', linkedin: '' });
     }
   }, [isOpen]);
@@ -78,8 +85,18 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
+
+      if (file.size > MAX_FILE_BYTES) {
+        setFileError('That file is too large. Please upload a resume under 3 MB.');
+        setFileName(null);
+        setResumeBase64(null);
+        e.target.value = '';
+        return;
+      }
+
+      setFileError(null);
       setFileName(file.name);
-      
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setResumeBase64(reader.result as string);
@@ -225,11 +242,14 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
                             </div>
                             <div>
                                 <p className="text-sm text-gray-300 font-medium">Click to upload resume</p>
-                                <p className="text-[10px] text-gray-600 uppercase mt-1">PDF or Word (Max 5MB)</p>
+                                <p className="text-[10px] text-gray-600 uppercase mt-1">PDF or Word (Max 3MB)</p>
                             </div>
                          </div>
                       )}
                    </div>
+                   {fileError && (
+                     <p className="text-red-400 text-xs font-medium">{fileError}</p>
+                   )}
                 </div>
 
                 <div className="pt-4">
