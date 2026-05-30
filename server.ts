@@ -86,27 +86,10 @@ app.get("/sitemap.xml", async (req, res) => {
   }
 });
 
-// Body parsing. Two environments to satisfy:
-//   - Local (tsx server.ts): nothing parses the body, so express.json() must.
-//   - Vercel (@vercel/node): the platform ALREADY parses JSON bodies and
-//     consumes the request stream before Express runs. Calling express.json()
-//     again makes body-parser wait on an already-ended stream forever, which
-//     hangs the request (the "stuck processing" symptom).
-// So only run express.json() when the body hasn't been parsed yet. Resumes are
-// base64 data URLs, so the limit must be well above the 100kb default.
-const jsonParser = express.json({ limit: '10mb' });
-app.use((req, res, next) => {
-  if (req.body !== undefined && req.body !== null) return next();
-  jsonParser(req, res, next);
-});
+app.use(express.json());
 
-// A valid SendGrid key starts with "SG.". Treat anything else (unset, or a
-// placeholder like "a" used in dev) as "no key configured" so we fall back to
-// console logging instead of attempting a real send that 401s.
-const hasSendGrid = !!process.env.SENDGRID_API_KEY?.startsWith('SG.');
-
-if (hasSendGrid) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
+if (process.env.SENDGRID_API_KEY) {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 }
 
 // Email API routes
@@ -117,7 +100,7 @@ app.post("/api/contact", async (req, res) => {
     return res.status(400).json({ error: "Name and Email are required" });
   }
 
-  if (!hasSendGrid) {
+  if (!process.env.SENDGRID_API_KEY) {
     console.log("[Dev] Contact form submission:", { name, email, company, message });
     return res.json({ success: true, message: "Dev mode: Email logged to console" });
   }
@@ -152,7 +135,7 @@ app.post("/api/apply", async (req, res) => {
     return res.status(400).json({ error: "Required fields missing" });
   }
 
-  if (!hasSendGrid) {
+  if (!process.env.SENDGRID_API_KEY) {
     console.log("[Dev] Job application:", { firstName, lastName, email, jobTitle });
     return res.json({ success: true, message: "Dev mode: Application logged to console" });
   }
@@ -180,17 +163,11 @@ app.post("/api/apply", async (req, res) => {
   };
 
   if (resumeBase64) {
-    const ext = (resumeName || '').split('.').pop()?.toLowerCase();
-    const mimeByExt: Record<string, string> = {
-      pdf: 'application/pdf',
-      doc: 'application/msword',
-      docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    };
     msg.attachments = [
       {
         content: resumeBase64.split(',')[1],
         filename: resumeName || 'resume.pdf',
-        type: (ext && mimeByExt[ext]) || 'application/octet-stream',
+        type: 'application/pdf',
         disposition: 'attachment',
       },
     ];
