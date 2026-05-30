@@ -86,6 +86,9 @@ app.get("/sitemap.xml", async (req, res) => {
   }
 });
 
+// Resumes are sent as base64 data URLs in the JSON body. A 5MB file becomes
+// ~6.7MB once base64-encoded, so the default 100kb limit must be raised or
+// applications fail with a 413 before reaching the /api/apply handler.
 app.use(express.json({ limit: '10mb' }));
 
 if (process.env.SENDGRID_API_KEY) {
@@ -129,11 +132,9 @@ app.post("/api/contact", async (req, res) => {
 });
 
 app.post("/api/apply", async (req, res) => {
-  console.log('POST /api/apply reached');
   const { firstName, lastName, email, phone, linkedin, jobTitle, jobRef, resumeBase64, resumeName } = req.body;
 
   if (!email || !firstName || !lastName) {
-    console.warn("Application missing required fields:", { firstName, lastName, email });
     return res.status(400).json({ error: "Required fields missing" });
   }
 
@@ -142,14 +143,12 @@ app.post("/api/apply", async (req, res) => {
     return res.json({ success: true, message: "Dev mode: Application logged to console" });
   }
 
-  console.log('Applying for job:', jobTitle, 'from', email);
-  
   const msg: any = {
     to: "recruit@certusgroup.com",
     from: "tyler@certusgroup.com",
-    subject: `New Job Application: ${jobTitle || 'Unknown Job'} (${jobRef || 'No Ref'})`,
+    subject: `New Job Application: ${jobTitle} (${jobRef || 'No Ref'})`,
     text: `
-      New application for ${jobTitle || 'Unknown Job'} (${jobRef || 'No Ref'})
+      New application for ${jobTitle} (${jobRef || 'No Ref'})
       
       Name: ${firstName} ${lastName}
       Email: ${email}
@@ -158,7 +157,7 @@ app.post("/api/apply", async (req, res) => {
     `,
     html: `
       <h3>New Job Application</h3>
-      <p><strong>Job:</strong> ${jobTitle || 'Unknown Job'} (${jobRef || 'No Ref'})</p>
+      <p><strong>Job:</strong> ${jobTitle} (${jobRef || 'No Ref'})</p>
       <p><strong>Name:</strong> ${firstName} ${lastName}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
@@ -167,28 +166,28 @@ app.post("/api/apply", async (req, res) => {
   };
 
   if (resumeBase64) {
-    console.log('Adding resume attachment:', resumeName);
+    const ext = (resumeName || '').split('.').pop()?.toLowerCase();
+    const mimeByExt: Record<string, string> = {
+      pdf: 'application/pdf',
+      doc: 'application/msword',
+      docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    };
     msg.attachments = [
       {
         content: resumeBase64.split(',')[1],
         filename: resumeName || 'resume.pdf',
-        type: 'application/pdf',
+        type: (ext && mimeByExt[ext]) || 'application/octet-stream',
         disposition: 'attachment',
       },
     ];
   }
 
   try {
-    console.log('Sending email...');
     await sgMail.send(msg);
-    console.log('Email sent successfully');
     res.json({ success: true });
   } catch (error) {
     console.error("Error sending application email:", error);
-    if ((error as any).response) {
-        console.error("SendGrid error response body:", JSON.stringify((error as any).response.body, null, 2));
-    }
-    res.status(500).json({ error: "Failed to send application", details: (error as any).message });
+    res.status(500).json({ error: "Failed to send application" });
   }
 });
 
