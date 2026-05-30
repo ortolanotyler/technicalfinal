@@ -129,9 +129,11 @@ app.post("/api/contact", async (req, res) => {
 });
 
 app.post("/api/apply", async (req, res) => {
+  console.log('POST /api/apply reached');
   const { firstName, lastName, email, phone, linkedin, jobTitle, jobRef, resumeBase64, resumeName } = req.body;
 
   if (!email || !firstName || !lastName) {
+    console.warn("Application missing required fields:", { firstName, lastName, email });
     return res.status(400).json({ error: "Required fields missing" });
   }
 
@@ -145,9 +147,9 @@ app.post("/api/apply", async (req, res) => {
   const msg: any = {
     to: "recruit@certusgroup.com",
     from: "tyler@certusgroup.com",
-    subject: `New Job Application: ${jobTitle} (${jobRef || 'No Ref'})`,
+    subject: `New Job Application: ${jobTitle || 'Unknown Job'} (${jobRef || 'No Ref'})`,
     text: `
-      New application for ${jobTitle} (${jobRef || 'No Ref'})
+      New application for ${jobTitle || 'Unknown Job'} (${jobRef || 'No Ref'})
       
       Name: ${firstName} ${lastName}
       Email: ${email}
@@ -156,7 +158,7 @@ app.post("/api/apply", async (req, res) => {
     `,
     html: `
       <h3>New Job Application</h3>
-      <p><strong>Job:</strong> ${jobTitle} (${jobRef || 'No Ref'})</p>
+      <p><strong>Job:</strong> ${jobTitle || 'Unknown Job'} (${jobRef || 'No Ref'})</p>
       <p><strong>Name:</strong> ${firstName} ${lastName}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
