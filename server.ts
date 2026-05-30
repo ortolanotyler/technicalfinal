@@ -7,6 +7,7 @@ import admin from 'firebase-admin';
 import { getFirestore } from 'firebase-admin/firestore';
 import contactHandler from './api/contact';
 import applyHandler from './api/apply';
+import uploadHandler from './api/upload';
 
 dotenv.config();
 
@@ -106,6 +107,7 @@ app.use(express.json({ limit: '10mb' }));
 // source of truth and no logic drift between local and deployed behaviour.
 app.post("/api/contact", (req, res) => contactHandler(req as any, res as any));
 app.post("/api/apply", (req, res) => applyHandler(req as any, res as any));
+app.post("/api/upload", (req, res) => uploadHandler(req as any, res as any));
 
 async function setupVite() {
   if (process.env.NODE_ENV !== "production") {

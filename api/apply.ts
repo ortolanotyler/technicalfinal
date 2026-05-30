@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import sgMail from '@sendgrid/mail';
+import { head } from '@vercel/blob';
 
 const MIME_BY_EXT: Record<string, string> = {
   pdf: 'application/pdf',
@@ -9,8 +10,9 @@ const MIME_BY_EXT: Record<string, string> = {
 
 // Native Vercel Serverless Function. Vercel parses the JSON body into req.body
 // and routes POST /api/apply here automatically — no Express/app.listen.
-// Note: Vercel caps request bodies at 4.5MB, so very large base64 resumes are
-// rejected by the platform (413) before reaching here.
+// The resume is uploaded by the browser directly to (private) Vercel Blob; the
+// client sends us its blob URL, which we read with our token and attach to the
+// application email.
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -18,7 +20,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const {
     firstName, lastName, email, phone, linkedin,
-    jobTitle, jobRef, resumeBase64, resumeName,
+    jobTitle, jobRef, resumeUrl, resumeName,
   } = req.body ?? {};
 
   if (!email || !firstName || !lastName) {
@@ -54,16 +56,33 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     `,
   };
 
-  if (resumeBase64) {
-    const ext = (resumeName || '').split('.').pop()?.toLowerCase();
-    msg.attachments = [
-      {
-        content: resumeBase64.split(',')[1],
-        filename: resumeName || 'resume.pdf',
-        type: (ext && MIME_BY_EXT[ext]) || 'application/octet-stream',
-        disposition: 'attachment',
-      },
-    ];
+  if (resumeUrl) {
+    try {
+      // Private blob: read its bytes by fetching the downloadUrl WITH the
+      // read-write token as a Bearer header (an unauthorized fetch 403s).
+      const token = process.env.BLOB_READ_WRITE_TOKEN;
+      const meta = await head(resumeUrl, { token });
+      const fileRes = await fetch(meta.downloadUrl, {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+      });
+      if (!fileRes.ok) throw new Error(`blob fetch ${fileRes.status}`);
+      const buf = Buffer.from(await fileRes.arrayBuffer());
+      const ext = (resumeName || meta.pathname || '').split('.').pop()?.toLowerCase();
+      msg.attachments = [
+        {
+          content: buf.toString('base64'),
+          filename: resumeName || meta.pathname?.split('/').pop() || 'resume.pdf',
+          type: (ext && MIME_BY_EXT[ext]) || meta.contentType || 'application/octet-stream',
+          disposition: 'attachment',
+        },
+      ];
+    } catch (err) {
+      // Don't fail the whole application if the attachment can't be read —
+      // send it anyway and flag the blob so it can be retrieved manually.
+      console.error('Failed to attach resume from blob:', err);
+      msg.html += `<p><strong>Resume:</strong> upload received but could not be attached. Blob: ${resumeUrl}</p>`;
+      msg.text += `\n      Resume: upload received but could not be attached. Blob: ${resumeUrl}`;
+    }
   }
 
   try {

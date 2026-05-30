@@ -1,5 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
+import { upload } from '@vercel/blob/client';
 import { JobPosting } from '../types';
 import { X, Upload, Check, Loader2, Linkedin } from 'lucide-react';
 
@@ -19,20 +20,20 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
     phone: '',
     linkedin: ''
   });
-  const [resumeBase64, setResumeBase64] = useState<string | null>(null);
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Vercel rejects request bodies over 4.5MB, and base64 encoding inflates the
-  // file by ~33%, so the real safe original-file size is ~3MB. Guard for it
-  // client-side so applicants get a clear message instead of a server failure.
-  const MAX_FILE_BYTES = 3 * 1024 * 1024;
+  // The resume uploads directly to Vercel Blob (not through the request body),
+  // so we're not bound by Vercel's 4.5MB function limit. Cap at 8MB to match
+  // the upload token route and keep email attachments reasonable.
+  const MAX_FILE_BYTES = 8 * 1024 * 1024;
 
   useEffect(() => {
     if (isOpen) {
         setStep('form');
         setFileName(null);
-        setResumeBase64(null);
+        setResumeFile(null);
         setFileError(null);
         setFormData({ firstName: '', lastName: '', email: '', phone: '', linkedin: '' });
     }
@@ -52,8 +53,20 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStep('submitting');
-    
+
     try {
+      // Upload the resume straight to Vercel Blob (private). We only send its
+      // URL to the API, keeping the request body tiny.
+      let resumeUrl: string | undefined;
+      if (resumeFile) {
+        const blob = await upload(resumeFile.name, resumeFile, {
+          access: 'private',
+          handleUploadUrl: '/api/upload',
+          contentType: resumeFile.type || undefined,
+        });
+        resumeUrl = blob.url;
+      }
+
       const response = await fetch('/api/apply', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -61,7 +74,7 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
           ...formData,
           jobTitle: job.title,
           jobRef: job.ref,
-          resumeBase64,
+          resumeUrl,
           resumeName: fileName
         }),
       });
@@ -87,21 +100,16 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
       const file = e.target.files[0];
 
       if (file.size > MAX_FILE_BYTES) {
-        setFileError('That file is too large. Please upload a resume under 3 MB.');
+        setFileError('That file is too large. Please upload a resume under 8 MB.');
         setFileName(null);
-        setResumeBase64(null);
+        setResumeFile(null);
         e.target.value = '';
         return;
       }
 
       setFileError(null);
       setFileName(file.name);
-
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setResumeBase64(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      setResumeFile(file);
     }
   };
 
@@ -242,7 +250,7 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
                             </div>
                             <div>
                                 <p className="text-sm text-gray-300 font-medium">Click to upload resume</p>
-                                <p className="text-[10px] text-gray-600 uppercase mt-1">PDF or Word (Max 3MB)</p>
+                                <p className="text-[10px] text-gray-600 uppercase mt-1">PDF or Word (Max 8MB)</p>
                             </div>
                          </div>
                       )}
