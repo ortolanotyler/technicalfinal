@@ -16,18 +16,15 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
     firstName: '',
     lastName: '',
     email: '',
-    phone: '',
     linkedin: ''
   });
-  const [resumeBase64, setResumeBase64] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (isOpen) {
         setStep('form');
         setFileName(null);
-        setResumeBase64(null);
-        setFormData({ firstName: '', lastName: '', email: '', phone: '', linkedin: '' });
+        setFormData({ firstName: '', lastName: '', email: '', linkedin: '' });
     }
   }, [isOpen]);
 
@@ -53,9 +50,7 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
         body: JSON.stringify({
           ...formData,
           jobTitle: job.title,
-          jobRef: job.ref,
-          resumeBase64,
-          resumeName: fileName
+          jobRef: job.ref
         }),
       });
 
@@ -77,27 +72,20 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      setFileName(file.name);
-      
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setResumeBase64(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      setFileName(e.target.files[0].name);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-[1100] flex items-center justify-center p-0 sm:p-6">
+    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/90 backdrop-blur-xl transition-opacity duration-300 animate-[fadeIn_0.3s_ease-out]"
+        className="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity duration-300 animate-[fadeIn_0.3s_ease-out]"
         onClick={onClose}
       ></div>
 
       {/* Modal Card */}
-      <div className="relative w-full max-w-lg bg-brand-dark border-x border-white/10 sm:border sm:rounded-sm shadow-2xl overflow-hidden animate-[scaleIn_0.3s_ease-out] flex flex-col h-full sm:h-auto max-h-full sm:max-h-[85vh]">
+      <div className="relative w-full max-w-lg bg-brand-dark border border-white/10 rounded-sm shadow-2xl overflow-hidden animate-[scaleIn_0.3s_ease-out]">
         <style>{`
           @keyframes scaleIn {
             from { opacity: 0; transform: scale(0.95); }
@@ -110,10 +98,10 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
         `}</style>
         
         {/* Header */}
-        <div className="flex-shrink-0 flex justify-between items-center px-6 sm:px-8 py-4 sm:py-6 border-b border-white/10 bg-white/[0.02]">
+        <div className="flex justify-between items-center px-8 py-6 border-b border-white/10 bg-white/[0.02]">
            <div>
-             <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">Application</h3>
-             <p className="text-[10px] text-gray-500 uppercase tracking-wider mt-0.5 font-mono">REF: {job.ref}</p>
+             <h3 className="text-xl font-bold text-white tracking-tight">Application</h3>
+             <p className="text-xs text-gray-500 uppercase tracking-wider mt-1 font-mono">REF: {job.ref}</p>
            </div>
            <button 
              onClick={onClose} 
@@ -123,64 +111,51 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
            </button>
         </div>
 
-        <div className="flex-grow overflow-y-auto p-6 sm:p-8 bg-brand-navy/30 custom-scrollbar">
+        <div className="p-8 bg-brand-navy/30">
            {(step === 'form' || step === 'error') && (
-             <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
+             <form onSubmit={handleSubmit} className="space-y-6">
                 {step === 'error' && (
                   <p className="text-red-400 text-xs font-medium text-center">Something went wrong. Please try again.</p>
                 )}
-                    <div className="grid grid-cols-2 gap-6">
-                       <div className="space-y-2">
-                          <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">First Name</label>
-                          <input 
-                            type="text" 
-                            name="firstName"
-                            value={formData.firstName}
-                            onChange={handleInputChange}
-                            required 
-                            className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`}
-                            placeholder="Jane" 
-                          />
-                       </div>
-                       <div className="space-y-2">
-                          <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Last Name</label>
-                          <input 
-                            type="text" 
-                            name="lastName"
-                            value={formData.lastName}
-                            onChange={handleInputChange}
-                            required 
-                            className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`} 
-                            placeholder="Doe"
-                          />
-                       </div>
-                    </div>
+                <div className="grid grid-cols-2 gap-6">
+                   <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">First Name</label>
+                      <input 
+                        type="text" 
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                        required 
+                        className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`}
+                        placeholder="Jane" 
+                      />
+                   </div>
+                   <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Last Name</label>
+                      <input 
+                        type="text" 
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                        required 
+                        className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`} 
+                        placeholder="Doe"
+                      />
+                   </div>
+                </div>
 
-                    <div className="grid grid-cols-2 gap-6">
-                       <div className="space-y-2">
-                          <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Email Address</label>
-                          <input 
-                            type="email" 
-                            name="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            required 
-                            className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`}
-                            placeholder="jane.doe@example.com"
-                          />
-                       </div>
-                       <div className="space-y-2">
-                          <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Phone Number</label>
-                          <input 
-                            type="tel" 
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleInputChange}
-                            className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`} 
-                            placeholder="+1 (555) 000-0000"
-                          />
-                       </div>
-                    </div>
+                <div className="space-y-2">
+                   <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Email Address</label>
+                   <input 
+                     type="email" 
+                     name="email"
+                     value={formData.email}
+                     onChange={handleInputChange}
+                     required 
+                     className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`}
+                     placeholder="jane.doe@example.com"
+                   />
+                </div>
 
                 <div className="space-y-2">
                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Profile URL</label>
@@ -280,3 +255,4 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
 };
 
 export default ApplicationModal;
+
