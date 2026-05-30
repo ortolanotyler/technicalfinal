@@ -90,7 +90,7 @@ const LinkedInFeed: React.FC = () => {
               <div className="w-12 h-12 bg-[#0077B5] flex items-center justify-center rounded-sm shadow-lg shadow-[#0077B5]/20">
                 <Linkedin className="text-white" size={24} fill="currentColor" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">LinkedIn</h2>
+              <h2 className="text-3xl md:text-4xl font-light text-white tracking-wide">LinkedIn</h2>
             </div>
           </div>
           
@@ -144,7 +144,7 @@ const LinkedInFeed: React.FC = () => {
                             <div className="w-8 h-8 bg-white/5 border border-white/10 rounded-full flex items-center justify-center overflow-hidden">
                               <img 
                                 src="https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png" 
-                                className="w-5 h-5 opacity-80 grayscale brightness-[2]"
+                                className="w-5 h-5 opacity-90"
                                 alt="Certus Logo"
                                 referrerPolicy="no-referrer"
                               />
@@ -233,7 +233,7 @@ const LinkedInFeed: React.FC = () => {
                 <div className="w-9 h-9 bg-white/5 border border-white/10 rounded-full flex items-center justify-center overflow-hidden flex-shrink-0">
                   <img 
                     src="https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png" 
-                    className="w-5 h-5 opacity-80 grayscale brightness-[2]"
+                    className="w-5 h-5 opacity-90"
                     alt="Certus Logo"
                     referrerPolicy="no-referrer"
                   />
