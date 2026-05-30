@@ -87,9 +87,40 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     await sgMail.send(msg);
-    return res.status(200).json({ success: true });
   } catch (error) {
     console.error('Error sending application email:', error);
     return res.status(500).json({ error: 'Failed to send application' });
   }
+
+  // Send the applicant a confirmation. Best-effort: a failure here must not
+  // fail the application (the recruiter email already went through).
+  try {
+    const roleLine = jobTitle ? ` for the <strong>${jobTitle}</strong> role` : '';
+    const roleText = jobTitle ? ` for the ${jobTitle} role` : '';
+    await sgMail.send({
+      to: email,
+      from: { email: 'tyler@certusgroup.com', name: 'Certus Technical Search' },
+      replyTo: 'recruit@certusgroup.com',
+      subject: `We received your application${jobTitle ? ` — ${jobTitle}` : ''}`,
+      text:
+        `Hi ${firstName},\n\n` +
+        `Thanks for applying${roleText} with Certus Technical Search. ` +
+        `We've received your application and our team will review it. If your background is a strong match, a recruiter will be in touch.\n\n` +
+        `In the meantime, you can view our current openings at https://thecertusgroup.tech/jobs\n\n` +
+        `— The Certus Technical Search Team`,
+      html:
+        `<div style="font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;line-height:1.6">` +
+        `<p>Hi ${firstName},</p>` +
+        `<p>Thanks for applying${roleLine} with <strong>Certus Technical Search</strong>. ` +
+        `We've received your application and our team will review it. If your background is a strong match, a recruiter will be in touch.</p>` +
+        `<p>In the meantime, you can browse our current openings ` +
+        `<a href="https://thecertusgroup.tech/jobs">here</a>.</p>` +
+        `<p style="color:#555">— The Certus Technical Search Team</p>` +
+        `</div>`,
+    });
+  } catch (error) {
+    console.error('Applicant confirmation email failed (non-fatal):', error);
+  }
+
+  return res.status(200).json({ success: true });
 }
