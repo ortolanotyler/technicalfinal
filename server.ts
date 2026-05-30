@@ -91,8 +91,13 @@ app.get("/sitemap.xml", async (req, res) => {
 // applications fail with a 413 before reaching the /api/apply handler.
 app.use(express.json({ limit: '10mb' }));
 
-if (process.env.SENDGRID_API_KEY) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// A valid SendGrid key starts with "SG.". Treat anything else (unset, or a
+// placeholder like "a" used in dev) as "no key configured" so we fall back to
+// console logging instead of attempting a real send that 401s.
+const hasSendGrid = !!process.env.SENDGRID_API_KEY?.startsWith('SG.');
+
+if (hasSendGrid) {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 }
 
 // Email API routes
@@ -103,7 +108,7 @@ app.post("/api/contact", async (req, res) => {
     return res.status(400).json({ error: "Name and Email are required" });
   }
 
-  if (!process.env.SENDGRID_API_KEY) {
+  if (!hasSendGrid) {
     console.log("[Dev] Contact form submission:", { name, email, company, message });
     return res.json({ success: true, message: "Dev mode: Email logged to console" });
   }
@@ -138,7 +143,7 @@ app.post("/api/apply", async (req, res) => {
     return res.status(400).json({ error: "Required fields missing" });
   }
 
-  if (!process.env.SENDGRID_API_KEY) {
+  if (!hasSendGrid) {
     console.log("[Dev] Job application:", { firstName, lastName, email, jobTitle });
     return res.json({ success: true, message: "Dev mode: Application logged to console" });
   }
