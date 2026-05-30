@@ -4,9 +4,15 @@
   "outputDirectory": "dist",
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/",
       "has": [{ "type": "host", "value": "www.thecertusgroup.tech" }],
-      "destination": "https://thecertusgroup.tech/:path*",
+      "destination": "https://thecertusgroup.tech/",
+      "permanent": true
+    },
+    {
+      "source": "/:path+",
+      "has": [{ "type": "host", "value": "www.thecertusgroup.tech" }],
+      "destination": "https://thecertusgroup.tech/:path+",
       "permanent": true
     }
   ],
