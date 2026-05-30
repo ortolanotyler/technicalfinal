@@ -1,19 +1,41 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getAllJobs } from '../lib/jobs';
-import { SITE_ORIGIN } from '../lib/seo';
+import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
-// Dynamic sitemap built from live jobs, so Google discovers every /jobs/:id URL.
+// Self-contained (see api/render.ts for why).
+const SITE_ORIGIN = 'https://thecertusgroup.tech';
+const FIREBASE_CONFIG = {
+  projectId: 'gen-lang-client-0136431445',
+  appId: '1:297393652693:web:d86902435371a7b6d8b35c',
+  apiKey: 'AIzaSyDZUaXzOPr9fu7C96t1OgVoiUuPbf52xOc',
+  authDomain: 'gen-lang-client-0136431445.firebaseapp.com',
+  storageBucket: 'gen-lang-client-0136431445.firebasestorage.app',
+  messagingSenderId: '297393652693',
+};
+const FIRESTORE_DB_ID = 'ai-studio-dc60054d-2d97-45c7-ab15-6ec5d6ba4885';
+
+interface JobDoc {
+  id: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+async function getAllJobs(): Promise<JobDoc[]> {
+  const app: FirebaseApp = getApps()[0] || initializeApp(FIREBASE_CONFIG);
+  const dbRef = getFirestore(app, FIRESTORE_DB_ID);
+  const snap = await getDocs(collection(dbRef, 'jobs'));
+  return snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<JobDoc, 'id'>) }));
+}
+
 export default async function handler(_req: VercelRequest, res: VercelResponse) {
   const today = new Date().toISOString().slice(0, 10);
-
-  const urls: { loc: string; lastmod: string; priority: string; changefreq: string }[] = [
+  const urls = [
     { loc: `${SITE_ORIGIN}/`, lastmod: today, priority: '1.0', changefreq: 'weekly' },
     { loc: `${SITE_ORIGIN}/jobs`, lastmod: today, priority: '0.9', changefreq: 'daily' },
   ];
 
   try {
-    const jobs = await getAllJobs();
-    for (const job of jobs) {
+    for (const job of await getAllJobs()) {
       urls.push({
         loc: `${SITE_ORIGIN}/jobs/${job.id}`,
         lastmod: (job.updatedAt || job.createdAt || '').slice(0, 10) || today,
@@ -22,7 +44,7 @@ export default async function handler(_req: VercelRequest, res: VercelResponse) 
       });
     }
   } catch (err) {
-    console.error('sitemap: failed to load jobs, returning static URLs:', err);
+    console.error('sitemap: failed to load jobs:', err);
   }
 
   const xml =
@@ -31,12 +53,8 @@ export default async function handler(_req: VercelRequest, res: VercelResponse) 
     urls
       .map(
         (u) =>
-          `  <url>\n` +
-          `    <loc>${u.loc}</loc>\n` +
-          `    <lastmod>${u.lastmod}</lastmod>\n` +
-          `    <changefreq>${u.changefreq}</changefreq>\n` +
-          `    <priority>${u.priority}</priority>\n` +
-          `  </url>`
+          `  <url>\n    <loc>${u.loc}</loc>\n    <lastmod>${u.lastmod}</lastmod>\n` +
+          `    <changefreq>${u.changefreq}</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`
       )
       .join('\n') +
     `\n</urlset>\n`;
