@@ -86,7 +86,7 @@ app.get("/sitemap.xml", async (req, res) => {
   }
 });
 
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 
 if (process.env.SENDGRID_API_KEY) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
