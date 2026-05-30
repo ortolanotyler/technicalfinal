@@ -12,24 +12,32 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Load Firebase config for server-side admin
+// Load Firebase config for server-side admin.
+// NOTE: this is only consumed by the /sitemap.xml route, which is unreachable
+// on Vercel (vercel.json routes only /api/* to this function; /sitemap.xml
+// falls through to the SPA). Initializing firebase-admin with a real projectId
+// but no credentials can block on cold start while it probes for Application
+// Default Credentials, which hangs every function invocation. So only init it
+// when explicitly enabled.
 const firebaseConfigPath = path.join(process.cwd(), 'firebase-applet-config.json');
-let dbAdmin: any;
+let dbAdmin: any = null;
 
-try {
-  const firebaseConfig = JSON.parse(fs.readFileSync(firebaseConfigPath, 'utf8'));
-  
-  if (!admin.apps.length) {
-    admin.initializeApp({
-      projectId: firebaseConfig.projectId,
-    });
+if (process.env.ENABLE_FIREBASE_ADMIN === 'true') {
+  try {
+    const firebaseConfig = JSON.parse(fs.readFileSync(firebaseConfigPath, 'utf8'));
+
+    if (!admin.apps.length) {
+      admin.initializeApp({
+        projectId: firebaseConfig.projectId,
+      });
+    }
+
+    // Use the specific database if provided, otherwise default
+    dbAdmin = getFirestore(firebaseConfig.firestoreDatabaseId || '(default)');
+    console.log(`Firebase Admin initialized with database: ${firebaseConfig.firestoreDatabaseId || '(default)'}`);
+  } catch (error) {
+    console.error("Error initializing Firebase Admin:", error);
   }
-  
-  // Use the specific database if provided, otherwise default
-  dbAdmin = getFirestore(firebaseConfig.firestoreDatabaseId || '(default)');
-  console.log(`Firebase Admin initialized with database: ${firebaseConfig.firestoreDatabaseId || '(default)'}`);
-} catch (error) {
-  console.error("Error initializing Firebase Admin:", error);
 }
 
 const app = express();
