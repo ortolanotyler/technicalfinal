@@ -101,8 +101,6 @@ export default function LocationsMap() {
   }, []);
 
   const pins = groupJobsByCity(jobs);
-  const totalShown = pins.reduce((sum, p) => sum + p.jobs.length, 0);
-  const unmapped = Math.max(0, jobs.length - totalShown);
   const hoveredPin = pins.find((p) => p.key === hovered?.key) || null;
 
   const cancelClose = () => {
@@ -281,22 +279,6 @@ export default function LocationsMap() {
           <br />
           Recruiting across Canada.
         </h2>
-        <p className="mt-3 text-white/40 text-[10px] font-light uppercase tracking-[0.3em]">
-          Tap or hover a pin to view roles
-        </p>
-      </div>
-
-      {/* Active searches footer (bottom-left) */}
-      <div className="absolute bottom-0 left-0 z-10 w-full pointer-events-none">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-8">
-          <div className="inline-block bg-brand-dark/80 backdrop-blur-md border border-white/10 rounded-sm px-4 py-3">
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-brand-silver mb-1">Active searches</p>
-            <p className="text-sm text-white font-light">
-              {totalShown} {totalShown === 1 ? 'role' : 'roles'} across {pins.length} {pins.length === 1 ? 'city' : 'cities'}
-              {unmapped > 0 && <span className="text-white/40"> · +{unmapped} other</span>}
-            </p>
-          </div>
-        </div>
       </div>
 
       {applyingTo && (
