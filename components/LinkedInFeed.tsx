@@ -162,9 +162,9 @@ const LinkedInFeed: React.FC = () => {
                             />
                           </div>
                         ) : (
-                          <div className="p-6 md:p-7 flex-grow text-gray-300 text-sm font-light leading-relaxed line-clamp-[7] prose prose-invert prose-sm max-w-none whitespace-pre-wrap [&_p]:my-0">
+                          <div className="p-6 md:p-7 flex-grow text-gray-300 text-sm font-light leading-relaxed line-clamp-[7] prose prose-invert prose-sm max-w-none [&_p]:my-0 [&_ul]:my-1 [&_ul]:pl-5 [&_li]:my-0.5 [&_li>p]:my-0">
                             <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
-                              {post.content.replace(/\n\s*\n/g, '\n\n&nbsp;\n\n')}
+                              {post.content}
                             </ReactMarkdown>
                           </div>
                         )}
@@ -239,9 +239,9 @@ const LinkedInFeed: React.FC = () => {
             </div>
 
             <div className="overflow-y-auto p-6 md:p-10 custom-scrollbar flex-grow">
-              <div className="text-gray-200 text-base md:text-[17px] font-light leading-relaxed prose prose-invert max-w-none whitespace-pre-wrap">
+              <div className="text-gray-200 text-base md:text-[17px] font-light leading-relaxed prose prose-invert max-w-none [&_p]:my-2 [&_ul]:my-2 [&_ul]:pl-5 [&_li]:my-1 [&_li>p]:my-0">
                 <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
-                  {selectedPost.content.replace(/\n\s*\n/g, '\n\n&nbsp;\n\n')}
+                  {selectedPost.content}
                 </ReactMarkdown>
               </div>
 
