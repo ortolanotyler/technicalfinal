@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Section } from '../types';
 import { ArrowRight } from 'lucide-react';
 import Header from './Header';
 
@@ -85,7 +84,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
           transform: 'translateZ(0)',
           backfaceVisibility: 'hidden'
         }}
-        onClick={() => onNavigate?.(Section.HERO)}
+        onClick={() => onSelect('sectors')}
         onMouseEnter={() => !isMobile && setHovered('sectors')}
         onMouseLeave={() => !isMobile && setHovered(null)}
       >
