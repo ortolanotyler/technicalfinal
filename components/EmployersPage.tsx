@@ -18,13 +18,6 @@ const SECTORS = [
   'Technical Leadership',
 ];
 
-const STEPS = [
-  'We learn the role and how your team works.',
-  'We work our technical network to find qualified candidates.',
-  'You get a short, vetted shortlist with our honest read on each person.',
-  'We help with the offer and follow up after they start.',
-];
-
 const EmployersPage: React.FC<EmployersPageProps> = ({ onViewJobs, onNavigate }) => {
   const [form, setForm] = useState({
     company: '', name: '', email: '', phone: '', role: '', location: '', hires: '', timeline: '', message: '',
@@ -35,8 +28,6 @@ const EmployersPage: React.FC<EmployersPageProps> = ({ onViewJobs, onNavigate })
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
-
-  const scrollToForm = () => document.getElementById('employer-form')?.scrollIntoView({ behavior: 'smooth' });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,42 +73,22 @@ const EmployersPage: React.FC<EmployersPageProps> = ({ onViewJobs, onNavigate })
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-normal leading-[1.05] tracking-tight mb-6">
             Hire skilled technical talent.
           </h1>
-          <p className="text-gray-300 text-base md:text-lg font-light leading-relaxed max-w-xl mb-8">
+          <p className="text-gray-300 text-base md:text-lg font-light leading-relaxed max-w-xl">
             We place vetted trades, maintenance and technical professionals with employers across Canada.
             Tell us the role and we bring you a focused shortlist.
           </p>
-          <button
-            onClick={scrollToForm}
-            className="group inline-flex items-center gap-3 bg-brand-silver hover:bg-white text-black px-8 py-4 font-bold uppercase tracking-widest text-xs rounded-sm transition-all duration-300 hover:-translate-y-0.5"
-          >
-            Request Talent
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-          </button>
         </div>
       </section>
 
-      {/* Sectors + how it works */}
+      {/* Sectors */}
       <section className="py-14 md:py-16 px-6 lg:px-8 border-t border-white/5 bg-brand-navy/10">
-        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16">
-          <div>
-            <p className={`${label} mb-6`}>Sectors we recruit</p>
-            <ul className="space-y-2.5">
-              {SECTORS.map((s) => (
-                <li key={s} className="text-sm text-gray-200 font-light">{s}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className={`${label} mb-6`}>How it works</p>
-            <ol className="space-y-4">
-              {STEPS.map((step, i) => (
-                <li key={i} className="flex gap-4 text-sm text-gray-300 font-light leading-relaxed">
-                  <span className="text-brand-silver/50 font-bold">{i + 1}</span>
-                  <span>{step}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
+        <div className="max-w-4xl mx-auto">
+          <p className={`${label} mb-6`}>Sectors we recruit</p>
+          <ul className="grid sm:grid-cols-2 gap-x-12 gap-y-2.5">
+            {SECTORS.map((s) => (
+              <li key={s} className="text-sm text-gray-200 font-light">{s}</li>
+            ))}
+          </ul>
         </div>
       </section>
 
