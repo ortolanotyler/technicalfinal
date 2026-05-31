@@ -81,7 +81,6 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     <ul className="space-y-4">
                          {[
                              { label: 'Home', id: Section.HERO },
-                             { label: 'Social', id: Section.INSIGHTS },
                              { label: 'Contact', id: Section.CONTACT },
                          ].map((link) => (
                              <li key={link.id}>

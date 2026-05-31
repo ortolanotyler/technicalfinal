@@ -74,8 +74,7 @@ const Header: React.FC<HeaderProps> = ({ onViewJobs, onNavigate }) => {
 
             <div className="hidden lg:flex items-center space-x-10">
               {[
-                  { id: Section.INDUSTRIES, label: 'Sectors' },
-                  { id: Section.INSIGHTS, label: 'Social' }
+                  { id: Section.INDUSTRIES, label: 'Sectors' }
               ].map((item) => (
                   <a 
                       key={item.id}
@@ -164,7 +163,6 @@ const Header: React.FC<HeaderProps> = ({ onViewJobs, onNavigate }) => {
           <div className="space-y-1">
              {[
                  { id: Section.INDUSTRIES, label: 'Practice Sectors', sub: 'Industry Expertise' },
-                 { id: Section.INSIGHTS, label: 'Social', sub: 'Social Feed' },
                  { id: 'EMPLOYERS', label: 'For Employers', sub: 'Hire Talent', action: () => { window.location.href = '/employers'; } },
                  { id: 'JOBS', label: 'Job Openings', sub: 'Career Opportunities', action: onViewJobs },
                  { id: Section.CONTACT, label: 'Contact Us', sub: 'Global Reach' },
