@@ -5,22 +5,22 @@ const IndustriesServed: React.FC = () => {
   const categories = [
     {
       category: "Fleet & Transport",
-      description: "Truck & Transport Mechanics, Fleet Technicians, Diesel Mechanics, Shop Foremen.",
+      description: "Keeping the logistics backbone moving with elite truck and transport mechanics. We specialize in sourcing highly skilled technicians for heavy-duty fleet operations, ensuring maximum uptime and operational safety across North American transport networks.",
       image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=1000"
     },
     {
       category: "Technical Leadership",
-      description: "Service Managers, Shop Foremen, Operations Directors, Branch Managers.",
+      description: "Placing the management talent that drives operational efficiency in industrial shops. From Service Managers to Operations Directors, we identify leaders with the technical depth and strategic vision to optimize shop performance and team productivity.",
       image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000"
     },
     {
       category: "Heavy Duty Mechanics",
-      description: "Heavy-Duty Mechanics, Equipment Technicians, Hydraulics Specialists, Field Service Technicians.",
+      description: "Specialized recruitment for off-road, mining, and heavy construction equipment specialists. We connect top-tier HD mechanics with industry-leading firms, focusing on expertise in hydraulics, engine diagnostics, and complex component rebuilding.",
       image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=1000"
     },
     {
       category: "Industrial Maintenance",
-      description: "Millwrights, Maintenance Technicians, Industrial Electricians, Reliability Specialists.",
+      description: "Certified experts for plant maintenance, shutdowns, and industrial commissioning. We deliver specialized talent that ensures the reliability and safety of critical industrial infrastructure through precise preventative maintenance.",
       image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=1000"
     }
   ];
@@ -66,7 +66,7 @@ const IndustriesServed: React.FC = () => {
                 <h3 className="text-xl md:text-2xl font-bold text-white leading-tight tracking-tight">
                   {cat.category}
                 </h3>
-                <p className="text-sm text-white/70 leading-relaxed font-light">
+                <p className="text-sm text-white/80 leading-relaxed font-light transition-all duration-500 sm:opacity-0 sm:translate-y-3 sm:group-hover:opacity-100 sm:group-hover:translate-y-0">
                   {cat.description}
                 </p>
               </div>
