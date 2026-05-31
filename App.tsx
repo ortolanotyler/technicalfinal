@@ -17,11 +17,13 @@ const LinkedInFeed = lazy(() => import('./components/LinkedInFeed'));
 const FeaturedJobsHero = lazy(() => import('./components/FeaturedJobsHero'));
 const JobBoardPage = lazy(() => import('./components/JobBoardPage'));
 const AdminPortal = lazy(() => import('./components/AdminPortal'));
+const EmployersPage = lazy(() => import('./components/EmployersPage'));
 
 const App: React.FC = () => {
   const [view, setView] = useState<View>(() => {
     const path = window.location.pathname;
     if (path.startsWith('/jobs')) return 'jobs';
+    if (path === '/employers') return 'employers';
     if (path === '/admin') return 'admin';
     return 'gateway';
   });
@@ -45,8 +47,9 @@ const App: React.FC = () => {
     let newPath = '/';
     if (view === 'jobs') newPath = '/jobs';
     else if (view === 'admin') newPath = '/admin';
+    else if (view === 'employers') newPath = '/employers';
     else if (view === 'landing') newPath = '/';
-    
+
     if (path !== newPath && !path.startsWith('/jobs/')) {
       window.history.pushState({}, '', newPath);
     }
@@ -98,6 +101,15 @@ const App: React.FC = () => {
 
     if (view === 'admin') {
         return <AdminPortal onExit={() => setView('landing')} />;
+    }
+
+    if (view === 'employers') {
+      return (
+        <EmployersPage
+          onViewJobs={() => setView('jobs')}
+          onNavigate={handleNavigate}
+        />
+      );
     }
 
     return (

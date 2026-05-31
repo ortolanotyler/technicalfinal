@@ -18,6 +18,7 @@
   ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
+    { "source": "/employers", "destination": "/api/render?page=employers" },
     { "source": "/jobs", "destination": "/api/render" },
     { "source": "/jobs/:id", "destination": "/api/render?id=:id" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }

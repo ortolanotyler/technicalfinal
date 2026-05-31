@@ -203,6 +203,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const host = (req.headers['x-forwarded-host'] || req.headers.host || 'thecertusgroup.tech') as string;
   const origin = `https://${host}`;
   const id = typeof req.query.id === 'string' ? req.query.id : undefined;
+  const page = typeof req.query.page === 'string' ? req.query.page : undefined;
 
   let html: string;
   try {
@@ -213,7 +214,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    if (id) {
+    if (page === 'employers') {
+      html = applyMeta(html, {
+        title: `Hire Technical Talent | ${ORG_NAME}`,
+        description:
+          'Hire vetted skilled trades, industrial maintenance and technical professionals across Canada. Certus Technical Search delivers a focused shortlist — request talent today.',
+        canonical: `${SITE_ORIGIN}/employers`,
+        ogType: 'website',
+      });
+      html = injectJsonLd(html, [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Service',
+          serviceType: 'Technical & Skilled Trades Recruitment',
+          provider: { '@type': 'EmploymentAgency', name: ORG_NAME, url: SITE_ORIGIN },
+          areaServed: { '@type': 'Country', name: 'Canada' },
+          description:
+            'Specialized recruitment and executive search for skilled trades, industrial maintenance, engineering operations and technical roles.',
+        },
+      ]);
+    } else if (id) {
       const job = await getJob(id);
       if (job && job.title) {
         const canonical = `${SITE_ORIGIN}/jobs/${job.id}`;

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -nA6 \"handleGatewaySelect\" App.tsx)",
+      "Bash(git add *)",
+      "Bash(git commit -q -m 'Fix split-gateway false choice: right half now goes to Sectors *)",
+      "Bash(git push *)",
+      "Bash(vercel ls *)",
+      "Bash(curl -s -m 12 -o /dev/null -w \"GET / -> %{http_code}\\\\n\" https://thecertusgroup.tech/)",
+      "Bash(git fetch *)",
+      "Bash(git commit --amend -q -m 'Fix split-gateway false choice: right half now goes to Sectors *)"
+    ]
+  }
+}

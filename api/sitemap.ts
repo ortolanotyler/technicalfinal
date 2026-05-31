@@ -31,6 +31,7 @@ export default async function handler(_req: VercelRequest, res: VercelResponse) 
   const today = new Date().toISOString().slice(0, 10);
   const urls = [
     { loc: `${SITE_ORIGIN}/`, lastmod: today, priority: '1.0', changefreq: 'weekly' },
+    { loc: `${SITE_ORIGIN}/employers`, lastmod: today, priority: '0.9', changefreq: 'monthly' },
     { loc: `${SITE_ORIGIN}/jobs`, lastmod: today, priority: '0.9', changefreq: 'daily' },
   ];
 
