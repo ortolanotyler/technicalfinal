@@ -72,6 +72,14 @@ const App: React.FC = () => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Navigating to the board via a control should show the list, not re-open a
+  // previously deep-linked job. (A genuine /jobs/:id load still auto-opens,
+  // since that sets initialJobId at mount without going through here.)
+  const handleViewJobs = () => {
+    setInitialJobId(null);
+    setView('jobs');
+  };
+
   const handleGatewaySelect = (target: 'landing' | 'sectors') => {
     setView('landing');
     if (target === 'sectors') {
@@ -88,7 +96,7 @@ const App: React.FC = () => {
           <SEO isGateway={true} />
           <SplitGateway 
             onSelect={handleGatewaySelect} 
-            onViewJobs={() => setView('jobs')}
+            onViewJobs={handleViewJobs}
             onNavigate={handleNavigate}
           />
         </>
@@ -106,7 +114,7 @@ const App: React.FC = () => {
     if (view === 'employers') {
       return (
         <EmployersPage
-          onViewJobs={() => setView('jobs')}
+          onViewJobs={handleViewJobs}
           onNavigate={handleNavigate}
         />
       );
@@ -126,7 +134,7 @@ const App: React.FC = () => {
         <div className="fixed inset-0 z-[-1] bg-brand-dark"></div>
         
         <Header 
-          onViewJobs={() => setView('jobs')}
+          onViewJobs={handleViewJobs}
           onNavigate={handleNavigate} 
         />
         
@@ -134,7 +142,7 @@ const App: React.FC = () => {
           <Hero />
           <IndustriesServed />
           <Suspense fallback={<div className="min-h-[400px]" />}>
-            <FeaturedJobsHero onViewJobs={() => setView('jobs')} />
+            <FeaturedJobsHero onViewJobs={handleViewJobs} />
           </Suspense>
           {/* LinkedIn is lazy; give the fallback the section id so the
               "Social" anchor still resolves before the chunk loads. */}
