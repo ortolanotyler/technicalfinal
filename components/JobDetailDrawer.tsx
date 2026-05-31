@@ -175,9 +175,9 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
                             <h3 className="text-sm font-bold uppercase tracking-widest text-white mb-4 flex items-center gap-2">
                                <span className={`w-1 h-4 ${theme.bg}`}></span> Job Description
                             </h3>
-                            <div className="prose prose-invert prose-sm max-w-none text-gray-400 leading-relaxed font-light text-base whitespace-pre-wrap">
+                            <div className="prose prose-invert prose-sm max-w-none text-gray-400 leading-relaxed font-light text-base [&_p]:my-2 [&_ul]:my-2 [&_ul]:pl-5 [&_li]:my-1 [&_li>p]:my-0">
                                 <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
-                                  {job.description.replace(/\n\s*\n/g, '\n\n&nbsp;\n\n')}
+                                  {job.description}
                                 </ReactMarkdown>
                             </div>
                         </section>
