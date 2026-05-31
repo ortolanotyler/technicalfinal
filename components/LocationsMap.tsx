@@ -128,7 +128,7 @@ export default function LocationsMap() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#070b12] border-y border-white/5 overflow-hidden h-[70vh] min-h-[520px]"
+      className="relative bg-[#070b12] border-y border-white/5 overflow-hidden h-[58vh] min-h-[420px] md:h-[70vh] md:min-h-[520px]"
     >
       <div className="absolute inset-0">
         <ComposableMap

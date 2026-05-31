@@ -290,7 +290,7 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
                 <div className="space-y-2">
                    <h4 className="text-2xl font-bold text-white">Application Received</h4>
                    <p className="text-gray-400 text-sm max-w-xs mx-auto leading-relaxed">
-                     Your profile has been securely transmitted to our search team. We will review your credentials for the <span className="text-white font-medium">{job.title}</span> mandate.
+                     Your profile has been securely transmitted to our search team. We will review your credentials for the <span className="text-white font-medium">{job.title}</span> role.
                    </p>
                 </div>
                 <button 

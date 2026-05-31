@@ -345,7 +345,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
             <div className="flex justify-between items-center">
               <div>
                 <h2 className="text-3xl font-bold tracking-tight">Manage <span className="text-brand-silver">Job Openings</span></h2>
-                <p className="text-gray-500 text-sm mt-1">Add, edit or remove active mandates from the job board.</p>
+                <p className="text-gray-500 text-sm mt-1">Add, edit or remove active job postings from the job board.</p>
               </div>
               <div className="flex items-center gap-4">
                 <button 
@@ -501,7 +501,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
         <div className="fixed inset-0 z-[120] flex items-center justify-center p-0 sm:p-6 bg-black/80 backdrop-blur-sm">
           <div className="bg-brand-dark border-x border-white/10 sm:border sm:rounded-sm w-full max-w-2xl shadow-2xl flex flex-col h-full sm:h-auto max-h-full sm:max-h-[90vh]">
             <div className="flex-shrink-0 p-4 sm:p-6 border-b border-white/10 flex justify-between items-center bg-white/[0.02]">
-              <h3 className="text-lg sm:text-xl font-bold">{editingJob.id ? 'Edit' : 'Post'} Job Mandate</h3>
+              <h3 className="text-lg sm:text-xl font-bold">{editingJob.id ? 'Edit' : 'Post'} Job</h3>
               <button onClick={() => setEditingJob(null)} className="text-gray-500 hover:text-white p-2"><X size={24} /></button>
             </div>
             <div className="flex-grow overflow-y-auto p-6 sm:p-8 space-y-6 custom-scrollbar">
@@ -614,7 +614,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
                 className="bg-brand-silver hover:bg-white text-black px-6 sm:px-8 py-2 sm:py-3 rounded-sm font-bold uppercase tracking-widest text-xs flex items-center gap-2 transition-all"
               >
                 {loading ? <Loader2 className="animate-spin" size={16} /> : <Save size={16} />}
-                Save Mandate
+                Save Job
               </button>
             </div>
           </div>

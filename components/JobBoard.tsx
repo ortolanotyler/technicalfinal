@@ -55,7 +55,7 @@ const JobBoard: React.FC<JobBoardProps> = ({ onViewMore }) => {
                     </h2>
                     
                     <p className="text-gray-400 text-lg font-light leading-relaxed max-w-xl border-l border-brand-steel/20 pl-8">
-                       Our current priority mandates. We are actively interviewing leadership candidates for these strategic positions.
+                       Our current priority searches. We are actively interviewing leadership candidates for these strategic positions.
                     </p>
                 </div>
 

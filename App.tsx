@@ -145,7 +145,7 @@ const App: React.FC = () => {
           <Suspense fallback={<div className="min-h-[400px]" />}>
             <FeaturedJobsHero onViewJobs={handleViewJobs} />
           </Suspense>
-          <Suspense fallback={<div className="h-[70vh] min-h-[520px] bg-[#070b12]" />}>
+          <Suspense fallback={<div className="h-[58vh] min-h-[420px] md:h-[70vh] md:min-h-[520px] bg-[#070b12]" />}>
             <LocationsMap />
           </Suspense>
           {/* LinkedIn is lazy; give the fallback the section id so the

@@ -139,18 +139,14 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
 
         {/* Roles Grid */}
         <main className="flex-grow pt-24 pb-24 px-6 lg:px-8 relative">
-            <SEO title="Active Job Mandates" description="Explore current technical and skilled trades job opportunities at Certus Technical Search." />
+            <SEO title="Open Positions" description="Explore current technical and skilled trades job opportunities at Certus Technical Search." />
             <div className="max-w-7xl mx-auto">
                 <h1 className="sr-only">Certus Group Technical Search - Job Board</h1>
                 <div className="mb-12">
-                    <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
-                        Active <span className="text-brand-silver italic font-serif font-light">Mandates</span>
-                    </h2>
-                    
-                    <div className="mt-8 flex flex-col md:flex-row gap-4">
+                    <div className="flex flex-col md:flex-row gap-4">
                         <input 
                             type="text" 
-                            placeholder="Search mandates..." 
+                            placeholder="Search roles..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="bg-white/[0.02] border border-white/10 rounded-sm px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-brand-silver flex-grow"
@@ -164,7 +160,7 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
                     </div>
 
                     <p className="mt-4 text-gray-500 text-sm font-light uppercase tracking-widest">
-                        Showing {filteredJobs.length} Priority Search Opportunities
+                        Showing {filteredJobs.length} open {filteredJobs.length === 1 ? 'position' : 'positions'}
                     </p>
                 </div>
                 {filteredJobs.length > 0 ? (
@@ -179,11 +175,6 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
                                 <div className="absolute top-0 left-0 w-[2px] h-full bg-brand-silver scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-top"></div>
 
                                 <div className="flex-grow min-w-0">
-                                    <div className="flex items-center gap-4 mb-3">
-                                        <span className="font-mono text-[10px] text-gray-500 uppercase tracking-widest px-2 py-1 bg-white/5 border border-white/5 rounded-sm">
-                                            REF: {job.ref}
-                                        </span>
-                                    </div>
                                     <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-brand-silver transition-colors leading-tight">
                                         {job.title}
                                     </h3>
@@ -221,7 +212,7 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
                     </div>
                 ) : (
                     <div className="text-center py-40 border border-dashed border-white/5 rounded-sm bg-white/[0.01]">
-                        <p className="text-gray-600 font-bold text-xs uppercase tracking-widest mb-2">No Mandates Available</p>
+                        <p className="text-gray-600 font-bold text-xs uppercase tracking-widest mb-2">No Open Positions</p>
                         <p className="text-gray-700 text-sm">Check back soon for new opportunities.</p>
                     </div>
                 )}

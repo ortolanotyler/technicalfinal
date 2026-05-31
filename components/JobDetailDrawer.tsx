@@ -197,7 +197,7 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
                             {/* Responsibilities */}
                             <section>
                                 <h3 className="text-sm font-bold uppercase tracking-widest text-white mb-4 flex items-center gap-2">
-                                   <span className={`w-1 h-4 ${theme.bg}`}></span> The Mandate
+                                   <span className={`w-1 h-4 ${theme.bg}`}></span> The Role
                                 </h3>
                                 <ul className="space-y-4">
                                     {job.responsibilities.map((item, idx) => (

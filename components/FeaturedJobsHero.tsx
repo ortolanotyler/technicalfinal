@@ -112,12 +112,6 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ onViewJobs }) => {
                   <div className="absolute top-0 left-0 w-[2px] h-full bg-brand-silver scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-top"></div>
                   
                   <div className="flex-grow">
-                    <div className="flex items-center gap-4 mb-3">
-                      <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest px-2 py-1 bg-white/5 rounded-sm border border-white/5">
-                        {job.ref}
-                      </span>
-                    </div>
-                    
                     <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-brand-silver transition-colors leading-tight">
                       {job.title}
                     </h3>
