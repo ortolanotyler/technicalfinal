@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { JobPosting } from '../types';
 import { X, MapPin, DollarSign, Check, ArrowRight, Share2 } from 'lucide-react';
 import ApplicationModal from './ApplicationModal';
+import { jobSlug } from '../services/jobSlug';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
@@ -35,7 +36,7 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
 
   const handleShare = () => {
     if (!job) return;
-    const url = `${window.location.origin}/jobs/${job.id}`;
+    const url = `${window.location.origin}/jobs/${jobSlug(job)}`;
     navigator.clipboard.writeText(url).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);

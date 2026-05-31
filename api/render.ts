@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, collection, getDocs } from 'firebase/firestore';
 
 // Self-contained on purpose: this runs as a @vercel/node ESM function, which
 // does not bundle cross-directory relative TS imports, so we avoid them.
@@ -43,9 +43,31 @@ function db() {
   return getFirestore(app, FIRESTORE_DB_ID);
 }
 
-async function getJob(id: string): Promise<JobDoc | null> {
-  const d = await getDoc(doc(db(), 'jobs', id));
-  return d.exists() ? { id: d.id, ...(d.data() as Omit<JobDoc, 'id'>) } : null;
+// Slug helpers — keep identical to services/jobSlug.ts.
+function slugify(input: string): string {
+  return String(input)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-+|-+$)/g, '');
+}
+function jobSlug(job: JobDoc): string {
+  return slugify(`${job.title || 'job'} ${job.ref || job.id}`) || String(job.id);
+}
+
+// Resolve a job from a URL segment that may be a pretty slug
+// (service-manager-trd-2817) or a legacy raw Firestore id.
+async function findJob(idOrSlug: string): Promise<JobDoc | null> {
+  try {
+    const d = await getDoc(doc(db(), 'jobs', idOrSlug));
+    if (d.exists()) return { id: d.id, ...(d.data() as Omit<JobDoc, 'id'>) };
+  } catch {
+    /* not a valid doc id — fall through to slug match */
+  }
+  const snap = await getDocs(collection(db(), 'jobs'));
+  const match = snap.docs
+    .map((d) => ({ id: d.id, ...(d.data() as Omit<JobDoc, 'id'>) }))
+    .find((j) => jobSlug(j) === idOrSlug);
+  return match || null;
 }
 
 function escapeHtml(s = ''): string {
@@ -234,9 +256,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         },
       ]);
     } else if (id) {
-      const job = await getJob(id);
+      const job = await findJob(id);
       if (job && job.title) {
-        const canonical = `${SITE_ORIGIN}/jobs/${job.id}`;
+        const canonical = `${SITE_ORIGIN}/jobs/${jobSlug(job)}`;
         const description = (job.summary || `${job.title} in ${job.location || 'Canada'}`).slice(0, 320);
         html = applyMeta(html, {
           title: `${job.title}${job.location ? ` in ${job.location}` : ''} | ${ORG_NAME}`,

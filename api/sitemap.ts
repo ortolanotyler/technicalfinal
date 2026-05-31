@@ -16,8 +16,21 @@ const FIRESTORE_DB_ID = 'ai-studio-dc60054d-2d97-45c7-ab15-6ec5d6ba4885';
 
 interface JobDoc {
   id: string;
+  title?: string;
+  ref?: string;
   createdAt?: string;
   updatedAt?: string;
+}
+
+// Keep identical to services/jobSlug.ts.
+function slugify(input: string): string {
+  return String(input)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-+|-+$)/g, '');
+}
+function jobSlug(job: JobDoc): string {
+  return slugify(`${job.title || 'job'} ${job.ref || job.id}`) || String(job.id);
 }
 
 async function getAllJobs(): Promise<JobDoc[]> {
@@ -38,7 +51,7 @@ export default async function handler(_req: VercelRequest, res: VercelResponse) 
   try {
     for (const job of await getAllJobs()) {
       urls.push({
-        loc: `${SITE_ORIGIN}/jobs/${job.id}`,
+        loc: `${SITE_ORIGIN}/jobs/${jobSlug(job)}`,
         lastmod: (job.updatedAt || job.createdAt || '').slice(0, 10) || today,
         priority: '0.7',
         changefreq: 'weekly',

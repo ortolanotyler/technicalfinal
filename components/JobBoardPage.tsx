@@ -3,6 +3,7 @@ import { JobPosting } from '../types';
 import { ArrowLeft, MapPin, DollarSign, ArrowRight, Share2, Check } from 'lucide-react';
 import JobDetailDrawer from './JobDetailDrawer';
 import { jobService } from '../services/jobService';
+import { jobSlug } from '../services/jobSlug';
 import SEO from './SEO';
 
 interface JobBoardPageProps {
@@ -43,9 +44,9 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
       setJobs(sortedJobs);
       setLoading(false);
       
-      // Handle initial job selection from URL
+      // Handle initial job selection from URL (slug or legacy raw id).
       if (initialJobId && data.length > 0) {
-        const job = data.find(j => String(j.id) === initialJobId);
+        const job = data.find(j => jobSlug(j) === initialJobId || String(j.id) === initialJobId);
         if (job) {
           setSelectedJob(job);
         }
@@ -58,7 +59,7 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
   useEffect(() => {
     const path = window.location.pathname;
     if (selectedJob) {
-      const newPath = `/jobs/${selectedJob.id}`;
+      const newPath = `/jobs/${jobSlug(selectedJob)}`;
       if (path !== newPath) {
         window.history.pushState({}, '', newPath);
       }
@@ -67,11 +68,11 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
     }
   }, [selectedJob]);
 
-  const handleShare = (e: React.MouseEvent, jobId: string | number) => {
+  const handleShare = (e: React.MouseEvent, job: JobPosting) => {
     e.stopPropagation();
-    const url = `${window.location.origin}/jobs/${jobId}`;
+    const url = `${window.location.origin}/jobs/${jobSlug(job)}`;
     navigator.clipboard.writeText(url).then(() => {
-      setCopiedId(jobId);
+      setCopiedId(job.id);
       setTimeout(() => setCopiedId(null), 2000);
     });
   };
@@ -199,7 +200,7 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
                                     </div>
 
                                     <button
-                                        onClick={(e) => handleShare(e, job.id)}
+                                        onClick={(e) => handleShare(e, job)}
                                         className="p-2.5 rounded-sm border border-white/5 hover:border-brand-silver/30 hover:bg-white/5 transition-all relative"
                                         title="Copy job link"
                                     >
