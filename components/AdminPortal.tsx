@@ -44,7 +44,7 @@ const AdminPortal: React.FC<AdminPortalProps> = ({ onExit }) => {
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
   useEffect(() => {
-    const unsubscribe = jobService.onAuthChange(async (currentUser) => {
+    const unsubscribe = jobService.onAuthChange(async (currentUser: any) => {
       setUser(currentUser);
       if (currentUser) {
         const adminStatus = await jobService.isAdmin(currentUser);

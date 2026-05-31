@@ -1,18 +1,10 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
-// Self-contained (see api/render.ts for why).
+// Self-contained. Jobs are static data in data/jobs.json (bundled via
+// vercel.json includeFiles).
 const SITE_ORIGIN = 'https://thecertusgroup.tech';
-const FIREBASE_CONFIG = {
-  projectId: 'gen-lang-client-0136431445',
-  appId: '1:297393652693:web:d86902435371a7b6d8b35c',
-  apiKey: 'AIzaSyDZUaXzOPr9fu7C96t1OgVoiUuPbf52xOc',
-  authDomain: 'gen-lang-client-0136431445.firebaseapp.com',
-  storageBucket: 'gen-lang-client-0136431445.firebasestorage.app',
-  messagingSenderId: '297393652693',
-};
-const FIRESTORE_DB_ID = 'ai-studio-dc60054d-2d97-45c7-ab15-6ec5d6ba4885';
 
 interface JobDoc {
   id: string;
@@ -33,11 +25,13 @@ function jobSlug(job: JobDoc): string {
   return slugify(`${job.title || 'job'} ${job.ref || job.id}`) || String(job.id);
 }
 
-async function getAllJobs(): Promise<JobDoc[]> {
-  const app: FirebaseApp = getApps()[0] || initializeApp(FIREBASE_CONFIG);
-  const dbRef = getFirestore(app, FIRESTORE_DB_ID);
-  const snap = await getDocs(collection(dbRef, 'jobs'));
-  return snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<JobDoc, 'id'>) }));
+function getAllJobs(): JobDoc[] {
+  try {
+    return JSON.parse(readFileSync(join(process.cwd(), 'data/jobs.json'), 'utf8'));
+  } catch (err) {
+    console.error('sitemap: could not read data/jobs.json:', err);
+    return [];
+  }
 }
 
 export default async function handler(_req: VercelRequest, res: VercelResponse) {
@@ -49,7 +43,7 @@ export default async function handler(_req: VercelRequest, res: VercelResponse) 
   ];
 
   try {
-    for (const job of await getAllJobs()) {
+    for (const job of getAllJobs()) {
       urls.push({
         loc: `${SITE_ORIGIN}/jobs/${jobSlug(job)}`,
         lastmod: (job.updatedAt || job.createdAt || '').slice(0, 10) || today,

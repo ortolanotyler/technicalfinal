@@ -1,26 +1,15 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
-import { getFirestore, doc, getDoc, collection, getDocs } from 'firebase/firestore';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 // Self-contained on purpose: this runs as a @vercel/node ESM function, which
 // does not bundle cross-directory relative TS imports, so we avoid them.
+// Jobs are static data in data/jobs.json (bundled via vercel.json includeFiles).
 
 const SITE_ORIGIN = 'https://thecertusgroup.tech';
 const ORG_NAME = 'Certus Technical Search';
 const ORG_LOGO =
   'https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png';
-
-// Public Firebase web config (same one shipped to the browser). Jobs are
-// `allow read: if true`, so no admin credentials are needed.
-const FIREBASE_CONFIG = {
-  projectId: 'gen-lang-client-0136431445',
-  appId: '1:297393652693:web:d86902435371a7b6d8b35c',
-  apiKey: 'AIzaSyDZUaXzOPr9fu7C96t1OgVoiUuPbf52xOc',
-  authDomain: 'gen-lang-client-0136431445.firebaseapp.com',
-  storageBucket: 'gen-lang-client-0136431445.firebasestorage.app',
-  messagingSenderId: '297393652693',
-};
-const FIRESTORE_DB_ID = 'ai-studio-dc60054d-2d97-45c7-ab15-6ec5d6ba4885';
 
 interface JobDoc {
   id: string;
@@ -38,9 +27,13 @@ interface JobDoc {
   updatedAt?: string;
 }
 
-function db() {
-  const app: FirebaseApp = getApps()[0] || initializeApp(FIREBASE_CONFIG);
-  return getFirestore(app, FIRESTORE_DB_ID);
+function loadJobs(): JobDoc[] {
+  try {
+    return JSON.parse(readFileSync(join(process.cwd(), 'data/jobs.json'), 'utf8'));
+  } catch (err) {
+    console.error('render: could not read data/jobs.json:', err);
+    return [];
+  }
 }
 
 // Slug helpers — keep identical to services/jobSlug.ts.
@@ -55,19 +48,9 @@ function jobSlug(job: JobDoc): string {
 }
 
 // Resolve a job from a URL segment that may be a pretty slug
-// (service-manager-trd-2817) or a legacy raw Firestore id.
-async function findJob(idOrSlug: string): Promise<JobDoc | null> {
-  try {
-    const d = await getDoc(doc(db(), 'jobs', idOrSlug));
-    if (d.exists()) return { id: d.id, ...(d.data() as Omit<JobDoc, 'id'>) };
-  } catch {
-    /* not a valid doc id — fall through to slug match */
-  }
-  const snap = await getDocs(collection(db(), 'jobs'));
-  const match = snap.docs
-    .map((d) => ({ id: d.id, ...(d.data() as Omit<JobDoc, 'id'>) }))
-    .find((j) => jobSlug(j) === idOrSlug);
-  return match || null;
+// (service-manager-trd-2817) or a legacy raw id.
+function findJob(idOrSlug: string): JobDoc | null {
+  return loadJobs().find((j) => String(j.id) === idOrSlug || jobSlug(j) === idOrSlug) || null;
 }
 
 function escapeHtml(s = ''): string {
@@ -256,7 +239,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         },
       ]);
     } else if (id) {
-      const job = await findJob(id);
+      const job = findJob(id);
       if (job && job.title) {
         const canonical = `${SITE_ORIGIN}/jobs/${jobSlug(job)}`;
         const description = (job.summary || `${job.title} in ${job.location || 'Canada'}`).slice(0, 320);

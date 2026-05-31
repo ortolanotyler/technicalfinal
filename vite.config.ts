@@ -26,7 +26,6 @@ export default defineConfig(({ mode }) => {
             // pulled in by lazy-loaded components, so they stay out of the
             // initial gateway load).
             manualChunks: {
-              firebase: ['firebase/app', 'firebase/firestore', 'firebase/auth'],
               motion: ['motion'],
               markdown: ['react-markdown', 'remark-gfm', 'remark-breaks'],
             },
