@@ -133,13 +133,15 @@ const App: React.FC = () => {
         <main className="relative">
           <Hero />
           <IndustriesServed />
-          <Suspense fallback={<div className="min-h-[400px]" />}>
-            <LinkedInFeed />
-          </Suspense>
+          <Contact />
           <Suspense fallback={<div className="min-h-[400px]" />}>
             <FeaturedJobsHero onViewJobs={() => setView('jobs')} />
           </Suspense>
-          <Contact />
+          {/* LinkedIn is lazy; give the fallback the section id so the
+              "Social" anchor still resolves before the chunk loads. */}
+          <Suspense fallback={<div id={Section.INSIGHTS} className="min-h-[400px]" />}>
+            <LinkedInFeed />
+          </Suspense>
         </main>
         
         <Footer onNavigate={(id) => handleNavigate(id)} />
