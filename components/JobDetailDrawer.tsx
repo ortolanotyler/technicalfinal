@@ -113,11 +113,6 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
             {/* Header */}
             <div className="flex-shrink-0 px-6 sm:px-8 py-4 sm:py-6 border-b border-white/10 flex justify-between items-start bg-white/[0.02]">
               <div className="pr-4 sm:pr-8">
-                <div className="flex items-center gap-3 mb-2 sm:mb-3">
-                    <span className={`text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-1 rounded-sm border ${theme.border} ${theme.accent} ${theme.bgSoft}`}>
-                        REF: {job.ref}
-                    </span>
-                </div>
                 <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-tight">{job.title}</h2>
               </div>
               <div className="flex items-center gap-1 sm:gap-2 -mr-1 sm:-mr-2">
@@ -152,14 +147,14 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
                 {/* Meta Grid */}
                 <div className="grid grid-cols-2 gap-4 p-6 sm:p-8 border-b border-white/5 bg-white/[0.01]">
                     <div className="space-y-1">
-                        <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-widest">Location</span>
+                        <span className="text-xs sm:text-sm text-gray-500">Location</span>
                         <div className="flex items-center gap-2 text-gray-300 text-sm sm:text-base">
                             <MapPin size={16} strokeWidth={1.5} className={theme.accent} />
                             {job.location}
                         </div>
                     </div>
                     <div className="space-y-1">
-                        <span className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-widest">Compensation</span>
+                        <span className="text-xs sm:text-sm text-gray-500">Compensation</span>
                         <div className="flex items-center gap-2 text-gray-300 text-sm sm:text-base">
                             <DollarSign size={16} strokeWidth={1.5} className={theme.accent} />
                             {job.salary}
@@ -173,7 +168,7 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
                     {/* Full Description (New) */}
                     {job.description ? (
                         <section>
-                            <h3 className="text-sm font-bold uppercase tracking-widest text-white mb-4 flex items-center gap-2">
+                            <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2">
                                <span className={`w-1 h-4 ${theme.bg}`}></span> Job Description
                             </h3>
                             <div className="prose prose-invert prose-sm max-w-none text-gray-400 leading-relaxed font-light text-base [&_p]:my-2 [&_ul]:my-2 [&_ul]:pl-5 [&_li]:my-1 [&_li>p]:my-0">
@@ -186,7 +181,7 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
                         <>
                             {/* Summary */}
                             <section>
-                                <h3 className="text-sm font-bold uppercase tracking-widest text-white mb-4 flex items-center gap-2">
+                                <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2">
                                    <span className={`w-1 h-4 ${theme.bg}`}></span> Executive Summary
                                 </h3>
                                 <p className="text-gray-400 leading-relaxed font-light text-base">
@@ -196,7 +191,7 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
         
                             {/* Responsibilities */}
                             <section>
-                                <h3 className="text-sm font-bold uppercase tracking-widest text-white mb-4 flex items-center gap-2">
+                                <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2">
                                    <span className={`w-1 h-4 ${theme.bg}`}></span> The Role
                                 </h3>
                                 <ul className="space-y-4">
@@ -211,7 +206,7 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
         
                             {/* Requirements */}
                             <section>
-                                <h3 className="text-sm font-bold uppercase tracking-widest text-white mb-4 flex items-center gap-2">
+                                <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2">
                                    <span className={`w-1 h-4 ${theme.bg}`}></span> Candidate Profile
                                 </h3>
                                 <ul className="space-y-4">
@@ -232,12 +227,12 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
             <div className="flex-shrink-0 p-6 sm:p-8 border-t border-white/10 bg-brand-dark z-10">
                 <button 
                   onClick={() => setIsApplying(true)}
-                  className={`w-full py-3 sm:py-4 font-bold uppercase tracking-widest text-xs sm:text-sm rounded-sm transition-all duration-300 shadow-lg flex items-center justify-center gap-3 ${theme.button}`}
+                  className={`w-full py-3 sm:py-4 font-bold text-sm sm:text-base rounded-sm transition-all duration-300 shadow-lg flex items-center justify-center gap-3 ${theme.button}`}
                 >
                     Apply for this Position <ArrowRight size={18} />
                 </button>
-                <p className="text-center text-[10px] text-gray-600 mt-3 sm:mt-4">
-                    Reference ID: <span className="text-gray-400">{job.ref}</span> • Confidentiality Guaranteed
+                <p className="text-center text-xs text-gray-600 mt-3 sm:mt-4">
+                    Confidentiality Guaranteed
                 </p>
             </div>
           </>

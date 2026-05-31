@@ -138,7 +138,7 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
         <div className="flex-shrink-0 flex justify-between items-center px-6 sm:px-8 py-4 sm:py-6 border-b border-white/10 bg-white/[0.02]">
            <div>
              <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">Application</h3>
-             <p className="text-[10px] text-gray-500 uppercase tracking-wider mt-0.5 font-mono">REF: {job.ref}</p>
+             <p className="text-xs sm:text-sm text-gray-500 mt-0.5">{job.title}</p>
            </div>
            <button 
              onClick={onClose} 
