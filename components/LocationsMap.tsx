@@ -49,7 +49,6 @@ const regionCode = (region: string): string => {
   return PROVINCE_CODES[r] || region.trim().slice(0, 2).toUpperCase();
 };
 
-// Parse "City, Province" (or multi-city "A, B, Province") into a geocoder key.
 const normalizeLocation = (raw: string): string | null => {
   if (!raw) return null;
   const cleaned = raw.replace(/remote\s*\/\s*/i, '').trim();
@@ -88,11 +87,14 @@ const groupJobsByCity = (jobs: JobPosting[]): JobPin[] => {
 const SVG_WIDTH = 1000;
 const SVG_HEIGHT = 700;
 
+type Hovered = { key: string; x: number; y: number };
+
 export default function LocationsMap() {
   const [jobs, setJobs] = useState<JobPosting[]>([]);
-  const [hoveredKey, setHoveredKey] = useState<string | null>(null);
+  const [hovered, setHovered] = useState<Hovered | null>(null);
   const [applyingTo, setApplyingTo] = useState<JobPosting | null>(null);
   const closeTimer = useRef<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     jobService.getJobsByDomain().then(setJobs);
@@ -101,22 +103,35 @@ export default function LocationsMap() {
   const pins = groupJobsByCity(jobs);
   const totalShown = pins.reduce((sum, p) => sum + p.jobs.length, 0);
   const unmapped = Math.max(0, jobs.length - totalShown);
-  const hoveredPin = pins.find((p) => p.key === hoveredKey) || null;
+  const hoveredPin = pins.find((p) => p.key === hovered?.key) || null;
 
-  const handlePinEnter = (key: string) => {
+  const cancelClose = () => {
     if (closeTimer.current) {
       window.clearTimeout(closeTimer.current);
       closeTimer.current = null;
     }
-    setHoveredKey(key);
+  };
+  const scheduleClose = () => {
+    cancelClose();
+    closeTimer.current = window.setTimeout(() => setHovered(null), 200);
+  };
+  const openPin = (key: string, e: React.MouseEvent) => {
+    cancelClose();
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    // Clamp so the ~280px popup stays within the section bounds.
+    const x = Math.max(150, Math.min(e.clientX - rect.left, rect.width - 150));
+    const y = e.clientY - rect.top;
+    setHovered({ key, x, y });
   };
 
-  const handlePinLeave = () => {
-    closeTimer.current = window.setTimeout(() => setHoveredKey(null), 200);
-  };
+  const popupAbove = hovered ? hovered.y > 240 : true;
 
   return (
-    <section className="relative bg-[#070b12] border-y border-white/5 overflow-hidden h-[70vh] min-h-[520px]">
+    <section
+      ref={sectionRef}
+      className="relative bg-[#070b12] border-y border-white/5 overflow-hidden h-[70vh] min-h-[520px]"
+    >
       <div className="absolute inset-0">
         <ComposableMap
           projection="geoAlbers"
@@ -152,22 +167,30 @@ export default function LocationsMap() {
           </Marker>
 
           {pins.map((pin) => {
-            const isHovered = hoveredKey === pin.key;
+            const isHovered = hovered?.key === pin.key;
             return (
               <Marker
                 key={pin.key}
                 coordinates={[pin.lng, pin.lat]}
-                onMouseEnter={() => handlePinEnter(pin.key)}
-                onMouseLeave={handlePinLeave}
-                onClick={() => handlePinEnter(pin.key)}
+                onMouseEnter={(e: React.MouseEvent) => openPin(pin.key, e)}
+                onMouseLeave={scheduleClose}
+                onClick={(e: React.MouseEvent) => openPin(pin.key, e)}
                 style={{
                   default: { cursor: 'pointer' },
                   hover: { cursor: 'pointer' },
                   pressed: { cursor: 'pointer' },
                 }}
               >
-                <circle r={14} fill="#9FA8B5" fillOpacity={isHovered ? 0.45 : 0.18} />
-                <circle r={isHovered ? 7 : 6} fill="#FFFFFF" stroke="#9FA8B5" strokeWidth={isHovered ? 2 : 1.5} />
+                {/* Transparent hit area for reliable hit-testing (incl. Safari) */}
+                <circle r={16} fill="#000" fillOpacity={0.001} />
+                <circle r={14} fill="#9FA8B5" fillOpacity={isHovered ? 0.45 : 0.18} style={{ pointerEvents: 'none' }} />
+                <circle
+                  r={isHovered ? 7 : 6}
+                  fill="#FFFFFF"
+                  stroke="#9FA8B5"
+                  strokeWidth={isHovered ? 2 : 1.5}
+                  style={{ pointerEvents: 'none' }}
+                />
                 {pin.jobs.length > 1 && (
                   <text
                     textAnchor="middle"
@@ -183,79 +206,73 @@ export default function LocationsMap() {
               </Marker>
             );
           })}
-
-          {/* Hover popup via foreignObject (same projection as pins). */}
-          {hoveredPin && (
-            <Marker coordinates={[hoveredPin.lng, hoveredPin.lat]}>
-              <foreignObject
-                x={-140}
-                y={-(Math.min(hoveredPin.jobs.length, 3) * 56 + 60)}
-                width={280}
-                height={Math.min(hoveredPin.jobs.length, 3) * 56 + 56}
-                style={{ overflow: 'visible' }}
-              >
-                <div
-                  onMouseEnter={() => handlePinEnter(hoveredPin.key)}
-                  onMouseLeave={handlePinLeave}
-                  className="bg-brand-dark/95 backdrop-blur-md border border-white/10 rounded-sm p-3 shadow-2xl text-white"
-                  style={{ fontFamily: 'Outfit, system-ui, sans-serif' }}
-                >
-                  <div className="flex items-center gap-2 mb-2 pb-2 border-b border-white/10">
-                    <MapPin size={11} className="text-brand-silver" strokeWidth={1.5} />
-                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70">
-                      {hoveredPin.label}
-                    </span>
-                    <span className="ml-auto text-[10px] text-white/40 font-mono">
-                      {hoveredPin.jobs.length} {hoveredPin.jobs.length === 1 ? 'role' : 'roles'}
-                    </span>
-                  </div>
-                  <div className="space-y-2 max-h-[156px] overflow-y-auto">
-                    {hoveredPin.jobs.slice(0, 3).map((job) => (
-                      <div key={job.id} className="group">
-                        <div className="text-xs font-medium text-white leading-tight line-clamp-2">
-                          {job.title}
-                        </div>
-                        <div className="flex items-center justify-between gap-2 mt-1.5">
-                          <span className="text-[10px] text-white/40 font-light flex items-center gap-1 min-w-0">
-                            {job.salary ? (
-                              <>
-                                <DollarSign size={10} strokeWidth={1.5} className="text-brand-silver flex-shrink-0" />
-                                <span className="truncate">{job.salary}</span>
-                              </>
-                            ) : (
-                              <span className="text-white/30">View details</span>
-                            )}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setApplyingTo(job);
-                            }}
-                            className="inline-flex items-center gap-1 bg-white text-brand-dark hover:bg-brand-silver px-2.5 py-1 rounded-sm text-[9px] font-bold uppercase tracking-[0.15em] transition-colors flex-shrink-0"
-                          >
-                            Apply
-                            <ArrowRight size={9} strokeWidth={2.5} />
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                    {hoveredPin.jobs.length > 3 && (
-                      <div className="text-[9px] text-white/40 uppercase tracking-[0.2em] text-center pt-1">
-                        +{hoveredPin.jobs.length - 3} more
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </foreignObject>
-            </Marker>
-          )}
         </ComposableMap>
 
         {/* Vignettes: push the map back, content forward */}
         <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent pointer-events-none"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/60 via-transparent to-transparent pointer-events-none"></div>
       </div>
+
+      {/* Hover/tap popup — a normal DOM overlay (no foreignObject, so it works
+          in Safari). Positioned at the pin via the pointer coordinates. */}
+      {hoveredPin && hovered && (
+        <div
+          onMouseEnter={cancelClose}
+          onMouseLeave={scheduleClose}
+          className="absolute z-20 w-[280px] bg-brand-dark/95 backdrop-blur-md border border-white/10 rounded-sm p-3 shadow-2xl text-white"
+          style={{
+            left: hovered.x,
+            top: hovered.y,
+            transform: popupAbove ? 'translate(-50%, calc(-100% - 18px))' : 'translate(-50%, 18px)',
+            fontFamily: 'Outfit, system-ui, sans-serif',
+          }}
+        >
+          <div className="flex items-center gap-2 mb-2 pb-2 border-b border-white/10">
+            <MapPin size={11} className="text-brand-silver" strokeWidth={1.5} />
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70">
+              {hoveredPin.label}
+            </span>
+            <span className="ml-auto text-[10px] text-white/40 font-mono">
+              {hoveredPin.jobs.length} {hoveredPin.jobs.length === 1 ? 'role' : 'roles'}
+            </span>
+          </div>
+          <div className="space-y-2 max-h-[200px] overflow-y-auto">
+            {hoveredPin.jobs.slice(0, 4).map((job) => (
+              <div key={job.id}>
+                <div className="text-xs font-medium text-white leading-tight line-clamp-2">{job.title}</div>
+                <div className="flex items-center justify-between gap-2 mt-1.5">
+                  <span className="text-[10px] text-white/40 font-light flex items-center gap-1 min-w-0">
+                    {job.salary ? (
+                      <>
+                        <DollarSign size={10} strokeWidth={1.5} className="text-brand-silver flex-shrink-0" />
+                        <span className="truncate">{job.salary}</span>
+                      </>
+                    ) : (
+                      <span className="text-white/30">View details</span>
+                    )}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setApplyingTo(job);
+                    }}
+                    className="inline-flex items-center gap-1 bg-white text-brand-dark hover:bg-brand-silver px-2.5 py-1 rounded-sm text-[9px] font-bold uppercase tracking-[0.15em] transition-colors flex-shrink-0"
+                  >
+                    Apply
+                    <ArrowRight size={9} strokeWidth={2.5} />
+                  </button>
+                </div>
+              </div>
+            ))}
+            {hoveredPin.jobs.length > 4 && (
+              <div className="text-[9px] text-white/40 uppercase tracking-[0.2em] text-center pt-1">
+                +{hoveredPin.jobs.length - 4} more
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Headline overlay (top-left) */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-16 md:pt-24 pointer-events-none">
@@ -265,7 +282,7 @@ export default function LocationsMap() {
           Recruiting across Canada.
         </h2>
         <p className="mt-3 text-white/40 text-[10px] font-light uppercase tracking-[0.3em]">
-          Hover a pin to view roles
+          Tap or hover a pin to view roles
         </p>
       </div>
 
