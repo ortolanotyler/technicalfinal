@@ -58,13 +58,37 @@ const App: React.FC = () => {
     }
   }, [view]);
 
+  // Keep the view in sync with the browser back/forward buttons.
+  useEffect(() => {
+    const syncFromUrl = () => {
+      const path = window.location.pathname;
+      if (path.startsWith('/jobs/')) {
+        setInitialJobId(path.split('/jobs/')[1]);
+        setView('jobs');
+      } else if (path === '/jobs') {
+        setInitialJobId(null);
+        setView('jobs');
+      } else if (path === '/employers') {
+        setView('employers');
+      } else if (path === '/admin') {
+        setView('admin');
+      } else {
+        setView('landing');
+      }
+    };
+    window.addEventListener('popstate', syncFromUrl);
+    return () => window.removeEventListener('popstate', syncFromUrl);
+  }, []);
+
   const handleNavigate = (sectionId: string) => {
     if (sectionId === Section.ADMIN) {
         setView('admin');
         return;
     }
 
-    if (view === 'jobs' || view === 'admin' || view === 'gateway') {
+    // From any page that isn't the landing, go to the landing first, then scroll
+    // to the section (those section anchors only exist on the landing).
+    if (view !== 'landing') {
       setView('landing');
       setTimeout(() => {
          document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
