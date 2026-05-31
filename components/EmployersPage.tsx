@@ -20,7 +20,7 @@ const SECTORS = [
 
 const EmployersPage: React.FC<EmployersPageProps> = ({ onViewJobs, onNavigate }) => {
   const [form, setForm] = useState({
-    company: '', name: '', email: '', phone: '', role: '', location: '', hires: '', timeline: '', message: '',
+    company: '', name: '', email: '', phone: '', message: '',
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
@@ -41,8 +41,8 @@ const EmployersPage: React.FC<EmployersPageProps> = ({ onViewJobs, onNavigate })
       });
       if (res.ok) {
         setStatus('success');
-        (window as any).gtag?.('event', 'employer_inquiry', { company: form.company, role: form.role });
-        setForm({ company: '', name: '', email: '', phone: '', role: '', location: '', hires: '', timeline: '', message: '' });
+        (window as any).gtag?.('event', 'employer_inquiry', { company: form.company });
+        setForm({ company: '', name: '', email: '', phone: '', message: '' });
       } else {
         setStatus('error');
       }
@@ -110,11 +110,7 @@ const EmployersPage: React.FC<EmployersPageProps> = ({ onViewJobs, onNavigate })
               <input name="name" value={form.name} onChange={update} required placeholder="Your name *" className={inputCls} />
               <input type="email" name="email" value={form.email} onChange={update} required placeholder="Work email *" className={inputCls} />
               <input type="tel" name="phone" value={form.phone} onChange={update} placeholder="Phone" className={inputCls} />
-              <input name="role" value={form.role} onChange={update} placeholder="Role to fill" className={inputCls} />
-              <input name="location" value={form.location} onChange={update} placeholder="Location" className={inputCls} />
-              <input name="hires" value={form.hires} onChange={update} placeholder="Number of hires" className={inputCls} />
-              <input name="timeline" value={form.timeline} onChange={update} placeholder="Timeline" className={inputCls} />
-              <textarea name="message" value={form.message} onChange={update} placeholder="Anything else we should know?" rows={3} className={`${inputCls} sm:col-span-2 resize-none`} />
+              <textarea name="message" value={form.message} onChange={update} placeholder="What are you hiring for? Role, location and timeline help." rows={4} className={`${inputCls} sm:col-span-2 resize-none`} />
 
               {status === 'error' && (
                 <p className="sm:col-span-2 text-red-400 text-sm font-medium">Something went wrong. Please try again or call us.</p>

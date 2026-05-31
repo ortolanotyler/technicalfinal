@@ -9,7 +9,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const {
-    company, name, email, phone, role, location, hires, timeline, message,
+    company, name, email, phone, message,
   } = req.body ?? {};
 
   if (!company || !name || !email) {
@@ -18,7 +18,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const apiKey = process.env.SENDGRID_API_KEY;
   if (!apiKey || !apiKey.startsWith('SG.')) {
-    console.log('[Dev] Employer inquiry:', { company, name, email, role });
+    console.log('[Dev] Employer inquiry:', { company, name, email });
     return res.status(200).json({ success: true, message: 'Dev mode: Inquiry logged to console' });
   }
   sgMail.setApiKey(apiKey);
@@ -28,10 +28,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     ['Contact', name],
     ['Email', email],
     ['Phone', phone || 'Not provided'],
-    ['Role(s) to fill', role || 'Not specified'],
-    ['Location', location || 'Not specified'],
-    ['Number of hires', hires || 'Not specified'],
-    ['Timeline', timeline || 'Not specified'],
     ['Message', message || 'None'],
   ];
 
@@ -40,7 +36,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       to: 'recruit@certusgroup.com',
       from: { email: 'tyler@certusgroup.com', name: 'Certus Technical Search' },
       replyTo: email,
-      subject: `New Employer Inquiry: ${company}${role ? ` (${role})` : ''}`,
+      subject: `New Employer Inquiry: ${company}`,
       text: fields.map(([k, v]) => `${k}: ${v}`).join('\n'),
       html:
         `<h3>New Employer Inquiry</h3>` +
@@ -60,13 +56,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       subject: 'Thanks for reaching out to Certus Technical Search',
       text:
         `Hi ${name},\n\n` +
-        `Thanks for contacting Certus Technical Search about your hiring needs${role ? ` (${role})` : ''}. ` +
+        `Thanks for contacting Certus Technical Search about your hiring needs. ` +
         `A specialist will review your request and reach out shortly to discuss how we can help.\n\n` +
         `Thanks,\nThe Certus Technical Search Team\nhttps://thecertusgroup.tech`,
       html:
         `<div style="font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;line-height:1.6">` +
         `<p>Hi ${name},</p>` +
-        `<p>Thanks for contacting <strong>Certus Technical Search</strong> about your hiring needs${role ? ` (${role})` : ''}. ` +
+        `<p>Thanks for contacting <strong>Certus Technical Search</strong> about your hiring needs. ` +
         `A specialist will review your request and reach out shortly to discuss how we can help.</p>` +
         `<p style="color:#555">Thanks,<br/>The Certus Technical Search Team</p>` +
         `</div>`,
