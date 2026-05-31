@@ -167,71 +167,54 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
                     </p>
                 </div>
                 {filteredJobs.length > 0 ? (
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        {/* JobPosting Structured Data */}
+                    <div className="space-y-4">
                         {filteredJobs.map((job) => (
-                            <SEO key={`seo-${job.id}`} job={job} schemaOnly={true} />
-                        ))}
-                        {filteredJobs.map((job) => (
-                            <div 
-                                key={job.id} 
+                            <div
+                                key={job.id}
                                 onClick={() => setSelectedJob(job)}
-                                className={`
-                                    relative group cursor-pointer bg-white/[0.01] border border-white/5 rounded-sm overflow-hidden
-                                    transition-all duration-500 ease-out hover:-translate-y-1
-                                    flex flex-col backdrop-blur-sm
-                                    ${theme.cardBorderHover}
-                                `}
+                                className="group relative bg-white/[0.02] border border-white/5 p-6 md:p-8 rounded-sm hover:border-brand-silver/40 transition-all duration-500 cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-6 overflow-hidden"
                             >
-                                <div className="p-8 md:p-10 flex flex-col h-full relative z-10">
-                                    <div className="flex justify-between items-start mb-8">
-                                        <span className="font-mono text-[10px] text-gray-600 uppercase tracking-widest px-2 py-1 border border-white/5 rounded-sm">
+                                {/* Hover accent */}
+                                <div className="absolute top-0 left-0 w-[2px] h-full bg-brand-silver scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-top"></div>
+
+                                <div className="flex-grow min-w-0">
+                                    <div className="flex items-center gap-4 mb-3">
+                                        <span className="font-mono text-[10px] text-gray-500 uppercase tracking-widest px-2 py-1 bg-white/5 border border-white/5 rounded-sm">
                                             REF: {job.ref}
                                         </span>
-                                        <button 
-                                            onClick={(e) => handleShare(e, job.id)}
-                                            className="p-2 rounded-sm border border-white/5 hover:border-brand-silver/30 hover:bg-white/5 transition-all group/share relative"
-                                            title="Copy Job Link"
-                                        >
-                                            {copiedId === job.id ? (
-                                                <Check size={14} className="text-green-400" />
-                                            ) : (
-                                                <Share2 size={14} className="text-gray-500 group-hover/share:text-brand-silver" />
-                                            )}
-                                            {copiedId === job.id && (
-                                                <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-brand-navy border border-white/10 text-[10px] text-white px-2 py-1 rounded-sm whitespace-nowrap animate-in fade-in slide-in-from-bottom-1">
-                                                    Link Copied
-                                                </span>
-                                            )}
-                                        </button>
                                     </div>
-
-                                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-brand-silver transition-colors tracking-tight leading-tight text-balance">
+                                    <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-brand-silver transition-colors leading-tight">
                                         {job.title}
                                     </h3>
+                                </div>
 
-                                    <p className="text-gray-500 text-sm leading-relaxed mb-10 line-clamp-2 font-light text-justify">
-                                        {job.summary}
-                                    </p>
+                                <div className="flex flex-wrap items-center gap-5 md:gap-8 flex-shrink-0">
+                                    <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                                        <MapPin size={14} className="text-brand-silver" />
+                                        <span>{job.location}</span>
+                                    </div>
+                                    <div className="hidden sm:flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                                        <DollarSign size={14} className="text-brand-silver" />
+                                        <span>{job.salary}</span>
+                                    </div>
 
-                                    <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
-                                        <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-gray-500">
-                                            <div className="flex items-center gap-2">
-                                                <MapPin size={14} className={theme.iconColor} />
-                                                <span>{job.location}</span>
-                                            </div>
-                                            <div className="hidden sm:flex items-center gap-2">
-                                                <DollarSign size={14} className={theme.iconColor} />
-                                                <span>{job.salary}</span>
-                                            </div>
-                                        </div>
+                                    <button
+                                        onClick={(e) => handleShare(e, job.id)}
+                                        className="p-2.5 rounded-sm border border-white/5 hover:border-brand-silver/30 hover:bg-white/5 transition-all relative"
+                                        title="Copy job link"
+                                    >
+                                        {copiedId === job.id ? (
+                                            <Check size={14} className="text-green-400" />
+                                        ) : (
+                                            <Share2 size={14} className="text-gray-500 hover:text-brand-silver" />
+                                        )}
+                                    </button>
 
-                                        <div className="p-2 rounded-full border border-white/10 group-hover:bg-white group-hover:text-brand-dark transition-all duration-300">
-                                            <ArrowRight size={14} />
-                                        </div>
+                                    <div className="flex items-center gap-3 bg-brand-silver/10 group-hover:bg-brand-silver text-brand-silver group-hover:text-black px-6 py-3 rounded-sm transition-all duration-500">
+                                        <span className="text-[10px] font-bold uppercase tracking-widest">Apply Now</span>
+                                        <ArrowRight size={14} />
                                     </div>
                                 </div>
-                                <div className={`absolute inset-0 bg-gradient-to-br ${theme.cardGradient} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}></div>
                             </div>
                         ))}
                     </div>
