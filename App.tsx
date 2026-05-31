@@ -18,7 +18,9 @@ const FeaturedJobsHero = lazy(() => import('./components/FeaturedJobsHero'));
 const JobBoardPage = lazy(() => import('./components/JobBoardPage'));
 const AdminPortal = lazy(() => import('./components/AdminPortal'));
 const EmployersPage = lazy(() => import('./components/EmployersPage'));
-const LocationsMap = lazy(() => import('./components/LocationsMap'));
+// Interactive jobs map hero — temporarily removed; component preserved in
+// components/LocationsMap.tsx. Uncomment this and the <LocationsMap/> block below to restore.
+// const LocationsMap = lazy(() => import('./components/LocationsMap'));
 
 const App: React.FC = () => {
   const [view, setView] = useState<View>(() => {
@@ -145,9 +147,12 @@ const App: React.FC = () => {
           <Suspense fallback={<div className="min-h-[400px]" />}>
             <FeaturedJobsHero onViewJobs={handleViewJobs} />
           </Suspense>
+          {/* Interactive jobs map hero temporarily removed (restore by uncommenting
+              this block and the LocationsMap lazy import above):
           <Suspense fallback={<div className="h-[58vh] min-h-[420px] md:h-[70vh] md:min-h-[520px] bg-[#070b12]" />}>
             <LocationsMap />
           </Suspense>
+          */}
           {/* LinkedIn is lazy; give the fallback the section id so the
               "Social" anchor still resolves before the chunk loads. */}
           <Suspense fallback={<div id={Section.INSIGHTS} className="min-h-[400px]" />}>
