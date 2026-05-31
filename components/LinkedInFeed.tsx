@@ -151,21 +151,21 @@ const LinkedInFeed: React.FC = () => {
                         />
                       </div>
 
-                      <div className="p-6 md:p-7 flex-grow flex flex-col gap-5">
-                        <div className="text-gray-300 text-sm font-light leading-relaxed line-clamp-[7] prose prose-invert prose-sm max-w-none whitespace-pre-wrap [&_p]:my-0">
-                          <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
-                            {post.content.replace(/\n\s*\n/g, '\n\n&nbsp;\n\n')}
-                          </ReactMarkdown>
-                        </div>
-
-                        {typeof post.image === 'string' && post.image.trim() !== '' && (
-                          <div className="mt-auto -mx-6 md:-mx-7 -mb-6 md:-mb-7 border-t border-white/5 overflow-hidden">
+                      <div className="flex-grow flex flex-col">
+                        {typeof post.image === 'string' && post.image.trim() !== '' ? (
+                          <div className="flex-grow overflow-hidden bg-black/20">
                             <img
                               src={post.image}
                               alt=""
-                              className="w-full h-auto object-cover max-h-48 grayscale-[20%] group-hover:grayscale-0 group-hover:scale-[1.02] transition-all duration-700"
+                              className="w-full h-full object-cover min-h-[220px] grayscale-[20%] group-hover:grayscale-0 group-hover:scale-[1.02] transition-all duration-700"
                               referrerPolicy="no-referrer"
                             />
+                          </div>
+                        ) : (
+                          <div className="p-6 md:p-7 flex-grow text-gray-300 text-sm font-light leading-relaxed line-clamp-[7] prose prose-invert prose-sm max-w-none whitespace-pre-wrap [&_p]:my-0">
+                            <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
+                              {post.content.replace(/\n\s*\n/g, '\n\n&nbsp;\n\n')}
+                            </ReactMarkdown>
                           </div>
                         )}
                       </div>
