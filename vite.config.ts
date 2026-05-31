@@ -18,6 +18,20 @@ export default defineConfig(({ mode }) => {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
+      },
+      build: {
+        rollupOptions: {
+          output: {
+            // Split heavy vendors into their own cacheable chunks (they're only
+            // pulled in by lazy-loaded components, so they stay out of the
+            // initial gateway load).
+            manualChunks: {
+              firebase: ['firebase/app', 'firebase/firestore', 'firebase/auth'],
+              motion: ['motion'],
+              markdown: ['react-markdown', 'remark-gfm', 'remark-breaks'],
+            },
+          },
+        },
       }
     };
 });

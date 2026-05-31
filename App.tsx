@@ -1,18 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import LinkedInFeed from './components/LinkedInFeed';
-import FeaturedJobsHero from './components/FeaturedJobsHero';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import JobBoardPage from './components/JobBoardPage';
-import AdminPortal from './components/AdminPortal';
 import IndustriesServed from './components/IndustriesServed';
 import SplitGateway from './components/SplitGateway';
 import SEO from './components/SEO';
+import Analytics from './components/Analytics';
 import ErrorBoundary from './components/ErrorBoundary';
 import { View, Section } from './types';
+
+// Heavy components (Firebase SDK, motion, react-markdown) are code-split so the
+// gateway and above-the-fold landing load without them.
+const LinkedInFeed = lazy(() => import('./components/LinkedInFeed'));
+const FeaturedJobsHero = lazy(() => import('./components/FeaturedJobsHero'));
+const JobBoardPage = lazy(() => import('./components/JobBoardPage'));
+const AdminPortal = lazy(() => import('./components/AdminPortal'));
 
 const App: React.FC = () => {
   const [view, setView] = useState<View>(() => {
@@ -117,8 +121,12 @@ const App: React.FC = () => {
         <main className="relative">
           <Hero />
           <IndustriesServed />
-          <LinkedInFeed />
-          <FeaturedJobsHero onViewJobs={() => setView('jobs')} />
+          <Suspense fallback={<div className="min-h-[400px]" />}>
+            <LinkedInFeed />
+          </Suspense>
+          <Suspense fallback={<div className="min-h-[400px]" />}>
+            <FeaturedJobsHero onViewJobs={() => setView('jobs')} />
+          </Suspense>
           <Contact />
         </main>
         
@@ -130,7 +138,10 @@ const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <HelmetProvider>
-        {renderContent()}
+        <Analytics />
+        <Suspense fallback={<div className="min-h-screen bg-brand-dark" />}>
+          {renderContent()}
+        </Suspense>
       </HelmetProvider>
     </ErrorBoundary>
   );

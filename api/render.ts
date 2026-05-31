@@ -119,14 +119,20 @@ function isoDate(input?: string): string {
 }
 
 function jobPostingJsonLd(job: JobDoc): Record<string, unknown> {
-  const base = Date.parse(job.createdAt || job.posted || '') || Date.now();
+  // validThrough is a ROLLING future date (today + 45d), recomputed on each
+  // render, so a posting that stays open longer than ~60 days doesn't silently
+  // expire out of Google for Jobs. When a job is removed from Firestore, the
+  // page already returns a noindex "Position filled" shell instead.
+  const validThrough = new Date(Date.now() + 45 * 24 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10);
   const schema: Record<string, unknown> = {
     '@context': 'https://schema.org/',
     '@type': 'JobPosting',
     title: job.title,
     description: descriptionHtml(job),
     datePosted: isoDate(job.createdAt || job.posted),
-    validThrough: new Date(base + 60 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
+    validThrough,
     employmentType: EMPLOYMENT_TYPES[(job.type || '').trim().toLowerCase()] || 'FULL_TIME',
     directApply: true,
     hiringOrganization: {
