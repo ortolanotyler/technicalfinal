@@ -18,6 +18,7 @@ const FeaturedJobsHero = lazy(() => import('./components/FeaturedJobsHero'));
 const JobBoardPage = lazy(() => import('./components/JobBoardPage'));
 const AdminPortal = lazy(() => import('./components/AdminPortal'));
 const EmployersPage = lazy(() => import('./components/EmployersPage'));
+const LocationsMap = lazy(() => import('./components/LocationsMap'));
 
 const App: React.FC = () => {
   const [view, setView] = useState<View>(() => {
@@ -143,6 +144,9 @@ const App: React.FC = () => {
           <IndustriesServed />
           <Suspense fallback={<div className="min-h-[400px]" />}>
             <FeaturedJobsHero onViewJobs={handleViewJobs} />
+          </Suspense>
+          <Suspense fallback={<div className="h-[70vh] min-h-[520px] bg-[#070b12]" />}>
+            <LocationsMap />
           </Suspense>
           {/* LinkedIn is lazy; give the fallback the section id so the
               "Social" anchor still resolves before the chunk loads. */}
