@@ -101,21 +101,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       to: email,
       from: { email: 'tyler@certusgroup.com', name: 'Certus Technical Search' },
       replyTo: 'recruit@certusgroup.com',
-      subject: `We received your application${jobTitle ? ` — ${jobTitle}` : ''}`,
+      subject: `We received your application${jobTitle ? ` for ${jobTitle}` : ''}`,
       text:
         `Hi ${firstName},\n\n` +
         `Thanks for applying${roleText} with Certus Technical Search. ` +
-        `We've received your application and our team will review it. If your background is a strong match, a recruiter will be in touch.\n\n` +
-        `In the meantime, you can view our current openings at https://thecertusgroup.tech/jobs\n\n` +
-        `— The Certus Technical Search Team`,
+        `We have your application and our team will review it. If your background is a strong match, a recruiter will be in touch.\n\n` +
+        `You can see our current openings at https://thecertusgroup.tech/jobs\n\n` +
+        `Thanks,\nThe Certus Technical Search Team`,
       html:
         `<div style="font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;line-height:1.6">` +
         `<p>Hi ${firstName},</p>` +
         `<p>Thanks for applying${roleLine} with <strong>Certus Technical Search</strong>. ` +
-        `We've received your application and our team will review it. If your background is a strong match, a recruiter will be in touch.</p>` +
-        `<p>In the meantime, you can browse our current openings ` +
+        `We have your application and our team will review it. If your background is a strong match, a recruiter will be in touch.</p>` +
+        `<p>You can see our current openings ` +
         `<a href="https://thecertusgroup.tech/jobs">here</a>.</p>` +
-        `<p style="color:#555">— The Certus Technical Search Team</p>` +
+        `<p style="color:#555">Thanks,<br/>The Certus Technical Search Team</p>` +
         `</div>`,
     });
   } catch (error) {

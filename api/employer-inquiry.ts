@@ -32,7 +32,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     ['Location', location || 'Not specified'],
     ['Number of hires', hires || 'Not specified'],
     ['Timeline', timeline || 'Not specified'],
-    ['Message', message || '—'],
+    ['Message', message || 'None'],
   ];
 
   try {
@@ -40,7 +40,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       to: 'recruit@certusgroup.com',
       from: { email: 'tyler@certusgroup.com', name: 'Certus Technical Search' },
       replyTo: email,
-      subject: `New Employer Inquiry: ${company}${role ? ` — ${role}` : ''}`,
+      subject: `New Employer Inquiry: ${company}${role ? ` (${role})` : ''}`,
       text: fields.map(([k, v]) => `${k}: ${v}`).join('\n'),
       html:
         `<h3>New Employer Inquiry</h3>` +
@@ -57,18 +57,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       to: email,
       from: { email: 'tyler@certusgroup.com', name: 'Certus Technical Search' },
       replyTo: 'recruit@certusgroup.com',
-      subject: 'Thanks for reaching out — Certus Technical Search',
+      subject: 'Thanks for reaching out to Certus Technical Search',
       text:
         `Hi ${name},\n\n` +
         `Thanks for contacting Certus Technical Search about your hiring needs${role ? ` (${role})` : ''}. ` +
-        `One of our specialists will review your request and reach out shortly to discuss how we can help.\n\n` +
-        `— The Certus Technical Search Team\nhttps://thecertusgroup.tech`,
+        `A specialist will review your request and reach out shortly to discuss how we can help.\n\n` +
+        `Thanks,\nThe Certus Technical Search Team\nhttps://thecertusgroup.tech`,
       html:
         `<div style="font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;line-height:1.6">` +
         `<p>Hi ${name},</p>` +
         `<p>Thanks for contacting <strong>Certus Technical Search</strong> about your hiring needs${role ? ` (${role})` : ''}. ` +
-        `One of our specialists will review your request and reach out shortly to discuss how we can help.</p>` +
-        `<p style="color:#555">— The Certus Technical Search Team</p>` +
+        `A specialist will review your request and reach out shortly to discuss how we can help.</p>` +
+        `<p style="color:#555">Thanks,<br/>The Certus Technical Search Team</p>` +
         `</div>`,
     });
   } catch (error) {

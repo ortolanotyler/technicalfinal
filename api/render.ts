@@ -218,7 +218,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       html = applyMeta(html, {
         title: `Hire Technical Talent | ${ORG_NAME}`,
         description:
-          'Hire vetted skilled trades, industrial maintenance and technical professionals across Canada. Certus Technical Search delivers a focused shortlist — request talent today.',
+          'Hire vetted skilled trades, industrial maintenance and technical professionals across Canada. Certus Technical Search delivers a focused shortlist. Request talent today.',
         canonical: `${SITE_ORIGIN}/employers`,
         ogType: 'website',
       });
@@ -237,9 +237,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const job = await getJob(id);
       if (job && job.title) {
         const canonical = `${SITE_ORIGIN}/jobs/${job.id}`;
-        const description = (job.summary || `${job.title} — ${job.location || ''}`).slice(0, 320);
+        const description = (job.summary || `${job.title} in ${job.location || 'Canada'}`).slice(0, 320);
         html = applyMeta(html, {
-          title: `${job.title}${job.location ? ` — ${job.location}` : ''} | ${ORG_NAME}`,
+          title: `${job.title}${job.location ? ` in ${job.location}` : ''} | ${ORG_NAME}`,
           description,
           canonical,
           ogType: 'article',
