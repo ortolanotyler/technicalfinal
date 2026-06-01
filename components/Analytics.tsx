@@ -1,9 +1,13 @@
 import { useEffect } from 'react';
 
+// GA4 measurement ID. Set directly (the ID is public) so it can't drift from a
+// stale build-time env var.
+const GA_MEASUREMENT_ID = 'G-7K9GV8F1Z7';
+
 const Analytics = () => {
   useEffect(() => {
     // 1. Google Analytics 4 (GA4)
-    const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+    const gaId = GA_MEASUREMENT_ID;
     if (gaId) {
       const script1 = document.createElement('script');
       script1.async = true;
@@ -40,7 +44,7 @@ const Analytics = () => {
   // page_view on their own. We patch pushState/replaceState to emit an event,
   // and also listen for back/forward (popstate).
   useEffect(() => {
-    const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+    const gaId = GA_MEASUREMENT_ID;
     if (!gaId) return;
 
     const sendPageVisit = () => {
