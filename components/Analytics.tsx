@@ -35,6 +35,48 @@ const Analytics = () => {
     }
   }, []);
 
+  // Log a page_visits event on every SPA navigation. This is a single-page app,
+  // so route changes happen via history.pushState and never trigger a fresh GA4
+  // page_view on their own. We patch pushState/replaceState to emit an event,
+  // and also listen for back/forward (popstate).
+  useEffect(() => {
+    const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+    if (!gaId) return;
+
+    const sendPageVisit = () => {
+      (window as any).gtag?.('event', 'page_visits', {
+        page_path: window.location.pathname + window.location.search,
+        page_location: window.location.href,
+        page_title: document.title,
+      });
+    };
+
+    const wrap = (orig: History['pushState']): History['pushState'] =>
+      function (this: History, ...args) {
+        const ret = orig.apply(this, args as Parameters<History['pushState']>);
+        window.dispatchEvent(new Event('spa:locationchange'));
+        return ret;
+      };
+
+    const origPush = history.pushState;
+    const origReplace = history.replaceState;
+    history.pushState = wrap(origPush);
+    history.replaceState = wrap(origReplace);
+
+    window.addEventListener('spa:locationchange', sendPageVisit);
+    window.addEventListener('popstate', sendPageVisit);
+
+    // Count the initial load too.
+    sendPageVisit();
+
+    return () => {
+      window.removeEventListener('spa:locationchange', sendPageVisit);
+      window.removeEventListener('popstate', sendPageVisit);
+      history.pushState = origPush;
+      history.replaceState = origReplace;
+    };
+  }, []);
+
   return null;
 };
 
