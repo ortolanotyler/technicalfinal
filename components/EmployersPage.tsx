@@ -110,7 +110,7 @@ const EmployersPage: React.FC<EmployersPageProps> = ({ onViewJobs, onNavigate })
               <input name="name" value={form.name} onChange={update} required placeholder="Your name *" className={inputCls} />
               <input type="email" name="email" value={form.email} onChange={update} required placeholder="Work email *" className={inputCls} />
               <input type="tel" name="phone" value={form.phone} onChange={update} placeholder="Phone" className={inputCls} />
-              <textarea name="message" value={form.message} onChange={update} placeholder="What are you hiring for? Include the role, location and timeline." rows={4} className={`${inputCls} sm:col-span-2 resize-none`} />
+              <textarea name="message" value={form.message} onChange={update} placeholder="What are you hiring for?" rows={4} className={`${inputCls} sm:col-span-2 resize-none`} />
 
               {status === 'error' && (
                 <p className="sm:col-span-2 text-red-400 text-sm font-medium">Something went wrong. Please try again or call us.</p>
