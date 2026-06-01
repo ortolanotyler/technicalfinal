@@ -122,7 +122,6 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
                         <div className="p-2 rounded-full border border-white/10 group-hover:border-white/30 bg-white/5 group-hover:bg-white/10 transition-all">
                              <ArrowLeft size={16} />
                         </div>
-                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] hidden sm:block">Back to Gateway</span>
                     </button>
                 </div>
                 
