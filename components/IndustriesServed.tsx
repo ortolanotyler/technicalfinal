@@ -66,9 +66,6 @@ const IndustriesServed: React.FC = () => {
                 <h3 className="text-xl md:text-2xl font-bold text-white leading-tight tracking-tight">
                   {cat.category}
                 </h3>
-                <p className="text-sm text-white/70 leading-relaxed font-light">
-                  {cat.description}
-                </p>
               </div>
 
               <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-brand-silver scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-30"></div>
