@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { JobPosting } from '../types';
 import { X, MapPin, DollarSign, Check, ArrowRight, Share2 } from 'lucide-react';
 import ApplicationModal from './ApplicationModal';
@@ -74,42 +73,8 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
       >
         {job && (
           <>
-            <Helmet>
-              <script type="application/ld+json">
-                {JSON.stringify({
-                  "@context": "https://schema.org/",
-                  "@type": "JobPosting",
-                  "title": job.title,
-                  "description": job.description || job.summary,
-                  "identifier": {
-                    "@type": "PropertyValue",
-                    "name": "Certus Technical Search",
-                    "value": job.ref
-                  },
-                  "hiringOrganization": {
-                    "@type": "Organization",
-                    "name": "Certus Technical Search",
-                    "sameAs": window.location.origin
-                  },
-                  "jobLocation": {
-                    "@type": "Place",
-                    "address": {
-                      "@type": "PostalAddress",
-                      "addressLocality": job.location
-                    }
-                  },
-                  "baseSalary": {
-                    "@type": "MonetaryAmount",
-                    "currency": "USD",
-                    "value": {
-                      "@type": "QuantitativeValue",
-                      "value": job.salary
-                    }
-                  },
-                  "employmentType": job.type
-                })}
-              </script>
-            </Helmet>
+            {/* JobPosting structured data is owned server-side by api/render.ts
+                (valid parsed salary), so it is intentionally not duplicated here. */}
             {/* Header */}
             <div className="flex-shrink-0 px-6 sm:px-8 py-4 sm:py-6 border-b border-white/10 flex justify-between items-start bg-white/[0.02]">
               <div className="pr-4 sm:pr-8">
@@ -225,8 +190,11 @@ const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({ job, isOpen, onClose 
 
             {/* Sticky Footer */}
             <div className="flex-shrink-0 p-6 sm:p-8 border-t border-white/10 bg-brand-dark z-10">
-                <button 
-                  onClick={() => setIsApplying(true)}
+                <button
+                  onClick={() => {
+                    (window as any).gtag?.('event', 'job_apply', { job_title: job.title, job_ref: job.ref });
+                    setIsApplying(true);
+                  }}
                   className={`w-full py-3 sm:py-4 font-bold text-sm sm:text-base rounded-sm transition-all duration-300 shadow-lg flex items-center justify-center gap-3 ${theme.button}`}
                 >
                     Apply for this Position <ArrowRight size={18} />

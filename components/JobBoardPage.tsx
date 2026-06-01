@@ -184,10 +184,12 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
                                         <MapPin size={14} className="text-brand-silver" />
                                         <span>{job.location}</span>
                                     </div>
-                                    <div className="hidden sm:flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                                    {job.salary && (
+                                      <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-400">
                                         <DollarSign size={14} className="text-brand-silver" />
                                         <span>{job.salary}</span>
-                                    </div>
+                                      </div>
+                                    )}
 
                                     <button
                                         onClick={(e) => handleShare(e, job)}

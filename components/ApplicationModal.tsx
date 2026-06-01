@@ -80,6 +80,7 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
       });
 
       if (response.ok) {
+        (window as any).gtag?.('event', 'application_submitted', { job_title: job.title, job_ref: job.ref });
         setStep('success');
       } else {
         setStep('error');
@@ -157,25 +158,27 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
                     <div className="grid grid-cols-2 gap-6">
                        <div className="space-y-2">
                           <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">First Name</label>
-                          <input 
-                            type="text" 
+                          <input
+                            type="text"
                             name="firstName"
                             value={formData.firstName}
                             onChange={handleInputChange}
-                            required 
+                            required
+                            aria-label="First name"
                             className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`}
-                            placeholder="Jane" 
+                            placeholder="Jane"
                           />
                        </div>
                        <div className="space-y-2">
                           <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Last Name</label>
-                          <input 
-                            type="text" 
+                          <input
+                            type="text"
                             name="lastName"
                             value={formData.lastName}
                             onChange={handleInputChange}
-                            required 
-                            className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`} 
+                            required
+                            aria-label="Last name"
+                            className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`}
                             placeholder="Doe"
                           />
                        </div>
@@ -184,24 +187,26 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
                     <div className="grid grid-cols-2 gap-6">
                        <div className="space-y-2">
                           <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Email Address</label>
-                          <input 
-                            type="email" 
+                          <input
+                            type="email"
                             name="email"
                             value={formData.email}
                             onChange={handleInputChange}
-                            required 
+                            required
+                            aria-label="Email address"
                             className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`}
                             placeholder="jane.doe@example.com"
                           />
                        </div>
                        <div className="space-y-2">
                           <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Phone Number</label>
-                          <input 
-                            type="tel" 
+                          <input
+                            type="tel"
                             name="phone"
                             value={formData.phone}
                             onChange={handleInputChange}
-                            className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`} 
+                            aria-label="Phone number"
+                            className={`w-full bg-brand-dark border border-white/10 rounded-sm px-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`}
                             placeholder="+1 (555) 000-0000"
                           />
                        </div>
@@ -213,12 +218,13 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                        <Linkedin size={18} className="text-gray-600 group-focus-within:text-gray-400 transition-colors" />
                      </div>
-                     <input 
-                       type="url" 
+                     <input
+                       type="url"
                        name="linkedin"
                        value={formData.linkedin}
                        onChange={handleInputChange}
-                       placeholder="linkedin.com/in/..." 
+                       aria-label="LinkedIn or profile URL"
+                       placeholder="linkedin.com/in/..."
                        className={`w-full bg-brand-dark border border-white/10 rounded-sm pl-12 pr-4 py-3 text-white text-sm focus:outline-none transition-all ${theme.borderFocus} focus:border-opacity-50 placeholder-gray-700`} 
                      />
                    </div>
@@ -230,7 +236,7 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ job, isOpen, onClos
                       onClick={() => fileInputRef.current?.click()}
                       className={`border border-dashed border-white/20 rounded-sm p-8 text-center cursor-pointer hover:bg-white/[0.02] hover:border-white/40 transition-all duration-300 group relative overflow-hidden ${fileName ? 'border-green-500/30 bg-green-500/5' : ''}`}
                    >
-                      <input ref={fileInputRef} type="file" accept=".pdf,.doc,.docx" className="hidden" onChange={handleFileChange} />
+                      <input ref={fileInputRef} type="file" accept=".pdf,.doc,.docx" aria-label="Upload resume or CV" className="hidden" onChange={handleFileChange} />
                       
                       {/* Hover Flash Effect */}
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>

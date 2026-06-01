@@ -187,23 +187,25 @@ const Contact: React.FC = () => {
                     
                     <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto lg:mx-0 pt-2 md:pt-4">
                         <div className="relative group">
-                             <input 
-                                type="text" 
+                             <input
+                                type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 required
-                                placeholder="Your Name" 
+                                aria-label="Your name"
+                                placeholder="Your Name"
                                 className="w-full bg-transparent border-b border-white/30 px-0 py-3 md:py-4 text-white placeholder-gray-400 focus:outline-none focus:border-brand-silver transition-colors text-base md:text-lg font-light" 
                              />
                              <div className={`absolute bottom-0 left-0 h-[1px] bg-brand-silver transition-all duration-500 w-0 group-hover:w-full group-focus-within:w-full`}></div>
                         </div>
                         <div className="relative group">
-                             <input 
-                                type="email" 
+                             <input
+                                type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                placeholder="Enter your email" 
+                                aria-label="Email address"
+                                placeholder="Enter your email"
                                 className="w-full bg-transparent border-b border-white/30 px-0 py-3 md:py-4 text-white placeholder-gray-400 focus:outline-none focus:border-brand-silver transition-colors text-base md:text-lg font-light" 
                              />
                              <div className={`absolute bottom-0 left-0 h-[1px] bg-brand-silver transition-all duration-500 w-0 group-hover:w-full group-focus-within:w-full`}></div>

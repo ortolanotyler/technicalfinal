@@ -106,11 +106,11 @@ const EmployersPage: React.FC<EmployersPageProps> = ({ onViewJobs, onNavigate })
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="grid sm:grid-cols-2 gap-x-8 gap-y-6">
-              <input name="company" value={form.company} onChange={update} required placeholder="Company *" className={inputCls} />
-              <input name="name" value={form.name} onChange={update} required placeholder="Your name *" className={inputCls} />
-              <input type="email" name="email" value={form.email} onChange={update} required placeholder="Work email *" className={inputCls} />
-              <input type="tel" name="phone" value={form.phone} onChange={update} placeholder="Phone" className={inputCls} />
-              <textarea name="message" value={form.message} onChange={update} placeholder="What are you hiring for?" rows={4} className={`${inputCls} sm:col-span-2 resize-none`} />
+              <input name="company" value={form.company} onChange={update} required aria-label="Company" placeholder="Company *" className={inputCls} />
+              <input name="name" value={form.name} onChange={update} required aria-label="Your name" placeholder="Your name *" className={inputCls} />
+              <input type="email" name="email" value={form.email} onChange={update} required aria-label="Work email" placeholder="Work email *" className={inputCls} />
+              <input type="tel" name="phone" value={form.phone} onChange={update} aria-label="Phone" placeholder="Phone" className={inputCls} />
+              <textarea name="message" value={form.message} onChange={update} aria-label="What are you hiring for?" placeholder="What are you hiring for?" rows={4} className={`${inputCls} sm:col-span-2 resize-none`} />
 
               {status === 'error' && (
                 <p className="sm:col-span-2 text-red-400 text-sm font-medium">Something went wrong. Please try again or call us.</p>
