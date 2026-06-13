@@ -118,9 +118,39 @@ function descriptionHtml(job: JobDoc): string {
   return parts.join('') || `<p>${escapeHtml(job.title || 'Career opportunity')}</p>`;
 }
 
-function isoDate(input?: string): string {
-  const t = input ? Date.parse(input) : NaN;
-  return (Number.isNaN(t) ? new Date() : new Date(t)).toISOString().slice(0, 10);
+// A stable "data was published" date — the newest real posting date across the
+// dataset, memoized at cold start. Used only as a last resort for a job that
+// somehow carries no date of its own (see postingDate). Deliberately NOT a
+// rolling `new Date()`: behind the 5-min CDN cache that would make datePosted
+// creep forward on every render, which Google can read as freshness gaming.
+let _publishedDate: string | null = null;
+function dataPublishedDate(): string {
+  if (_publishedDate) return _publishedDate;
+  const stamps = loadJobs()
+    .flatMap((j) => [j.createdAt, j.posted, j.updatedAt])
+    .map((v) => (v ? Date.parse(v) : NaN))
+    .filter((t) => !Number.isNaN(t));
+  _publishedDate = (stamps.length ? new Date(Math.max(...stamps)) : new Date())
+    .toISOString()
+    .slice(0, 10);
+  return _publishedDate;
+}
+
+// Resolve a JobPosting's datePosted (YYYY-MM-DD). Walk the explicit date fields
+// in order of trust; only if a job has none do we fall back to the dataset's
+// publish date — and log it, so a dateless job shows up in function logs
+// instead of silently shipping a wrong date. We never omit the field: an absent
+// datePosted is exactly the error Search Console flagged on 2026-05-30.
+function postingDate(job: JobDoc): string {
+  for (const v of [job.createdAt, job.posted, job.updatedAt]) {
+    const t = v ? Date.parse(v) : NaN;
+    if (!Number.isNaN(t)) return new Date(t).toISOString().slice(0, 10);
+  }
+  console.warn(
+    `render: job ${job.id ?? '?'} (${job.ref ?? 'no ref'}) has no usable date; ` +
+      `falling back to data publish date ${dataPublishedDate()}`
+  );
+  return dataPublishedDate();
 }
 
 function jobPostingJsonLd(job: JobDoc): Record<string, unknown> {
@@ -136,7 +166,7 @@ function jobPostingJsonLd(job: JobDoc): Record<string, unknown> {
     '@type': 'JobPosting',
     title: job.title,
     description: descriptionHtml(job),
-    datePosted: isoDate(job.createdAt || job.posted),
+    datePosted: postingDate(job),
     validThrough,
     employmentType: EMPLOYMENT_TYPES[(job.type || '').trim().toLowerCase()] || 'FULL_TIME',
     directApply: true,
