@@ -1,14 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
+import { geoAlbers } from 'd3-geo';
 import { ArrowRight, MapPin, DollarSign } from 'lucide-react';
 import { JobPosting } from '../types';
 import { jobService } from '../services/jobService';
 import ApplicationModal from './ApplicationModal';
+import JobDetailDrawer from './JobDetailDrawer';
 
 const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
 const NA_COUNTRY_IDS = new Set(['124', '840', '484']); // Canada, USA, Mexico
 
 const HQ = { lat: 43.6532, lng: -79.3832 }; // Toronto
+
+// Certus emblem (navy disc + white mark) — used as the GTA / Toronto hub marker.
+const CERTUS_LOGO = 'https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png';
 
 // Hand-curated geocoder for the cities we actually recruit in. Add a new one
 // with a single line. Keys are "city,provincecode" (lowercase).
@@ -33,6 +38,11 @@ const CITY_COORDS: Record<string, { lat: number; lng: number }> = {
   'saskatoon,sk': { lat: 52.1332, lng: -106.67 },
   'winnipeg,mb': { lat: 49.8951, lng: -97.1384 },
   'truro,ns': { lat: 45.3667, lng: -63.2667 },
+  // US — higher-level / executive search roles
+  'chicago,il': { lat: 41.8781, lng: -87.6298 },
+  'seattle,wa': { lat: 47.6062, lng: -122.3321 },
+  'columbus,oh': { lat: 39.9612, lng: -82.9988 },
+  'boston,ma': { lat: 42.3601, lng: -71.0589 },
 };
 
 const PROVINCE_CODES: Record<string, string> = {
@@ -61,12 +71,21 @@ const normalizeLocation = (raw: string): string | null => {
 
 type JobPin = { lat: number; lng: number; key: string; label: string; jobs: JobPosting[] };
 
+// The whole Greater Toronto Area collapses into a single Toronto hub pin.
+const GTA_KEYS = new Set([
+  'toronto,on', 'mississauga,on', 'brampton,on', 'oakville,on',
+  'burlington,on', 'ajax,on', 'concord,on',
+]);
+const GTA_PIN = { key: 'gta', label: 'Greater Toronto Area', ...HQ };
+
 const groupJobsByCity = (jobs: JobPosting[]): JobPin[] => {
   const buckets = new Map<string, JobPin>();
   for (const job of jobs) {
-    const key = normalizeLocation(job.location);
-    if (!key) continue;
-    const coords = CITY_COORDS[key];
+    const norm = normalizeLocation(job.location);
+    if (!norm) continue;
+    const isGta = GTA_KEYS.has(norm);
+    const key = isGta ? GTA_PIN.key : norm;
+    const coords = isGta ? { lat: GTA_PIN.lat, lng: GTA_PIN.lng } : CITY_COORDS[norm];
     if (!coords) continue;
     const existing = buckets.get(key);
     if (existing) {
@@ -76,7 +95,7 @@ const groupJobsByCity = (jobs: JobPosting[]): JobPin[] => {
       buckets.set(key, {
         ...coords,
         key,
-        label: `${parts[0]}, ${regionCode(parts[parts.length - 1])}`,
+        label: isGta ? GTA_PIN.label : `${parts[0]}, ${regionCode(parts[parts.length - 1])}`,
         jobs: [job],
       });
     }
@@ -86,59 +105,89 @@ const groupJobsByCity = (jobs: JobPosting[]): JobPin[] => {
 
 const SVG_WIDTH = 1000;
 const SVG_HEIGHT = 700;
+const MAP_SCALE = 900;
+const MAP_CENTER: [number, number] = [-3, 42]; // Canada-framed
 
-type Hovered = { key: string; x: number; y: number };
+// Mirror of react-simple-maps' internal projection so we can compute a pin's
+// on-map pixel position and flip its hover popup downward when there's no room above.
+const projection = geoAlbers()
+  .scale(MAP_SCALE)
+  .translate([SVG_WIDTH / 2, SVG_HEIGHT / 2])
+  .center(MAP_CENTER);
 
 export default function LocationsMap() {
   const [jobs, setJobs] = useState<JobPosting[]>([]);
-  const [hovered, setHovered] = useState<Hovered | null>(null);
+  const [hoveredKey, setHoveredKey] = useState<string | null>(null);
   const [applyingTo, setApplyingTo] = useState<JobPosting | null>(null);
+  const [viewingJob, setViewingJob] = useState<JobPosting | null>(null);
   const closeTimer = useRef<number | null>(null);
-  const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState({ w: 0, h: 0 });
+  const [geoData, setGeoData] = useState<any>(null);
 
   useEffect(() => {
     jobService.getJobsByDomain().then(setJobs);
   }, []);
 
-  const pins = groupJobsByCity(jobs);
-  const hoveredPin = pins.find((p) => p.key === hovered?.key) || null;
+  // Prefetch the map geography ourselves so we get a definite "ready" signal:
+  // the map only mounts (and fades in) once the topojson is in hand, so the
+  // countries never pop in abruptly after the page has already loaded.
+  useEffect(() => {
+    let alive = true;
+    fetch(GEO_URL)
+      .then((r) => r.json())
+      .then((d) => { if (alive) setGeoData(d); })
+      .catch(() => { if (alive) setGeoData(GEO_URL); }); // fall back to URL on error
+    return () => { alive = false; };
+  }, []);
 
-  const cancelClose = () => {
+  // Track the section's pixel size so we can place the hover popup as a
+  // top-layer HTML overlay (above the headline copy), aligned to the map
+  // projection. Mirrors react-simple-maps' preserveAspectRatio="xMidYMid meet".
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const update = () => setSize({ w: el.clientWidth, h: el.clientHeight });
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const pins = groupJobsByCity(jobs);
+  const hoveredPin = pins.find((p) => p.key === hoveredKey) || null;
+
+  const handlePinEnter = (key: string) => {
     if (closeTimer.current) {
       window.clearTimeout(closeTimer.current);
       closeTimer.current = null;
     }
-  };
-  const scheduleClose = () => {
-    cancelClose();
-    closeTimer.current = window.setTimeout(() => setHovered(null), 200);
-  };
-  const openPin = (key: string, e: React.MouseEvent) => {
-    cancelClose();
-    const rect = sectionRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    // Clamp so the ~280px popup stays within the section bounds.
-    const x = Math.max(150, Math.min(e.clientX - rect.left, rect.width - 150));
-    const y = e.clientY - rect.top;
-    setHovered({ key, x, y });
+    setHoveredKey(key);
   };
 
-  const popupAbove = hovered ? hovered.y > 240 : true;
+  const handlePinLeave = () => {
+    closeTimer.current = window.setTimeout(() => setHoveredKey(null), 200);
+  };
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative bg-[#070b12] border-y border-white/5 overflow-hidden h-[58vh] min-h-[420px] md:h-[70vh] md:min-h-[520px]"
-    >
-      <div className="absolute inset-0">
+    <section ref={containerRef} className="relative bg-[#070b12] border-y border-white/5 overflow-hidden h-[70vh] min-h-[520px]">
+      {/* Full-bleed map — mounts and fades in once the geography data is ready,
+          so the countries don't pop in abruptly after the page has loaded. */}
+      {geoData && (
+      <div className="absolute inset-0 animate-[mapFadeIn_1.5s_ease-out_forwards]">
         <ComposableMap
           projection="geoAlbers"
-          projectionConfig={{ scale: 900, center: [-3, 42] }}
+          projectionConfig={{ scale: MAP_SCALE, center: MAP_CENTER }}
           width={SVG_WIDTH}
           height={SVG_HEIGHT}
           style={{ width: '100%', height: '100%' }}
         >
-          <Geographies geography={GEO_URL}>
+          <defs>
+            <filter id="pinGlow" x="-300%" y="-300%" width="700%" height="700%">
+              <feGaussianBlur stdDeviation="2.5" />
+            </filter>
+          </defs>
+          <Geographies geography={geoData}>
             {({ geographies }: { geographies: Array<{ rsmKey: string; id?: string }> }) =>
               geographies
                 .filter((geo) => geo.id && NA_COUNTRY_IDS.has(geo.id))
@@ -159,131 +208,182 @@ export default function LocationsMap() {
             }
           </Geographies>
 
-          {/* HQ marker */}
-          <Marker coordinates={[HQ.lng, HQ.lat]}>
-            <rect x={-3.5} y={-3.5} width={7} height={7} fill="#5B6C7F" stroke="#9FA8B5" strokeWidth={1} />
-          </Marker>
-
+          {/* Active-search pins (rendered first so popup overlays them) */}
           {pins.map((pin) => {
-            const isHovered = hovered?.key === pin.key;
+            const isHovered = hoveredKey === pin.key;
+            // The GTA / Toronto hub renders as the Certus emblem (navy disc + white
+            // mark) — no border, ~15% larger than a standard dot.
+            const logoSize = isHovered ? 20 : 17;
             return (
               <Marker
                 key={pin.key}
                 coordinates={[pin.lng, pin.lat]}
-                onMouseEnter={(e: React.MouseEvent) => openPin(pin.key, e)}
-                onMouseLeave={scheduleClose}
-                onClick={(e: React.MouseEvent) => openPin(pin.key, e)}
+                onMouseEnter={() => handlePinEnter(pin.key)}
+                onMouseLeave={handlePinLeave}
                 style={{
                   default: { cursor: 'pointer' },
                   hover: { cursor: 'pointer' },
                   pressed: { cursor: 'pointer' },
                 }}
               >
-                {/* Transparent hit area for reliable hit-testing (incl. Safari) */}
-                <circle r={16} fill="#000" fillOpacity={0.001} />
-                <circle r={14} fill="#9FA8B5" fillOpacity={isHovered ? 0.45 : 0.18} style={{ pointerEvents: 'none' }} />
-                <circle
-                  r={isHovered ? 7 : 6}
-                  fill="#FFFFFF"
-                  stroke="#9FA8B5"
-                  strokeWidth={isHovered ? 2 : 1.5}
-                  style={{ pointerEvents: 'none' }}
-                />
-                {pin.jobs.length > 1 && (
-                  <text
-                    textAnchor="middle"
-                    y={2.5}
-                    fontSize={8}
-                    fontWeight={700}
-                    fill="#0E141E"
-                    style={{ fontFamily: 'system-ui, sans-serif', pointerEvents: 'none' }}
-                  >
-                    {pin.jobs.length}
-                  </text>
+                {pin.key === 'gta' ? (
+                  <image
+                    href={CERTUS_LOGO}
+                    x={-logoSize / 2}
+                    y={-logoSize / 2}
+                    width={logoSize}
+                    height={logoSize}
+                    style={{ transition: 'width 0.15s ease, height 0.15s ease' }}
+                  />
+                ) : (
+                  <>
+                    {/* White glow */}
+                    <circle
+                      r={isHovered ? 9 : 7}
+                      fill="#FFFFFF"
+                      opacity={isHovered ? 0.6 : 0.4}
+                      filter="url(#pinGlow)"
+                    />
+                    {/* Certus-blue center with a crisp white outline */}
+                    <circle
+                      r={isHovered ? 6 : 5}
+                      fill="#0d2444"
+                      stroke="#FFFFFF"
+                      strokeWidth={isHovered ? 2 : 1.5}
+                    />
+                  </>
                 )}
               </Marker>
             );
           })}
+
+          {/* Hover popup is rendered as a top-layer HTML overlay (below),
+              so it can paint above the headline copy and bottom gradient. */}
         </ComposableMap>
 
-        {/* Vignettes: push the map back, content forward */}
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent pointer-events-none"></div>
+        {/* Subtle left vignette to push the map back, content forward */}
         <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/60 via-transparent to-transparent pointer-events-none"></div>
+        {/* Soft, tall multi-stop fade at the bottom — the very bottom edge melts
+            into the hero below */}
+        <div className="absolute inset-x-0 bottom-0 h-40 md:h-56 bg-gradient-to-t from-brand-dark via-brand-dark/55 to-transparent pointer-events-none"></div>
       </div>
-
-      {/* Hover/tap popup — a normal DOM overlay (no foreignObject, so it works
-          in Safari). Positioned at the pin via the pointer coordinates. */}
-      {hoveredPin && hovered && (
-        <div
-          onMouseEnter={cancelClose}
-          onMouseLeave={scheduleClose}
-          className="absolute z-20 w-[280px] bg-brand-dark/95 backdrop-blur-md border border-white/10 rounded-sm p-3 shadow-2xl text-white"
-          style={{
-            left: hovered.x,
-            top: hovered.y,
-            transform: popupAbove ? 'translate(-50%, calc(-100% - 18px))' : 'translate(-50%, 18px)',
-            fontFamily: 'Outfit, system-ui, sans-serif',
-          }}
-        >
-          <div className="flex items-center gap-2 mb-2 pb-2 border-b border-white/10">
-            <MapPin size={11} className="text-brand-silver" strokeWidth={1.5} />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70">
-              {hoveredPin.label}
-            </span>
-            <span className="ml-auto text-[10px] text-white/40 font-mono">
-              {hoveredPin.jobs.length} {hoveredPin.jobs.length === 1 ? 'role' : 'roles'}
-            </span>
-          </div>
-          <div className="space-y-2 max-h-[200px] overflow-y-auto">
-            {hoveredPin.jobs.slice(0, 4).map((job) => (
-              <div key={job.id}>
-                <div className="text-xs font-medium text-white leading-tight line-clamp-2">{job.title}</div>
-                <div className="flex items-center justify-between gap-2 mt-1.5">
-                  <span className="text-[10px] text-white/40 font-light flex items-center gap-1 min-w-0">
-                    {job.salary ? (
-                      <>
-                        <DollarSign size={10} strokeWidth={1.5} className="text-brand-silver flex-shrink-0" />
-                        <span className="truncate">{job.salary}</span>
-                      </>
-                    ) : (
-                      <span className="text-white/30">View details</span>
-                    )}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setApplyingTo(job);
-                    }}
-                    className="inline-flex items-center gap-1 bg-white text-brand-dark hover:bg-brand-silver px-2.5 py-1 rounded-sm text-[9px] font-bold uppercase tracking-[0.15em] transition-colors flex-shrink-0"
-                  >
-                    Apply
-                    <ArrowRight size={9} strokeWidth={2.5} />
-                  </button>
-                </div>
-              </div>
-            ))}
-            {hoveredPin.jobs.length > 4 && (
-              <div className="text-[9px] text-white/40 uppercase tracking-[0.2em] text-center pt-1">
-                +{hoveredPin.jobs.length - 4} more
-              </div>
-            )}
-          </div>
-        </div>
       )}
 
-      {/* Headline overlay (top-left) */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-16 md:pt-24 pointer-events-none">
-        <h2 className="text-3xl md:text-5xl font-medium text-white tracking-tight leading-[1.05] max-w-2xl drop-shadow-2xl">
-          Based in Toronto.
-          <br />
-          Recruiting across Canada.
-        </h2>
+      {/* Headline overlay — anchored bottom-right, aligned to the content gutter */}
+      <div className="absolute inset-x-0 bottom-0 z-10 max-w-7xl mx-auto px-6 lg:px-8 pb-12 md:pb-16 pointer-events-none">
+        <div className="ml-auto max-w-xl text-right">
+          <h2 className="text-3xl md:text-5xl font-medium text-white tracking-tight leading-[1.05] drop-shadow-2xl">
+            Recruiting Across North America
+          </h2>
+          <p className="mt-4 text-white/40 text-[10px] font-light uppercase tracking-[0.3em]">
+            Hover a pin to view roles
+          </p>
+        </div>
       </div>
+
+      {/* Hover popup — top-layer HTML overlay (z-30) so it sits over the
+          headline copy. Positioned from the map projection + measured size. */}
+      {hoveredPin && size.w > 0 && (() => {
+        const vb = projection([hoveredPin.lng, hoveredPin.lat]);
+        if (!vb) return null;
+        const scale = Math.min(size.w / SVG_WIDTH, size.h / SVG_HEIGHT);
+        const offX = (size.w - SVG_WIDTH * scale) / 2;
+        const offY = (size.h - SVG_HEIGHT * scale) / 2;
+        const px = offX + vb[0] * scale;
+        const py = offY + vb[1] * scale;
+        const BOX_W = 280;
+        const boxH = Math.min(hoveredPin.jobs.length, 3) * 92 + 56;
+        const HEADER_SAFE = 72; // keep the box clear of the overlaid header
+        const openAbove = py - boxH - 16 > HEADER_SAFE;
+        const top = openAbove ? py - boxH - 14 : py + 18;
+        const left = Math.max(8, Math.min(px - BOX_W / 2, size.w - BOX_W - 8));
+        return (
+          <div className="absolute inset-0 z-30 pointer-events-none">
+            <div
+              onMouseEnter={() => handlePinEnter(hoveredPin.key)}
+              onMouseLeave={handlePinLeave}
+              style={{ left, top, width: BOX_W, fontFamily: 'Outfit, system-ui, sans-serif' }}
+              className="absolute pointer-events-auto bg-brand-dark/95 backdrop-blur-md border border-white/10 rounded-sm p-3 shadow-2xl text-white"
+            >
+              <div className="flex items-center gap-2 mb-2 pb-2 border-b border-white/10">
+                <MapPin size={11} className="text-brand-silver" strokeWidth={1.5} />
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70">
+                  {hoveredPin.label}
+                </span>
+                <span className="ml-auto text-[10px] text-white/40 font-light tracking-wide">
+                  {hoveredPin.jobs.length} {hoveredPin.jobs.length === 1 ? 'role' : 'roles'}
+                </span>
+              </div>
+              <div className="space-y-2.5 max-h-[280px] overflow-y-auto">
+                {hoveredPin.jobs.slice(0, 3).map((job) => (
+                  <div key={job.id} className="group border-b border-white/5 last:border-0 pb-2.5 last:pb-0">
+                    <div className="text-xs font-medium text-white leading-tight line-clamp-2">
+                      {job.title}
+                    </div>
+                    {job.summary && (
+                      <p className="text-[10px] text-white/45 font-light leading-snug mt-1 line-clamp-2">
+                        {job.summary}
+                      </p>
+                    )}
+                    <div className="flex items-center justify-between gap-2 mt-2">
+                      <span className="text-[10px] text-white/40 font-light flex items-center gap-1 min-w-0">
+                        {job.salary && (
+                          <>
+                            <DollarSign size={10} strokeWidth={1.5} className="text-brand-silver flex-shrink-0" />
+                            <span className="truncate">{job.salary}</span>
+                          </>
+                        )}
+                      </span>
+                      <div className="flex items-center gap-1.5 flex-shrink-0">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setViewingJob(job);
+                          }}
+                          className="inline-flex items-center gap-1 border border-white/25 text-white/80 hover:border-white hover:text-white px-2.5 py-1 rounded-sm text-[9px] font-bold uppercase tracking-[0.15em] transition-colors"
+                        >
+                          View
+                        </button>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setApplyingTo(job);
+                          }}
+                          className="inline-flex items-center gap-1 bg-white text-brand-dark hover:bg-brand-silver px-2.5 py-1 rounded-sm text-[9px] font-bold uppercase tracking-[0.15em] transition-colors"
+                        >
+                          Apply
+                          <ArrowRight size={9} strokeWidth={2.5} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {hoveredPin.jobs.length > 3 && (
+                  <div className="text-[9px] text-white/40 uppercase tracking-[0.2em] text-center pt-1">
+                    +{hoveredPin.jobs.length - 3} more
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
+      <style>{`
+        @keyframes mapFadeIn { from { opacity: 0; } to { opacity: 1; } }
+      `}</style>
 
       {applyingTo && (
         <ApplicationModal job={applyingTo} isOpen={!!applyingTo} onClose={() => setApplyingTo(null)} />
       )}
+
+      <JobDetailDrawer
+        job={viewingJob}
+        isOpen={!!viewingJob}
+        onClose={() => setViewingJob(null)}
+      />
     </section>
   );
 }

@@ -118,7 +118,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             {/* Bottom Bar */}
             <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
                 <p className="text-gray-600 text-xs tracking-wide">
-                    &copy; {new Date().getFullYear()} Certus Group. All rights reserved.
+                    &copy; 2008&ndash;{new Date().getFullYear()} Certus Group. All rights reserved.
                 </p>
                 <div className="flex items-center gap-8">
                     <button 

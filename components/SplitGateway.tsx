@@ -20,13 +20,13 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
   const silverText = 'text-brand-silver'; 
 
   const videos = {
-    'skilled-trades': "https://res.cloudinary.com/dvbubqhpp/video/upload/q_auto,f_auto,w_1920,c_limit,vc_h264/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.mp4",
-    'sectors': "https://res.cloudinary.com/dvbubqhpp/video/upload/q_auto,f_auto,w_1920,c_limit,vc_h264/v1774055761/20654636-uhd_3840_2160_30fps_himwzn.mp4"
+    'skilled-trades': "https://res.cloudinary.com/dvbubqhpp/video/upload/q_auto,f_auto,w_1920,c_limit,vc_h264/v1774055761/20654636-uhd_3840_2160_30fps_himwzn.mp4",
+    'sectors': "https://res.cloudinary.com/dvbubqhpp/video/upload/q_auto,f_auto,w_1920,c_limit,vc_h264/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.mp4"
   };
 
   const posters = {
-    'skilled-trades': "https://res.cloudinary.com/dvbubqhpp/video/upload/so_0,w_1080,q_auto,f_auto/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.jpg",
-    'sectors': "https://res.cloudinary.com/dvbubqhpp/video/upload/so_0,w_1080,q_auto,f_auto/v1774055761/20654636-uhd_3840_2160_30fps_himwzn.jpg"
+    'skilled-trades': "https://res.cloudinary.com/dvbubqhpp/video/upload/so_0,w_1080,q_auto,f_auto/v1774055761/20654636-uhd_3840_2160_30fps_himwzn.jpg",
+    'sectors': "https://res.cloudinary.com/dvbubqhpp/video/upload/so_0,w_1080,q_auto,f_auto/v1774044125/15978611-uhd_3840_2160_30fps_p9gako.jpg"
   };
 
   useEffect(() => {
@@ -117,7 +117,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
           <div className="space-y-4 md:space-y-12 max-w-xl pointer-events-auto transform transition-transform duration-500 active:scale-95">
             {isMobile && (
               <h2 className="text-3xl sm:text-4xl font-normal text-white leading-[0.9] tracking-tighter mb-4">
-                Practice <span className={`font-serif italic font-light ${silverText}`}>Sectors</span>
+                Practice <span className={silverText}>Sectors</span>
               </h2>
             )}
             {!isMobile && (
@@ -196,7 +196,7 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
                </div>
              )}
              <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-[10rem] font-normal text-white leading-[0.9] md:leading-[0.8] tracking-tighter">
-              Certus Technical <span className={`font-serif italic font-light ${silverText} ml-2 md:ml-4 drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)]`}>Search</span>
+              Certus Technical <span className={`${silverText} ml-2 md:ml-4 drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)]`}>Search</span>
              </h1>
              <div className={`flex ${isMobile ? 'justify-center' : 'justify-end md:justify-start'} pt-2 md:pt-8`}>
                <div className={`group flex items-center gap-4 text-[9px] md:text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 ${hovered === 'skilled-trades' || isMobile ? 'text-white' : 'text-white/40'}`}>

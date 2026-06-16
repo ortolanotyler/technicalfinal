@@ -8,6 +8,9 @@ export default defineConfig(({ mode }) => {
       server: {
         port: 3000,
         host: '0.0.0.0',
+        // Dedicated HMR port so this dev server can run alongside the sibling
+        // app (which holds Vite's default 24678) without breaking hot reload.
+        hmr: { port: 24679 },
       },
       plugins: [react()],
       define: {

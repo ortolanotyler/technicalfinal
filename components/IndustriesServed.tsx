@@ -16,12 +16,12 @@ const IndustriesServed: React.FC = () => {
     {
       category: "Heavy Duty Mechanics",
       description: "Heavy-Duty Mechanics, Equipment Technicians, Hydraulics Specialists, Field Service Technicians.",
-      image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=1000"
+      image: "/practice/heavy-duty-mechanics.jpg"
     },
     {
       category: "Industrial Maintenance",
       description: "Millwrights, Maintenance Technicians, Industrial Electricians, Reliability Specialists.",
-      image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=1000"
+      image: "/practice/industrial-maintenance.jpg"
     }
   ];
 

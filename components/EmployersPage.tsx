@@ -12,6 +12,7 @@ interface EmployersPageProps {
 const SECTORS = [
   'Skilled Trades & Apprentices',
   'Industrial & Plant Maintenance',
+  'Industrial Millwrights',
   'Heavy-Duty / 310T Mechanics',
   'Fleet & Transportation',
   'Engineering & Operations',
@@ -83,7 +84,7 @@ const EmployersPage: React.FC<EmployersPageProps> = ({ onViewJobs, onNavigate })
       {/* Sectors */}
       <section className="py-14 md:py-16 px-6 lg:px-8 border-t border-white/5 bg-brand-navy/10">
         <div className="max-w-4xl mx-auto">
-          <p className={`${label} mb-6`}>Sectors we recruit</p>
+          <p className={`${label} mb-6`}>Who we recruit</p>
           <ul className="grid sm:grid-cols-2 gap-x-12 gap-y-2.5">
             {SECTORS.map((s) => (
               <li key={s} className="text-sm text-gray-200 font-light">{s}</li>
