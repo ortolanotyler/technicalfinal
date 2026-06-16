@@ -77,7 +77,7 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ onViewJobs }) => {
         <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-10">
           <div className="max-w-3xl">
             <h2 className="text-4xl md:text-7xl font-medium text-white tracking-tighter leading-none">
-              Active <span className="text-brand-silver italic font-serif font-light">Searches</span>
+              Active <span className="text-brand-silver">Searches</span>
             </h2>
           </div>
           
