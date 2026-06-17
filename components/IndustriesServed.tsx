@@ -67,7 +67,7 @@ const IndustriesServed: React.FC = () => {
                   {cat.category}
                 </h3>
                 {/* Roles we recruit for — slide up under the title on hover */}
-                <ul className="mt-2 sm:mt-3 space-y-1 sm:space-y-1.5 max-h-0 opacity-0 overflow-hidden group-hover:max-h-60 group-hover:opacity-100 transition-all duration-500 ease-out">
+                <ul className="hidden sm:block mt-2 sm:mt-3 space-y-1 sm:space-y-1.5 max-h-0 opacity-0 overflow-hidden group-hover:max-h-60 group-hover:opacity-100 transition-all duration-500 ease-out">
                   {cat.roles.map((role) => (
                     <li
                       key={role}
