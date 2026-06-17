@@ -5,22 +5,22 @@ const IndustriesServed: React.FC = () => {
   const categories = [
     {
       category: "Fleet & Transport",
-      description: "Truck & Transport Mechanics, Fleet Technicians, Diesel Mechanics, Shop Foremen.",
+      roles: ["Truck & Transport Mechanics", "Fleet Technicians", "Diesel Mechanics", "Shop Foremen"],
       image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=1000"
     },
     {
       category: "Technical Leadership",
-      description: "Service Managers, Shop Foremen, Operations Directors, Branch Managers.",
+      roles: ["Service Managers", "Shop Foremen", "Operations Directors", "Branch Managers"],
       image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000"
     },
     {
       category: "Heavy Duty Mechanics",
-      description: "Heavy-Duty Mechanics, Equipment Technicians, Hydraulics Specialists, Field Service Technicians.",
+      roles: ["Heavy-Duty Mechanics", "Equipment Technicians", "Hydraulics Specialists", "Field Service Technicians"],
       image: "/practice/heavy-duty-mechanics.jpg"
     },
     {
       category: "Industrial Maintenance",
-      description: "Millwrights, Maintenance Technicians, Industrial Electricians, Reliability Specialists.",
+      roles: ["Millwrights", "Maintenance Technicians", "Industrial Electricians", "Reliability Specialists"],
       image: "/practice/industrial-maintenance.jpg"
     }
   ];
@@ -46,11 +46,11 @@ const IndustriesServed: React.FC = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {categories.map((cat, idx) => (
             <div
               key={idx}
-              className="group relative aspect-[4/5] overflow-hidden bg-[#151619] border border-white/5 rounded-sm transition-all duration-500 hover:border-brand-silver/40 flex flex-col"
+              className="group relative h-24 sm:h-auto sm:aspect-[4/5] overflow-hidden bg-[#151619] border border-white/5 rounded-sm transition-all duration-500 hover:border-brand-silver/40 flex flex-col"
             >
               <div className="absolute inset-0 z-0">
                 <img
@@ -62,10 +62,22 @@ const IndustriesServed: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/85 to-brand-dark/30"></div>
               </div>
 
-              <div className="relative z-20 p-6 flex flex-col h-full justify-end gap-3">
+              <div className="relative z-20 px-5 py-4 sm:p-6 flex flex-col h-full justify-end">
                 <h3 className="text-xl md:text-2xl font-bold text-white leading-tight tracking-tight">
                   {cat.category}
                 </h3>
+                {/* Roles we recruit for — slide up under the title on hover */}
+                <ul className="mt-2 sm:mt-3 space-y-1 sm:space-y-1.5 max-h-0 opacity-0 overflow-hidden group-hover:max-h-60 group-hover:opacity-100 transition-all duration-500 ease-out">
+                  {cat.roles.map((role) => (
+                    <li
+                      key={role}
+                      className="flex items-center gap-2 text-[11px] sm:text-xs text-white/75 font-light tracking-wide"
+                    >
+                      <span className="w-1 h-1 rounded-full bg-brand-silver flex-shrink-0"></span>
+                      {role}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-brand-silver scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-30"></div>
