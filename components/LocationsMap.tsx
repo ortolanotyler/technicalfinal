@@ -12,7 +12,7 @@ const NA_COUNTRY_IDS = new Set(['124', '840', '484']); // Canada, USA, Mexico
 
 const HQ = { lat: 43.6532, lng: -79.3832 }; // Toronto
 
-// Certus emblem (navy disc + white mark) — used as the GTA / Toronto hub marker.
+// Certus emblem (navy disc + white mark) — used as the Ontario / Toronto hub marker.
 const CERTUS_LOGO = 'https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png';
 
 // Hand-curated geocoder for the cities we actually recruit in. Add a new one
@@ -71,21 +71,18 @@ const normalizeLocation = (raw: string): string | null => {
 
 type JobPin = { lat: number; lng: number; key: string; label: string; jobs: JobPosting[] };
 
-// The whole Greater Toronto Area collapses into a single Toronto hub pin.
-const GTA_KEYS = new Set([
-  'toronto,on', 'mississauga,on', 'brampton,on', 'oakville,on',
-  'burlington,on', 'ajax,on', 'concord,on',
-]);
-const GTA_PIN = { key: 'gta', label: 'Greater Toronto Area', ...HQ };
+// Every Ontario role collapses into a single Certus hub pin (the logo marker),
+// anchored at the Toronto HQ.
+const ONTARIO_PIN = { key: 'ontario', label: 'Ontario', ...HQ };
 
 const groupJobsByCity = (jobs: JobPosting[]): JobPin[] => {
   const buckets = new Map<string, JobPin>();
   for (const job of jobs) {
     const norm = normalizeLocation(job.location);
     if (!norm) continue;
-    const isGta = GTA_KEYS.has(norm);
-    const key = isGta ? GTA_PIN.key : norm;
-    const coords = isGta ? { lat: GTA_PIN.lat, lng: GTA_PIN.lng } : CITY_COORDS[norm];
+    const isOntario = norm.endsWith(',on');
+    const key = isOntario ? ONTARIO_PIN.key : norm;
+    const coords = isOntario ? { lat: ONTARIO_PIN.lat, lng: ONTARIO_PIN.lng } : CITY_COORDS[norm];
     if (!coords) continue;
     const existing = buckets.get(key);
     if (existing) {
@@ -95,7 +92,7 @@ const groupJobsByCity = (jobs: JobPosting[]): JobPin[] => {
       buckets.set(key, {
         ...coords,
         key,
-        label: isGta ? GTA_PIN.label : `${parts[0]}, ${regionCode(parts[parts.length - 1])}`,
+        label: isOntario ? ONTARIO_PIN.label : `${parts[0]}, ${regionCode(parts[parts.length - 1])}`,
         jobs: [job],
       });
     }
@@ -166,7 +163,7 @@ export default function LocationsMap() {
   };
 
   const handlePinLeave = () => {
-    closeTimer.current = window.setTimeout(() => setHoveredKey(null), 200);
+    closeTimer.current = window.setTimeout(() => setHoveredKey(null), 300);
   };
 
   return (
@@ -211,7 +208,7 @@ export default function LocationsMap() {
           {/* Active-search pins (rendered first so popup overlays them) */}
           {pins.map((pin) => {
             const isHovered = hoveredKey === pin.key;
-            // The GTA / Toronto hub renders as the Certus emblem (navy disc + white
+            // The Ontario / Toronto hub renders as the Certus emblem (navy disc + white
             // mark) — no border, ~15% larger than a standard dot.
             const logoSize = isHovered ? 20 : 17;
             return (
@@ -226,7 +223,7 @@ export default function LocationsMap() {
                   pressed: { cursor: 'pointer' },
                 }}
               >
-                {pin.key === 'gta' ? (
+                {pin.key === 'ontario' ? (
                   <image
                     href={CERTUS_LOGO}
                     x={-logoSize / 2}
@@ -292,13 +289,26 @@ export default function LocationsMap() {
         const px = offX + vb[0] * scale;
         const py = offY + vb[1] * scale;
         const BOX_W = 280;
-        const boxH = Math.min(hoveredPin.jobs.length, 3) * 92 + 56;
+        // The roles list scrolls inside max-h-[280px]; cap the positioning
+        // height to match so the flip-above/below math stays sane.
+        const boxH = Math.min(hoveredPin.jobs.length * 92, 280) + 56;
         const HEADER_SAFE = 72; // keep the box clear of the overlaid header
         const openAbove = py - boxH - 16 > HEADER_SAFE;
         const top = openAbove ? py - boxH - 14 : py + 18;
         const left = Math.max(8, Math.min(px - BOX_W / 2, size.w - BOX_W - 8));
+        // Invisible hover bridge across the gap between the pin and the popup,
+        // so the dropdown stays open while the cursor travels toward it.
+        const nearEdge = openAbove ? top + boxH : top;
+        const bridgeTop = Math.min(py, nearEdge) - 6;
+        const bridgeH = Math.abs(nearEdge - py) + 12;
         return (
           <div className="absolute inset-0 z-30 pointer-events-none">
+            <div
+              onMouseEnter={() => handlePinEnter(hoveredPin.key)}
+              onMouseLeave={handlePinLeave}
+              style={{ left: px - 45, top: bridgeTop, width: 90, height: bridgeH }}
+              className="absolute pointer-events-auto"
+            />
             <div
               onMouseEnter={() => handlePinEnter(hoveredPin.key)}
               onMouseLeave={handlePinLeave}
@@ -315,7 +325,7 @@ export default function LocationsMap() {
                 </span>
               </div>
               <div className="space-y-2.5 max-h-[280px] overflow-y-auto">
-                {hoveredPin.jobs.slice(0, 3).map((job) => (
+                {hoveredPin.jobs.map((job) => (
                   <div key={job.id} className="group border-b border-white/5 last:border-0 pb-2.5 last:pb-0">
                     <div className="text-xs font-medium text-white leading-tight line-clamp-2">
                       {job.title}
@@ -360,11 +370,6 @@ export default function LocationsMap() {
                     </div>
                   </div>
                 ))}
-                {hoveredPin.jobs.length > 3 && (
-                  <div className="text-[9px] text-white/40 uppercase tracking-[0.2em] text-center pt-1">
-                    +{hoveredPin.jobs.length - 3} more
-                  </div>
-                )}
               </div>
             </div>
           </div>
