@@ -12,9 +12,6 @@ const NA_COUNTRY_IDS = new Set(['124', '840', '484']); // Canada, USA, Mexico
 
 const HQ = { lat: 43.6532, lng: -79.3832 }; // Toronto
 
-// Certus emblem (navy disc + white mark) — used as the Ontario / Toronto hub marker.
-const CERTUS_LOGO = 'https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png';
-
 // Hand-curated geocoder for the cities we actually recruit in. Add a new one
 // with a single line. Keys are "city,provincecode" (lowercase).
 const CITY_COORDS: Record<string, { lat: number; lng: number }> = {
@@ -208,9 +205,8 @@ export default function LocationsMap() {
           {/* Active-search pins (rendered first so popup overlays them) */}
           {pins.map((pin) => {
             const isHovered = hoveredKey === pin.key;
-            // The Ontario / Toronto hub renders as the Certus emblem (navy disc + white
-            // mark) — no border, ~15% larger than a standard dot.
-            const logoSize = isHovered ? 20 : 17;
+            // The Ontario hub uses the same circle pin as the others, just 15% larger.
+            const sizeMul = pin.key === 'ontario' ? 1.15 : 1;
             return (
               <Marker
                 key={pin.key}
@@ -223,33 +219,22 @@ export default function LocationsMap() {
                   pressed: { cursor: 'pointer' },
                 }}
               >
-                {pin.key === 'ontario' ? (
-                  <image
-                    href={CERTUS_LOGO}
-                    x={-logoSize / 2}
-                    y={-logoSize / 2}
-                    width={logoSize}
-                    height={logoSize}
-                    style={{ transition: 'width 0.15s ease, height 0.15s ease' }}
+                <>
+                  {/* White glow */}
+                  <circle
+                    r={(isHovered ? 9 : 7) * sizeMul}
+                    fill="#FFFFFF"
+                    opacity={isHovered ? 0.6 : 0.4}
+                    filter="url(#pinGlow)"
                   />
-                ) : (
-                  <>
-                    {/* White glow */}
-                    <circle
-                      r={isHovered ? 9 : 7}
-                      fill="#FFFFFF"
-                      opacity={isHovered ? 0.6 : 0.4}
-                      filter="url(#pinGlow)"
-                    />
-                    {/* Certus-blue center with a crisp white outline */}
-                    <circle
-                      r={isHovered ? 6 : 5}
-                      fill="#0d2444"
-                      stroke="#FFFFFF"
-                      strokeWidth={isHovered ? 2 : 1.5}
-                    />
-                  </>
-                )}
+                  {/* Certus-blue center with a crisp white outline */}
+                  <circle
+                    r={(isHovered ? 6 : 5) * sizeMul}
+                    fill="#0d2444"
+                    stroke="#FFFFFF"
+                    strokeWidth={(isHovered ? 2 : 1.5) * sizeMul}
+                  />
+                </>
               </Marker>
             );
           })}
