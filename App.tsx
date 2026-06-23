@@ -19,6 +19,8 @@ const JobBoardPage = lazy(() => import('./components/JobBoardPage'));
 const AdminPortal = lazy(() => import('./components/AdminPortal'));
 const EmployersPage = lazy(() => import('./components/EmployersPage'));
 const LocationsMap = lazy(() => import('./components/LocationsMap'));
+const InsightsPage = lazy(() => import('./components/InsightsPage'));
+const InsightsPostPage = lazy(() => import('./components/InsightsPostPage'));
 
 const App: React.FC = () => {
   const [view, setView] = useState<View>(() => {
@@ -26,6 +28,7 @@ const App: React.FC = () => {
     if (path.startsWith('/jobs')) return 'jobs';
     if (path === '/employers') return 'employers';
     if (path === '/admin') return 'admin';
+    if (path === '/insights' || path.startsWith('/insights/')) return 'insights';
     return 'gateway';
   });
 
@@ -33,6 +36,14 @@ const App: React.FC = () => {
     const path = window.location.pathname;
     if (path.startsWith('/jobs/')) {
       return path.split('/jobs/')[1];
+    }
+    return null;
+  });
+
+  const [insightsSlug, setInsightsSlug] = useState<string | null>(() => {
+    const path = window.location.pathname;
+    if (path.startsWith('/insights/')) {
+      return decodeURIComponent(path.split('/insights/')[1].replace(/\/$/, ''));
     }
     return null;
   });
@@ -49,12 +60,13 @@ const App: React.FC = () => {
     if (view === 'jobs') newPath = '/jobs';
     else if (view === 'admin') newPath = '/admin';
     else if (view === 'employers') newPath = '/employers';
+    else if (view === 'insights') newPath = insightsSlug ? `/insights/${insightsSlug}` : '/insights';
     else if (view === 'landing') newPath = '/';
 
     if (path !== newPath && !path.startsWith('/jobs/')) {
       window.history.pushState({}, '', newPath);
     }
-  }, [view]);
+  }, [view, insightsSlug]);
 
   // Keep the view in sync with the browser back/forward buttons.
   useEffect(() => {
@@ -70,6 +82,12 @@ const App: React.FC = () => {
         setView('employers');
       } else if (path === '/admin') {
         setView('admin');
+      } else if (path.startsWith('/insights/')) {
+        setInsightsSlug(decodeURIComponent(path.split('/insights/')[1].replace(/\/$/, '')));
+        setView('insights');
+      } else if (path === '/insights') {
+        setInsightsSlug(null);
+        setView('insights');
       } else {
         setView('landing');
       }
@@ -103,6 +121,16 @@ const App: React.FC = () => {
   const handleViewJobs = () => {
     setInitialJobId(null);
     setView('jobs');
+  };
+
+  const openInsights = () => {
+    setInsightsSlug(null);
+    setView('insights');
+  };
+
+  const openInsightsPost = (slug: string) => {
+    setInsightsSlug(slug);
+    setView('insights');
   };
 
   const handleGatewaySelect = (target: 'landing' | 'sectors') => {
@@ -145,6 +173,19 @@ const App: React.FC = () => {
       );
     }
 
+    if (view === 'insights') {
+      return insightsSlug ? (
+        <InsightsPostPage
+          slug={insightsSlug}
+          onBack={() => setView('landing')}
+          onBackToInsights={openInsights}
+          onViewJobs={handleViewJobs}
+        />
+      ) : (
+        <InsightsPage onBack={() => setView('landing')} onOpenPost={openInsightsPost} />
+      );
+    }
+
     return (
       <div className="min-h-screen font-sans opacity-0 animate-[fadeIn_1.2s_ease-out_forwards] transition-colors duration-1000 bg-brand-dark text-white selection:bg-brand-silver selection:text-black">
         <SEO title="Certus Technical Search" />
@@ -181,7 +222,7 @@ const App: React.FC = () => {
           <Contact />
         </main>
         
-        <Footer onNavigate={(id) => handleNavigate(id)} />
+        <Footer onNavigate={(id) => handleNavigate(id)} onViewInsights={openInsights} />
       </div>
     );
   };

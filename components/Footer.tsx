@@ -4,9 +4,10 @@ import { Section } from '../types';
 
 interface FooterProps {
     onNavigate?: (id: string) => void;
+    onViewInsights?: () => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+const Footer: React.FC<FooterProps> = ({ onNavigate, onViewInsights }) => {
   // Dynamic Theme Configuration - Monochrome Brand
   const theme = {
     accent: 'text-brand-silver',
@@ -84,7 +85,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                              { label: 'Contact', id: Section.CONTACT },
                          ].map((link) => (
                              <li key={link.id}>
-                                 <button 
+                                 <button
                                     onClick={() => handleNav(link.id)}
                                     className={`text-gray-400 text-sm hover:translate-x-2 transition-all duration-300 flex items-center gap-2 group ${theme.hover}`}
                                  >
@@ -93,6 +94,17 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                                  </button>
                              </li>
                          ))}
+                         {onViewInsights && (
+                             <li>
+                                 <button
+                                    onClick={onViewInsights}
+                                    className={`text-gray-400 text-sm hover:translate-x-2 transition-all duration-300 flex items-center gap-2 group ${theme.hover}`}
+                                 >
+                                     <span className="w-1.5 h-1.5 rounded-full bg-white/10 group-hover:bg-current transition-colors"></span>
+                                     Insights
+                                 </button>
+                             </li>
+                         )}
                     </ul>
                 </div>
 

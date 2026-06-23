@@ -8,7 +8,18 @@ export enum Section {
   ADMIN = 'admin'
 }
 
-export type View = 'gateway' | 'landing' | 'jobs' | 'admin' | 'employers';
+export type View = 'gateway' | 'landing' | 'jobs' | 'admin' | 'employers' | 'insights';
+
+export interface BlogPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  author: string;
+  date: string; // ISO date (YYYY-MM-DD)
+  tags?: string[];
+  coverImage?: string;
+  content: string; // Markdown
+}
 
 export interface JobPosting {
   id: string | number;
