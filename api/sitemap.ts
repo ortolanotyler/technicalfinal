@@ -34,13 +34,42 @@ function getAllJobs(): JobDoc[] {
   }
 }
 
+interface BlogDoc {
+  slug: string;
+  date?: string;
+  updatedAt?: string;
+}
+
+function getAllPosts(): BlogDoc[] {
+  try {
+    return JSON.parse(readFileSync(join(process.cwd(), 'data/blog.json'), 'utf8'));
+  } catch (err) {
+    console.error('sitemap: could not read data/blog.json:', err);
+    return [];
+  }
+}
+
 export default async function handler(_req: VercelRequest, res: VercelResponse) {
   const today = new Date().toISOString().slice(0, 10);
   const urls = [
     { loc: `${SITE_ORIGIN}/`, lastmod: today, priority: '1.0', changefreq: 'weekly' },
     { loc: `${SITE_ORIGIN}/employers`, lastmod: today, priority: '0.9', changefreq: 'monthly' },
     { loc: `${SITE_ORIGIN}/jobs`, lastmod: today, priority: '0.9', changefreq: 'daily' },
+    { loc: `${SITE_ORIGIN}/insights`, lastmod: today, priority: '0.8', changefreq: 'weekly' },
   ];
+
+  try {
+    for (const post of getAllPosts()) {
+      urls.push({
+        loc: `${SITE_ORIGIN}/insights/${post.slug}`,
+        lastmod: (post.updatedAt || post.date || '').slice(0, 10) || today,
+        priority: '0.7',
+        changefreq: 'monthly',
+      });
+    }
+  } catch (err) {
+    console.error('sitemap: failed to load posts:', err);
+  }
 
   try {
     for (const job of getAllJobs()) {

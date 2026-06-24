@@ -3,8 +3,8 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "functions": {
-    "api/render.ts": { "includeFiles": "data/jobs.json" },
-    "api/sitemap.ts": { "includeFiles": "data/jobs.json" }
+    "api/render.ts": { "includeFiles": "data/*.json" },
+    "api/sitemap.ts": { "includeFiles": "data/*.json" }
   },
   "redirects": [
     {
@@ -25,6 +25,8 @@
     { "source": "/employers", "destination": "/api/render?page=employers" },
     { "source": "/jobs", "destination": "/api/render" },
     { "source": "/jobs/:id", "destination": "/api/render?id=:id" },
+    { "source": "/insights", "destination": "/api/render?page=insights" },
+    { "source": "/insights/:slug", "destination": "/api/render?insight=:slug" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }

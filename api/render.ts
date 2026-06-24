@@ -53,6 +53,62 @@ function findJob(idOrSlug: string): JobDoc | null {
   return loadJobs().find((j) => String(j.id) === idOrSlug || jobSlug(j) === idOrSlug) || null;
 }
 
+interface BlogDoc {
+  slug: string;
+  title: string;
+  excerpt: string;
+  author?: string;
+  date?: string;
+  tags?: string[];
+  coverImage?: string;
+  content?: string;
+}
+
+function loadBlogPosts(): BlogDoc[] {
+  try {
+    return JSON.parse(readFileSync(join(process.cwd(), 'data/blog.json'), 'utf8'));
+  } catch (err) {
+    console.error('render: could not read data/blog.json:', err);
+    return [];
+  }
+}
+
+function findBlogPost(slug: string): BlogDoc | null {
+  return loadBlogPosts().find((p) => p.slug === slug) || null;
+}
+
+// Absolute URL for an image that may be a site-relative path (/posts/x.jpg).
+function absUrl(src?: string): string | undefined {
+  if (!src) return undefined;
+  return src.startsWith('http') ? src : `${SITE_ORIGIN}${src.startsWith('/') ? '' : '/'}${src}`;
+}
+
+function blogPostingJsonLd(post: BlogDoc): Record<string, unknown> {
+  const url = `${SITE_ORIGIN}/insights/${post.slug}`;
+  const schema: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    url,
+    author: { '@type': 'Organization', name: post.author || ORG_NAME, url: SITE_ORIGIN },
+    publisher: {
+      '@type': 'Organization',
+      name: ORG_NAME,
+      logo: { '@type': 'ImageObject', url: ORG_LOGO },
+    },
+  };
+  if (post.date) {
+    schema.datePublished = post.date;
+    schema.dateModified = post.date;
+  }
+  const img = absUrl(post.coverImage);
+  if (img) schema.image = img;
+  if (post.tags?.length) schema.keywords = post.tags.join(', ');
+  return schema;
+}
+
 function escapeHtml(s = ''): string {
   return s
     .replace(/&/g, '&amp;')
@@ -212,7 +268,7 @@ function setTag(html: string, re: RegExp, replacement: string): string {
 
 function applyMeta(
   html: string,
-  meta: { title: string; description: string; canonical: string; ogType: string }
+  meta: { title: string; description: string; canonical: string; ogType: string; image?: string }
 ): string {
   const t = escapeHtml(meta.title);
   const d = escapeHtml(meta.description);
@@ -224,6 +280,13 @@ function applyMeta(
   out = setTag(out, /(<meta property="og:url" content=")[^"]*(")/, `$1${meta.canonical}$2`);
   out = setTag(out, /(<meta property="og:title" content=")[^"]*(")/, `$1${t}$2`);
   out = setTag(out, /(<meta property="og:description" content=")[^"]*(")/, `$1${d}$2`);
+  if (meta.image) {
+    const img = escapeHtml(meta.image);
+    out = setTag(out, /(<meta property="og:image" content=")[^"]*(")/, `$1${img}$2`);
+    out = setTag(out, /(<meta name="twitter:image" content=")[^"]*(")/, `$1${img}$2`);
+    out = setTag(out, /(<meta name="twitter:title" content=")[^"]*(")/, `$1${t}$2`);
+    out = setTag(out, /(<meta name="twitter:description" content=")[^"]*(")/, `$1${d}$2`);
+  }
   return out;
 }
 
@@ -239,6 +302,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const origin = `https://${host}`;
   const id = typeof req.query.id === 'string' ? req.query.id : undefined;
   const page = typeof req.query.page === 'string' ? req.query.page : undefined;
+  const insight = typeof req.query.insight === 'string' ? req.query.insight : undefined;
 
   let html: string;
   try {
@@ -285,6 +349,58 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           title: `Position filled | ${ORG_NAME}`,
           description: 'This position is no longer available. View current openings.',
           canonical: `${SITE_ORIGIN}/jobs`,
+          ogType: 'website',
+        });
+        html = html.replace(
+          /<meta name="robots" content="[^"]*"\s*\/?>/,
+          '<meta name="robots" content="noindex, follow" />'
+        );
+      }
+    } else if (page === 'insights') {
+      html = applyMeta(html, {
+        title: `Insights | ${ORG_NAME}`,
+        description:
+          'Market commentary and hiring insight on the skilled-trades, heavy-duty and industrial maintenance talent market across Canada.',
+        canonical: `${SITE_ORIGIN}/insights`,
+        ogType: 'website',
+      });
+      const posts = loadBlogPosts();
+      html = injectJsonLd(html, [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Blog',
+          name: `${ORG_NAME} — Insights`,
+          url: `${SITE_ORIGIN}/insights`,
+          publisher: {
+            '@type': 'Organization',
+            name: ORG_NAME,
+            logo: { '@type': 'ImageObject', url: ORG_LOGO },
+          },
+          blogPost: posts.map((p) => ({
+            '@type': 'BlogPosting',
+            headline: p.title,
+            url: `${SITE_ORIGIN}/insights/${p.slug}`,
+            datePublished: p.date,
+          })),
+        },
+      ]);
+    } else if (insight) {
+      const post = findBlogPost(insight);
+      if (post) {
+        const canonical = `${SITE_ORIGIN}/insights/${post.slug}`;
+        html = applyMeta(html, {
+          title: `${post.title} | ${ORG_NAME}`,
+          description: (post.excerpt || '').slice(0, 320),
+          canonical,
+          ogType: 'article',
+          image: absUrl(post.coverImage),
+        });
+        html = injectJsonLd(html, [blogPostingJsonLd(post)]);
+      } else {
+        html = applyMeta(html, {
+          title: `Article not found | ${ORG_NAME}`,
+          description: 'This insight may have moved or been retired. Browse the latest insights.',
+          canonical: `${SITE_ORIGIN}/insights`,
           ogType: 'website',
         });
         html = html.replace(
