@@ -29,6 +29,7 @@ const App: React.FC = () => {
     if (path === '/employers') return 'employers';
     if (path === '/admin') return 'admin';
     if (path === '/insights' || path.startsWith('/insights/')) return 'insights';
+    if (path === '/landing') return 'landing'; // arriving from the group gateway — skip this site's gateway
     return 'gateway';
   });
 
