@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps';
 import { geoAlbers } from 'd3-geo';
-import { ArrowRight, MapPin, DollarSign } from 'lucide-react';
+import { ArrowRight, MapPin, DollarSign, X } from 'lucide-react';
 import { JobPosting } from '../types';
 import { jobService } from '../services/jobService';
 import ApplicationModal from './ApplicationModal';
@@ -118,6 +118,7 @@ const projection = geoAlbers()
 export default function LocationsMap() {
   const [jobs, setJobs] = useState<JobPosting[]>([]);
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
+  const [pinnedKey, setPinnedKey] = useState<string | null>(null);
   const [applyingTo, setApplyingTo] = useState<JobPosting | null>(null);
   const [viewingJob, setViewingJob] = useState<JobPosting | null>(null);
   const closeTimer = useRef<number | null>(null);
@@ -155,22 +156,49 @@ export default function LocationsMap() {
   }, []);
 
   const pins = groupJobsByCity(jobs);
-  const hoveredPin = pins.find((p) => p.key === hoveredKey) || null;
+  // A pin click "locks" the popup open (sticky); hover only previews. The active
+  // popup is the pinned one if present, otherwise whatever is hovered.
+  const activeKey = pinnedKey ?? hoveredKey;
+  const activePin = pins.find((p) => p.key === activeKey) || null;
 
-  const handlePinEnter = (key: string) => {
+  const clearCloseTimer = () => {
     if (closeTimer.current) {
       window.clearTimeout(closeTimer.current);
       closeTimer.current = null;
     }
+  };
+
+  const handlePinEnter = (key: string) => {
+    clearCloseTimer();
     setHoveredKey(key);
   };
 
+  // Forgiving close: skipped entirely while a popup is pinned, and given a long
+  // grace period otherwise so crossing the gap from the pin to the box is fine.
   const handlePinLeave = () => {
-    closeTimer.current = window.setTimeout(() => setHoveredKey(null), 200);
+    if (pinnedKey) return;
+    clearCloseTimer();
+    closeTimer.current = window.setTimeout(() => setHoveredKey(null), 500);
+  };
+
+  const togglePin = (key: string) => {
+    clearCloseTimer();
+    setPinnedKey((cur) => (cur === key ? null : key));
+    setHoveredKey(key);
+  };
+
+  const closePopup = () => {
+    clearCloseTimer();
+    setPinnedKey(null);
+    setHoveredKey(null);
   };
 
   return (
-    <section ref={containerRef} className="relative bg-[#070b12] border-y border-white/5 overflow-hidden h-[70vh] min-h-[520px]">
+    <section
+      ref={containerRef}
+      onClick={() => { if (pinnedKey) closePopup(); }}
+      className="relative bg-[#070b12] border-y border-white/5 overflow-hidden h-[70vh] min-h-[520px]"
+    >
       {/* Full-bleed map — mounts and fades in once the geography data is ready,
           so the countries don't pop in abruptly after the page has loaded. */}
       {geoData && (
@@ -210,16 +238,17 @@ export default function LocationsMap() {
 
           {/* Active-search pins (rendered first so popup overlays them) */}
           {pins.map((pin) => {
-            const isHovered = hoveredKey === pin.key;
+            const isActive = activeKey === pin.key;
             // The GTA / Toronto hub renders as the Certus emblem (navy disc + white
             // mark) — no border, ~15% larger than a standard dot.
-            const logoSize = isHovered ? 20 : 17;
+            const logoSize = isActive ? 20 : 17;
             return (
               <Marker
                 key={pin.key}
                 coordinates={[pin.lng, pin.lat]}
                 onMouseEnter={() => handlePinEnter(pin.key)}
                 onMouseLeave={handlePinLeave}
+                onClick={(e: React.MouseEvent) => { e.stopPropagation(); togglePin(pin.key); }}
                 style={{
                   default: { cursor: 'pointer' },
                   hover: { cursor: 'pointer' },
@@ -239,17 +268,17 @@ export default function LocationsMap() {
                   <>
                     {/* White glow */}
                     <circle
-                      r={isHovered ? 9 : 7}
+                      r={isActive ? 9 : 7}
                       fill="#FFFFFF"
-                      opacity={isHovered ? 0.6 : 0.4}
+                      opacity={isActive ? 0.6 : 0.4}
                       filter="url(#pinGlow)"
                     />
                     {/* Certus-blue center with a crisp white outline */}
                     <circle
-                      r={isHovered ? 6 : 5}
+                      r={isActive ? 6 : 5}
                       fill="#0d2444"
                       stroke="#FFFFFF"
-                      strokeWidth={isHovered ? 2 : 1.5}
+                      strokeWidth={isActive ? 2 : 1.5}
                     />
                   </>
                 )}
@@ -276,15 +305,15 @@ export default function LocationsMap() {
             Recruiting Across North America
           </h2>
           <p className="mt-4 text-white/40 text-[10px] font-light uppercase tracking-[0.3em]">
-            Hover a pin to view roles
+            Hover or click a pin to view roles
           </p>
         </div>
       </div>
 
-      {/* Hover popup — top-layer HTML overlay (z-30) so it sits over the
-          headline copy. Positioned from the map projection + measured size. */}
-      {hoveredPin && size.w > 0 && (() => {
-        const vb = projection([hoveredPin.lng, hoveredPin.lat]);
+      {/* Roles popup — top-layer HTML overlay (z-30) so it sits over the headline
+          copy. Hover previews it; clicking a pin locks it open (sticky). */}
+      {activePin && size.w > 0 && (() => {
+        const vb = projection([activePin.lng, activePin.lat]);
         if (!vb) return null;
         const scale = Math.min(size.w / SVG_WIDTH, size.h / SVG_HEIGHT);
         const offX = (size.w - SVG_WIDTH * scale) / 2;
@@ -292,30 +321,39 @@ export default function LocationsMap() {
         const px = offX + vb[0] * scale;
         const py = offY + vb[1] * scale;
         const BOX_W = 280;
-        const boxH = Math.min(hoveredPin.jobs.length, 3) * 92 + 56;
+        const boxH = Math.min(activePin.jobs.length, 3) * 92 + 56;
         const HEADER_SAFE = 72; // keep the box clear of the overlaid header
         const openAbove = py - boxH - 16 > HEADER_SAFE;
-        const top = openAbove ? py - boxH - 14 : py + 18;
+        const top = openAbove ? py - boxH - 10 : py + 14;
         const left = Math.max(8, Math.min(px - BOX_W / 2, size.w - BOX_W - 8));
         return (
           <div className="absolute inset-0 z-30 pointer-events-none">
             <div
-              onMouseEnter={() => handlePinEnter(hoveredPin.key)}
+              onMouseEnter={clearCloseTimer}
               onMouseLeave={handlePinLeave}
+              onClick={(e) => e.stopPropagation()}
               style={{ left, top, width: BOX_W, fontFamily: 'Outfit, system-ui, sans-serif' }}
               className="absolute pointer-events-auto bg-brand-dark/95 backdrop-blur-md border border-white/10 rounded-sm p-3 shadow-2xl text-white"
             >
               <div className="flex items-center gap-2 mb-2 pb-2 border-b border-white/10">
-                <MapPin size={11} className="text-brand-silver" strokeWidth={1.5} />
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70">
-                  {hoveredPin.label}
+                <MapPin size={11} className="text-brand-silver flex-shrink-0" strokeWidth={1.5} />
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 truncate">
+                  {activePin.label}
                 </span>
-                <span className="ml-auto text-[10px] text-white/40 font-light tracking-wide">
-                  {hoveredPin.jobs.length} {hoveredPin.jobs.length === 1 ? 'role' : 'roles'}
+                <span className="ml-auto text-[10px] text-white/40 font-light tracking-wide flex-shrink-0">
+                  {activePin.jobs.length} {activePin.jobs.length === 1 ? 'role' : 'roles'}
                 </span>
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); closePopup(); }}
+                  aria-label="Close"
+                  className="-mr-1 ml-0.5 text-white/40 hover:text-white transition-colors flex-shrink-0"
+                >
+                  <X size={13} strokeWidth={2} />
+                </button>
               </div>
               <div className="space-y-2.5 max-h-[280px] overflow-y-auto">
-                {hoveredPin.jobs.slice(0, 3).map((job) => (
+                {activePin.jobs.slice(0, 3).map((job) => (
                   <div key={job.id} className="group border-b border-white/5 last:border-0 pb-2.5 last:pb-0">
                     <div className="text-xs font-medium text-white leading-tight line-clamp-2">
                       {job.title}
@@ -360,9 +398,9 @@ export default function LocationsMap() {
                     </div>
                   </div>
                 ))}
-                {hoveredPin.jobs.length > 3 && (
+                {activePin.jobs.length > 3 && (
                   <div className="text-[9px] text-white/40 uppercase tracking-[0.2em] text-center pt-1">
-                    +{hoveredPin.jobs.length - 3} more
+                    +{activePin.jobs.length - 3} more
                   </div>
                 )}
               </div>
