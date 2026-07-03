@@ -42,7 +42,7 @@ const IndustriesServed: React.FC = () => {
 
         <div className="mb-12 md:mb-16 max-w-3xl">
           <h2 className="text-3xl md:text-5xl font-medium text-white tracking-tight leading-[1.05]">
-            Practice areas.
+            Practice areas
           </h2>
         </div>
 

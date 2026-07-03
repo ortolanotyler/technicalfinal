@@ -90,7 +90,7 @@ const LinkedInFeed: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
           <h2 className="text-3xl md:text-5xl font-medium text-white tracking-tight leading-[1.05]">
-            Recent posts.
+            Recent posts
           </h2>
 
           <a
