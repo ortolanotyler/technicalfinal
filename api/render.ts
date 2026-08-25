@@ -6,7 +6,7 @@ import { join } from 'path';
 // does not bundle cross-directory relative TS imports, so we avoid them.
 // Jobs are static data in data/jobs.json (bundled via vercel.json includeFiles).
 
-const SITE_ORIGIN = 'https://thecertusgroup.tech';
+const SITE_ORIGIN = 'https://technical.certusgroup.com';
 const ORG_NAME = 'Certus Technical Search';
 const ORG_LOGO =
   'https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png';
@@ -298,7 +298,7 @@ function injectJsonLd(html: string, objects: Record<string, unknown>[]): string 
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  const host = (req.headers['x-forwarded-host'] || req.headers.host || 'thecertusgroup.tech') as string;
+  const host = (req.headers['x-forwarded-host'] || req.headers.host || 'technical.certusgroup.com') as string;
   const origin = `https://${host}`;
   const id = typeof req.query.id === 'string' ? req.query.id : undefined;
   const page = typeof req.query.page === 'string' ? req.query.page : undefined;

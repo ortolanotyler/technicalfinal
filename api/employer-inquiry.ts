@@ -58,7 +58,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         `Hi ${name},\n\n` +
         `Thanks for contacting Certus Technical Search about your hiring needs. ` +
         `A specialist will review your request and reach out shortly to discuss how we can help.\n\n` +
-        `Thanks,\nThe Certus Technical Search Team\nhttps://thecertusgroup.tech`,
+        `Thanks,\nThe Certus Technical Search Team\nhttps://technical.certusgroup.com`,
       html:
         `<div style="font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;line-height:1.6">` +
         `<p>Hi ${name},</p>` +

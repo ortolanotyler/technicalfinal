@@ -4,7 +4,7 @@ import { join } from 'path';
 
 // Self-contained. Jobs are static data in data/jobs.json (bundled via
 // vercel.json includeFiles).
-const SITE_ORIGIN = 'https://thecertusgroup.tech';
+const SITE_ORIGIN = 'https://technical.certusgroup.com';
 
 interface JobDoc {
   id: string;

@@ -8,15 +8,15 @@
   },
   "redirects": [
     {
-      "source": "/",
-      "has": [{ "type": "host", "value": "www.thecertusgroup.tech" }],
-      "destination": "https://thecertusgroup.tech/",
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "thecertusgroup.tech" }],
+      "destination": "https://technical.certusgroup.com/:path*",
       "permanent": true
     },
     {
-      "source": "/:path+",
+      "source": "/:path*",
       "has": [{ "type": "host", "value": "www.thecertusgroup.tech" }],
-      "destination": "https://thecertusgroup.tech/:path+",
+      "destination": "https://technical.certusgroup.com/:path*",
       "permanent": true
     }
   ],

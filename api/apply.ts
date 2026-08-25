@@ -106,7 +106,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         `Hi ${firstName},\n\n` +
         `Thanks for applying${roleText} with Certus Technical Search. ` +
         `We have your application and our team will review it. If your background is a strong match, a recruiter will be in touch.\n\n` +
-        `You can see our current openings at https://thecertusgroup.tech/jobs\n\n` +
+        `You can see our current openings at https://technical.certusgroup.com/jobs\n\n` +
         `Thanks,\nThe Certus Technical Search Team`,
       html:
         `<div style="font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;line-height:1.6">` +
@@ -114,7 +114,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         `<p>Thanks for applying${roleLine} with <strong>Certus Technical Search</strong>. ` +
         `We have your application and our team will review it. If your background is a strong match, a recruiter will be in touch.</p>` +
         `<p>You can see our current openings ` +
-        `<a href="https://thecertusgroup.tech/jobs">here</a>.</p>` +
+        `<a href="https://technical.certusgroup.com/jobs">here</a>.</p>` +
         `<p style="color:#555">Thanks,<br/>The Certus Technical Search Team</p>` +
         `</div>`,
     });

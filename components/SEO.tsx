@@ -14,7 +14,7 @@ interface SEOProps {
   schemaOnly?: boolean;
 }
 
-const SITE_ORIGIN = 'https://thecertusgroup.tech';
+const SITE_ORIGIN = 'https://technical.certusgroup.com';
 const SITE_NAME = 'Certus Technical Search';
 const DEFAULT_IMAGE =
   'https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png';
