@@ -8,10 +8,11 @@ import SEO from './SEO';
 
 interface JobBoardPageProps {
   onBack: () => void;
+  onViewSubmit?: () => void;
   initialJobId?: string | null;
 }
 
-const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => {
+const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, onViewSubmit, initialJobId }) => {
   const [selectedJob, setSelectedJob] = useState<JobPosting | null>(null);
   const [jobs, setJobs] = useState<JobPosting[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -142,8 +143,22 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, initialJobId }) => 
             <div className="max-w-7xl mx-auto">
                 <h1 className="sr-only">Certus Group Technical Search - Job Board</h1>
                 <div className="mb-12">
+                    <div className="mb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                        <h2 className="text-3xl md:text-5xl font-medium text-white tracking-tight leading-[1.05]">
+                            Open positions
+                        </h2>
+                        {onViewSubmit && (
+                            <button
+                                type="button"
+                                onClick={onViewSubmit}
+                                className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/60 hover:text-white transition-colors text-left md:text-right"
+                            >
+                                Not seeing a fit? Submit your resume &rarr;
+                            </button>
+                        )}
+                    </div>
                     <div className="flex flex-col md:flex-row gap-4">
-                        <input 
+                        <input
                             type="text" 
                             placeholder="Search roles..."
                             value={searchTerm}

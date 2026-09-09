@@ -24,6 +24,7 @@
     { "src": "/employers$", "dest": "/api/render?page=employers" },
     { "src": "/jobs$", "dest": "/api/render" },
     { "src": "/jobs/([^/]+)$", "dest": "/api/render?id=$1" },
+    { "src": "/submit-resume$", "dest": "/api/render?page=submit-resume" },
     { "src": "/insights$", "dest": "/api/render?page=insights" },
     { "src": "/insights/([^/]+)$", "dest": "/api/render?insight=$1" },
     { "handle": "filesystem" },

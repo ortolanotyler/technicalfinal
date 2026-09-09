@@ -6,9 +6,10 @@ interface SplitGatewayProps {
   onSelect: (target: 'landing' | 'sectors') => void;
   onViewJobs: () => void;
   onNavigate?: (sectionId: string) => void;
+  onViewSubmit?: () => void;
 }
 
-const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNavigate }) => {
+const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNavigate, onViewSubmit }) => {
   const [hovered, setHovered] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [scrollPos, setScrollPos] = useState(0);
@@ -71,9 +72,10 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
   return (
     <div className="relative h-screen w-full overflow-hidden bg-brand-dark font-sans selection:bg-brand-silver selection:text-black">
       
-      <Header 
+      <Header
         onViewJobs={onViewJobs}
-        onNavigate={onNavigate} 
+        onNavigate={onNavigate}
+        onViewSubmit={onViewSubmit}
       />
 
       {/* CORE INDUSTRIES (Bottom on Mobile, Right on Desktop) */}
@@ -188,16 +190,17 @@ const SplitGateway: React.FC<SplitGatewayProps> = ({ onSelect, onViewJobs, onNav
         
         <div className={`${isMobile ? 'absolute top-0 left-0 h-[55%] w-full items-center px-8 text-center pt-16 md:pt-20' : 'absolute top-0 left-0 h-full w-[50%] md:w-[60%] lg:w-[55%] items-start pl-10 lg:pl-24 text-left'} flex flex-col justify-center z-40 transition-all duration-700 ${hovered === 'sectors' ? 'opacity-30 -translate-x-12 blur-sm' : 'opacity-100 translate-x-0'}`}>
           <div className="space-y-4 md:space-y-12 max-w-xl transform transition-transform duration-500 active:scale-95">
-             {!isMobile && (
-               <div className="space-y-6">
-                 <div className="flex flex-col items-start gap-4">
-                   <div className={`h-px bg-white/50 transition-all duration-500 ${hovered === 'skilled-trades' ? 'w-24' : 'w-12'}`}></div>
-                 </div>
+             <div className="space-y-0 drop-shadow-2xl">
+               <div className="mb-3 md:mb-4 text-base sm:text-lg md:text-xl lg:text-2xl font-medium uppercase tracking-[0.35em] text-brand-silver">
+                 Certus
                </div>
-             )}
-             <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-[10rem] font-normal text-white leading-[0.9] md:leading-[0.8] tracking-tighter">
-              Certus Technical <span className={`${silverText} ml-2 md:ml-4 drop-shadow-[0_4px_8px_rgba(0,0,0,0.3)]`}>Search</span>
-             </h1>
+               <h1 className="text-[16vw] sm:text-[13vw] md:text-[8.5vw] lg:text-[7rem] xl:text-[8.5rem] font-medium text-white leading-[0.85] tracking-tighter">
+                 Technical
+               </h1>
+               <h1 className="text-[14vw] sm:text-[11vw] md:text-[8vw] lg:text-[6.5rem] xl:text-[8rem] font-medium text-white leading-[0.85] tracking-tighter -mt-1 md:-mt-2">
+                 Search
+               </h1>
+             </div>
              <div className={`flex ${isMobile ? 'justify-center' : 'justify-end md:justify-start'} pt-2 md:pt-8`}>
                <div className={`group flex items-center gap-4 text-[9px] md:text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 ${hovered === 'skilled-trades' || isMobile ? 'text-white' : 'text-white/40'}`}>
                  <ArrowRight strokeWidth={1.5} className={`w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 ${hovered === 'skilled-trades' ? 'translate-x-2' : ''}`} />

@@ -304,7 +304,29 @@ function injectJsonLd(html: string, objects: Record<string, unknown>[]): string 
 // real content for everyone/everything else. This is the actual fix for "most
 // pages aren't being indexed" (2026-09-09): head metadata alone was correct,
 // but the body a crawler reads was always empty.
+// Minimal dark-theme styling for the prerendered content above, so the brief
+// window before the client bundle takes over reads as "the page is loading"
+// rather than a broken unstyled bullet list (reported live 2026-09-09 on
+// /jobs: a flash of plain black-on-white text on the left before the real
+// UI painted). Matches the site's actual palette (tailwind.config.js:
+// brand.dark #0E141E, brand.white #fff, brand.silver #9FA8B5) closely enough
+// to look intentional, without trying to replicate the full design system.
+const PRERENDER_STYLE = `<style>
+html,body{background:#0E141E;margin:0}
+#root{font-family:system-ui,-apple-system,sans-serif;color:#fff;max-width:820px;margin:0 auto;padding:32px 24px}
+#root h1{font-size:1.9rem;font-weight:600;margin:0 0 12px}
+#root h2{font-size:1.05rem;font-weight:600;margin:0;color:#fff}
+#root p{color:#9FA8B5;line-height:1.5;margin:4px 0 0}
+#root nav{margin-bottom:16px}
+#root nav a,#root article a{color:#9FA8B5;text-decoration:none}
+#root ul{list-style:none;margin:20px 0 0;padding:0}
+#root li{padding:16px 0;border-top:1px solid rgba(255,255,255,0.1)}
+#root li a{display:block;color:inherit;text-decoration:none}
+#root li a:hover h2{color:#9FA8B5}
+</style>`;
+
 function injectBody(html: string, bodyHtml: string): string {
+  html = html.replace('</head>', `${PRERENDER_STYLE}\n</head>`);
   return html.replace(
     /<div id="root">[\s\S]*?<\/div>/,
     `<div id="root">${bodyHtml}</div>`
@@ -367,6 +389,16 @@ function homeBodyHtml(): string {
     `<h1>Technical and skilled trades search</h1>` +
     `<p>Certus Technical Search is part of The Certus Group of Companies Inc. Founded in 2008, The Certus Group has been operating in the technical space for over 15 years. Our Technical division specializes in connecting licensed and certified professionals with leading employers across material handling, manufacturing, transportation, heavy equipment, and industrial services. We understand the urgency, compliance requirements, and operational demands of technical hiring, and we deliver talent that keeps projects moving and businesses running.</p>` +
     `<p><a href="/jobs">View open positions</a> &middot; <a href="/employers">Hire technical talent</a></p>` +
+    `</main>`
+  );
+}
+
+function submitResumeBodyHtml(): string {
+  return (
+    `<main>` +
+    `<h1>Submit your resume</h1>` +
+    `<p>Not seeing a fit among our current openings? Join the Certus Technical Search pipeline. We place skilled trades, industrial maintenance, fleet and technical professionals across Canada, and reach out when a matching mandate opens.</p>` +
+    `<p><a href="/jobs">View open positions</a></p>` +
     `</main>`
   );
 }
@@ -445,6 +477,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         },
       ]);
       html = injectBody(html, employersBodyHtml());
+    } else if (page === 'submit-resume') {
+      html = applyMeta(html, {
+        title: `Submit Your Resume | ${ORG_NAME}`,
+        description:
+          'Join the Certus Technical Search pipeline. Submit your resume for skilled trades, industrial maintenance, fleet and technical roles across Canada.',
+        canonical: `${SITE_ORIGIN}/submit-resume`,
+        ogType: 'website',
+      });
+      html = html.replace(
+        /<meta name="robots" content="[^"]*"\s*\/?>/,
+        '<meta name="robots" content="noindex, follow" />'
+      );
+      html = injectBody(html, submitResumeBodyHtml());
     } else if (id) {
       const job = findJob(id);
       if (job && job.title) {

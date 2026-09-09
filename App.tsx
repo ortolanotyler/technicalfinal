@@ -21,6 +21,7 @@ const EmployersPage = lazy(() => import('./components/EmployersPage'));
 const LocationsMap = lazy(() => import('./components/LocationsMap'));
 const InsightsPage = lazy(() => import('./components/InsightsPage'));
 const InsightsPostPage = lazy(() => import('./components/InsightsPostPage'));
+const SubmitResumePage = lazy(() => import('./components/SubmitResumePage'));
 
 const App: React.FC = () => {
   const [view, setView] = useState<View>(() => {
@@ -29,6 +30,7 @@ const App: React.FC = () => {
     if (path === '/employers') return 'employers';
     if (path === '/admin') return 'admin';
     if (path === '/insights' || path.startsWith('/insights/')) return 'insights';
+    if (path === '/submit-resume') return 'submit';
     if (path === '/landing') return 'landing'; // arriving from the group gateway — skip this site's gateway
     return 'gateway';
   });
@@ -62,6 +64,7 @@ const App: React.FC = () => {
     else if (view === 'admin') newPath = '/admin';
     else if (view === 'employers') newPath = '/employers';
     else if (view === 'insights') newPath = insightsSlug ? `/insights/${insightsSlug}` : '/insights';
+    else if (view === 'submit') newPath = '/submit-resume';
     else if (view === 'landing') newPath = '/';
 
     if (path !== newPath && !path.startsWith('/jobs/')) {
@@ -89,6 +92,8 @@ const App: React.FC = () => {
       } else if (path === '/insights') {
         setInsightsSlug(null);
         setView('insights');
+      } else if (path === '/submit-resume') {
+        setView('submit');
       } else {
         setView('landing');
       }
@@ -134,6 +139,10 @@ const App: React.FC = () => {
     setView('insights');
   };
 
+  const handleViewSubmit = () => {
+    setView('submit');
+  };
+
   const handleGatewaySelect = (target: 'landing' | 'sectors') => {
     setView('landing');
     if (target === 'sectors') {
@@ -148,17 +157,22 @@ const App: React.FC = () => {
       return (
         <>
           <SEO isGateway={true} />
-          <SplitGateway 
-            onSelect={handleGatewaySelect} 
+          <SplitGateway
+            onSelect={handleGatewaySelect}
             onViewJobs={handleViewJobs}
             onNavigate={handleNavigate}
+            onViewSubmit={handleViewSubmit}
           />
         </>
       );
     }
 
     if (view === 'jobs') {
-      return <JobBoardPage onBack={() => setView('landing')} initialJobId={initialJobId} />;
+      return <JobBoardPage onBack={() => setView('landing')} onViewSubmit={handleViewSubmit} initialJobId={initialJobId} />;
+    }
+
+    if (view === 'submit') {
+      return <SubmitResumePage onBack={() => setView('landing')} />;
     }
 
     if (view === 'admin') {
@@ -200,9 +214,10 @@ const App: React.FC = () => {
         {/* Global Background (Solid) - Video is now handled within components like Hero for cleaner flow */}
         <div className="fixed inset-0 z-[-1] bg-brand-dark"></div>
         
-        <Header 
+        <Header
           onViewJobs={handleViewJobs}
-          onNavigate={handleNavigate} 
+          onNavigate={handleNavigate}
+          onViewSubmit={handleViewSubmit}
         />
         
         <main className="relative">

@@ -21,15 +21,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const {
     firstName, lastName, email, phone, linkedin,
     jobTitle, jobRef, resumeUrl, resumeName,
+    interests, note,
   } = req.body ?? {};
 
   if (!email || !firstName || !lastName) {
     return res.status(400).json({ error: 'Required fields missing' });
   }
 
+  // No jobTitle means a general pipeline submission from /submit-resume
+  // (not tied to a specific posting) rather than a per-job application.
+  const isGeneral = !jobTitle;
+  const interestsLine = Array.isArray(interests) && interests.length ? interests.join(', ') : '';
+
   const apiKey = process.env.SENDGRID_API_KEY;
   if (!apiKey || !apiKey.startsWith('SG.')) {
-    console.log('[Dev] Job application:', { firstName, lastName, email, jobTitle });
+    console.log('[Dev] Job application:', { firstName, lastName, email, jobTitle, isGeneral });
     return res.status(200).json({ success: true, message: 'Dev mode: Application logged to console' });
   }
   sgMail.setApiKey(apiKey);
@@ -37,22 +43,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const msg: any = {
     to: 'recruit@certusgroup.com',
     from: 'tyler@certusgroup.com',
-    subject: `New Job Application: ${jobTitle} (${jobRef || 'No Ref'})`,
+    subject: isGeneral
+      ? `New Resume Pipeline Submission: ${firstName} ${lastName}`
+      : `New Job Application: ${jobTitle} (${jobRef || 'No Ref'})`,
     text: `
-      New application for ${jobTitle} (${jobRef || 'No Ref'})
+      ${isGeneral ? 'New general resume pipeline submission' : `New application for ${jobTitle} (${jobRef || 'No Ref'})`}
 
       Name: ${firstName} ${lastName}
       Email: ${email}
       Phone: ${phone || 'Not provided'}
       LinkedIn: ${linkedin || 'Not provided'}
+      ${isGeneral ? `Areas of interest: ${interestsLine || 'Not specified'}\n      ` : ''}${isGeneral && note ? `Note: ${note}\n      ` : ''}
     `,
     html: `
-      <h3>New Job Application</h3>
-      <p><strong>Job:</strong> ${jobTitle} (${jobRef || 'No Ref'})</p>
+      <h3>${isGeneral ? 'New Resume Pipeline Submission' : 'New Job Application'}</h3>
+      ${isGeneral ? '' : `<p><strong>Job:</strong> ${jobTitle} (${jobRef || 'No Ref'})</p>`}
       <p><strong>Name:</strong> ${firstName} ${lastName}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
       <p><strong>LinkedIn:</strong> ${linkedin || 'Not provided'}</p>
+      ${isGeneral ? `<p><strong>Areas of interest:</strong> ${interestsLine || 'Not specified'}</p>` : ''}
+      ${isGeneral && note ? `<p><strong>Note:</strong> ${note}</p>` : ''}
     `,
   };
 

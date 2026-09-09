@@ -8,7 +8,7 @@ export enum Section {
   ADMIN = 'admin'
 }
 
-export type View = 'gateway' | 'landing' | 'jobs' | 'admin' | 'employers' | 'insights';
+export type View = 'gateway' | 'landing' | 'jobs' | 'admin' | 'employers' | 'insights' | 'submit';
 
 export interface BlogPost {
   slug: string;
