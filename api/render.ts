@@ -297,6 +297,118 @@ function injectJsonLd(html: string, objects: Record<string, unknown>[]): string 
   return html.replace('</head>', `${scripts}\n</head>`);
 }
 
+// Static, real, crawlable HTML dropped into <div id="root"> so a crawler that
+// never runs JS (or Google's slow, resource-limited JS-render pass) sees real
+// text instead of an empty shell. The client bundle's createRoot(...).render()
+// simply overwrites this on load - same behavior as today for a JS visitor,
+// real content for everyone/everything else. This is the actual fix for "most
+// pages aren't being indexed" (2026-09-09): head metadata alone was correct,
+// but the body a crawler reads was always empty.
+function injectBody(html: string, bodyHtml: string): string {
+  return html.replace(
+    /<div id="root">[\s\S]*?<\/div>/,
+    `<div id="root">${bodyHtml}</div>`
+  );
+}
+
+function jobBodyHtml(job: JobDoc): string {
+  const meta = [job.location, job.type, job.salary].filter(Boolean).map(escapeHtml).join(' &middot; ');
+  return (
+    `<main><article>` +
+    `<nav><a href="/jobs">Open Positions</a></nav>` +
+    `<h1>${escapeHtml(job.title || 'Career opportunity')}</h1>` +
+    (meta ? `<p>${meta}</p>` : '') +
+    descriptionHtml(job) +
+    `<p><a href="/jobs/${escapeHtml(jobSlug(job))}">Apply for this role</a></p>` +
+    `</article></main>`
+  );
+}
+
+function jobNotFoundBodyHtml(): string {
+  return (
+    `<main><h1>Position filled</h1>` +
+    `<p>This position is no longer available. <a href="/jobs">View current openings</a>.</p></main>`
+  );
+}
+
+function jobsListingBodyHtml(): string {
+  const jobs = loadJobs();
+  const items = jobs
+    .map((j) => {
+      const meta = [j.location, j.salary].filter(Boolean).map(escapeHtml).join(' &middot; ');
+      return (
+        `<li><a href="/jobs/${escapeHtml(jobSlug(j))}"><h2>${escapeHtml(j.title || 'Career opportunity')}</h2></a>` +
+        (meta ? `<p>${meta}</p>` : '') +
+        `</li>`
+      );
+    })
+    .join('');
+  return (
+    `<main><h1>Open Positions</h1>` +
+    `<p>Current openings in skilled trades, industrial maintenance, engineering operations and technical roles across Canada.</p>` +
+    `<ul>${items}</ul></main>`
+  );
+}
+
+function employersBodyHtml(): string {
+  return (
+    `<main>` +
+    `<h1>Hire skilled technical talent.</h1>` +
+    `<p>We place vetted trades, maintenance and technical professionals with employers across Canada. Tell us the role and we bring you a focused shortlist.</p>` +
+    `<h2>Sectors we cover</h2>` +
+    `<ul>${['Skilled Trades & Apprentices', 'Industrial & Plant Maintenance', 'Industrial Millwrights', 'Heavy-Duty / 310T Mechanics', 'Fleet & Transportation', 'Engineering & Operations', 'Technical Leadership'].map((s) => `<li>${escapeHtml(s)}</li>`).join('')}</ul>` +
+    `</main>`
+  );
+}
+
+function homeBodyHtml(): string {
+  return (
+    `<main>` +
+    `<h1>Technical and skilled trades search</h1>` +
+    `<p>Certus Technical Search is part of The Certus Group of Companies Inc. Founded in 2008, The Certus Group has been operating in the technical space for over 15 years. Our Technical division specializes in connecting licensed and certified professionals with leading employers across material handling, manufacturing, transportation, heavy equipment, and industrial services. We understand the urgency, compliance requirements, and operational demands of technical hiring, and we deliver talent that keeps projects moving and businesses running.</p>` +
+    `<p><a href="/jobs">View open positions</a> &middot; <a href="/employers">Hire technical talent</a></p>` +
+    `</main>`
+  );
+}
+
+function insightsListingBodyHtml(): string {
+  const posts = loadBlogPosts();
+  const items = posts
+    .map(
+      (p) =>
+        `<li><a href="/insights/${escapeHtml(p.slug)}"><h2>${escapeHtml(p.title)}</h2></a><p>${escapeHtml(p.excerpt || '')}</p></li>`
+    )
+    .join('');
+  return (
+    `<main><h1>Insights</h1>` +
+    `<p>Market commentary and hiring insight on the skilled-trades, heavy-duty and industrial maintenance talent market across Canada.</p>` +
+    `<ul>${items}</ul></main>`
+  );
+}
+
+function insightBodyHtml(post: BlogDoc): string {
+  const paragraphs = (post.content || post.excerpt || '')
+    .split(/\n\n+/)
+    .filter((p) => p.trim())
+    .map((p) => `<p>${escapeHtml(p.trim())}</p>`)
+    .join('');
+  return (
+    `<main><article>` +
+    `<nav><a href="/insights">Insights</a></nav>` +
+    `<h1>${escapeHtml(post.title)}</h1>` +
+    (post.date ? `<p><time>${escapeHtml(post.date)}</time></p>` : '') +
+    paragraphs +
+    `</article></main>`
+  );
+}
+
+function insightNotFoundBodyHtml(): string {
+  return (
+    `<main><h1>Article not found</h1>` +
+    `<p>This insight may have moved or been retired. <a href="/insights">Browse the latest insights</a>.</p></main>`
+  );
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const host = (req.headers['x-forwarded-host'] || req.headers.host || 'technical.certusgroup.com') as string;
   const origin = `https://${host}`;
@@ -332,6 +444,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             'Specialized recruitment and executive search for skilled trades, industrial maintenance, engineering operations and technical roles.',
         },
       ]);
+      html = injectBody(html, employersBodyHtml());
     } else if (id) {
       const job = findJob(id);
       if (job && job.title) {
@@ -344,6 +457,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           ogType: 'article',
         });
         html = injectJsonLd(html, [jobPostingJsonLd(job)]);
+        html = injectBody(html, jobBodyHtml(job));
       } else {
         html = applyMeta(html, {
           title: `Position filled | ${ORG_NAME}`,
@@ -355,6 +469,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           /<meta name="robots" content="[^"]*"\s*\/?>/,
           '<meta name="robots" content="noindex, follow" />'
         );
+        html = injectBody(html, jobNotFoundBodyHtml());
       }
     } else if (page === 'insights') {
       html = applyMeta(html, {
@@ -384,6 +499,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           })),
         },
       ]);
+      html = injectBody(html, insightsListingBodyHtml());
     } else if (insight) {
       const post = findBlogPost(insight);
       if (post) {
@@ -396,6 +512,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           image: absUrl(post.coverImage),
         });
         html = injectJsonLd(html, [blogPostingJsonLd(post)]);
+        html = injectBody(html, insightBodyHtml(post));
       } else {
         html = applyMeta(html, {
           title: `Article not found | ${ORG_NAME}`,
@@ -407,7 +524,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           /<meta name="robots" content="[^"]*"\s*\/?>/,
           '<meta name="robots" content="noindex, follow" />'
         );
+        html = injectBody(html, insightNotFoundBodyHtml());
       }
+    } else if (page === 'home') {
+      html = applyMeta(html, {
+        title: `${ORG_NAME} | Technical and Skilled Trades Recruitment`,
+        description:
+          'Certus Technical Search connects licensed and certified skilled trades and technical professionals with leading employers across Canada.',
+        canonical: `${SITE_ORIGIN}/`,
+        ogType: 'website',
+      });
+      html = injectBody(html, homeBodyHtml());
     } else {
       html = applyMeta(html, {
         title: `Open Positions | ${ORG_NAME}`,
@@ -416,6 +543,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         canonical: `${SITE_ORIGIN}/jobs`,
         ogType: 'website',
       });
+      html = injectBody(html, jobsListingBodyHtml());
     }
   } catch (err) {
     console.error('render: falling back to plain shell:', err);

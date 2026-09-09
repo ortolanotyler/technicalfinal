@@ -6,27 +6,27 @@
     "api/render.ts": { "includeFiles": "data/*.json" },
     "api/sitemap.ts": { "includeFiles": "data/*.json" }
   },
-  "redirects": [
+  "routes": [
     {
-      "source": "/:path*",
+      "src": "/(.*)",
       "has": [{ "type": "host", "value": "thecertusgroup.tech" }],
-      "destination": "https://technical.certusgroup.com/:path*",
-      "permanent": true
+      "status": 308,
+      "dest": "https://technical.certusgroup.com/$1"
     },
     {
-      "source": "/:path*",
+      "src": "/(.*)",
       "has": [{ "type": "host", "value": "www.thecertusgroup.tech" }],
-      "destination": "https://technical.certusgroup.com/:path*",
-      "permanent": true
-    }
-  ],
-  "rewrites": [
-    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
-    { "source": "/employers", "destination": "/api/render?page=employers" },
-    { "source": "/jobs", "destination": "/api/render" },
-    { "source": "/jobs/:id", "destination": "/api/render?id=:id" },
-    { "source": "/insights", "destination": "/api/render?page=insights" },
-    { "source": "/insights/:slug", "destination": "/api/render?insight=:slug" },
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+      "status": 308,
+      "dest": "https://technical.certusgroup.com/$1"
+    },
+    { "src": "/sitemap\\.xml$", "dest": "/api/sitemap" },
+    { "src": "/$", "dest": "/api/render?page=home" },
+    { "src": "/employers$", "dest": "/api/render?page=employers" },
+    { "src": "/jobs$", "dest": "/api/render" },
+    { "src": "/jobs/([^/]+)$", "dest": "/api/render?id=$1" },
+    { "src": "/insights$", "dest": "/api/render?page=insights" },
+    { "src": "/insights/([^/]+)$", "dest": "/api/render?insight=$1" },
+    { "handle": "filesystem" },
+    { "src": "/(?!api/).*", "dest": "/index.html" }
   ]
 }
