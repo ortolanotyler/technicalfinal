@@ -311,25 +311,38 @@ function injectJsonLd(html: string, objects: Record<string, unknown>[]): string 
 // UI painted). Matches the site's actual palette (tailwind.config.js:
 // brand.dark #0E141E, brand.white #fff, brand.silver #9FA8B5) closely enough
 // to look intentional, without trying to replicate the full design system.
+//
+// CRITICAL: every rule below is scoped to .ssr-fallback, NEVER bare #root.
+// The <style> tag lives in <head> and is never removed, but #root's own ID
+// persists for the app's entire life — a rule on #root itself would keep
+// squishing/overriding the REAL hydrated app forever, not just the fallback
+// flash. That exact bug shipped once already (2026-09-09: #root{max-width:
+// 820px;margin:0 auto;padding:...} plus forced h1/h2/p/li rules collided
+// with the live app's own layout on every page, permanently, and looked
+// like "everything is squished and overlapping" to a real visitor). Scoping
+// to .ssr-fallback means the rules become inert the instant
+// createRoot(...).render() replaces #root's children - .ssr-fallback no
+// longer exists in the DOM, so nothing matches, regardless of the <style>
+// tag still sitting in <head>.
 const PRERENDER_STYLE = `<style>
 html,body{background:#0E141E;margin:0}
-#root{font-family:system-ui,-apple-system,sans-serif;color:#fff;max-width:820px;margin:0 auto;padding:32px 24px}
-#root h1{font-size:1.9rem;font-weight:600;margin:0 0 12px}
-#root h2{font-size:1.05rem;font-weight:600;margin:0;color:#fff}
-#root p{color:#9FA8B5;line-height:1.5;margin:4px 0 0}
-#root nav{margin-bottom:16px}
-#root nav a,#root article a{color:#9FA8B5;text-decoration:none}
-#root ul{list-style:none;margin:20px 0 0;padding:0}
-#root li{padding:16px 0;border-top:1px solid rgba(255,255,255,0.1)}
-#root li a{display:block;color:inherit;text-decoration:none}
-#root li a:hover h2{color:#9FA8B5}
+.ssr-fallback{font-family:system-ui,-apple-system,sans-serif;color:#fff;max-width:820px;margin:0 auto;padding:32px 24px}
+.ssr-fallback h1{font-size:1.9rem;font-weight:600;margin:0 0 12px}
+.ssr-fallback h2{font-size:1.05rem;font-weight:600;margin:0;color:#fff}
+.ssr-fallback p{color:#9FA8B5;line-height:1.5;margin:4px 0 0}
+.ssr-fallback nav{margin-bottom:16px}
+.ssr-fallback nav a,.ssr-fallback article a{color:#9FA8B5;text-decoration:none}
+.ssr-fallback ul{list-style:none;margin:20px 0 0;padding:0}
+.ssr-fallback li{padding:16px 0;border-top:1px solid rgba(255,255,255,0.1)}
+.ssr-fallback li a{display:block;color:inherit;text-decoration:none}
+.ssr-fallback li a:hover h2{color:#9FA8B5}
 </style>`;
 
 function injectBody(html: string, bodyHtml: string): string {
   html = html.replace('</head>', `${PRERENDER_STYLE}\n</head>`);
   return html.replace(
     /<div id="root">[\s\S]*?<\/div>/,
-    `<div id="root">${bodyHtml}</div>`
+    `<div id="root"><div class="ssr-fallback">${bodyHtml}</div></div>`
   );
 }
 
