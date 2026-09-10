@@ -1,5 +1,35 @@
 [
   {
+    "ref": "TRD-9066",
+    "title": "310T Truck & Coach Technician",
+    "location": "Kitchener, Ontario",
+    "type": "Full-Time",
+    "salary": "$34.00 - $55.50/hr",
+    "isFeatured": false,
+    "summary": "A truck dealership is hiring a 310T Truck & Coach Technician for its Kitchener location, working on medium and heavy-duty trucks. Licensed 310T techs and 2nd/3rd year apprentices are welcome. $34-$55.50/hr plus monthly proficiency and signing bonuses, full benefits, RRSP, and tool and boot allowances.",
+    "responsibilities": [],
+    "requirements": [],
+    "description": "A truck dealership is hiring a 310T Truck & Coach Technician for its Kitchener location. You'll perform maintenance, safeties and repairs on medium and heavy-duty trucks, keeping them safe and reliable. Licensed 310T technicians and 2nd or 3rd year apprentices (under a valid Registered 310T Training Agreement with Skilled Trades Ontario or equivalent) are both encouraged to apply.\n\nSchedule:\n- Set 8-hour shifts, flexible within shop hours (shop runs 7am - 1am, Monday to Friday)\n- Guaranteed 40 hours per week; overtime at time-and-a-half after 44 hours\n- Non-unionized shop\n\nWhat you'll do:\n- Routine maintenance, safety inspections and repairs on heavy-duty trucks (diesel engines, transmissions, brakes, suspension and electrical systems)\n- Diagnose and troubleshoot using advanced diagnostic tools\n- Use manufacturer service manuals and technical data\n- Communicate with customers about the work needed\n- Attend manufacturer and dealer training (paid, both at work and at home)\n\nRequirements:\n- Licensed 310T Truck & Coach Technician, or a 2nd/3rd year apprentice under a valid Registered 310T Training Agreement\n- Valid G driver's license with a clean driving record\n- Your own hand tools\n- Strong mechanical aptitude and communication skills\n- Legally entitled to work in Canada, and comfortable completing a background check\n\nCompensation and benefits:\n- $34.00 to $55.50/hr based on experience\n- Monthly proficiency bonus of up to $1,000 based on efficiency metrics\n- Signing bonus of up to $2,000 based on license and years of experience\n- Annual tool ($300) and boot ($200) allowances\n- Benefits after 3 months, 50/50 employer/employee split (80-100% coverage depending on service)\n- Manufacturer training provided, with paid time both at work and at home",
+    "createdAt": "2026-08-29T09:00:00.000Z",
+    "updatedAt": "2026-08-29T09:00:00.000Z",
+    "id": "310t-truck-coach-technician-trd-9066"
+  },
+  {
+    "ref": "TRD-7644",
+    "title": "310T Technician - Rotating Shifts",
+    "location": "Ottawa, Ontario",
+    "type": "Full-Time",
+    "salary": "$49.32/hr + $5,000 signing bonus",
+    "isFeatured": false,
+    "summary": "A national environmental services company is hiring a 310T Technician for its Ottawa shop on a two-week day/afternoon rotation. $49.32/hr for licensed techs plus a $5,000 signing bonus, $2/hr afternoon premium, 5% RRSP matching and a $1,200 annual tool allowance. Completed apprentices considered.",
+    "responsibilities": [],
+    "requirements": [],
+    "description": "A national environmental services company is hiring a 310T Technician for its Ottawa, Ontario shop, maintaining and repairing a diesel collection fleet. This is an in-shop role — trucks are typically towed back rather than repaired roadside.\n\nSchedule:\n- Two-week rotation between day shift and afternoon shift\n- Days start between 5:00am and 7:00am; afternoons start between 1:00pm and 4:00pm\n- 8-hour shifts with a 30-minute lunch; $2/hr premium on afternoons\n\nWhat you'll do:\n- Perform repairs, inspections, safety checks, and diagnosis and repair of electrical, hydraulic, suspension, brake and air systems on diesel vehicles\n- Use vehicle computer electrical systems to interpret failure modes and adjust engine and vehicle control modules\n- Complete safety inspections and address issues identified on DVIRs\n- Maintain accurate records of work performed\n\nRequirements:\n- Licensed 310T Truck & Coach Technician preferred; a completed apprenticeship is also considered\n- Intermediate to advanced communication skills\n- AZ or DZ licence is an asset, not required\n- A clean driver's abstract (no offence over 3 points in the last 3-5 years)\n\nCompensation and benefits:\n- $49.32/hr for a fully licensed technician\n- $5,000 signing bonus for fully licensed technicians\n- $2/hr shift premium on afternoons\n- Medical, dental, vision, STD and LTD\n- RRSP matching at 5%\n- Stock purchase at a preferred rate\n- Annual tool allowance ($1,200) and boot allowance\n- Paid vacation, EAP program\n- Manufacturer engine training, defensive driving and fleet systems training",
+    "createdAt": "2026-08-28T10:07:00.000Z",
+    "updatedAt": "2026-08-28T10:07:00.000Z",
+    "id": "310t-technician-rotating-shifts-trd-7644"
+  },
+  {
     "id": "licensed-310t-mechanic-afternoon-hamilton-trd-4471",
     "ref": "TRD-4471",
     "title": "Licensed 310T Mechanic - Afternoon Shift",
@@ -11,7 +41,7 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A national environmental services company is hiring a registered 310T Mechanic for its Hamilton, Ontario shop, maintaining and repairing a diesel collection fleet.\n\nSchedule:\n- Monday to Thursday or Tuesday to Friday\n- 2:30pm - 12:30am, full-time\n\nWhat you'll do:\n- Perform repairs, inspections, safety checks, and diagnosis and repair of electrical, hydraulic, suspension, brake and air systems on diesel vehicles\n- Use vehicle computer electrical systems to interpret failure modes and adjust engine and vehicle control modules\n- Respond to road calls for emergency repairs\n- Review, complete or assign repairs identified on driver vehicle inspection reports\n- Complete required paperwork in fleet maintenance software\n- Test drive trucks after service and repair\n- Support other team members and interact professionally with drivers\n- Work to Ministry of Transport, Ministry of Environment and company safety standards\n\nWhat you bring:\n- Registered 310T Mechanic licence - this role is not open to apprentices\n- Proficiency with a variety of diesel diagnostic tools, preventative maintenance and repair\n- Basic tool set\n- Hydraulic experience is a plus\n- Able to meet all pre-employment requirements\n\nWhat's offered:\n- $47.49/hr for a fully licensed 310T technician\n- $300 monthly bonus\n- Signing bonus available\n- Overtime after 10 hours per day\n- Generous tool and uniform allowance\n- Retirement plan with company match\n- Medical, dental and vision benefits\n- Life insurance, short-term and long-term disability\n- Employee assistance program, scholarship opportunities and an employee stock purchase plan",
-    "createdAt": "2026-08-25T09:00:00.000Z"
+    "createdAt": "2026-08-28T11:14:00.000Z"
   },
   {
     "id": "bilingual-parts-advisor-trd-7286",
@@ -25,7 +55,7 @@
     "responsibilities": [],
     "requirements": [],
     "description": "An established crane and heavy-equipment dealer is hiring an experienced Parts Advisor for its Laval, Quebec branch. You would help customers, technicians and internal teams identify, source, order, receive and track the parts that keep equipment running.\n\nSchedule:\n- Full-time, permanent\n- Monday to Friday, 8:30am - 4:30pm\n- On-site in Laval; occasional overtime at peak periods or during inventory counts\n\nWhat you'll do:\n- Respond to parts inquiries and assist customers in person, by telephone and by email\n- Identify, source and locate parts, including non-stock and hard-to-find items\n- Prepare accurate quotes, invoices and customer statements\n- Process and follow up on orders, quotes and back orders\n- Keep customers informed of order status, availability and expected delivery dates\n- Monitor shortages and work with suppliers to expedite orders\n- Coordinate shipments and special delivery requests\n- Receive, verify and organize incoming inventory and support inventory counts\n- Support service technicians and the Parts Manager\n- Complete occasional local parts pickups or deliveries\n\nWhat you bring:\n- Minimum 3 years in a parts, inventory, service, automotive, heavy equipment or related mechanical parts environment\n- Experience in automotive, heavy equipment, industrial, agricultural or powersports parts is strongly preferred\n- Strong spoken and written French, plus a good working knowledge of spoken and written English - the role involves regular contact with customers and suppliers outside Quebec and technical documentation that is not always available in French\n- Experience with parts catalogues, inventory management, ERP or order-entry systems is an asset\n- High school diploma or equivalent and a valid driver's licence\n- Forklift certification is an asset; training may be provided\n\nWhat's offered:\n- $30.00 - $33.00 per hour\n- Extended health and dental benefits after three months\n- Company pension plan and RRSP matching after one year of service\n- Paid time off\n- Hands-on training and a supportive team",
-    "createdAt": "2026-08-25T09:00:00.000Z"
+    "createdAt": "2026-08-27T12:21:00.000Z"
   },
   {
     "id": "421a-heavy-equipment-technician-trd-4210",
@@ -39,7 +69,7 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A licensed 421A opening with a crane and heavy-equipment dealer that has been in business close to 50 years, working across cranes, boom trucks, crawlers, telescopic handlers and industrial lift trucks.\n\nSchedule:\n\n- Full-time, permanent\n- Shop-based in Oakville with field work as required\n\nWhat you'll do:\n\n- Perform preventative maintenance and scheduled servicing on cranes and heavy equipment\n- Diagnose and repair mechanical, hydraulic, pneumatic and electrical systems\n- Troubleshoot engine, transmission, drivetrain and electronic control system faults\n- Complete inspections and document work orders accurately\n\nWhat you bring:\n\n- 421A licence, or journeyman/Red Seal in heavy equipment\n- Experience on cranes, heavy equipment or industrial lift trucks\n- Comfort working from schematics and diagnostic software\n- Valid driver's licence\n\nWhat's offered:\n\n- $45.00 - $55.00 per hour depending on experience\n- Established dealer with a long-tenured service team\n- Ongoing manufacturer training across multiple equipment brands",
-    "createdAt": "2026-08-18T09:05:00.000Z"
+    "createdAt": "2026-08-26T13:28:00.000Z"
   },
   {
     "id": "310t-technician-afternoons-windsor-trd-4211",
@@ -53,7 +83,7 @@
     "responsibilities": [],
     "requirements": [],
     "description": "An afternoon-shift 310T opening with a large North American environmental services company, based at their shop just outside Windsor in Maidstone.\n\nSchedule:\n\n- Full-time, permanent, afternoon shift\n- Shop-based\n\nWhat you'll do:\n\n- Preventative maintenance, diagnostics and repair across a collection fleet\n- Brake, suspension, hydraulic and electrical work\n- Safety inspections and accurate work-order documentation\n- Support road calls as needed\n\nWhat you bring:\n\n- 310T licence\n- Fleet maintenance experience\n- Valid driver's licence and a clean abstract\n\nWhat's offered:\n\n- $47.59 per hour\n- Strong benefits and RRSP matching\n- Annual tool allowance\n- A large, clean, safety-focused shop",
-    "createdAt": "2026-08-18T09:05:00.000Z"
+    "createdAt": "2026-08-25T14:35:00.000Z"
   },
   {
     "id": "310t-truck-coach-technician-trd-2208",
@@ -67,7 +97,7 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A truck dealership is hiring a 310T Truck & Coach Technician for its Goderich location. You'll perform maintenance, safeties and repairs on medium and heavy-duty trucks, keeping them safe and reliable. Licensed 310T technicians and 2nd or 3rd year apprentices (under a valid Registered Training Agreement) are both encouraged to apply, and licensed 310S (automotive) technicians open to converting to 310T will be considered.\n\nSchedule:\n- Set 8-hour day shifts, flexible within shop hours\n- Guaranteed 40 hours per week; overtime at time-and-a-half after 44 hours\n- Non-unionized shop\n\nWhat you'll do:\n- Routine maintenance, safety inspections and repairs on heavy-duty trucks (diesel engines, transmissions, brakes, suspension and electrical systems)\n- Diagnose and troubleshoot using advanced diagnostic tools\n- Use manufacturer service manuals and technical data\n- Communicate with customers about the work needed\n- Attend manufacturer and dealer training (paid)\n\nRequirements:\n- Licensed 310T Truck & Coach Technician, or a 2nd/3rd year apprentice under a valid Registered Training Agreement\n- Open to licensed 310S (automotive) technicians willing to convert to 310T\n- Valid G driver's license with a good driving record (Z endorsement an asset)\n- Your own hand tools\n- Strong mechanical aptitude and communication skills\n\nCompensation and benefits:\n- $34.00 to $45.00/hr based on experience\n- Monthly proficiency bonus of up to $1,000 based on efficiency\n- Signing bonus of up to $1,500 (based on license and experience)\n- Technician referral bonus program\n- Annual tool ($300) and boot ($200) allowances\n- Comprehensive benefits after 3 months (health, dental, vision, life, travel)\n- Group RRSP, personal days, and a paid day off during the Christmas holidays\n- Ongoing paid training and career advancement",
-    "createdAt": "2026-08-12T12:03:00.000Z"
+    "createdAt": "2026-08-25T15:42:00.000Z"
   },
   {
     "id": "310t-truck-coach-technician-trd-6491",
@@ -81,7 +111,7 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A truck dealership is hiring a 310T Truck & Coach Technician for its Hamilton location. You'll perform maintenance, safeties and repairs on medium and heavy-duty trucks, keeping them safe and reliable. Licensed 310T technicians and 2nd or 3rd year apprentices (under a valid Registered Training Agreement) are both encouraged to apply, and licensed 310S (automotive) technicians open to converting to 310T will be considered.\n\nSchedule:\n- Set 8-hour day shifts, flexible within shop hours\n- Guaranteed 40 hours per week; overtime at time-and-a-half after 44 hours\n- Non-unionized shop\n\nWhat you'll do:\n- Routine maintenance, safety inspections and repairs on heavy-duty trucks (diesel engines, transmissions, brakes, suspension and electrical systems)\n- Diagnose and troubleshoot using advanced diagnostic tools\n- Use manufacturer service manuals and technical data\n- Communicate with customers about the work needed\n- Attend manufacturer and dealer training (paid)\n\nRequirements:\n- Licensed 310T Truck & Coach Technician, or a 2nd/3rd year apprentice under a valid Registered Training Agreement\n- Open to licensed 310S (automotive) technicians willing to convert to 310T\n- Valid G driver's license with a good driving record (Z endorsement an asset)\n- Your own hand tools\n- Strong mechanical aptitude and communication skills\n\nCompensation and benefits:\n- $34.00 to $45.00/hr based on experience\n- Monthly proficiency bonus of up to $1,000 based on efficiency\n- Signing bonus of up to $1,500 (based on license and experience)\n- Technician referral bonus program\n- Annual tool ($300) and boot ($200) allowances\n- Comprehensive benefits after 3 months (health, dental, vision, life, travel)\n- Group RRSP, personal days, and a paid day off during the Christmas holidays\n- Ongoing paid training and career advancement",
-    "createdAt": "2026-08-12T08:15:00.000Z"
+    "createdAt": "2026-08-24T16:49:00.000Z"
   },
   {
     "id": "310t-truck-coach-technician-trd-5837",
@@ -95,7 +125,7 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A truck dealership is hiring a 310T Truck & Coach Technician for its Burlington location. You'll perform maintenance, safeties and repairs on medium and heavy-duty trucks, keeping them safe and reliable. Licensed 310T technicians and 2nd or 3rd year apprentices (under a valid Registered Training Agreement) are both encouraged to apply, and licensed 310S (automotive) technicians open to converting to 310T will be considered.\n\nSchedule:\n- Set 8-hour day shifts, flexible within shop hours\n- Guaranteed 40 hours per week; overtime at time-and-a-half after 44 hours\n- Non-unionized shop\n\nWhat you'll do:\n- Routine maintenance, safety inspections and repairs on heavy-duty trucks (diesel engines, transmissions, brakes, suspension and electrical systems)\n- Diagnose and troubleshoot using advanced diagnostic tools\n- Use manufacturer service manuals and technical data\n- Communicate with customers about the work needed\n- Attend manufacturer and dealer training (paid)\n\nRequirements:\n- Licensed 310T Truck & Coach Technician, or a 2nd/3rd year apprentice under a valid Registered Training Agreement\n- Open to licensed 310S (automotive) technicians willing to convert to 310T\n- Valid G driver's license with a good driving record (Z endorsement an asset)\n- Your own hand tools\n- Strong mechanical aptitude and communication skills\n\nCompensation and benefits:\n- $34.00 to $45.00/hr based on experience\n- Monthly proficiency bonus of up to $1,000 based on efficiency\n- Signing bonus of up to $1,500 (based on license and experience)\n- Technician referral bonus program\n- Annual tool ($300) and boot ($200) allowances\n- Comprehensive benefits after 3 months (health, dental, vision, life, travel)\n- Group RRSP, personal days, and a paid day off during the Christmas holidays\n- Ongoing paid training and career advancement",
-    "createdAt": "2026-08-12T04:26:00.000Z"
+    "createdAt": "2026-08-23T09:56:00.000Z"
   },
   {
     "id": "310t-truck-coach-technician-trd-9264",
@@ -109,7 +139,7 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A truck dealership is hiring a 310T Truck & Coach Technician for its Cambridge location. You'll perform maintenance, safeties and repairs on medium and heavy-duty trucks, keeping them safe and reliable. Licensed 310T technicians and 2nd or 3rd year apprentices (under a valid Registered Training Agreement) are both encouraged to apply, and licensed 310S (automotive) technicians open to converting to 310T will be considered.\n\nSchedule:\n- Set 8-hour day shifts, flexible within shop hours\n- Guaranteed 40 hours per week; overtime at time-and-a-half after 44 hours\n- Non-unionized shop\n\nWhat you'll do:\n- Routine maintenance, safety inspections and repairs on heavy-duty trucks (diesel engines, transmissions, brakes, suspension and electrical systems)\n- Diagnose and troubleshoot using advanced diagnostic tools\n- Use manufacturer service manuals and technical data\n- Communicate with customers about the work needed\n- Attend manufacturer and dealer training (paid)\n\nRequirements:\n- Licensed 310T Truck & Coach Technician, or a 2nd/3rd year apprentice under a valid Registered Training Agreement\n- Open to licensed 310S (automotive) technicians willing to convert to 310T\n- Valid G driver's license with a good driving record (Z endorsement an asset)\n- Your own hand tools\n- Strong mechanical aptitude and communication skills\n\nCompensation and benefits:\n- $34.00 to $45.00/hr based on experience\n- Monthly proficiency bonus of up to $1,000 based on efficiency\n- Signing bonus of up to $1,500 (based on license and experience)\n- Technician referral bonus program\n- Annual tool ($300) and boot ($200) allowances\n- Comprehensive benefits after 3 months (health, dental, vision, life, travel)\n- Group RRSP, personal days, and a paid day off during the Christmas holidays\n- Ongoing paid training and career advancement",
-    "createdAt": "2026-08-12T00:38:00.000Z"
+    "createdAt": "2026-08-22T10:03:00.000Z"
   },
   {
     "id": "shop-technician-lift-trucks-trd-3370",
@@ -123,7 +153,7 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A material-handling equipment provider is hiring a Shop Technician for its Mississauga shop. This is a shop-based role maintaining and repairing lift trucks and related equipment, a good fit for a mechanically minded technician early in their career who wants hands-on experience in a busy, well-equipped shop.\n\nPlease note: this is a shop-based role with no company vehicle.\n\nWhat you'll do:\n- Preventative maintenance and repairs on lift trucks in the shop\n- Diagnose mechanical and electrical issues and carry out repairs\n- Use technical manuals to diagnose and order parts\n\nRequirements:\n- 1 to 3 years of mechanical experience\n- A trade license is not required\n- Comfortable with hand tools and basic diagnostics\n- Strong attention to detail and a willingness to learn",
-    "createdAt": "2026-08-11T20:49:00.000Z"
+    "createdAt": "2026-08-22T11:10:00.000Z"
   },
   {
     "id": "road-service-technician-lift-trucks-trd-4583",
@@ -137,7 +167,7 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A material-handling equipment provider is hiring a Road Service Technician for the Vancouver area. You'll service and repair lift trucks and carousels at customer sites, working from a company truck.\n\nSetup:\n- Field-based role across the Vancouver area\n- Company truck, insurance and gas card provided\n- Company iPad and iPhone\n- Overtime paid after 44 hours worked per week\n\nWhat you'll do:\n- Inspect the operational integrity and condition of lift trucks\n- Diagnose mechanical and electrical issues and recommend repairs to the customer\n- Perform scheduled preventative maintenance\n- Diagnose and order parts using technical manuals\n- Document and analyze breakdowns to standard procedures\n- Act as the front-line contact with the customer on site\n\nRequirements:\n- 3 to 5 years as a mechanical technician, or equivalent experience\n- Automotive Service Technician or Heavy Equipment Technician (Red Seal) certification is an asset\n- Knowledge of mechanical and electrical systems on battery and engine-powered material handling equipment\n- Comfortable with hand tools, measuring devices, and electrical/electronic diagnostic tools\n- Solid lockout/tagout knowledge\n- Strong communication and customer-service skills\n- Valid driver's license\n\nCompensation and benefits:\n- $76,000 to $85,000 per year plus overtime\n- Benefits after 3 months, pension after 24 months\n- Company truck, insurance, gas card, plus iPad and iPhone\n- Incentive program and career development",
-    "createdAt": "2026-08-11T17:00:00.000Z"
+    "createdAt": "2026-08-21T12:17:00.000Z"
   },
   {
     "id": "internal-combustion-road-service-technician-diesel-trd-8829",
@@ -151,7 +181,7 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A material-handling equipment provider is hiring an Internal Combustion Road Service Technician for the Mississauga and Milton area. You'll service and repair diesel and propane internal combustion forklifts, including larger all-terrain units, mostly out in the yard at customer sites. Comfort working outdoors in all seasons is a must (PPE and winter gear provided).\n\nSetup:\n- Field-based role across the Mississauga and Milton area\n- Company truck, insurance and gas card provided\n- Company iPad and iPhone\n- PPE and winter wear provided\n- Overtime paid after 44 hours worked per week\n\nWhat you'll do:\n- Service and repair diesel and propane internal combustion forklifts, including larger all-terrain units\n- Diagnose mechanical and electrical issues and carry out repairs\n- Perform scheduled preventative maintenance\n- Diagnose and order parts using technical manuals\n\nRequirements:\n- Licensed technician: 310S, 310T or 421A\n- Diesel experience is required\n- Comfortable working outdoors in all seasons\n- Valid driver's license\n\nCompensation and benefits:\n- Up to $96,000 per year, based on licensing and experience\n- Benefits after 3 months, pension after 24 months\n- Annual tool and boot allowances\n- Company truck, insurance, gas card, plus iPad and iPhone",
-    "createdAt": "2026-08-11T13:12:00.000Z"
+    "createdAt": "2026-08-20T13:24:00.000Z"
   },
   {
     "id": "road-service-technician-lift-trucks-trd-1938",
@@ -165,7 +195,7 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A material-handling equipment provider is hiring a Road Service Technician for the Ottawa region. You'll service and repair lift trucks and carousels at customer sites, working from a company truck.\n\nSetup:\n- Field-based role across the Ottawa region\n- Company truck, insurance and gas card provided\n- Company iPad and iPhone\n- Overtime paid after 44 hours worked per week\n\nWhat you'll do:\n- Inspect the operational integrity and condition of lift trucks\n- Diagnose mechanical and electrical issues and recommend repairs to the customer\n- Perform scheduled preventative maintenance\n- Diagnose and order parts using technical manuals\n- Document and analyze breakdowns to standard procedures\n- Act as the front-line contact with the customer on site\n\nRequirements:\n- 3 to 5 years as a mechanical technician, or equivalent experience\n- 310S (Automotive) or 421A (Heavy Duty) certification is an asset\n- Knowledge of mechanical and electrical systems on battery and engine-powered material handling equipment\n- Comfortable with hand tools, measuring devices, and electrical/electronic diagnostic tools\n- Solid lockout/tagout knowledge\n- Strong communication and customer-service skills\n- Valid driver's license\n\nCompensation and benefits:\n- $71,000 to $80,000 per year plus overtime\n- Benefits after 3 months, pension after 14 months\n- Company truck, insurance, gas card, plus iPad and iPhone\n- Incentive program and career development",
-    "createdAt": "2026-08-11T09:23:00.000Z"
+    "createdAt": "2026-08-19T14:31:00.000Z"
   },
   {
     "id": "road-service-technician-lift-trucks-trd-2604",
@@ -179,7 +209,7 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A material-handling equipment provider is hiring Road Service Technicians for the Greater Calgary area. You'll service and repair lift trucks and related equipment at customer sites, working from a company truck. Day shift, Monday to Friday, with a strong salary plus overtime.\n\nSchedule and setup:\n- 40 hours/week, Monday to Friday, day shift\n- Overtime paid after 44 hours worked per week\n- Company work truck and gas card provided (you'll need a spot to park the truck)\n\nWhat you'll do:\n- Inspect the operational integrity and condition of lift trucks\n- Diagnose mechanical and electrical issues and recommend repairs to the customer\n- Perform scheduled preventative maintenance\n- Diagnose and order parts using technical manuals\n- Document and analyze breakdowns to standard procedures\n- Act as the front-line contact with the customer on site\n\nRequirements:\n- 3 to 5 years as a mechanical technician, or equivalent experience\n- Automotive Service Technician or Heavy Equipment Technician (Red Seal) certification is an asset\n- Industrial propane certification (ICE-IE-P) is an asset\n- Knowledge of mechanical and electrical systems on battery and engine-powered material handling equipment\n- Comfortable with hand tools, measuring devices, and electrical/electronic diagnostic tools\n- Solid lockout/tagout knowledge\n- Strong communication and customer-service skills\n- Valid driver's license and a clean driver's abstract\n\nCompensation and benefits:\n- $86,000 to $92,000 per year plus overtime\n- Benefits after 3 months, pension after 24 months\n- Annual tool and boot allowance\n- Company truck and gas card\n- Incentive program and career development",
-    "createdAt": "2026-08-11T05:35:00.000Z"
+    "createdAt": "2026-08-19T15:38:00.000Z"
   },
   {
     "id": "truck-trailer-technician-night-shift-trd-4192",
@@ -193,7 +223,7 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A transportation company is hiring a licensed Truck & Trailer Technician for its Calgary-area shop. This is a permanent night-shift role focused on preventative maintenance, keeping the fleet safe and on the road. The shop handles PM and inspections; major repairs go to the dealership.\n\nSchedule:\n- 4 x 10-hour shifts, Monday to Thursday, 4:00pm to 2:30am\n- 24/5 shop operation\n\nWhat you'll do:\n- Preventative maintenance and repairs on trucks and trailers\n- Diagnose issues found during inspections and carry out the correct repair\n- Perform safety inspections (Safeties)\n- Complete paperless work orders\n- Support and mentor apprentices\n\nRequirements:\n- Licensed Tractor or Trailer Technician (Journeyman or Red Seal preferred)\n- Qualified to perform Safeties\n- Strong diagnostics and time management\n- Basic computer skills for work order entry\n- Class 5 driver's license\n- Full work authorization (PR or citizen)\n- Comfortable working unsupervised\n\nCompensation and benefits:\n- $35.00 to $38.00/hr plus $2.00/hr shift premium (flexible for strong candidates)\n- Open to 3rd and 4th year apprentices\n- RRSP matching\n- Annual tool ($350) and boot ($150) allowances\n- Flexible health and dental, group life and disability, AD&D\n- Paid personal leave and potential overtime\n- Employee and Family Assistance Program, plus career development\n\nMostly Freightliner, Mack, Volvo and Peterbilt equipment in a clean, well-run shop.",
-    "createdAt": "2026-08-10T21:58:00.000Z"
+    "createdAt": "2026-08-18T16:45:00.000Z"
   },
   {
     "id": "bilingual-heavy-equipment-mechanic-cranes-trd-6058",
@@ -207,7 +237,7 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A long-established crane and heavy-equipment dealer is hiring a Bilingual Heavy Equipment Mechanic for its Laval shop. This is a permanent, mostly shop-based role with some field service calls to customer sites across Quebec (travel covered for longer trips). You'll work on cranes, boom trucks, heavy forklifts and other lifting equipment.\n\nBilingualism (French and English) is required for this role.\n\nWhat you'll do:\n- Pre-delivery inspections (PDI) and setting up new cranes\n- Commercial inspections, diagnostics and repairs\n- Preventative maintenance, from oil changes to major repairs\n- Field service calls to customer sites across Quebec as needed\n\nRequirements:\n- Licensed Heavy Equipment Technician (Journeyman or Red Seal) preferred; final-year apprentices ready to challenge the exam will be considered\n- Experience with heavy or industrial equipment such as cranes or heavy forklifts is a strong asset\n- Comfortable reading electrical schematics and troubleshooting electrical systems (a big part of the crane side)\n- Comfortable working at heights is an asset (tower crane work)\n- Strong written and spoken communication in both French and English (this is a customer-facing role)\n\nCompensation and benefits:\n- Up to $48.00/hr based on experience\n- Annual tool ($1,000) and boot ($250) allowances\n- Benefits and pension plan\n- Significant overtime available",
-    "createdAt": "2026-08-11T01:46:00.000Z"
+    "createdAt": "2026-08-17T09:52:00.000Z"
   },
   {
     "id": "42Ud54sQpJpODI4dL2oH",
@@ -216,10 +246,10 @@
     "location": "Burlington, Ontario",
     "title": "Service Manager",
     "responsibilities": [],
-    "createdAt": "2026-08-10T18:09:00.000Z",
+    "createdAt": "2026-08-17T10:59:00.000Z",
     "isFeatured": true,
     "summary": "This role oversees the full service department, including the technician team, daily scheduling, customer relationships, and departmental financials. It is a permanent, on-site position with a family-owned dealership that has operated in the industry for several decades.\n",
-    "updatedAt": "2026-05-31T12:45:00.000Z",
+    "updatedAt": "2026-08-17T10:59:00.000Z",
     "ref": "TRD-2817",
     "type": "Full-Time",
     "requirements": []
@@ -232,8 +262,8 @@
     "location": "London, Ontario",
     "title": "310T Technician – Afternoon Shift (Shop-Based)",
     "summary": "",
-    "createdAt": "2026-08-10T02:55:00.000Z",
-    "updatedAt": "2026-03-31T13:46:06.095Z",
+    "createdAt": "2026-08-16T11:06:00.000Z",
+    "updatedAt": "2026-08-16T11:06:00.000Z",
     "ref": "TRD-5063",
     "type": "Full-Time",
     "requirements": []
@@ -241,7 +271,7 @@
   {
     "id": "6kDiu4HsF50CKtgb7faY",
     "summary": "",
-    "createdAt": "2026-08-09T11:40:00.000Z",
+    "createdAt": "2026-08-15T12:13:00.000Z",
     "isFeatured": true,
     "responsibilities": [],
     "salary": "70,000-90,000",
@@ -251,12 +281,12 @@
     "ref": "TRD-7953",
     "requirements": [],
     "type": "Full-Time",
-    "updatedAt": "2026-04-05T20:08:17.681Z"
+    "updatedAt": "2026-08-15T12:13:00.000Z"
   },
   {
     "id": "6zbMkJ8UFlZTHdjx3EkI",
     "summary": "",
-    "createdAt": "2026-08-10T14:20:00.000Z",
+    "createdAt": "2026-08-14T13:20:00.000Z",
     "responsibilities": [],
     "title": "310T Technician – Afternoon Shift (UNIONIZED)",
     "location": "Kitchener, Ontario",
@@ -265,13 +295,13 @@
     "type": "Full-Time",
     "requirements": [],
     "ref": "TRD-8046",
-    "updatedAt": "2026-03-31T13:48:14.320Z"
+    "updatedAt": "2026-08-14T13:20:00.000Z"
   },
   {
     "id": "AGVEgvchHWFSufSMR3mb",
     "summary": "",
     "isFeatured": true,
-    "createdAt": "2026-08-08T12:49:00.000Z",
+    "createdAt": "2026-08-14T14:27:00.000Z",
     "responsibilities": [],
     "location": "Concord, Ontario",
     "title": "Fleet Maintenance Manager",
@@ -280,7 +310,7 @@
     "type": "Full-Time",
     "requirements": [],
     "ref": "TRD-1747",
-    "updatedAt": "2026-04-05T20:08:51.198Z"
+    "updatedAt": "2026-08-14T14:27:00.000Z"
   },
   {
     "id": "EnM7ddBymnPTwIr9J2V2",
@@ -290,8 +320,8 @@
     "title": "Commercial Dock Door Mechanic",
     "location": "Edmonton, Alberta",
     "summary": "",
-    "createdAt": "2026-08-09T15:29:00.000Z",
-    "updatedAt": "2026-03-31T13:42:59.281Z",
+    "createdAt": "2026-08-13T15:34:00.000Z",
+    "updatedAt": "2026-08-13T15:34:00.000Z",
     "ref": "TRD-3011",
     "type": "Full-Time",
     "requirements": []
@@ -301,9 +331,9 @@
     "type": "Full-Time",
     "requirements": [],
     "ref": "TRD-1291",
-    "updatedAt": "2026-03-31T14:20:59.452Z",
+    "updatedAt": "2026-08-12T16:41:00.000Z",
     "summary": "",
-    "createdAt": "2026-08-09T04:03:00.000Z",
+    "createdAt": "2026-08-12T16:41:00.000Z",
     "responsibilities": [],
     "title": "Licensed Truck or Trailer Mechanic",
     "location": "Calgary, Alberta",
@@ -317,10 +347,10 @@
     "title": "310T Technician – Afternoon Shift (UNIONIZED)",
     "location": "Concord, Ontario",
     "responsibilities": [],
-    "createdAt": "2026-08-10T10:32:00.000Z",
+    "createdAt": "2026-08-11T09:48:00.000Z",
     "isFeatured": false,
     "summary": "",
-    "updatedAt": "2026-05-30T13:47:51.941Z",
+    "updatedAt": "2026-08-11T09:48:00.000Z",
     "ref": "TRD-5270",
     "type": "Full-Time",
     "requirements": []
@@ -333,8 +363,8 @@
     "location": "Saskatoon, Saskatchewan",
     "title": "Road Service Technician ",
     "summary": "",
-    "createdAt": "2026-08-09T19:18:00.000Z",
-    "updatedAt": "2026-03-31T13:43:15.347Z",
+    "createdAt": "2026-08-11T10:55:00.000Z",
+    "updatedAt": "2026-08-11T10:55:00.000Z",
     "ref": "TRD-7867",
     "type": "Full-Time",
     "requirements": []
@@ -347,8 +377,8 @@
     "title": "Licensed Truck or Trailer Mechanic",
     "location": "Winnipeg, Manitoba",
     "summary": "If you’re a Red Seal or Journeyperson Technician looking for steady, long-term work in a well-run shop, then this is worth a look.\n",
-    "createdAt": "2026-08-09T00:15:00.000Z",
-    "updatedAt": "2026-03-31T14:21:16.758Z",
+    "createdAt": "2026-08-10T11:02:00.000Z",
+    "updatedAt": "2026-08-10T11:02:00.000Z",
     "ref": "TRD-3405",
     "type": "Full-Time",
     "requirements": []
@@ -361,16 +391,16 @@
     "description": "Certus Technical Search is working with a long-standing Canadian equipment provider with 45+ years in business to hire a licensed Heavy Equipment Technician for their Oakville location.\nThis is a very stable opportunity with a company that invests in its people, offers strong compensation, and provides long-term career growth, not a revolving-door environment.\nYou’ll be working on a mix of heavy equipment, including aerial equipment and cranes. No prior aerial or crane experience is required. If you’re proficient working on heavy equipment, they will train you.\n\nWhat can we offer you?\n$45.00 - $50.00/hr\nStrong benefits and a company pension\n$1,000 tool allowance + $250 boot allowance\nCasual, respectful shop, no micromanaging\nLong-term stability with a company that retains their staff\nWhat will your day-to-day look like?\nShop and field-based diagnostics, repairs, and maintenance\nTroubleshooting hydraulic, electrical, mechanical, and powertrain systems\nPreventative maintenance, inspections, and repairs done right\nClean, organized shop with proper tooling\nWhat They’re Looking For:\nValid 421A or 310T license\nClean driver's abstract\nStrong hands-on experience with heavy equipment\nOpen to learning new equipment (training provided)\nWilling to support occasional field service requirements\nReliable, detail-oriented, and takes pride in producing quality work\nIf you’re a 421A mechanic looking for steady hours, good pay, and a shop that’s run properly, this one’s worth a look. Submit your resume ASAP to learn more.\nAlthough we would like to thank all applicants, only qualified candidates will be contacted.",
     "responsibilities": [],
     "isFeatured": false,
-    "createdAt": "2026-08-08T20:26:00.000Z",
+    "createdAt": "2026-08-09T12:09:00.000Z",
     "summary": "",
-    "updatedAt": "2026-04-05T20:08:49.623Z",
+    "updatedAt": "2026-08-09T12:09:00.000Z",
     "type": "Full-Time",
     "requirements": [],
     "ref": "TRD-5651"
   },
   {
     "id": "d5spmJGhx6iOom9gFMCU",
-    "updatedAt": "2026-03-31T13:44:13.231Z",
+    "updatedAt": "2026-08-08T13:16:00.000Z",
     "ref": "TRD-5051",
     "type": "Full-Time",
     "requirements": [],
@@ -380,15 +410,15 @@
     "title": "310T Technician – Early Day Shift (UNIONIZED)",
     "location": "Ajax, Ontario",
     "summary": "",
-    "createdAt": "2026-08-09T23:06:00.000Z"
+    "createdAt": "2026-08-08T13:16:00.000Z"
   },
   {
     "id": "hRngtwcIR8IMbUi0jiKA",
     "ref": "TRD-4316",
     "type": "Full-Time",
     "requirements": [],
-    "updatedAt": "2026-03-31T13:40:27.648Z",
-    "createdAt": "2026-08-08T16:38:00.000Z",
+    "updatedAt": "2026-08-08T14:23:00.000Z",
+    "createdAt": "2026-08-08T14:23:00.000Z",
     "summary": "",
     "description": "Certus Technical Search is working with a major transit operator to hire a Fleet Maintenance Manager for their Concord location.\n\nThis is a key leadership role where you will directly impact fleet reliability, service delivery, and overall operational performance. Leading a team of Supervisors and licensed 310T Technicians, you’ll play a critical role in ensuring a safe, fully operational transit fleet in a high-demand environment.\n\nWhile this role is primarily based in Concord, travel between three additional North Toronto locations will be required as needed to support operations.\nThis position is ideal for a mechanically strong leader who enjoys managing teams, driving performance, and working closely with internal stakeholders and clients to maintain high service standards.\n\nWhat will your day look like?\nOversee all fleet maintenance operations, ensuring buses are safe, compliant, clean, and road-ready\nDrive maximum fleet uptime and availability to support service delivery\nEnsure all maintenance activities align with company policies, procedures, and contractual obligations\nIdentify process gaps and implement improvements to enhance efficiency and performance\nCollaborate with the leadership team to address operational challenges and improve service levels\nLead hiring, scheduling, performance management, and retention of mechanics and apprentices\nEnsure all technicians maintain required licensing and complete ongoing training\nOversee preventative maintenance programs, inspections, and major repair initiatives (HVAC, engine work, etc.)\nManage and track maintenance claims and related documentation\nOversee multiple functions including Maintenance, Body Shop, Parts, Facilities, and Cleaning teams\nEnsure administrative tasks are completed accurately (invoicing, reporting, KPI tracking, personnel updates)\nDrive productivity, accountability, and continuous improvement across the operation\nSupport additional operational requirements as needed\nWhat do you need to qualify for this opportunity?\nLicensed 310T Truck & Coach Technician (required) with strong hands-on mechanical background\n7+ years of experience within a commercial fleet maintenance environment (truck, bus or coach), with 3+ years of experience managing a fleet or maintenance operation\nStrong leadership, organizational, and team management skills\nCalm, solutions-focused mindset with strong communication abilities\nComfortable using maintenance management systems and general computer applications\nProficient computer skills (MS Office programs and preventative maintenance software).\nWilling and able to support hands-on work when required\n\nWhat can we offer you?\nAn annual salary of $100,000 - 130,000 plus discretionary bonus\nComprehensive benefits & RRSP matching\nStandard 40-hour work week (day shift), with flexibility required based on operational needs\nAn opportunity to play a critical leadership role in shaping fleet performance, reliability, and service delivery. \n\nPlease note: This is a fleet/mechanical maintenance leadership role. Candidates must have direct experience managing a commercial fleet maintenance operation. Applicants from building or warehouse maintenance backgrounds will not be considered.\nInterested in learning more?\nFor consideration, please submit your resume ASAP. Although we would like to thank all that apply, only qualified applicants will be contacted.",
     "salary": "90,000 - 100,000",
@@ -401,8 +431,8 @@
     "ref": "TRD-7853",
     "type": "Full-Time",
     "requirements": [],
-    "updatedAt": "2026-03-31T13:47:02.834Z",
-    "createdAt": "2026-08-10T06:43:00.000Z",
+    "updatedAt": "2026-08-07T15:30:00.000Z",
+    "createdAt": "2026-08-07T15:30:00.000Z",
     "summary": "",
     "description": "SHIFT:  Monday to Friday 4:00PM to 1:30AM\n\nWe’re working with a well-established, industry-leading organization in the fleet services space, currently looking to add a licensed 310T Technician to their team.  This is a stable, well-run operation with a North American presence with strong leadership, consistent hours, and a solid compensation + benefits package.\n\nThe Role:\nPerform diagnostics, repairs, and preventative maintenance on diesel trucks and heavy equipment\nWork on electrical, hydraulic, suspension, brake, and air systems\nComplete safety inspections and address issues identified on DVIRs\nOccasional road calls for breakdown support\nUtilize fleet maintenance systems for tracking and reporting\nTest drive vehicles post-repair\nCollaborate with team members on complex repairs\nMaintain strong communication with drivers and operations team\nWhat They’re Looking For:\nLicensed 310T Technician\nStrong diagnostic and troubleshooting skills\nComfortable working both independently and within a team\nIntermediate to strong communication skills\nAZ or DZ license is an asset (not required)\nWhat’s In It For You:  $43.00/hr.\nRRSP matching up to 5%\nEmployee stock purchase program (discounted rate)\nComprehensive benefits (medical, dental, vision)\nPaid vacation\n$1,200 annual tool allowance + boot allowance\nOngoing training: factory-level exposure\nDefensive driving\nFleet systems training\nAdditional Details:\nAfternoon shift\nPrimarily shop-based with occasional field support\nClean, well-maintained facility\nStrong focus on safety and team environment\n\nInterested individuals are encouraged to submit your resume ASAP.\n\nAlthough we like to thank all that apply, only qualified candidates will be contacted.",
     "salary": "43.00/hr",
@@ -412,7 +442,7 @@
   },
   {
     "id": "vKa554TktbqbGpNDSO9H",
-    "createdAt": "2026-08-09T07:52:00.000Z",
+    "createdAt": "2026-08-06T16:37:00.000Z",
     "summary": "",
     "description": "If you’re a Red Seal or Journeyperson Technician looking for steady, long-term work in a well-run shop, then this is worth a look.\nCertus Technical Search has partnered with a large, established transportation fleet in Winnipeg that is growing their maintenance team. With a fleet of thousands of tractors and trailers in operation, this is a busy, stable environment with consistent year-round work.\nThe shop is clean, organized, and fully supported by wash bay and maintenance staff, allowing technicians to focus on what they do best.\nWhat’s in it for you:\n$33.00 - $45.00/hr. (further flexible for strong technicians)\n4-day work week - 10 hour shifts (days or afternoon shifts available)\nRRSP matching\nAnnual tool allowance and boot allowance\nComprehensive health, dental and vision benefits\nContinued education support\n \nShop environment:\n24/5 operation with 20+ technicians on site\nStrong preventative maintenance focus\nTeam of Maintenance Assistants handling washing and prep\nCollaborative team (must be comfortable mentoring apprentices)\n \nWhat they’re looking for:\nLicensed Truck & Transport or Trailer Technician (Journeyperson or Red Seal)\nStrong diagnostic and time management skills\nAbility to complete safeties\nComfortable entering work orders electronically\nPhysically capable of typical shop demands\n \nPLEASE NOTE: Our client is also open to strong 3rd and 4th year apprentices (with education support/reimbursement for the completion of the apprenticeship program)\nIf you’re in Winnipeg and even mildly curious, please submit your resume ASAP.\nAlthough we would like to thank all that apply, only qualified applicants will be contacted.\n",
     "salary": "33.00-43.00/hr",
@@ -422,7 +452,7 @@
     "ref": "TRD-3504",
     "type": "Full-Time",
     "requirements": [],
-    "updatedAt": "2026-03-31T14:21:09.390Z"
+    "updatedAt": "2026-08-06T16:37:00.000Z"
   },
   {
     "id": "director-of-fleet-maintenance-trd-3120",
@@ -436,8 +466,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "We are looking for a Director of Fleet Maintenance in Chicago, Illinois.\n\nThis role owns the maintenance strategy for a multi-terminal fleet of heavy- and medium-duty trucks and trailers. Reporting to the VP of Operations, you will lead shop managers and technicians across several Midwest locations, driving fleet uptime, preventative-maintenance compliance, warranty recovery, and cost-per-mile while building a safety-first culture.\n\nWhat you'll own:\n- Maintenance strategy and budget across multiple terminals\n- Fleet availability, PM compliance, and DOT/CSA readiness\n- Leadership and development of shop managers and technician teams\n- Vendor, warranty, and parts-procurement relationships\n- Capital planning for shop equipment and fleet replacement\n\nRequirements:\n- 10+ years in fleet or heavy-duty maintenance, with 5+ in multi-site leadership\n- Deep knowledge of DOT regulations, PM programs, and fleet KPIs\n- Experience managing maintenance budgets of $10M+\n- Bachelor's degree in business, logistics, or a technical field, or equivalent experience\n- Willingness to travel between terminals\n\nCompensation:\n- $130,000 to $165,000 based on experience, plus performance bonus\n- Full health, dental, and vision; 401(k) with match\n- Company vehicle and relocation assistance available",
-    "createdAt": "2026-08-13T03:18:00.000Z",
-    "updatedAt": "2026-06-13T15:00:00.000Z"
+    "createdAt": "2026-08-05T09:44:00.000Z",
+    "updatedAt": "2026-08-05T09:44:00.000Z"
   },
   {
     "id": "director-of-service-operations-trd-4827",
@@ -451,8 +481,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "We are looking for a Director of Service Operations in Seattle, Washington.\n\nThis role leads the service division across multiple branches, with full P&L responsibility for labor, productivity, and customer satisfaction. You will manage branch and service managers, set operational standards, and grow service revenue while keeping technician utilization and first-time-fix rates high.\n\nWhat you'll own:\n- P&L for the regional service division\n- Leadership of branch and service managers across multiple sites\n- Service revenue growth, technician utilization, and warranty performance\n- Customer escalations and key-account relationships\n- Recruiting, training, and retention of service leadership and technicians\n\nRequirements:\n- 10+ years in service operations within heavy equipment, trucking, or industrial dealerships\n- 5+ years leading multi-site service teams with P&L accountability\n- Strong command of service KPIs (utilization, recovery, effective labor rate)\n- Proven track record growing service revenue and margin\n- Bachelor's degree or equivalent experience\n\nCompensation:\n- $140,000 to $180,000 based on experience, plus annual bonus\n- Full benefits and 401(k) with match\n- Relocation assistance available",
-    "createdAt": "2026-08-12T23:29:00.000Z",
-    "updatedAt": "2026-06-13T14:55:00.000Z"
+    "createdAt": "2026-08-05T10:51:00.000Z",
+    "updatedAt": "2026-08-05T10:51:00.000Z"
   },
   {
     "id": "director-of-maintenance-reliability-trd-5492",
@@ -466,8 +496,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "We are looking for a Director of Maintenance & Reliability in Columbus, Ohio.\n\nThis role leads maintenance and reliability for a high-volume manufacturing operation. You will own asset uptime, preventative and predictive maintenance programs, and capital projects, leading a team of supervisors, millwrights, industrial electricians, and reliability specialists to reduce downtime and total cost of ownership.\n\nWhat you'll own:\n- Plant maintenance strategy, budget, and reliability roadmap\n- PM/PdM programs, CMMS, and root-cause analysis\n- Leadership of maintenance supervisors and skilled-trades teams\n- Capital projects and equipment installations\n- Spare-parts strategy and contractor management\n\nRequirements:\n- 10+ years in industrial or manufacturing maintenance\n- 5+ years in maintenance or reliability leadership\n- Strong grounding in reliability methods (RCM, FMEA, TPM) and CMMS\n- Bachelor's degree in engineering or a technical field preferred\n- Experience leading skilled-trades teams in a unionized environment is an asset\n\nCompensation:\n- $125,000 to $160,000 based on experience, plus bonus\n- Full benefits and 401(k) with match\n- Relocation assistance available",
-    "createdAt": "2026-08-12T19:40:00.000Z",
-    "updatedAt": "2026-06-13T14:45:00.000Z"
+    "createdAt": "2026-08-04T11:58:00.000Z",
+    "updatedAt": "2026-08-04T11:58:00.000Z"
   },
   {
     "id": "general-manager-commercial-truck-dealership-trd-7045",
@@ -481,8 +511,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "We are looking for a General Manager in Boston, Massachusetts.\n\nThis role leads a full commercial truck dealership across sales, parts, and service, with complete P&L ownership. You will set strategy, develop department managers, grow market share, and deliver a best-in-class customer experience while hitting profitability and CSI targets.\n\nWhat you'll own:\n- Full dealership P&L across sales, parts, and service\n- Leadership and development of department managers\n- Market-share growth, absorption rate, and customer satisfaction\n- OEM relationships and manufacturer programs\n- Hiring, culture, and operational standards\n\nRequirements:\n- 10+ years in commercial truck, heavy equipment, or automotive dealership operations\n- 5+ years in dealership leadership (GM, Fixed Ops Director, or similar)\n- Proven P&L ownership and revenue growth\n- Strong understanding of both fixed operations (parts and service) and sales\n- Bachelor's degree or equivalent experience\n\nCompensation:\n- $150,000 to $200,000 based on experience, plus performance bonus\n- Full health, dental, and vision; 401(k) with match\n- Relocation assistance and executive benefits",
-    "createdAt": "2026-08-12T15:52:00.000Z",
-    "updatedAt": "2026-06-13T14:40:00.000Z"
+    "createdAt": "2026-08-03T12:05:00.000Z",
+    "updatedAt": "2026-08-03T12:05:00.000Z"
   },
   {
     "id": "industrial-millwright-433a-trd-4901",
@@ -496,8 +526,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A growing food and beverage manufacturer in Toronto, Ontario is hiring a licensed 433A Industrial Mechanic Millwright to maintain and improve its high-speed processing and packaging equipment. You'll keep fillers, conveyors, pumps, gearboxes and PLC-driven lines running reliably in a fast-paced, food-grade environment.\n\nSchedule:\n- Rotating day and afternoon shifts (Monday to Friday), with occasional weekend coverage\n- 40 hours per week guaranteed; overtime at time-and-a-half after 44 hours\n- Unionized facility\n\nWhat you'll do:\n- Preventative and breakdown maintenance on fillers, cappers, conveyors, pumps and gearboxes\n- Diagnose mechanical, hydraulic and pneumatic faults and return lines to production quickly\n- Perform precision alignment, bearing and seal replacement, and chain/belt drive service\n- Read mechanical drawings and work alongside electricians on PLC-controlled equipment\n- Support continuous-improvement and line-changeover projects\n\nRequirements:\n- Licensed 433A Industrial Mechanic Millwright (Certificate of Qualification)\n- 3+ years of millwright experience in a manufacturing or processing plant\n- Strong hydraulic, pneumatic and conveyor troubleshooting skills\n- Comfortable with welding and fabrication for repairs\n- Food, beverage or CPG experience an asset\n\nCompensation and benefits:\n- $40.00 to $48.00/hr based on experience, plus shift premium\n- Comprehensive health, dental and vision benefits\n- Company pension / RRSP match\n- Annual tool and boot allowances\n- Paid OEM and skills training, with room to advance into lead hand roles",
-    "createdAt": "2026-08-13T07:06:00.000Z",
-    "updatedAt": "2026-06-16T13:00:00.000Z"
+    "createdAt": "2026-08-03T13:12:00.000Z",
+    "updatedAt": "2026-08-03T13:12:00.000Z"
   },
   {
     "id": "industrial-millwright-433a-trd-2773",
@@ -511,8 +541,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "An automotive parts manufacturer in Cambridge, Ontario is hiring a licensed 433A Industrial Mechanic Millwright to support its stamping and metal-forming operation. This role focuses on mechanical and hydraulic presses, die-handling equipment, automation and material-handling systems in a high-volume Tier 1/Tier 2 plant.\n\nSchedule:\n- Rotating shifts (days, afternoons, nights) on a continental schedule\n- 42-44 hours per week with regular overtime available\n- Unionized facility\n\nWhat you'll do:\n- Maintain and repair mechanical and hydraulic stamping presses (100 to 1,000+ ton)\n- Service die-change systems, feeders, coil lines and robotic transfer automation\n- Troubleshoot hydraulics, pneumatics, clutches/brakes and lubrication systems\n- Perform precision alignment, fabrication and welding for repairs and installs\n- Execute PM routines and support new equipment installations\n\nRequirements:\n- Licensed 433A Industrial Mechanic Millwright (Certificate of Qualification)\n- 3+ years in an automotive, stamping or heavy-manufacturing environment\n- Strong press, hydraulic and die-handling experience\n- Solid welding and fabrication skills (MIG; TIG an asset)\n- Ability to read hydraulic and mechanical schematics\n\nCompensation and benefits:\n- $42.00 to $50.00/hr based on experience, plus shift premiums\n- Signing bonus for licensed 433A technicians\n- Full health, dental and vision benefits\n- Company pension and RRSP match\n- Tool and boot allowances and paid training",
-    "createdAt": "2026-08-13T10:55:00.000Z",
-    "updatedAt": "2026-06-16T13:05:00.000Z"
+    "createdAt": "2026-08-02T14:19:00.000Z",
+    "updatedAt": "2026-08-02T14:19:00.000Z"
   },
   {
     "id": "maintenance-millwright-433a-trd-6624",
@@ -526,8 +556,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A plastics and packaging manufacturer in Mississauga, Ontario is hiring a licensed 433A Industrial Mechanic Millwright for its afternoon shift. You'll maintain extrusion, injection-molding, thermoforming and downstream conveyor equipment to keep production lines reliable and efficient.\n\nSchedule:\n- Afternoon shift (approx. 3:00 PM to 11:00 PM), Monday to Friday\n- 40 hours per week; overtime at time-and-a-half after 44 hours\n- Non-unionized shop\n\nWhat you'll do:\n- Preventative and breakdown maintenance on extruders, molding machines and conveyors\n- Troubleshoot hydraulics, pneumatics, gearboxes, pumps and water/cooling systems\n- Replace bearings, seals, belts and chain drives; perform precision alignment\n- Assist with mold and tooling changes and equipment relocations\n- Maintain accurate maintenance records in the CMMS\n\nRequirements:\n- Licensed 433A Industrial Mechanic Millwright (Certificate of Qualification)\n- 2+ years of industrial maintenance experience; plastics an asset\n- Strong hydraulic, pneumatic and conveyor troubleshooting skills\n- Welding and fabrication ability for in-house repairs\n- Willing to work afternoons\n\nCompensation and benefits:\n- $38.00 to $46.00/hr based on experience, plus afternoon-shift premium\n- Health, dental and vision benefits after probation\n- Group RRSP with employer match\n- Tool and boot allowances\n- Stable, year-round work with overtime",
-    "createdAt": "2026-08-13T14:43:00.000Z",
-    "updatedAt": "2026-06-16T13:10:00.000Z"
+    "createdAt": "2026-08-01T15:26:00.000Z",
+    "updatedAt": "2026-08-01T15:26:00.000Z"
   },
   {
     "id": "industrial-millwright-433a-trd-3958",
@@ -541,8 +571,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A building-products manufacturer in London, Ontario is hiring a licensed 433A Industrial Mechanic Millwright on a straight day shift. You'll maintain saws, planers, conveyors, dust-collection and process equipment in a high-throughput wood-products plant, with a strong focus on uptime and reliability.\n\nSchedule:\n- Straight day shift, Monday to Friday\n- 40 hours per week guaranteed; overtime available\n- Paid on-call rotation for emergency coverage\n\nWhat you'll do:\n- Preventative and corrective maintenance on saws, planers, conveyors and material-handling systems\n- Troubleshoot hydraulics, pneumatics, bearings, gearboxes and drive systems\n- Perform precision alignment, welding and fabrication for repairs and upgrades\n- Support capital projects, rebuilds and new equipment installs\n- Contribute to the PM program and root-cause problem solving\n\nRequirements:\n- Licensed 433A Industrial Mechanic Millwright (Certificate of Qualification)\n- 3+ years of industrial millwright experience; wood-products or heavy process an asset\n- Strong mechanical, hydraulic and fabrication skills\n- Able to read mechanical drawings and hydraulic schematics\n- Reliable and safety-focused\n\nCompensation and benefits:\n- $39.00 to $47.00/hr based on experience\n- Signing bonus for licensed 433A millwrights\n- Full health, dental and vision benefits\n- Company pension / RRSP match\n- Annual tool and boot allowances and paid training",
-    "createdAt": "2026-08-13T18:32:00.000Z",
-    "updatedAt": "2026-06-16T13:15:00.000Z"
+    "createdAt": "2026-07-31T16:33:00.000Z",
+    "updatedAt": "2026-07-31T16:33:00.000Z"
   },
   {
     "id": "maintenance-millwright-433a-trd-8114",
@@ -556,8 +586,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A well-established manufacturer in Mississauga is adding a licensed 433A Millwright to its maintenance team. You'll keep production and packaging equipment running reliably across a fast-paced, multi-line facility.\n\nSchedule:\n- Rotating days/afternoons, 40 hours per week\n- Overtime at time-and-a-half after 44 hours\n- Shift premium on afternoons\n\nWhat you'll do:\n- Preventive maintenance and scheduled inspections on production equipment\n- Diagnose and repair mechanical breakdowns to minimize downtime\n- Support new equipment installs, alignments, and reliability improvements\n- Work from drawings, manuals, and PLC fault codes with the electrical team\n\nWhat you bring:\n- Licensed 433A Industrial Mechanic (Millwright)\n- Experience in a manufacturing or production environment\n- Comfortable with hydraulics, pneumatics, bearings, and conveyors\n- Available for rotating shifts\n\nWhat's offered:\n- $38-$44/hr plus afternoon shift premium\n- Full health and dental benefits\n- RRSP matching\n- Annual tool and boot allowance\n- Ongoing training and clear advancement path",
-    "createdAt": "2026-08-15T08:38:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-31T09:40:00.000Z",
+    "updatedAt": "2026-07-31T09:40:00.000Z"
   },
   {
     "id": "heavy-equipment-technician-trd-6273",
@@ -571,8 +601,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A leading heavy equipment dealership in Calgary is growing its technician team. You'll work on excavators, loaders, dozers, and related construction equipment in the shop and, if you choose, out in the field.\n\nSchedule:\n- Day shift, Monday to Friday, 40 hours per week\n- Plentiful overtime at premium rates\n- Optional field service rotation with a stocked service truck\n\nWhat you'll do:\n- Diagnose and repair diesel engines, hydraulics, powertrain, and electrical systems\n- Complete scheduled maintenance, inspections, and component rebuilds\n- Use OEM diagnostic software to troubleshoot faults\n- Document work orders and parts accurately\n\nWhat you bring:\n- Licensed Heavy Equipment Technician (Journeyperson) or strong senior apprentice\n- Experience with construction/earthmoving equipment preferred\n- Own hand tools; diagnostic and field experience an asset\n- Valid driver's licence\n\nWhat's offered:\n- $40-$50/hr based on experience\n- Generous overtime and potential field-service premiums\n- Full health, dental, and RRSP\n- Tool allowance and OEM factory training\n- Relocation support for the right candidate",
-    "createdAt": "2026-08-15T04:49:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-30T10:47:00.000Z",
+    "updatedAt": "2026-07-30T10:47:00.000Z"
   },
   {
     "id": "fleet-maintenance-supervisor-trd-4409",
@@ -586,8 +616,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A growing transportation company in Metro Vancouver is looking for a hands-on Fleet Maintenance Supervisor to run its maintenance operation. You'll lead a team of technicians and own the reliability and compliance of the fleet.\n\nSchedule:\n- Day shift, Monday to Friday\n- Occasional on-call for escalations\n- Based on-site at the Vancouver terminal\n\nWhat you'll do:\n- Supervise, schedule, and mentor a team of technicians and apprentices\n- Own preventive maintenance programs and fleet uptime targets\n- Ensure CVSE/DOT compliance, safety, and inspection records\n- Manage parts inventory, vendors, and repair-vs-replace decisions\n\nWhat you bring:\n- Red Seal 310T or Heavy-Duty licence, or equivalent supervisory experience\n- Prior lead-hand or supervisory experience in a fleet shop\n- Strong knowledge of trucks, trailers, and compliance requirements\n- Comfortable with fleet maintenance software\n\nWhat's offered:\n- $90,000-$110,000 plus performance bonus\n- Vehicle allowance\n- Full health, dental, and RRSP matching\n- Leadership training and growth into management\n- Stable, well-run operation",
-    "createdAt": "2026-08-15T01:00:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-29T11:54:00.000Z",
+    "updatedAt": "2026-07-29T11:54:00.000Z"
   },
   {
     "id": "industrial-electrician-442a-trd-9052",
@@ -601,8 +631,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "An established production facility in London, Ontario is adding a licensed 442A Industrial Electrician. You'll be the go-to for electrical troubleshooting and controls across the plant.\n\nSchedule:\n- Rotating shifts, 40 hours per week\n- Overtime available at time-and-a-half\n- Shift premium outside days\n\nWhat you'll do:\n- Troubleshoot and repair PLC-controlled production equipment\n- Maintain power distribution, motors, drives, and controls\n- Support preventive maintenance and continuous-improvement projects\n- Work safely to code and complete accurate records\n\nWhat you bring:\n- Licensed 442A Industrial Electrician\n- PLC troubleshooting experience (Allen-Bradley an asset)\n- Manufacturing/industrial background\n- Available for rotating shifts\n\nWhat's offered:\n- $40-$46/hr plus shift premium\n- Full benefits and RRSP matching\n- Tool and boot allowance\n- Paid training and certifications\n- Long-term stability with a growing plant",
-    "createdAt": "2026-08-14T21:12:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-28T12:01:00.000Z",
+    "updatedAt": "2026-07-28T12:01:00.000Z"
   },
   {
     "id": "310t-truck-coach-technician-trd-3187",
@@ -616,8 +646,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A busy truck dealership in Ottawa is hiring a 310T Truck & Coach Technician. You'll perform maintenance, safeties, and repairs on medium and heavy-duty trucks, keeping customers' fleets safe and reliable.\n\nSchedule:\n- Set 8-hour day shifts, flexible within shop hours\n- Guaranteed 40 hours per week; overtime after 44\n- Non-unionized shop\n\nWhat you'll do:\n- Routine maintenance, safety inspections, and repairs on heavy-duty trucks\n- Diagnose diesel engines, transmissions, brakes, suspension, and electrical\n- Use OEM diagnostic tools to resolve faults\n- Keep clean, accurate service records\n\nWhat you bring:\n- Licensed 310T, or 2nd/3rd year apprentice under a valid RTA\n- 310S techs open to converting to 310T considered\n- Own hand tools\n- Valid driver's licence\n\nWhat's offered:\n- $35-$46/hr plus monthly proficiency and signing bonuses\n- Full benefits and RRSP\n- Tool and boot allowances\n- Manufacturer training\n- Steady year-round work",
-    "createdAt": "2026-08-14T17:23:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-28T13:08:00.000Z",
+    "updatedAt": "2026-07-28T13:08:00.000Z"
   },
   {
     "id": "diesel-engine-technician-trd-7526",
@@ -631,8 +661,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A well-equipped fleet shop in Windsor, Ontario is adding a Diesel Engine Technician. You'll focus on engine diagnostics, repairs, and rebuilds across a mixed commercial fleet.\n\nSchedule:\n- Day shift, Monday to Friday\n- Overtime at time-and-a-half after 44 hours\n- Clean, modern shop\n\nWhat you'll do:\n- Diagnose and repair diesel engines, aftertreatment, and driveline\n- Perform rebuilds, in-frame repairs, and component overhauls\n- Use OEM software to troubleshoot electronic faults\n- Complete safeties and preventive maintenance as needed\n\nWhat you bring:\n- Licensed 310T or equivalent diesel experience\n- Strong engine diagnostic and rebuild skills\n- Own hand tools\n- Valid driver's licence\n\nWhat's offered:\n- $36-$45/hr based on experience\n- Overtime and performance bonuses\n- Full health and dental\n- RRSP and tool allowance\n- Manufacturer training",
-    "createdAt": "2026-08-14T13:35:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-27T14:15:00.000Z",
+    "updatedAt": "2026-07-27T14:15:00.000Z"
   },
   {
     "id": "heavy-duty-truck-trailer-technician-trd-2841",
@@ -646,8 +676,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A busy service centre in Halifax is hiring a Heavy-Duty Truck & Trailer Technician. You'll keep commercial trucks and trailers road-ready and compliant.\n\nSchedule:\n- Day shift with some flexibility\n- 40 hours per week plus overtime\n- Well-stocked shop\n\nWhat you'll do:\n- Service and repair trucks and trailers: brakes, suspension, electrical, and lighting\n- Complete provincial safeties and inspections\n- Diagnose and repair air systems and driveline\n- Document work orders accurately\n\nWhat you bring:\n- 310T or 310J licence, or strong equivalent experience\n- Trailer and air-brake experience an asset\n- Own hand tools\n- Valid driver's licence\n\nWhat's offered:\n- $32-$42/hr based on experience\n- Overtime and benefits\n- RRSP and tool allowance\n- Ongoing training\n- Stable, year-round work",
-    "createdAt": "2026-08-14T09:46:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-26T15:22:00.000Z",
+    "updatedAt": "2026-07-26T15:22:00.000Z"
   },
   {
     "id": "service-manager-heavy-equipment-trd-5930",
@@ -661,8 +691,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A respected heavy equipment dealership in Barrie is looking for a Service Manager to lead its shop. You'll drive productivity, technician development, and customer satisfaction across shop and field service.\n\nSchedule:\n- Day shift, Monday to Friday\n- On-site at the Barrie branch\n- Occasional on-call for escalations\n\nWhat you'll do:\n- Lead, schedule, and develop a team of technicians and apprentices\n- Own service department KPIs, warranty, and customer satisfaction\n- Manage workflow between shop and field service\n- Partner with parts and sales to keep customers running\n\nWhat you bring:\n- Journeyperson technician background or strong service leadership experience\n- Prior service-manager or lead-hand experience in equipment/fleet\n- Strong people and customer-service skills\n- Comfortable with dealership/service software\n\nWhat's offered:\n- $95,000-$120,000 plus performance bonus\n- Vehicle allowance\n- Full benefits and RRSP\n- Leadership development\n- Growing, well-supported dealership",
-    "createdAt": "2026-08-14T05:58:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-25T16:29:00.000Z",
+    "updatedAt": "2026-07-25T16:29:00.000Z"
   },
   {
     "id": "diesel-fleet-technician-trd-6708",
@@ -676,8 +706,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A growing private fleet in the Dallas-Fort Worth area is hiring a Diesel Fleet Technician. You'll keep a modern fleet of trucks and trailers safe, compliant, and on the road.\n\nSchedule:\n- Day or evening shift available\n- 40 hours per week plus overtime\n- Shift premium on evenings\n\nWhat you'll do:\n- Diagnose and repair diesel engines, brakes, suspension, and electrical\n- Perform DOT inspections and preventive maintenance\n- Service trailers, air systems, and lighting\n- Use diagnostic software and keep accurate records\n\nWhat you bring:\n- Diesel technician experience on medium/heavy-duty trucks\n- ASE or equivalent certification an asset\n- Own hand tools\n- Valid driver's license (CDL a plus)\n\nWhat's offered:\n- $28-$38/hr based on experience\n- Overtime and evening premium\n- Medical, dental, and 401(k)\n- Tool program and uniforms\n- Paid manufacturer training",
-    "createdAt": "2026-08-14T02:09:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-25T09:36:00.000Z",
+    "updatedAt": "2026-07-25T09:36:00.000Z"
   },
   {
     "id": "agricultural-equipment-technician-trd-4265",
@@ -691,8 +721,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A well-established agricultural equipment dealer in Regina is adding a technician to its team. You'll service and repair modern ag equipment in the shop and out in the field during season.\n\nSchedule:\n- Day shift, with seasonal overtime during planting and harvest\n- 40 hours per week base\n- Field service during peak season\n\nWhat you'll do:\n- Diagnose and repair tractors, combines, and seeding/tillage equipment\n- Service engines, hydraulics, driveline, and electrical/precision systems\n- Complete inspections, updates, and preventive maintenance\n- Support field service calls during season\n\nWhat you bring:\n- Ag or heavy equipment technician licence or strong equivalent experience\n- Comfort with hydraulics, electronics, and precision-ag systems\n- Own hand tools\n- Valid driver's licence\n\nWhat's offered:\n- $34-$44/hr based on experience\n- Seasonal overtime at premium rates\n- Full benefits and RRSP\n- Tool allowance and OEM training\n- Relocation support for the right candidate",
-    "createdAt": "2026-08-13T22:20:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-24T10:43:00.000Z",
+    "updatedAt": "2026-07-24T10:43:00.000Z"
   },
   {
     "id": "tractor-trailer-technician-trd-6142",
@@ -706,8 +736,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A major North American trucking carrier is hiring a Tractor-Trailer Technician for its Amherst, Wisconsin shop. You'll keep the fleet safe and reliable through preventative maintenance and timely repairs on highway tractors and trailers, working out of a clean, well-maintained facility and mentoring junior mechanics.\n\nSchedule:\n- 4x10 work weeks (Monday-Thursday or Thursday-Sunday), 1st and 2nd shifts\n- Flexible day starts between 6-7am, or afternoon starts at 4-5pm\n- $1/hr shift premium on afternoons\n\nWhat you'll do:\n- Perform preventative maintenance on all fleet equipment (highway tractors and trailers)\n- Diagnose issues found during inspections and carry out the correct repairs\n- Complete repairs from pre/post-trip and quick-check inspections efficiently\n- Enter work orders, keep the shop clean, and support the maintenance team\n\nWhat you bring:\n- Experience with all makes and types of heavy-duty diesel tractors and trailers\n- Valid driver's license\n- Comfortable entering work orders on a computer; good communication and a professional attitude\n- Able to lift and carry up to 50 lbs and work in confined spaces\n- A one-year technical-school certificate is an asset (or equivalent experience/training)\n\nWhat's offered:\n- $30-$36/hr based on experience, plus $1/hr afternoon shift premium\n- $1,000 annual tool allowance and up to $200 boot reimbursement\n- 2% 401(k) matching\n- Flexible health, dental, and vision plan; group life insurance; paid time off\n- Employee Assistance Program (EAP) and education reimbursement / career development",
-    "createdAt": "2026-08-15T20:03:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-23T11:50:00.000Z",
+    "updatedAt": "2026-07-23T11:50:00.000Z"
   },
   {
     "id": "tractor-trailer-technician-trd-8307",
@@ -721,8 +751,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A major North American trucking carrier is hiring a Tractor-Trailer Technician for its Auburn, Maine shop. You'll keep the fleet safe and reliable through preventative maintenance and timely repairs on highway tractors and trailers, working out of a clean, well-maintained facility and mentoring junior mechanics.\n\nSchedule:\n- 4x10 work weeks (Monday-Thursday or Thursday-Sunday), 1st and 2nd shifts\n- Flexible day starts between 6-7am, or afternoon starts at 4-5pm\n- $1/hr shift premium on afternoons\n\nWhat you'll do:\n- Perform preventative maintenance on all fleet equipment (highway tractors and trailers)\n- Diagnose issues found during inspections and carry out the correct repairs\n- Complete repairs from pre/post-trip and quick-check inspections efficiently\n- Enter work orders, keep the shop clean, and support the maintenance team\n\nWhat you bring:\n- Experience with all makes and types of heavy-duty diesel tractors and trailers\n- Valid driver's license\n- Comfortable entering work orders on a computer; good communication and a professional attitude\n- Able to lift and carry up to 50 lbs and work in confined spaces\n- A one-year technical-school certificate is an asset (or equivalent experience/training)\n\nWhat's offered:\n- $30-$36/hr based on experience, plus $1/hr afternoon shift premium\n- $1,000 annual tool allowance and up to $200 boot reimbursement\n- 2% 401(k) matching\n- Flexible health, dental, and vision plan; group life insurance; paid time off\n- Employee Assistance Program (EAP) and education reimbursement / career development",
-    "createdAt": "2026-08-15T16:15:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-22T12:57:00.000Z",
+    "updatedAt": "2026-07-22T12:57:00.000Z"
   },
   {
     "id": "tractor-trailer-technician-trd-5290",
@@ -736,8 +766,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A major North American trucking carrier is hiring a Tractor-Trailer Technician for its Kutztown, Pennsylvania shop. You'll keep the fleet safe and reliable through preventative maintenance and timely repairs on highway tractors and trailers, working out of a clean, well-maintained facility and mentoring junior mechanics.\n\nSchedule:\n- 4x10 work weeks (Monday-Thursday or Thursday-Sunday), 1st and 2nd shifts\n- Flexible day starts between 6-7am, or afternoon starts at 4-5pm\n- $1/hr shift premium on afternoons\n\nWhat you'll do:\n- Perform preventative maintenance on all fleet equipment (highway tractors and trailers)\n- Diagnose issues found during inspections and carry out the correct repairs\n- Complete repairs from pre/post-trip and quick-check inspections efficiently\n- Enter work orders, keep the shop clean, and support the maintenance team\n\nWhat you bring:\n- Experience with all makes and types of heavy-duty diesel tractors and trailers\n- Valid driver's license\n- Comfortable entering work orders on a computer; good communication and a professional attitude\n- Able to lift and carry up to 50 lbs and work in confined spaces\n- A one-year technical-school certificate is an asset (or equivalent experience/training)\n\nWhat's offered:\n- $30-$36/hr based on experience, plus $1/hr afternoon shift premium\n- $1,000 annual tool allowance and up to $200 boot reimbursement\n- 2% 401(k) matching\n- Flexible health, dental, and vision plan; group life insurance; paid time off\n- Employee Assistance Program (EAP) and education reimbursement / career development",
-    "createdAt": "2026-08-15T12:26:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-22T13:04:00.000Z",
+    "updatedAt": "2026-07-22T13:04:00.000Z"
   },
   {
     "id": "field-service-technician-forklifts-trd-7418",
@@ -751,8 +781,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "An established equipment and hydraulics service company in Ottawa is adding a Field (Road) Service Technician. You'll travel to customer sites to service and repair forklifts and material-handling equipment, keeping their operations running.\n\nSchedule:\n- Monday-Thursday 6:30am-4:00pm, Friday 6:30am-3:00pm (44 hrs/week)\n- No weekend shifts or overtime expectations\n\nWhat you'll do:\n- Diagnose and repair forklifts and material-handling equipment at customer sites\n- Perform electrical and hydraulic diagnostics and repairs\n- Complete preventative maintenance and inspections\n- Keep clear, accurate service records\n\nWhat you bring:\n- Licensed 421A Heavy Equipment Technician, or an experienced 310T open to heavy equipment\n- Farm-equipment or other heavy-machinery backgrounds also considered\n- Comfortable with electrical diagnostics (no welding required)\n- Valid driver's licence; strong apprentices considered\n\nWhat's offered:\n- $35-$45/hr based on experience (negotiable above for exceptional candidates)\n- Monday-Friday days, no weekends\n- Health and dental benefits; short- and long-term disability\n- 2% RRSP matching\n- 2-3 weeks vacation and an annual tool/boot allowance",
-    "createdAt": "2026-08-16T15:06:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-21T14:11:00.000Z",
+    "updatedAt": "2026-07-21T14:11:00.000Z"
   },
   {
     "id": "shop-technician-cranes-trd-3652",
@@ -766,8 +796,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "An established equipment and hydraulics service company in Ottawa is adding a Shop Technician. You'll work in the shop diagnosing and repairing cranes and heavy equipment.\n\nSchedule:\n- Monday-Thursday 6:30am-4:00pm, Friday 6:30am-3:00pm (44 hrs/week)\n- No weekend shifts or overtime expectations\n\nWhat you'll do:\n- Diagnose and repair cranes and heavy equipment in the shop\n- Perform electrical and hydraulic diagnostics and repairs\n- Complete preventative maintenance, inspections, and component work\n- Keep clear, accurate service records\n\nWhat you bring:\n- Licensed 421A Heavy Equipment Technician, or an experienced 310T open to heavy equipment\n- Farm-equipment or other heavy-machinery backgrounds also considered\n- Comfortable with electrical diagnostics (no welding required)\n- Valid driver's licence; strong apprentices considered\n\nWhat's offered:\n- $35-$45/hr based on experience (negotiable above for exceptional candidates)\n- Monday-Friday days, no weekends\n- Health and dental benefits; short- and long-term disability\n- 2% RRSP matching\n- 2-3 weeks vacation and an annual tool/boot allowance",
-    "createdAt": "2026-08-16T11:18:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-20T15:18:00.000Z",
+    "updatedAt": "2026-07-20T15:18:00.000Z"
   },
   {
     "id": "heavy-equipment-technician-421a-trd-9174",
@@ -781,8 +811,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "An access-solutions and infrastructure company that supports energy, industrial, and construction projects across Canada is hiring a licensed 421A Heavy Equipment Technician. This is a mix of shop and field work — you'll work from a company service truck keeping loaders, heavy equipment, and trucks safe and ready, and travel to job sites across Eastern Canada. The role is based out of the Orangeville yard or the Ottawa-area (Morrisburg) yard.\n\nSchedule:\n- 14 days on / 7 days off\n- Field days typically 10-12 hours; yard days ~8 hours (6-7am start)\n- Willing to be dispatched to field jobs on short notice\n\nWhat you'll do:\n- Keep trucks, trailers, and heavy equipment in ready-to-work condition\n- Diagnose and repair hydraulic, electrical, and mechanical issues\n- Handle field breakdowns and complete repairs from a service truck\n- Perform preventative maintenance, inspections, and larger overhauls\n- Support and mentor apprentices; take on welding repairs as needed\n- Equipment is mostly John Deere and CAT loaders and heavy equipment, plus a few trucks\n\nWhat you bring:\n- 421A Heavy Duty Equipment Technician licence with 3+ years' experience\n- Comfortable working independently in the field and being away during your shift\n- Own tooling up to 3/4\" drive (larger provided)\n- Valid licence with a clean driver's abstract (fewer than 6 demerit points)\n- DZ/AZ, air-brake endorsement, 310T, and welding all strong assets\n- E-log book experience an asset\n\nWhat's offered:\n- $46.50/hr firm plus significant overtime (paid after 44 hrs/week)\n- 14 on / 7 off schedule with paid travel\n- Company service truck and gas card for field work\n- LOA, meals, and lodging covered when working away\n- Full employer-paid health benefits, Health Care Spending Account, and EFAP\n- RRSP matching, employee stock purchase plan, and profit sharing\n- Annual boot allowance",
-    "createdAt": "2026-08-16T07:29:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-20T16:25:00.000Z",
+    "updatedAt": "2026-07-20T16:25:00.000Z"
   },
   {
     "id": "industrial-millwright-433a-trd-4083",
@@ -796,8 +826,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A large beverage-packaging manufacturer in Ajax — one of the largest employers in Durham Region, supplying packaging to major beverage brands — is hiring a licensed 433A Industrial Millwright for its maintenance department. You'll install, maintain, and repair all equipment in the plant.\n\nSchedule:\n- 12-hour rotating shifts (days 7am-7pm, nights 7pm-7am)\n- Shifts rotate every two weeks and include weekends\n\nWhat you'll do:\n- Install and move plant machinery, working from blueprints\n- Perform preventative maintenance and keep equipment running reliably\n- Operate lathe, welder, milling machine, drill presses, and cutting tools to repair or fabricate parts\n- Troubleshoot machine faults and complete work orders\n\nWhat you bring:\n- Licensed 433A Industrial Millwright in good standing (Canadian apprenticeship)\n- Post-secondary Millwright/Mechanical education or equivalent\n- 3+ years in a manufacturing environment\n- Machining/CNC experience an asset\n- Able to stand and walk a full shift and lift up to 40 lbs\n\nWhat's offered:\n- $43-$48/hr with annual review increases\n- Continental shift premiums and an annual productivity bonus\n- Health and dental benefits\n- Pension with employer and employee contributions up to 14% from first day\n- Stable, name-brand employer with development opportunities",
-    "createdAt": "2026-08-16T03:40:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-19T09:32:00.000Z",
+    "updatedAt": "2026-07-19T09:32:00.000Z"
   },
   {
     "id": "industrial-electrician-442a-trd-6521",
@@ -811,8 +841,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A large beverage-packaging manufacturer in Ajax — one of the largest employers in Durham Region, supplying packaging to major beverage brands — is hiring a licensed 442A Industrial Electrician for its maintenance department. You'll install, maintain, and repair all electrical equipment in the plant.\n\nSchedule:\n- 12-hour rotating shifts (days 7am-7pm, nights 7pm-7am)\n- Shifts rotate every two weeks and include weekends\n\nWhat you'll do:\n- Install new electrical systems, working from blueprints\n- Perform preventative maintenance and keep production equipment running\n- Troubleshoot electrical faults on plant machinery and complete work orders\n- Ensure work meets CSA and electrical code standards\n\nWhat you bring:\n- Licensed 442A Industrial Electrician in good standing\n- Post-secondary Industrial Electrician education or equivalent\n- Full understanding of CSA and electrical code compliance\n- 3+ years in a manufacturing environment\n- Able to stand and walk a full shift and lift up to 40 lbs\n\nWhat's offered:\n- $43-$48/hr with annual review increases\n- Continental shift premiums and an annual productivity bonus\n- Health and dental benefits\n- Pension with employer and employee contributions up to 14% from first day\n- Stable, name-brand employer with development opportunities",
-    "createdAt": "2026-08-15T23:52:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-18T10:39:00.000Z",
+    "updatedAt": "2026-07-18T10:39:00.000Z"
   },
   {
     "id": "310t-truck-and-coach-technician-trd-4137",
@@ -826,8 +856,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A commercial truck dealership group is hiring a licensed 310T Truck & Coach Technician for its Guelph, Ontario location. Second and third-year apprentices under a valid registered 310T training agreement with Skilled Trades Ontario (or equivalent) are also encouraged to apply. You'll perform repairs and maintenance on medium and heavy-duty trucks, keeping them in safe and reliable working condition.\n\nSchedule:\n- Standard 8-hour shifts, with some flexibility on the hours you're looking for\n- Guaranteed 40 hours per week\n- Overtime paid at time-and-a-half after 44 hours\n- Non-unionized shop, open year-round except statutory holidays\n\nWhat you'll do:\n- Perform routine maintenance, safeties and repairs on heavy-duty trucks - diesel engines, transmissions, brakes, suspension and electrical systems\n- Diagnose and troubleshoot problems using advanced diagnostic tools and equipment\n- Complete inspections and document work accurately\n- Work to a high standard of customer satisfaction\n\nWhat you bring:\n- 310T licence, or a 2nd/3rd year apprentice under a valid registered training agreement\n- Strong mechanical aptitude and diagnostic skills\n- Valid G licence and clean driving record\n- Legally entitled to work in Canada\n\nWhat's offered:\n- $34 - $55.50/hr based on licence and experience\n- Proficiency-based bonus plan - up to $1,000 monthly on efficiency metrics\n- Signing bonus of up to $2,000 based on licence and years of experience\n- Benefits package after 3 months (employer/employee cost share)\n- Annual tool ($300) and boot ($200) allowances\n- Manufacturer training, paid both at work and at home\n- Service awards and annual company events",
-    "createdAt": "2026-08-18T09:00:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-17T11:46:00.000Z",
+    "updatedAt": "2026-07-17T11:46:00.000Z"
   },
   {
     "id": "mobile-trailer-technician-road-service-trd-5814",
@@ -841,8 +871,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A major North American trucking carrier is hiring a Mobile Trailer Technician for its Regina, Saskatchewan operation. This is a road-service position: there's no shop in this region, so you'll run the Mobile Repair Unit from a company truck and work on trailers in the yard and in the field. Work is outdoors in all seasons.\n\nSchedule:\n- Monday to Friday, 7:30am - 4:00pm\n- Day shift, no rotating nights\n\nWhat you'll do:\n- Complete preventative maintenance and repairs on the trailer fleet\n- Diagnose problems found during inspections and prescribe the correct remedial action\n- Work alongside the Service Coordinator, trailer mechanics and tractor mechanics\n- Perform safety inspections\n- Enter work orders (basic computer work) and support apprentices in the shop\n\nWhat you bring:\n- Licensed heavy-duty mechanic, or a valid CVIP inspection licence (or willingness to obtain one)\n- 2-3 years minimum working on trailers\n- Strong diagnostic and time-management skills\n- Comfortable working unsupervised and outdoors year-round\n- Clean driver's abstract\n- Able to stand, walk, twist, bend, climb, crawl and lift up to 50 lbs\n\nWhat's offered:\n- $40 - $50/hr\n- $5,000 signing bonus for licensed technicians\n- Company truck and Mobile Repair Unit\n- RRSP matching - 1% of annual salary in year one, 2% in year two\n- Annual tool ($350) and boot ($150) allowances\n- Flexible health and dental plan, group life and disability insurance, AD&D\n- Paid personal leave days",
-    "createdAt": "2026-08-18T05:12:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-17T12:53:00.000Z",
+    "updatedAt": "2026-07-17T12:53:00.000Z"
   },
   {
     "id": "tractor-technician-day-shift-trd-2960",
@@ -856,8 +886,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A major North American trucking carrier is hiring a licensed Tractor Technician for its Calgary-area shop. You'll work with the Service Coordinator and the tractor and trailer technicians to complete preventative maintenance and repairs on the fleet, diagnosing problems found during inspections and prescribing the correct remedial action. The shop focuses on preventative maintenance - major repair work goes to the dealership.\n\nSchedule:\n- Monday to Thursday, 6:00am - 4:30pm\n- Day shift\n\nWhat you'll do:\n- Perform preventative maintenance and repairs on highway tractors\n- Diagnose issues found during inspections and carry out the correct repairs\n- Complete safety inspections\n- Enter work orders (paperless system, basic computer skills)\n- Support and encourage apprentices through their apprenticeship\n\nWhat you bring:\n- Licensed Tractor Technician - fully journeyman or Red Seal (this role is not open to apprentices)\n- Experience working on tractors as a heavy equipment technician\n- Qualification to perform safeties is mandatory\n- Strong diagnostic and time-management abilities\n- Valid driver's licence and clean driver's abstract\n- Able to stand, walk, twist, bend, climb, crawl and lift up to 50 lbs\n\nWhat's offered:\n- $35 - $41/hr\n- RRSP matching - 1% of annual salary in year one, 2% in year two\n- Annual tool ($350) and boot ($150) allowances\n- Flexible health and dental plan, group life and disability insurance, AD&D\n- Paid personal leave days\n- Clean, well-run shop with wash-bay support staff",
-    "createdAt": "2026-08-18T01:23:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-16T13:00:00.000Z",
+    "updatedAt": "2026-07-16T13:00:00.000Z"
   },
   {
     "id": "trailer-technician-afternoon-shift-trd-7621",
@@ -871,8 +901,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A major North American trucking carrier is hiring a licensed Trailer Technician for its Calgary-area shop on the afternoon shift. You'll work with the Service Coordinator and the tractor and trailer mechanics to complete preventative maintenance and repairs on the fleet, diagnosing problems found during inspections and prescribing the correct remedial action.\n\nSchedule:\n- Monday to Thursday, 4:00pm - 2:30am\n- Afternoon shift, with a $2/hr shift premium\n\nWhat you'll do:\n- Trailer maintenance - preventative maintenance on all trailers in the fleet, diagnosing problems found during inspections\n- Trailer repairs - carrying out repairs identified during pre/post-trip and quick-check inspections\n- Enter work orders, keep the shop clean, attend team meetings\n- Support apprentices working alongside you\n\nWhat you bring:\n- Certified Journeyman Trailer Technician, or 2-3 years' experience (fully licensed truck or trailer; not open to apprentices)\n- CVIP licence is mandatory, with experience performing safety inspections\n- Valid Class 5 driver's licence and clean driver's abstract\n- Strong diagnostic and time-management abilities\n\nWhat's offered:\n- $37 - $43/hr including the afternoon shift premium\n- RRSP matching - 1% of annual salary in year one, 2% in year two\n- Annual tool ($350) and boot ($150) allowances\n- Flexible health and dental plan, group life and disability insurance, AD&D\n- Paid personal leave days\n- Clean, well-run shop with wash-bay support staff",
-    "createdAt": "2026-08-17T21:35:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-15T14:07:00.000Z",
+    "updatedAt": "2026-07-15T14:07:00.000Z"
   },
   {
     "id": "battery-maintenance-technician-trd-3348",
@@ -886,8 +916,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A national material-handling and lift-truck provider is hiring a Battery Maintenance Technician working in the field across the Mississauga area. You'll diagnose and repair industrial batteries and chargers, and perform scheduled maintenance on them at customer sites.\n\nSchedule:\n- Monday to Friday, 8:00am - 5:00pm\n- In-field role across the Mississauga area\n\nWhat you'll do:\n- Repair batteries and chargers at customer sites\n- Complete regular maintenance, adjusting battery and charger settings to prolong working life\n- Perform load tests to evaluate battery performance and keep accurate records for each battery\n- Educate customers' employees on charger and battery operation and proper charging procedures\n- Provide parts information to the parts department and work with suppliers on warranty\n- Support and train road service technicians, battery maintenance techs and sales reps on battery-related problems\n\nWhat you bring:\n- Minimum 3 years' technical experience with industrial batteries and chargers, or an electrical trades certificate\n- Ability to change battery cells, diagnose faults and perform all battery-related repairs\n- Factory training and experience repairing chargers\n- Physically capable of lifting 40 lbs and working around industrial batteries (up to 6,000 lbs); knowledge of lifting devices\n- Comfortable working independently\n- Good written and verbal English and confident customer communication\n- Comfortable with tablets and mobile devices\n- Clean driver's abstract\n\nWhat's offered:\n- $55,000 - $68,000\n- Forklift certification training provided\n- Full benefits and pension program\n- Company-provided technology and tools",
-    "createdAt": "2026-08-17T17:46:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-14T15:14:00.000Z",
+    "updatedAt": "2026-07-14T15:14:00.000Z"
   },
   {
     "id": "road-service-technician-lift-trucks-trd-8475",
@@ -901,8 +931,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A national material-handling and lift-truck provider is hiring a Road Service Technician covering the Dartmouth, Nova Scotia territory. You'll conduct maintenance checks and repairs on lift trucks and carousels at customer sites, making both planned and emergency service calls within your territory.\n\nSchedule:\n- Monday to Friday, 8:00am - 5:00pm\n- Overtime paid after 44 hours per week\n- Field-based across the defined territory\n\nWhat you'll do:\n- Examine the overall operational integrity and condition of customer equipment\n- Diagnose and adjust or repair mechanical, hydraulic and electrical parts, then communicate the repair solution to the customer\n- Perform scheduled maintenance and planned service calls\n- Respond to emergency breakdown calls within the territory\n- Receive work orders and communicate with internal teams via a company iPad and iPhone\n\nWhat you bring:\n- 3+ years of mechanical experience - automotive is an ideal background, but truck, trailer, heavy equipment and industrial mechanics are all welcome\n- Strong communication skills and a customer-facing manner\n- Clean driver's abstract\n- Somewhere to park a company van overnight (requires 9 ft of clearance in parking garages)\n\nWhat's offered:\n- $70,000 - $80,000 plus overtime after 44 hours\n- Company work van, gas card and insurance covered\n- Benefits after 3 months; pension matching after 24 months\n- Annual tool and boot allowance\n- Tuition reimbursement program\n- Clear route to grow within a national service organization",
-    "createdAt": "2026-08-17T13:58:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-14T16:21:00.000Z",
+    "updatedAt": "2026-07-14T16:21:00.000Z"
   },
   {
     "id": "service-manager-trd-6390",
@@ -916,8 +946,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A national material-handling and lift-truck provider is hiring a Service Manager for its Edmonton branch. You'll lead a team of 25 road service technicians and 3 dock door technicians serving the greater Edmonton area, reporting to the Regional Service Manager for Western Canada. Expect to spend several days a week in the branch and the remainder in the field alongside technicians and meeting customers.\n\nWhat you'll do:\n- Drive KPI attainment and hold the team accountable to it\n- Manage customer concerns and service escalations\n- Oversee day-to-day branch operations\n- Analyze employee engagement survey results and implement action plans\n- Work closely with Team Captains and the Service Coordination team to keep operations aligned\n- Review operational requests, assess priorities and determine the best course of action\n- Manage monthly budgets and operational goals\n- Prepare presentations and reporting for senior leadership\n\nWhat you bring:\n- Post-secondary education\n- 2-3+ years of leadership experience managing larger field or service teams\n- A trades or service-industry background is ideal, but strong leaders from other service-based industries are welcome\n- Business-minded, with strong communication and presentation skills\n- Strong Excel skills - comfortable downloading, analyzing and distributing KPI reports\n- Process-driven, able to absorb information quickly, understand issues from a technician's perspective and build practical solutions\n- Comfortable in a fast-paced, high-volume environment with competing priorities\n\nWhat's offered:\n- $91,000 - $125,000 plus annual bonus of up to $10,000 based on company profit and performance\n- Company vehicle and gas card\n- 3 weeks vacation\n- Benefits, and pension matching after 24 months",
-    "createdAt": "2026-08-17T10:09:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-13T09:28:00.000Z",
+    "updatedAt": "2026-07-13T09:28:00.000Z"
   },
   {
     "id": "shop-technician-lift-trucks-trd-2179",
@@ -931,8 +961,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A national material-handling and lift-truck provider is hiring a Shop Technician for its Delta, British Columbia workshop. This is a bench role - you'll be in the shop daily performing pre-delivery inspections, servicing and repairing the returning rental fleet, and completing full disassembly and overhaul of lift trucks. You'll also prepare trucks for safe shipping.\n\nSchedule:\n- Full-time, in-shop\n\nWhat you'll do:\n- Diagnose, troubleshoot and repair lift trucks, ensuring they're ready for use and delivery on time\n- Identify defective or worn mechanical and electrical parts and execute the repair solution\n- Rebuild lift trucks - pressure washing, complete disassembly and inspection, paint preparation and painting\n- Rebuild components including electric motors, drive units, hydraulic cylinders and pumps, and mast assemblies\n- Modify trucks - widening or narrowing base legs, installing or repositioning mast stops, fabricating special tools and racks, turning shafts and disks on the lathe\n- Support team members on heavier-duty tasks and lifts\n\nWhat you bring:\n- High school completion or equivalent, and 3-5 years of experience as a mechanical technician or equivalent\n- Mechanical, electrical and some IT aptitude\n- Automotive certification (310S) or Heavy Duty Technician certification (421A) is an asset\n- A methodical eye for troubleshooting operational malfunctions\n\nWhat's offered:\n- $68,000 - $75,000\n- Benefits after 3 months; pension plan after 24 months\n- Company uniform\n- Tuition reimbursement program eligibility\n- Modern diagnostic technology and digital work-order tooling",
-    "createdAt": "2026-08-17T06:20:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-12T10:35:00.000Z",
+    "updatedAt": "2026-07-12T10:35:00.000Z"
   },
   {
     "id": "310t-technician-afternoon-shift-trd-5726",
@@ -946,8 +976,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A national environmental services company is hiring a licensed 310T Mechanic for its Brantford, Ontario shop. This is a predominantly in-shop role maintaining and repairing a diesel collection fleet, with occasional field work if there's a breakdown. Non-unionized shop.\n\nSchedule:\n- Monday to Friday, 3:00pm - 12:00am\n- Straight afternoons - shift premium is built into the hourly rate\n\nWhat you'll do:\n- Perform repairs, inspections, safety checks, and diagnosis and repair of electrical, hydraulic, suspension, brake and air systems on diesel vehicles\n- Use vehicle computer electrical systems to interpret failure modes and adjust engine and vehicle control modules\n- Respond to road calls for emergency repairs\n- Review, complete or assign repairs identified on driver vehicle inspection reports\n- Complete required paperwork in fleet maintenance software\n- Test drive trucks after service and repair\n- Support other team members and interact professionally with drivers\n\nWhat you bring:\n- Licensed 310T or 421A mechanic with some truck experience\n- Proficiency with diesel diagnostic tools, preventative maintenance and repair\n- Basic tool set\n- Intermediate to advanced communication skills\n- AZ or DZ licence is an asset, not a requirement\n\nWhat's offered:\n- $46.80/hr with the shift premium built in\n- Benefits - medical, dental, vision, STD and LTD\n- RRSP matching at 5%, increasing to 6% in 2026\n- Stock purchase options at a preferred rate\n- Paid vacation and an EAP program\n- Annual tool allowance ($1,200) and annual boot allowance\n- Manufacturer training at a Toronto dealership, defensive driving, and fleet systems training",
-    "createdAt": "2026-08-17T02:32:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-11T11:42:00.000Z",
+    "updatedAt": "2026-07-11T11:42:00.000Z"
   },
   {
     "id": "310t-technician-afternoon-shift-trd-4058",
@@ -961,8 +991,8 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A national environmental services company is hiring a licensed 310T Mechanic for its Windsor-area shop in Maidstone, Ontario. You'll maintain and repair a diesel collection fleet, keeping the vehicles safe and reliable for the drivers and the communities they serve.\n\nSchedule:\n- Monday to Friday, starting at 2:00pm or 3:00pm\n- 9 hours per day guaranteed\n- Occasional Saturdays depending on business needs\n\nWhat you'll do:\n- Perform repairs, inspections, safety checks, and diagnosis and repair of electrical, hydraulic, suspension, brake and air systems on diesel vehicles\n- Use vehicle computer electrical systems to interpret failure modes and adjust engine and vehicle control modules\n- Respond to road calls for emergency repairs\n- Review, complete or assign repairs identified on driver vehicle inspection reports\n- Complete required paperwork in fleet maintenance software\n- Test drive trucks after service and repair\n- Support other team members and interact professionally with drivers\n- Adhere to all Ministry of Transport and Ministry of Environment safety standards\n\nWhat you bring:\n- Licensed 310T mechanic\n- Proficiency with a variety of diesel diagnostic tools, preventative maintenance and repair\n- Hydraulic experience\n- Basic tool set\n\nWhat's offered:\n- $47.59/hr\n- Benefits - medical, dental, vision, STD and LTD\n- RRSP matching and stock purchase options at a preferred rate\n- Paid vacation and an EAP program\n- Annual tool and boot allowances\n- Manufacturer and fleet systems training",
-    "createdAt": "2026-08-16T22:43:00.000Z",
-    "updatedAt": null
+    "createdAt": "2026-07-11T12:49:00.000Z",
+    "updatedAt": "2026-07-11T12:49:00.000Z"
   },
   {
     "id": "310t-technician-or-registered-apprentice-afternoon-shift-trd-9613",
@@ -976,7 +1006,52 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A national environmental services company is hiring a 310T Technician for its Peterborough, Ontario shop. Registered apprentices at any level will be considered alongside fully licensed technicians. This is an in-shop role - field work is rare, as trucks are typically towed back to the shop.\n\nSchedule:\n- Monday to Friday, 1:00pm - 11:00pm\n- Straight afternoons\n\nWhat you'll do:\n- Perform repairs, inspections, safety checks, and diagnosis and repair of electrical, hydraulic, suspension, brake and air systems on diesel vehicles\n- Use vehicle computer electrical systems to interpret failure modes and adjust engine and vehicle control modules\n- Review, complete or assign repairs identified on driver vehicle inspection reports\n- Complete required paperwork in fleet maintenance software\n- Test drive trucks after service and repair\n- Support other team members and interact professionally with drivers\n\nWhat you bring:\n- Licensed 310T mechanic, or a registered apprentice at any level\n- 1-2 years of fleet maintenance experience at minimum\n- Your own basic tool set\n- Intermediate to advanced communication skills\n- AZ or DZ licence is an asset, not a requirement\n\nWhat's offered:\n- $40/hr for licensed mechanics; apprentice rates based on year of apprenticeship\n- $3,000 signing bonus for fully licensed 310T mechanics\n- Benefits - medical, dental, vision, STD and LTD\n- RRSP matching at 5% (potentially increasing to 6% in 2026)\n- Stock purchase options at a preferred rate\n- Paid vacation and an EAP program\n- Annual tool allowance ($1,500 at this location) and annual boot allowance\n- Manufacturer training, defensive driving, and fleet systems training",
-    "createdAt": "2026-08-16T18:55:00.000Z",
+    "createdAt": "2026-07-10T13:56:00.000Z",
+    "updatedAt": "2026-07-10T13:56:00.000Z"
+  },
+  {
+    "id": "commercial-dock-door-mechanic-trd-1409",
+    "ref": "TRD-1409",
+    "title": "Commercial Dock Door Mechanic",
+    "location": "Moncton, New Brunswick",
+    "type": "Full-Time",
+    "salary": "$70,000 - $80,000 + overtime",
+    "isFeatured": false,
+    "summary": "A material-handling and dock equipment provider is hiring a Commercial Dock Door Mechanic for the Moncton, NB area, servicing and repairing dock equipment at customer sites, with some general road service work included. $70K-$80K plus overtime.",
+    "responsibilities": [],
+    "requirements": [],
+    "description": "A material-handling and dock equipment provider is hiring a Commercial Dock Door Mechanic for the Moncton, New Brunswick area. You'll service and repair commercial and industrial dock equipment at customer sites, with the role also covering general road service work.\n\nSchedule:\n- Field-based role across the Moncton area\n- Company vehicle, insurance and gas card provided\n\nWhat you'll do:\n- Diagnose and repair dock equipment, including overhead doors, dock levelers, seals, bumpers and restraints\n- Perform preventative maintenance and safety inspections on dock equipment\n- Take on general road service calls for lift trucks and related equipment as needed\n- Troubleshoot mechanical and basic electrical issues\n- Complete work orders and document service performed, parts used and follow-up actions\n- Communicate clearly with customers on issues, solutions and repair timelines\n\nWhat you bring:\n- Commercial or industrial door experience, or an equivalent hands-on mechanical background\n- Strong mechanical aptitude with basic electrical knowledge\n- Comfortable with hand tools, diagnostic tools and measuring devices\n- Strong communication and customer-service skills\n- Valid driver's license\n\nWhat's offered:\n- $70,000 to $80,000 per year plus overtime\n- Comprehensive benefits package and pension matching\n- Company vehicle, gas card, tool and boot allowance\n- Ongoing training and long-term career growth",
+    "createdAt": "2026-09-10T17:00:00.000Z",
+    "updatedAt": null
+  },
+  {
+    "id": "road-service-technician-trd-2824",
+    "ref": "TRD-2824",
+    "title": "Road Service Technician (Lift Trucks)",
+    "location": "Brampton/Mississauga, Ontario",
+    "type": "Full-Time",
+    "salary": "$75,000 - $84,000 + overtime",
+    "isFeatured": false,
+    "summary": "A material-handling equipment provider is hiring a road service technician for the Brampton/Mississauga area, servicing lift trucks at customer sites from a company van. $75K-$84K plus overtime, full benefits, pension, and a company van, iPad and iPhone.",
+    "responsibilities": [],
+    "requirements": [],
+    "description": "A material-handling equipment provider is hiring a Road Service Technician for the Brampton/Mississauga area. You'll service and repair lift trucks and carousels at customer sites, working from a company van.\n\nSchedule:\n- Field-based role across the Brampton/Mississauga area, Monday to Friday, 8am-5pm\n- Company van, insurance and gas card provided\n- Company iPad and iPhone\n- Overtime paid after 44 hours worked per week\n\nWhat you'll do:\n- Inspect the operational integrity and condition of lift trucks\n- Diagnose mechanical, hydraulic and electrical issues and recommend repairs to the customer\n- Perform scheduled preventative maintenance\n- Diagnose and order parts using technical manuals\n- Document and analyze breakdowns to standard procedures\n- Act as the front-line contact with the customer on site\n\nWhat you bring:\n- 3 to 5 years as a mechanical technician, or equivalent experience (automotive, truck, heavy equipment, trailer or industrial mechanics all considered)\n- Truck and Coach 310T or Heavy Duty Technician certification\n- Knowledge of mechanical and electrical systems on battery and engine-powered material handling equipment\n- Comfortable with hand tools, measuring devices and electrical/electronic diagnostic tools\n- Solid lockout/tagout knowledge\n- Strong communication and customer-service skills\n- Valid driver's license and a clean driving record\n- A place to park the company vehicle overnight\n\nWhat's offered:\n- $75,000 to $84,000 per year, plus overtime after 44 hours/week\n- Benefits after 3 months, pension matching after 24 months\n- Company van, gas card and insurance covered\n- Annual tool and boot allowance, tuition reimbursement\n- Room to grow",
+    "createdAt": "2026-09-10T17:00:00.000Z",
+    "updatedAt": null
+  },
+  {
+    "id": "road-service-technician-trd-5506",
+    "ref": "TRD-5506",
+    "title": "Road Service Technician (Lift Trucks)",
+    "location": "Port Hope/Cobourg, Ontario",
+    "type": "Full-Time",
+    "salary": "$75,000 - $84,000 + overtime",
+    "isFeatured": false,
+    "summary": "A material-handling equipment provider is hiring a road service technician for the Port Hope/Cobourg area, servicing lift trucks at customer sites from a company van. $75K-$84K plus overtime, full benefits, pension, and a company van, iPad and iPhone.",
+    "responsibilities": [],
+    "requirements": [],
+    "description": "A material-handling equipment provider is hiring a Road Service Technician for the Port Hope/Cobourg area. You'll service and repair lift trucks and carousels at customer sites, working from a company van.\n\nSchedule:\n- Field-based role across the Port Hope/Cobourg area, Monday to Friday, 8am-5pm\n- Company van, insurance and gas card provided\n- Company iPad and iPhone\n- Overtime paid after 44 hours worked per week\n\nWhat you'll do:\n- Inspect the operational integrity and condition of lift trucks\n- Diagnose mechanical, hydraulic and electrical issues and recommend repairs to the customer\n- Perform scheduled preventative maintenance\n- Diagnose and order parts using technical manuals\n- Document and analyze breakdowns to standard procedures\n- Act as the front-line contact with the customer on site\n\nWhat you bring:\n- 3 to 5 years as a mechanical technician, or equivalent experience (automotive, truck, heavy equipment, trailer or industrial mechanics all considered)\n- Truck and Coach 310T or Heavy Duty Technician certification\n- Knowledge of mechanical and electrical systems on battery and engine-powered material handling equipment\n- Comfortable with hand tools, measuring devices and electrical/electronic diagnostic tools\n- Solid lockout/tagout knowledge\n- Strong communication and customer-service skills\n- Valid driver's license and a clean driving record\n- A place to park the company vehicle overnight\n\nWhat's offered:\n- $75,000 to $84,000 per year, plus overtime after 44 hours/week\n- Benefits after 3 months, pension matching after 24 months\n- Company van, gas card and insurance covered\n- Annual tool and boot allowance, tuition reimbursement\n- Room to grow",
+    "createdAt": "2026-09-10T17:00:00.000Z",
     "updatedAt": null
   }
 ]
