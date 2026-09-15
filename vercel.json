@@ -31,7 +31,6 @@
     { "src": "/insights/hidden-cost-of-an-empty-bay/?$", "status": 301, "headers": { "Location": "https://technical.certusgroup.com/insights" } },
     { "src": "/insights/310t-red-seal-licensing-and-pay-2026/?$", "status": 301, "headers": { "Location": "https://technical.certusgroup.com/insights" } },
     { "src": "/insights/automotive-techs-moving-into-equipment-service/?$", "status": 301, "headers": { "Location": "https://technical.certusgroup.com/insights" } },
-    { "src": "/insights/build-or-buy-apprentice-technician-2026/?$", "status": 301, "headers": { "Location": "https://technical.certusgroup.com/insights" } },
     { "src": "/insights/([^/]+)$", "dest": "/api/render?insight=$1" },
     { "handle": "filesystem" },
     { "src": "/(?!api/).*", "dest": "/index.html" }
