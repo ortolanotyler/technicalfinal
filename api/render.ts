@@ -401,7 +401,7 @@ function homeBodyHtml(): string {
     `<main>` +
     `<h1>Technical and skilled trades search</h1>` +
     `<p>Certus Technical Search is part of The Certus Group of Companies Inc. Founded in 2008, The Certus Group has been operating in the technical space for over 15 years. Our Technical division specializes in connecting licensed and certified professionals with leading employers across material handling, manufacturing, transportation, heavy equipment, and industrial services. We understand the urgency, compliance requirements, and operational demands of technical hiring, and we deliver talent that keeps projects moving and businesses running.</p>` +
-    `<p><a href="/jobs">View open positions</a> &middot; <a href="/employers">Hire technical talent</a></p>` +
+    `<p><a href="/jobs">View open positions</a> &middot; <a href="/employers">Hire technical talent</a> &middot; <a href="/insights">Insights</a></p>` +
     `</main>`
   );
 }

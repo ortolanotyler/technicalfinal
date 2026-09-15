@@ -26,6 +26,11 @@
     { "src": "/jobs/([^/]+)$", "dest": "/api/render?id=$1" },
     { "src": "/submit-resume$", "dest": "/api/render?page=submit-resume" },
     { "src": "/insights$", "dest": "/api/render?page=insights" },
+    { "src": "/insights/canada-heavy-duty-technician-shortage-2026/?$", "status": 301, "headers": { "Location": "https://technical.certusgroup.com/insights" } },
+    { "src": "/insights/technician-retention-what-makes-a-mechanic-quit/?$", "status": 301, "headers": { "Location": "https://technical.certusgroup.com/insights" } },
+    { "src": "/insights/hidden-cost-of-an-empty-bay/?$", "status": 301, "headers": { "Location": "https://technical.certusgroup.com/insights" } },
+    { "src": "/insights/310t-red-seal-licensing-and-pay-2026/?$", "status": 301, "headers": { "Location": "https://technical.certusgroup.com/insights" } },
+    { "src": "/insights/automotive-techs-moving-into-equipment-service/?$", "status": 301, "headers": { "Location": "https://technical.certusgroup.com/insights" } },
     { "src": "/insights/([^/]+)$", "dest": "/api/render?insight=$1" },
     { "handle": "filesystem" },
     { "src": "/(?!api/).*", "dest": "/index.html" }

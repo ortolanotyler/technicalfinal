@@ -27,6 +27,17 @@ const Footer: React.FC<FooterProps> = ({ onNavigate, onViewInsights }) => {
     }
   };
 
+  // The Certus Group of Companies — each practice links to its own site.
+  // Each division ships its own coloured mark: burgundy for Corporate, grey for Technical.
+  const FAMILY_LOGO = 'https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png';
+  const CORPORATE_LOGO = 'https://corp.certusgroup.com/CertusLOGO_burgundy_circle.png';
+  const TECHNICAL_LOGO = 'https://technical.certusgroup.com/CertusLOGO_grey_circle.png';
+  const familyCompanies: Array<{ name: string; href: string; logo: string; gray?: boolean }> = [
+    { name: 'Certus Supply Chain Search', href: 'https://logistics.certusgroup.com', logo: FAMILY_LOGO },
+    { name: 'Certus Corporate Search', href: 'https://corp.certusgroup.com', logo: CORPORATE_LOGO },
+    { name: 'Certus Technical Search', href: 'https://technical.certusgroup.com', logo: TECHNICAL_LOGO },
+  ];
+
   return (
     <footer className={`relative ${theme.bg} text-white pt-32 pb-12 overflow-hidden border-t border-white/5 transition-colors duration-700`}>
         
@@ -40,8 +51,6 @@ const Footer: React.FC<FooterProps> = ({ onNavigate, onViewInsights }) => {
             </div>
         </div>
 
-        {/* Ambient Glow */}
-        <div className={`absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-radial ${theme.bgGradient} to-transparent opacity-20 blur-[120px] pointer-events-none z-0`}></div>
 
         {/* 2. CONTENT LAYER */}
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
@@ -94,6 +103,12 @@ const Footer: React.FC<FooterProps> = ({ onNavigate, onViewInsights }) => {
                                  </button>
                              </li>
                          ))}
+                         {/* Un-hidden 2026-09-15. Held behind `false &&`, so /insights
+                             had NO internal link pointing at it from anywhere on the
+                             site - an orphan page. Search engines weight internal links
+                             heavily when deciding what to crawl, so the article was
+                             effectively invisible even with a correct sitemap. Same fix
+                             the logistics site took on 2026-08-31. */}
                          {onViewInsights && (
                              <li>
                                  <button
@@ -132,10 +147,33 @@ const Footer: React.FC<FooterProps> = ({ onNavigate, onViewInsights }) => {
                 <p className="text-gray-600 text-xs tracking-wide">
                     &copy; 2008&ndash;{new Date().getFullYear()} Certus Group. All rights reserved.
                 </p>
-                <div className="flex items-center gap-8">
-                    <button 
+                <div className="flex flex-col items-center md:items-end gap-3">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/40">
+                        The Certus Group of Companies
+                    </span>
+                    <div className="flex items-center gap-3">
+                        {familyCompanies.map((c) => (
+                            <a
+                                key={c.href}
+                                href={c.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={c.name}
+                                title={c.name}
+                                className="opacity-60 hover:opacity-100 transition-opacity"
+                            >
+                                <img
+                                    src={c.logo}
+                                    alt={c.name}
+                                    referrerPolicy="no-referrer"
+                                    className="w-8 h-8"
+                                />
+                            </a>
+                        ))}
+                    </div>
+                    <button
                         onClick={() => handleNav(Section.ADMIN)}
-                        className="text-gray-600 hover:text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-colors"
+                        className="text-gray-600 hover:text-white text-[10px] font-bold uppercase tracking-[0.2em] transition-colors mt-1"
                     >
                         Admin
                     </button>
