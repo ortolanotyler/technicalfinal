@@ -569,7 +569,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           ogType: 'article',
           image: absUrl(post.coverImage),
         });
-        html = injectJsonLd(html, [blogPostingJsonLd(post)]);
+        html = injectJsonLd(html, [
+          blogPostingJsonLd(post),
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_ORIGIN },
+              { '@type': 'ListItem', position: 2, name: 'Insights', item: `${SITE_ORIGIN}/insights` },
+              { '@type': 'ListItem', position: 3, name: post.title, item: canonical },
+            ],
+          },
+        ]);
         html = injectBody(html, insightBodyHtml(post));
       } else {
         html = applyMeta(html, {
