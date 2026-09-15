@@ -58,8 +58,8 @@ const Header: React.FC<HeaderProps> = ({ onViewJobs, onNavigate, onViewSubmit })
             {/* Logo Section */}
             <div className="flex-shrink-0 flex items-center cursor-pointer group select-none relative z-[70]" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               <img 
-                src="https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png" 
-                className="w-10 h-10 mr-3 opacity-80 group-hover:opacity-100 transition-opacity duration-300 grayscale brightness-[2]"
+                src="/CertusLOGO_grey_circle.png"
+                className="w-10 h-10 mr-3 opacity-80 group-hover:opacity-100 transition-opacity duration-300"
                 alt="Certus Logo"
                 referrerPolicy="no-referrer"
               />

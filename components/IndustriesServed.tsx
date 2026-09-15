@@ -57,9 +57,9 @@ const IndustriesServed: React.FC = () => {
                   src={cat.image}
                   alt={`${cat.category} recruitment`}
                   loading="lazy"
-                  className="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700 ease-out"
+                  className="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 group-hover:saturate-[1.2] transition-all duration-700 ease-out"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/85 to-brand-dark/30"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/85 to-brand-dark/30 transition-all duration-700 group-hover:via-brand-dark/45 group-hover:to-transparent"></div>
               </div>
 
               <div className="relative z-20 px-5 py-4 sm:p-6 flex flex-col h-full justify-end">

@@ -72,7 +72,7 @@ const Contact: React.FC = () => {
     >
         {/* Abstract Map Background */}
         <div className="absolute inset-0 opacity-20 pointer-events-none">
-             <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/dvbubqhpp/image/upload/v1770947667/IMG_5018-edit-1024x683_eiabfr.jpg')] bg-cover bg-center grayscale mix-blend-overlay"></div>
+             <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/dvbubqhpp/image/upload/v1770947667/IMG_5018-edit-1024x683_eiabfr.jpg')] bg-cover bg-top grayscale mix-blend-overlay"></div>
              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent"></div>
         </div>
 
@@ -82,6 +82,7 @@ const Contact: React.FC = () => {
                 {/* The "Business Card" */}
                 <div 
                   className={`
+                    lg:order-2
                     bg-white/5 backdrop-blur-md border border-white/10 p-8 md:p-10 lg:p-14 rounded-sm shadow-2xl relative overflow-hidden group transition-all duration-1000 ease-out
                     ${theme.borderHover}
                     ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}
@@ -128,7 +129,7 @@ const Contact: React.FC = () => {
                             <div>
                                 <h4 className="text-white text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1 md:mb-2 opacity-80">Direct Line</h4>
                                 <p className="text-gray-400 font-light text-xs md:text-sm tracking-wide">
-                                    (437) 295 1799
+                                    (1 855) 323 7887
                                 </p>
                             </div>
                         </div>
@@ -173,6 +174,7 @@ const Contact: React.FC = () => {
                 {/* Call to Action */}
                 <div 
                   className={`
+                    lg:order-1
                     text-center lg:text-left space-y-6 md:space-y-8 transition-all duration-1000 ease-out delay-200
                     ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}
                   `}

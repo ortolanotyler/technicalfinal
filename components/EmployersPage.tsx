@@ -61,7 +61,7 @@ const EmployersPage: React.FC<EmployersPageProps> = ({ onViewJobs, onNavigate })
       <SEO
         title="Hire Technical Talent"
         description="Certus Technical Search places vetted skilled trades, industrial maintenance and technical professionals with employers across Canada. Request talent today."
-        canonical="https://thecertusgroup.tech/employers"
+        canonical="https://technical.certusgroup.com/employers"
       />
 
       <Header onViewJobs={onViewJobs} onNavigate={onNavigate} />
@@ -131,8 +131,8 @@ const EmployersPage: React.FC<EmployersPageProps> = ({ onViewJobs, onNavigate })
           )}
 
           <div className="mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row gap-6 sm:gap-12 text-sm">
-            <a href="tel:+14372951799" className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors">
-              <Phone size={16} className="text-brand-silver" /> (437) 295-1799
+            <a href="tel:+18553237887" className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors">
+              <Phone size={16} className="text-brand-silver" /> (1 855) 323 7887
             </a>
             <a href="mailto:info@certusgroup.com" className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors">
               <Mail size={16} className="text-brand-silver" /> info@certusgroup.com
