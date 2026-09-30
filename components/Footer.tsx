@@ -134,7 +134,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate, onViewInsights }) => {
                              </div>
                              <p className="text-gray-500 text-sm font-light leading-relaxed">
                                  91 Skyway Avenue, Suite 206<br/>
-                                 Toronto, ON., M9W 6R5
+                                 Toronto, ON., M8Z 0G7
                              </p>
                          </div>
                      </div>

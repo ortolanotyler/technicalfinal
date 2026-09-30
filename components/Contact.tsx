@@ -112,7 +112,7 @@ const Contact: React.FC = () => {
                                 <h4 className="text-white text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1 md:mb-2 opacity-80">Headquarters</h4>
                                 <p className="text-gray-400 font-light text-xs md:text-sm leading-relaxed tracking-wide">
                                     91 Skyway Avenue, Suite 206<br/>
-                                    Toronto, ON., M9W 6R5
+                                    Toronto, ON., M8Z 0G7
                                 </p>
                             </div>
                         </div>
