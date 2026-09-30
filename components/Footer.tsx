@@ -133,7 +133,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate, onViewInsights }) => {
                                 <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-500" />
                              </div>
                              <p className="text-gray-500 text-sm font-light leading-relaxed">
-                                 91 Skyway Avenue, Suite 206<br/>
+                                 74 Jutland Road, Unit 38<br/>
                                  Toronto, ON., M8Z 0G7
                              </p>
                          </div>
