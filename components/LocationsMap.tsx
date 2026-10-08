@@ -21,6 +21,7 @@ const CITY_COORDS: Record<string, { lat: number; lng: number }> = {
   'burlington,on': { lat: 43.3255, lng: -79.799 },
   'cambridge,on': { lat: 43.3601, lng: -80.3127 },
   'concord,on': { lat: 43.8, lng: -79.4833 },
+  'chatham,on': { lat: 42.4048, lng: -82.191 },
   'goderich,on': { lat: 43.7501, lng: -81.7165 },
   'hamilton,on': { lat: 43.2557, lng: -79.8711 },
   'kitchener,on': { lat: 43.4516, lng: -80.4925 },
