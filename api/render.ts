@@ -254,12 +254,35 @@ function jobPostingJsonLd(job: JobDoc): Record<string, unknown> {
   return schema;
 }
 
+// The app shell (built index.html). Only a real shell fetched from a
+// certusgroup.com host is cached. A request arriving on a protected *.vercel.app
+// host gets Vercel's login page back; caching that once (2026-11-06) served
+// "Log in to Vercel" as the page on every job URL handled by that instance.
 let cachedShell: string | null = null;
+const isAppShell = (html: string) => html.includes('id="root"') && html.includes('/assets/');
+async function fetchShell(base: string): Promise<string | null> {
+  try {
+    const res = await fetch(`${base}/index.html`);
+    const html = await res.text();
+    return res.ok && isAppShell(html) ? html : null;
+  } catch {
+    return null;
+  }
+}
 async function getShell(origin: string): Promise<string> {
   if (cachedShell) return cachedShell;
-  const res = await fetch(`${origin}/index.html`);
-  cachedShell = await res.text();
-  return cachedShell;
+  if (/(^|\.)certusgroup\.com$/.test(new URL(origin).hostname)) {
+    const html = await fetchShell(origin);
+    if (html) {
+      cachedShell = html;
+      return html;
+    }
+  }
+  // Non-production host (or a bad fetch): use the live site's shell for this
+  // request only, never cached, so it can't pin a stale or login-page shell.
+  const html = await fetchShell(SITE_ORIGIN);
+  if (html) return html;
+  throw new Error('render: could not load the app shell');
 }
 
 function setTag(html: string, re: RegExp, replacement: string): string {
