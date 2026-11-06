@@ -190,7 +190,13 @@ const JobBoardPage: React.FC<JobBoardPageProps> = ({ onBack, onViewSubmit, initi
 
                                 <div className="flex-grow min-w-0">
                                     <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-brand-silver transition-colors leading-tight">
-                                        {job.title}
+                                        {/* Real link so crawlers (and cmd-click) reach each job page; a plain click still opens the drawer via the card. */}
+                                        <a
+                                            href={`/jobs/${jobSlug(job)}`}
+                                            onClick={(e) => { if (!(e.metaKey || e.ctrlKey || e.shiftKey)) e.preventDefault(); else e.stopPropagation(); }}
+                                        >
+                                            {job.title}
+                                        </a>
                                     </h3>
                                 </div>
 

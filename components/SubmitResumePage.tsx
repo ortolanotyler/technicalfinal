@@ -153,6 +153,7 @@ const SubmitResumePage: React.FC<SubmitResumePageProps> = ({ onBack }) => {
         title="Submit your resume"
         description="Join the Certus Technical Search pipeline for skilled trades, industrial maintenance, fleet and technical roles across Canada."
         keywords="submit resume, technical recruitment pipeline, skilled trades jobs, industrial maintenance jobs, fleet technician jobs"
+        noindex
       />
       <header className="sticky top-0 z-50 bg-[#0F151E]/80 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">

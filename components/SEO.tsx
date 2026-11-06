@@ -12,6 +12,7 @@ interface SEOProps {
   job?: JobPosting;
   isGateway?: boolean;
   schemaOnly?: boolean;
+  noindex?: boolean;
 }
 
 const SITE_ORIGIN = 'https://technical.certusgroup.com';
@@ -39,6 +40,7 @@ const SEO: React.FC<SEOProps> = ({
   job,
   isGateway = false,
   schemaOnly = false,
+  noindex = false,
 }) => {
   // Structured data is owned server-side / statically — nothing to emit here.
   if (schemaOnly) return null;
@@ -62,7 +64,7 @@ const SEO: React.FC<SEOProps> = ({
       <title>{finalTitle}</title>
       <meta name="description" content={finalDescription} />
       <meta name="keywords" content={keywords} />
-      <meta name="robots" content="index, follow" />
+      <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
       <link rel="canonical" href={finalCanonical} />
 
       <meta property="og:type" content={ogType} />

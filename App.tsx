@@ -16,6 +16,7 @@ import { View, Section } from './types';
 const LinkedInFeed = lazy(() => import('./components/LinkedInFeed'));
 const FeaturedJobsHero = lazy(() => import('./components/FeaturedJobsHero'));
 const JobBoardPage = lazy(() => import('./components/JobBoardPage'));
+const JobPage = lazy(() => import('./components/JobPage'));
 const AdminPortal = lazy(() => import('./components/AdminPortal'));
 const EmployersPage = lazy(() => import('./components/EmployersPage'));
 const LocationsMap = lazy(() => import('./components/LocationsMap'));
@@ -165,6 +166,12 @@ const App: React.FC = () => {
           />
         </>
       );
+    }
+
+    if (view === 'jobs' && initialJobId) {
+      // A direct /jobs/:id load gets its own page (matches the server render),
+      // not the board with a popup. Clicking a card on the board still opens the drawer.
+      return <JobPage jobId={initialJobId} onBack={() => setView('landing')} onViewAll={handleViewJobs} />;
     }
 
     if (view === 'jobs') {
