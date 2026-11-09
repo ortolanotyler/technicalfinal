@@ -87,22 +87,27 @@ const ReferralsPage: React.FC<ReferralsPageProps> = ({ onBack }) => {
             </span>
           </button>
 
-          <button onClick={onBack} className="flex items-center gap-3 select-none group">
-            <img
-              src="https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png"
-              className="w-6 h-6 opacity-90"
-              alt="Certus Logo"
-              referrerPolicy="no-referrer"
-            />
-            <span className="font-sans font-bold text-xl tracking-tight leading-none text-white">
-              CERTUSGROUP
-            </span>
-          </button>
         </div>
       </header>
 
       <main className="flex-grow pt-8 pb-12 md:py-20 px-5 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
+          <div className="flex items-center mb-8 md:mb-10 select-none">
+            <img
+              src="/CertusLOGO_grey_circle.png"
+              className="w-11 h-11 md:w-12 md:h-12 mr-3 opacity-90"
+              alt="Certus Technical Search"
+            />
+            <div className="flex flex-col justify-center">
+              <span className="font-sans font-bold text-2xl tracking-tight leading-none text-white">
+                CERTUS<span className="text-brand-accent">GROUP</span>
+              </span>
+              <span className="font-nourd text-[9px] font-bold uppercase tracking-[0.4em] ml-[2px] mt-1.5 text-white/50">
+                Technical Search
+              </span>
+            </div>
+          </div>
+
           <div className="mb-8 md:mb-10">
             <h1 className="text-3xl md:text-5xl font-medium text-white tracking-tight leading-[1.05]">
               Refer a candidate
