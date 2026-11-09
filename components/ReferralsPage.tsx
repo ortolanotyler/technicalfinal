@@ -14,7 +14,8 @@ const EMPTY = {
   candidateTrade: '',
   referrerName: '',
   shopName: '',
-  referrerContact: '',
+  referrerEmail: '',
+  referrerPhone: '',
   note: '',
 };
 
@@ -24,6 +25,7 @@ const ReferralsPage: React.FC<ReferralsPageProps> = ({ onBack }) => {
   const [step, setStep] = useState<'form' | 'submitting' | 'success'>('form');
   const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState(EMPTY);
+  const [referralId, setReferralId] = useState('');
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -48,6 +50,12 @@ const ReferralsPage: React.FC<ReferralsPageProps> = ({ onBack }) => {
         body: JSON.stringify(formData),
       });
       if (response.ok) {
+        try {
+          const data = await response.json();
+          setReferralId(typeof data?.referralId === 'string' ? data.referralId : '');
+        } catch {
+          setReferralId('');
+        }
         setStep('success');
         return;
       }
@@ -62,7 +70,7 @@ const ReferralsPage: React.FC<ReferralsPageProps> = ({ onBack }) => {
   };
 
   const sendAnother = () => {
-    setFormData((prev) => ({ ...EMPTY, referrerName: prev.referrerName, shopName: prev.shopName, referrerContact: prev.referrerContact }));
+    setFormData((prev) => ({ ...EMPTY, referrerName: prev.referrerName, shopName: prev.shopName, referrerEmail: prev.referrerEmail, referrerPhone: prev.referrerPhone }));
     setStep('form');
   };
 
@@ -121,6 +129,11 @@ const ReferralsPage: React.FC<ReferralsPageProps> = ({ onBack }) => {
               </div>
               <div className="space-y-2">
                 <h2 className="text-2xl md:text-3xl font-medium text-white">Thank you.</h2>
+                {referralId && (
+                  <p className="text-sm text-gray-400 tracking-wide">
+                    Referral #<span className="text-white font-medium">{referralId}</span>
+                  </p>
+                )}
               </div>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <button
@@ -215,14 +228,31 @@ const ReferralsPage: React.FC<ReferralsPageProps> = ({ onBack }) => {
                     className={inputClasses}
                   />
                 </Field>
-                <Field label="Your phone or email" htmlFor="referrerContact" optional>
+                <Field label="Your email" htmlFor="referrerEmail" optional>
                   <input
-                    id="referrerContact"
-                    type="text"
-                    name="referrerContact"
+                    id="referrerEmail"
+                    type="email"
+                    inputMode="email"
+                    name="referrerEmail"
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    spellCheck={false}
+                    enterKeyHint="next"
+                    autoComplete="email"
+                    value={formData.referrerEmail}
+                    onChange={handleInputChange}
+                    className={inputClasses}
+                  />
+                </Field>
+                <Field label="Your phone" htmlFor="referrerPhone" optional>
+                  <input
+                    id="referrerPhone"
+                    type="tel"
+                    inputMode="tel"
+                    name="referrerPhone"
                     enterKeyHint="next"
                     autoComplete="tel"
-                    value={formData.referrerContact}
+                    value={formData.referrerPhone}
                     onChange={handleInputChange}
                     className={inputClasses}
                   />
