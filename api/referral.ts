@@ -50,6 +50,33 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const note = clean(b.note);
   const referralId = newReferralId();
 
+  // Save it in Axis (shop_referrals; matched to or creates the candidate, and
+  // Axis emails the referrer when that candidate is placed). Best-effort with a
+  // short timeout: the referral still goes to recruit@ if Axis is down.
+  let savedInAxis = false;
+  const axisKey = process.env.AXIS_REFERRAL_KEY;
+  if (axisKey) {
+    const controller = new AbortController();
+    const t = setTimeout(() => controller.abort(), 6000);
+    try {
+      const r = await fetch(process.env.AXIS_REFERRAL_URL || 'https://certus.sale/api/shop-referrals', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Referral-Key': axisKey },
+        signal: controller.signal,
+        body: JSON.stringify({
+          referralId, candidateName, candidatePhone, candidateTrade,
+          referrerName, shopName, referrerEmail, referrerPhone, note,
+        }),
+      });
+      savedInAxis = r.ok;
+      if (!r.ok) console.error('Axis referral save failed:', r.status, await r.text().catch(() => ''));
+    } catch (error) {
+      console.error('Axis referral save failed:', error);
+    } finally {
+      clearTimeout(t);
+    }
+  }
+
   const apiKey = process.env.SENDGRID_API_KEY;
   if (!apiKey || !apiKey.startsWith('SG.')) {
     console.log('[Dev] Referral:', { referralId, candidateName, candidatePhone, shopName, referrerEmail });
@@ -85,6 +112,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         `<h3>New Shop Referral ${referralId}</h3>` +
         fields.map(([k, v]) => `<p><strong>${k}:</strong> ${esc(v).replace(/\n/g, '<br/>')}</p>`).join('') +
         `<p style="color:#777;font-size:12px">Submitted at technical.certusgroup.com/referrals. ` +
+        (savedInAxis
+          ? `Saved in Axis (Shop Referrals). `
+          : `NOT saved in Axis (add it by hand so the placement email can go out). `) +
         (validReferrerEmail
           ? `A thank-you email with this referral number went to ${esc(validReferrerEmail)}.`
           : `No referrer email, so no thank-you email was sent.`) +
