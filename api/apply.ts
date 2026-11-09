@@ -67,6 +67,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     `,
   };
 
+  let resumeBuf: Buffer | null = null;
   if (resumeUrl) {
     try {
       // Private blob: read its bytes by fetching the downloadUrl WITH the
@@ -78,6 +79,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
       if (!fileRes.ok) throw new Error(`blob fetch ${fileRes.status}`);
       const buf = Buffer.from(await fileRes.arrayBuffer());
+      resumeBuf = buf;
       const ext = (resumeName || meta.pathname || '').split('.').pop()?.toLowerCase();
       msg.attachments = [
         {
@@ -93,6 +95,32 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       console.error('Failed to attach resume from blob:', err);
       msg.html += `<p><strong>Resume:</strong> upload received but could not be attached. Blob: ${resumeUrl}</p>`;
       msg.text += `\n      Resume: upload received but could not be attached. Blob: ${resumeUrl}`;
+    }
+  }
+
+  // Also save it in Axis (web_applications), where the morning intake picks up
+  // the resume and starts the skill market process. Best-effort, short timeout:
+  // the email to recruit@ below still goes if Axis is down.
+  const axisKey = process.env.AXIS_REFERRAL_KEY;
+  if (axisKey) {
+    const controller = new AbortController();
+    const t = setTimeout(() => controller.abort(), 8000);
+    try {
+      const r = await fetch(process.env.AXIS_APPLICATIONS_URL || 'https://certus.sale/api/web-applications', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Referral-Key': axisKey },
+        signal: controller.signal,
+        body: JSON.stringify({
+          site: 'technical', firstName, lastName, email, phone, linkedin, jobTitle, jobRef,
+          interests, note, resumeName,
+          resumeBase64: resumeBuf ? resumeBuf.toString('base64') : undefined,
+        }),
+      });
+      if (!r.ok) console.error('Axis application save failed:', r.status, await r.text().catch(() => ''));
+    } catch (error) {
+      console.error('Axis application save failed:', error);
+    } finally {
+      clearTimeout(t);
     }
   }
 
