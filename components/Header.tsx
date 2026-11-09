@@ -103,6 +103,15 @@ const Header: React.FC<HeaderProps> = ({ onViewJobs, onNavigate, onViewSubmit })
               </a>
 
               <a
+                  href="/referrals"
+                  className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/60 hover:text-white relative group/nav transition-all duration-300 py-2"
+              >
+                  Referrals
+                  <span className="absolute bottom-0 left-0 w-full h-[1px] bg-brand-silver/30 scale-x-0 group-hover/nav:scale-x-100 origin-center transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)]"></span>
+                  <span className="absolute bottom-0 left-0 w-full h-[1px] bg-brand-silver scale-x-0 group-hover/nav:scale-x-100 origin-center transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] blur-[1px] opacity-0 group-hover/nav:opacity-50"></span>
+              </a>
+
+              <a
                   href="#jobs"
                   onClick={(e) => {
                     e.preventDefault();
@@ -180,6 +189,7 @@ const Header: React.FC<HeaderProps> = ({ onViewJobs, onNavigate, onViewSubmit })
              {[
                  { id: Section.INDUSTRIES, label: 'Practice Sectors', sub: 'Industry Expertise' },
                  { id: 'EMPLOYERS', label: 'For Employers', sub: 'Hire Talent', action: () => { window.location.href = '/employers'; } },
+                 { id: 'REFERRALS', label: 'Referrals', sub: 'Refer a Candidate', action: () => { window.location.href = '/referrals'; } },
                  { id: 'JOBS', label: 'Job Openings', sub: 'Career Opportunities', action: onViewJobs },
                  ...(onViewSubmit ? [{ id: 'SUBMIT', label: 'Submit Resume', sub: 'Join Our Pipeline', action: onViewSubmit }] : []),
                  { id: Section.CONTACT, label: 'Contact Us', sub: 'Global Reach' },

@@ -120,6 +120,15 @@ const Footer: React.FC<FooterProps> = ({ onNavigate, onViewInsights }) => {
                                  </button>
                              </li>
                          )}
+                         <li>
+                             <a
+                                href="/referrals"
+                                className={`text-gray-400 text-sm hover:translate-x-2 transition-all duration-300 flex items-center gap-2 group ${theme.hover}`}
+                             >
+                                 <span className="w-1.5 h-1.5 rounded-full bg-white/10 group-hover:bg-current transition-colors"></span>
+                                 Referrals
+                             </a>
+                         </li>
                     </ul>
                 </div>
 

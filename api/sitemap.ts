@@ -55,6 +55,7 @@ export default async function handler(_req: VercelRequest, res: VercelResponse) 
     { loc: `${SITE_ORIGIN}/`, lastmod: today, priority: '1.0', changefreq: 'weekly' },
     { loc: `${SITE_ORIGIN}/employers`, lastmod: today, priority: '0.9', changefreq: 'monthly' },
     { loc: `${SITE_ORIGIN}/jobs`, lastmod: today, priority: '0.9', changefreq: 'daily' },
+    { loc: `${SITE_ORIGIN}/referrals`, lastmod: today, priority: '0.8', changefreq: 'monthly' },
     { loc: `${SITE_ORIGIN}/insights`, lastmod: today, priority: '0.8', changefreq: 'weekly' },
   ];
 

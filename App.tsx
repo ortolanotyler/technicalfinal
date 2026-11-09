@@ -23,6 +23,7 @@ const LocationsMap = lazy(() => import('./components/LocationsMap'));
 const InsightsPage = lazy(() => import('./components/InsightsPage'));
 const InsightsPostPage = lazy(() => import('./components/InsightsPostPage'));
 const SubmitResumePage = lazy(() => import('./components/SubmitResumePage'));
+const ReferralsPage = lazy(() => import('./components/ReferralsPage'));
 
 const App: React.FC = () => {
   const [view, setView] = useState<View>(() => {
@@ -32,6 +33,7 @@ const App: React.FC = () => {
     if (path === '/admin') return 'admin';
     if (path === '/insights' || path.startsWith('/insights/')) return 'insights';
     if (path === '/submit-resume') return 'submit';
+    if (path === '/referrals' || path === '/referrals/') return 'referrals';
     if (path === '/landing') return 'landing'; // arriving from the group gateway — skip this site's gateway
     return 'gateway';
   });
@@ -66,6 +68,7 @@ const App: React.FC = () => {
     else if (view === 'employers') newPath = '/employers';
     else if (view === 'insights') newPath = insightsSlug ? `/insights/${insightsSlug}` : '/insights';
     else if (view === 'submit') newPath = '/submit-resume';
+    else if (view === 'referrals') newPath = '/referrals';
     else if (view === 'landing') newPath = '/';
 
     if (path !== newPath && !path.startsWith('/jobs/')) {
@@ -95,6 +98,8 @@ const App: React.FC = () => {
         setView('insights');
       } else if (path === '/submit-resume') {
         setView('submit');
+      } else if (path === '/referrals' || path === '/referrals/') {
+        setView('referrals');
       } else {
         setView('landing');
       }
@@ -180,6 +185,10 @@ const App: React.FC = () => {
 
     if (view === 'submit') {
       return <SubmitResumePage onBack={() => setView('landing')} />;
+    }
+
+    if (view === 'referrals') {
+      return <ReferralsPage onBack={() => setView('landing')} />;
     }
 
     if (view === 'admin') {
