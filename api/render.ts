@@ -458,8 +458,6 @@ function referralsBodyHtml(): string {
   return (
     `<main>` +
     `<h1>Refer a candidate</h1>` +
-    `<p>Someone called your shop looking for work and you have nothing open? Send them our way. We will reach out and help place them.</p>` +
-    `<p>The Certus Technical Search referral program is for shop owners and service managers who get calls from mechanics, technicians and skilled tradespeople looking for work. Send us their name and phone number and we will help them find a role with employers across Canada.</p>` +
     `<p><a href="/jobs">View open positions</a> &middot; <a href="/employers">Hire technical talent</a></p>` +
     `</main>`
   );

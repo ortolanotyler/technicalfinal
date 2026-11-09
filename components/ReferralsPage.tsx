@@ -103,14 +103,10 @@ const ReferralsPage: React.FC<ReferralsPageProps> = ({ onBack }) => {
 
       <main className="flex-grow pt-8 pb-12 md:py-20 px-5 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
-          <div className="mb-8 md:mb-10 space-y-3 md:space-y-4">
+          <div className="mb-8 md:mb-10">
             <h1 className="text-3xl md:text-5xl font-medium text-white tracking-tight leading-[1.05]">
               Refer a candidate
             </h1>
-            <p className="text-gray-400 font-light text-base leading-relaxed">
-              Someone called your shop looking for work and you have nothing open? Send them our way.
-              We will reach out and help place them.
-            </p>
           </div>
 
           {step === 'success' ? (
@@ -120,9 +116,6 @@ const ReferralsPage: React.FC<ReferralsPageProps> = ({ onBack }) => {
               </div>
               <div className="space-y-2">
                 <h2 className="text-2xl md:text-3xl font-medium text-white">Thank you.</h2>
-                <p className="text-gray-400 font-light text-sm max-w-md mx-auto leading-relaxed">
-                  We will take it from here.
-                </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <button
