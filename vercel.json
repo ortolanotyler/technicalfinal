@@ -3,7 +3,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "functions": {
-    "api/render.ts": { "includeFiles": "data/*.json" },
+    "api/render.ts": { "includeFiles": "{data/*.json,dist/index.html}" },
     "api/sitemap.ts": { "includeFiles": "data/*.json" }
   },
   "routes": [

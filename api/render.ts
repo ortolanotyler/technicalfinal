@@ -269,8 +269,31 @@ async function fetchShell(base: string): Promise<string | null> {
     return null;
   }
 }
+// Read the shell bundled with THIS deployment (vercel.json includeFiles
+// dist/index.html), so its /assets/ hashes always match the build that serves
+// them. Fetching it over HTTP could pick up the previous deploy's index.html
+// right after a push; its assets are gone, the catch-all answers them with
+// HTML, the bundle never runs and the page sits on the static fallback
+// (2026-11-09, homepage broken after back-to-back deploys).
+function readBundledShell(): string | null {
+  for (const p of [join(process.cwd(), "dist", "index.html"), join(__dirname, "..", "dist", "index.html")]) {
+    try {
+      const html = readFileSync(p, 'utf8');
+      if (isAppShell(html)) return html;
+    } catch {
+      // try the next location
+    }
+  }
+  return null;
+}
+
 async function getShell(origin: string): Promise<string> {
   if (cachedShell) return cachedShell;
+  const bundled = readBundledShell();
+  if (bundled) {
+    cachedShell = bundled;
+    return bundled;
+  }
   if (/(^|\.)certusgroup\.com$/.test(new URL(origin).hostname)) {
     const html = await fetchShell(origin);
     if (html) {
