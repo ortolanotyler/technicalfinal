@@ -74,7 +74,7 @@ const ReferralsPage: React.FC<ReferralsPageProps> = ({ onBack }) => {
         keywords="refer a mechanic, refer a technician, shop owner referral, skilled trades referral, heavy duty mechanic jobs, 310T jobs"
       />
       <header className="sticky top-0 z-50 bg-[#0F151E]/80 backdrop-blur-xl border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 h-16 md:h-20 flex items-center justify-between">
           <button
             onClick={onBack}
             className="group flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
@@ -101,9 +101,9 @@ const ReferralsPage: React.FC<ReferralsPageProps> = ({ onBack }) => {
         </div>
       </header>
 
-      <main className="flex-grow py-12 md:py-20 px-6 lg:px-8">
+      <main className="flex-grow pt-8 pb-12 md:py-20 px-5 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
-          <div className="mb-10 space-y-4">
+          <div className="mb-8 md:mb-10 space-y-3 md:space-y-4">
             <h1 className="text-3xl md:text-5xl font-medium text-white tracking-tight leading-[1.05]">
               Refer a candidate
             </h1>
@@ -140,7 +140,7 @@ const ReferralsPage: React.FC<ReferralsPageProps> = ({ onBack }) => {
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} noValidate className="space-y-10">
+            <form onSubmit={handleSubmit} noValidate className="space-y-8 md:space-y-10">
               {errorMessage && (
                 <div className="bg-red-500/10 border border-red-500/30 rounded-sm px-4 py-3">
                   <p className="text-red-300 text-xs font-medium">{errorMessage}</p>
@@ -148,12 +148,14 @@ const ReferralsPage: React.FC<ReferralsPageProps> = ({ onBack }) => {
               )}
 
               <fieldset className="space-y-5">
-                <legend className="text-sm font-medium text-white mb-5">Who are you referring?</legend>
+                <legend className="text-base font-medium text-white mb-4">Who are you referring?</legend>
                 <Field label="Their name" htmlFor="candidateName">
                   <input
                     id="candidateName"
                     type="text"
                     name="candidateName"
+                    autoCapitalize="words"
+                    enterKeyHint="next"
                     autoComplete="off"
                     value={formData.candidateName}
                     onChange={handleInputChange}
@@ -166,6 +168,7 @@ const ReferralsPage: React.FC<ReferralsPageProps> = ({ onBack }) => {
                     type="tel"
                     inputMode="tel"
                     name="candidatePhone"
+                    enterKeyHint="next"
                     autoComplete="off"
                     value={formData.candidatePhone}
                     onChange={handleInputChange}
@@ -177,21 +180,24 @@ const ReferralsPage: React.FC<ReferralsPageProps> = ({ onBack }) => {
                     id="candidateTrade"
                     type="text"
                     name="candidateTrade"
+                    enterKeyHint="next"
                     value={formData.candidateTrade}
                     onChange={handleInputChange}
                     className={inputClasses}
-                    placeholder="e.g. 310T mechanic, auto tech, welder"
+                    placeholder="e.g. 310T mechanic, welder"
                   />
                 </Field>
               </fieldset>
 
               <fieldset className="space-y-5">
-                <legend className="text-sm font-medium text-white mb-5">About you</legend>
+                <legend className="text-base font-medium text-white mb-4">About you</legend>
                 <Field label="Your name" htmlFor="referrerName" optional>
                   <input
                     id="referrerName"
                     type="text"
                     name="referrerName"
+                    autoCapitalize="words"
+                    enterKeyHint="next"
                     autoComplete="name"
                     value={formData.referrerName}
                     onChange={handleInputChange}
@@ -203,6 +209,8 @@ const ReferralsPage: React.FC<ReferralsPageProps> = ({ onBack }) => {
                     id="shopName"
                     type="text"
                     name="shopName"
+                    autoCapitalize="words"
+                    enterKeyHint="next"
                     autoComplete="organization"
                     value={formData.shopName}
                     onChange={handleInputChange}
@@ -214,6 +222,7 @@ const ReferralsPage: React.FC<ReferralsPageProps> = ({ onBack }) => {
                     id="referrerContact"
                     type="text"
                     name="referrerContact"
+                    enterKeyHint="next"
                     autoComplete="tel"
                     value={formData.referrerContact}
                     onChange={handleInputChange}
