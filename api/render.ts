@@ -276,7 +276,7 @@ async function fetchShell(base: string): Promise<string | null> {
 // HTML, the bundle never runs and the page sits on the static fallback
 // (2026-11-09, homepage broken after back-to-back deploys).
 function readBundledShell(): string | null {
-  for (const p of [join(process.cwd(), "dist", "index.html"), join(__dirname, "..", "dist", "index.html")]) {
+  for (const p of [join(process.cwd(), "dist", "index.html")]) {
     try {
       const html = readFileSync(p, 'utf8');
       if (isAppShell(html)) return html;
