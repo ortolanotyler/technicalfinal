@@ -103,7 +103,7 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ onViewJobs }) => {
                 <div 
                   key={job.id}
                   onClick={() => handleJobClick(job)}
-                  className="group relative bg-white/[0.02] border border-white/5 p-6 md:p-8 rounded-sm hover:border-brand-silver/40 transition-all duration-500 cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-6"
+                  className="group relative bg-white/[0.02] border border-white/5 p-6 md:p-8 rounded-sm hover:border-brand-silver/40 transition-all duration-500 cursor-pointer flex flex-col lg:flex-row lg:items-center justify-between gap-6 lg:gap-10"
                 >
                   {/* SEO Structured Data for each job - schemaOnly to avoid overwriting page title */}
                   <SEO key={`seo-${job.id}`} job={job} schemaOnly={true} />
@@ -111,23 +111,23 @@ const FeaturedJobsHero: React.FC<FeaturedJobsHeroProps> = ({ onViewJobs }) => {
                   {/* Hover Accent */}
                   <div className="absolute top-0 left-0 w-[2px] h-full bg-brand-silver scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-top"></div>
                   
-                  <div className="flex-grow">
+                  <div className="flex-1 min-w-0">
                     <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-brand-silver transition-colors leading-tight">
                       {job.title}
                     </h3>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-6 md:gap-12">
-                    <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                      <MapPin size={14} className="text-brand-silver" />
-                      <span>{job.location}</span>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 lg:shrink-0">
+                    <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest text-gray-400 lg:w-52">
+                      <MapPin size={14} className="text-brand-silver shrink-0" />
+                      <span className="leading-relaxed">{job.location}</span>
                     </div>
-                    <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                      <DollarSign size={14} className="text-brand-silver" />
-                      <span>{job.salary}</span>
+                    <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest text-gray-400 lg:w-60">
+                      <DollarSign size={14} className="text-brand-silver shrink-0" />
+                      <span className="leading-relaxed">{job.salary}</span>
                     </div>
                     
-                    <div className="flex items-center gap-3 bg-brand-silver/10 group-hover:bg-brand-silver text-brand-silver group-hover:text-black px-6 py-3 rounded-sm transition-all duration-500">
+                    <div className="shrink-0 self-start sm:self-auto sm:ml-auto lg:ml-0 flex items-center gap-3 bg-brand-silver/10 group-hover:bg-brand-silver text-brand-silver group-hover:text-black px-6 py-3 rounded-sm transition-all duration-500">
                       <span className="text-[10px] font-bold uppercase tracking-widest">Apply Now</span>
                       <ArrowRight size={14} />
                     </div>

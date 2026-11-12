@@ -13,7 +13,6 @@ import { View, Section } from './types';
 
 // Heavy components (Firebase SDK, motion, react-markdown) are code-split so the
 // gateway and above-the-fold landing load without them.
-const LinkedInFeed = lazy(() => import('./components/LinkedInFeed'));
 const FeaturedJobsHero = lazy(() => import('./components/FeaturedJobsHero'));
 const JobBoardPage = lazy(() => import('./components/JobBoardPage'));
 const JobPage = lazy(() => import('./components/JobPage'));
@@ -245,11 +244,6 @@ const App: React.FC = () => {
           <IndustriesServed />
           <Suspense fallback={<div className="min-h-[400px]" />}>
             <FeaturedJobsHero onViewJobs={handleViewJobs} />
-          </Suspense>
-          {/* LinkedIn is lazy; give the fallback the section id so the
-              "Social" anchor still resolves before the chunk loads. */}
-          <Suspense fallback={<div id={Section.INSIGHTS} className="min-h-[400px]" />}>
-            <LinkedInFeed />
           </Suspense>
           <Contact />
         </main>
