@@ -542,6 +542,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const insight = typeof req.query.insight === 'string' ? req.query.insight : undefined;
 
   let html: string;
+  // 404 for a job or insight that no longer exists, so Google drops the URL
+  // instead of treating the "position filled" page as a live (soft 404) page.
+  let status = 200;
   try {
     html = await getShell(origin);
   } catch {
@@ -617,6 +620,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           '<meta name="robots" content="noindex, follow" />'
         );
         html = injectBody(html, jobNotFoundBodyHtml());
+        status = 404;
       }
     } else if (page === 'insights') {
       html = applyMeta(html, {
@@ -683,6 +687,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           '<meta name="robots" content="noindex, follow" />'
         );
         html = injectBody(html, insightNotFoundBodyHtml());
+        status = 404;
       }
     } else if (page === 'home') {
       html = applyMeta(html, {
@@ -709,5 +714,5 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=86400');
-  return res.status(200).send(html);
+  return res.status(status).send(html);
 }
