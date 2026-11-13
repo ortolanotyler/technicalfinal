@@ -5,68 +5,13 @@ import { ArrowRight, MapPin, DollarSign } from 'lucide-react';
 import { JobPosting } from '../types';
 import { jobService } from '../services/jobService';
 import ApplicationModal from './ApplicationModal';
+import { placeLocation } from './mapGeo';
 import JobDetailDrawer from './JobDetailDrawer';
 
 const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
 const NA_COUNTRY_IDS = new Set(['124', '840', '484']); // Canada, USA, Mexico
 
 const HQ = { lat: 43.6532, lng: -79.3832 }; // Toronto
-
-// Hand-curated geocoder for the cities we actually recruit in. Add a new one
-// with a single line. Keys are "city,provincecode" (lowercase).
-const CITY_COORDS: Record<string, { lat: number; lng: number }> = {
-  'toronto,on': { lat: 43.6532, lng: -79.3832 },
-  'ajax,on': { lat: 43.8509, lng: -79.0204 },
-  'brampton,on': { lat: 43.7315, lng: -79.7624 },
-  'burlington,on': { lat: 43.3255, lng: -79.799 },
-  'cambridge,on': { lat: 43.3601, lng: -80.3127 },
-  'concord,on': { lat: 43.8, lng: -79.4833 },
-  'chatham,on': { lat: 42.4048, lng: -82.191 },
-  'brantford,on': { lat: 43.1394, lng: -80.2644 },
-  'goderich,on': { lat: 43.7501, lng: -81.7165 },
-  'hamilton,on': { lat: 43.2557, lng: -79.8711 },
-  'kitchener,on': { lat: 43.4516, lng: -80.4925 },
-  'london,on': { lat: 42.9849, lng: -81.2453 },
-  'mississauga,on': { lat: 43.589, lng: -79.6441 },
-  'oakville,on': { lat: 43.4675, lng: -79.6877 },
-  'ottawa,on': { lat: 45.4215, lng: -75.6972 },
-  'calgary,ab': { lat: 51.0447, lng: -114.0719 },
-  'edmonton,ab': { lat: 53.5461, lng: -113.4938 },
-  'laval,qc': { lat: 45.6066, lng: -73.7124 },
-  'vancouver,bc': { lat: 49.2827, lng: -123.1207 },
-  'saskatoon,sk': { lat: 52.1332, lng: -106.67 },
-  'winnipeg,mb': { lat: 49.8951, lng: -97.1384 },
-  'truro,ns': { lat: 45.3667, lng: -63.2667 },
-  // US — higher-level / executive search roles
-  'chicago,il': { lat: 41.8781, lng: -87.6298 },
-  'seattle,wa': { lat: 47.6062, lng: -122.3321 },
-  'columbus,oh': { lat: 39.9612, lng: -82.9988 },
-  'boston,ma': { lat: 42.3601, lng: -71.0589 },
-};
-
-const PROVINCE_CODES: Record<string, string> = {
-  alberta: 'AB', 'british columbia': 'BC', manitoba: 'MB', 'new brunswick': 'NB',
-  'newfoundland and labrador': 'NL', newfoundland: 'NL', 'nova scotia': 'NS',
-  ontario: 'ON', 'prince edward island': 'PE', quebec: 'QC', 'québec': 'QC',
-  saskatchewan: 'SK', 'northwest territories': 'NT', nunavut: 'NU', yukon: 'YT',
-  ab: 'AB', bc: 'BC', mb: 'MB', nb: 'NB', nl: 'NL', ns: 'NS', on: 'ON',
-  pe: 'PE', qc: 'QC', sk: 'SK', nt: 'NT', nu: 'NU', yt: 'YT',
-};
-
-const regionCode = (region: string): string => {
-  const r = region.trim().toLowerCase();
-  return PROVINCE_CODES[r] || region.trim().slice(0, 2).toUpperCase();
-};
-
-const normalizeLocation = (raw: string): string | null => {
-  if (!raw) return null;
-  const cleaned = raw.replace(/remote\s*\/\s*/i, '').trim();
-  const parts = cleaned.split(',').map((p) => p.trim()).filter(Boolean);
-  if (parts.length < 2) return null;
-  const city = parts[0].toLowerCase();
-  const code = regionCode(parts[parts.length - 1]).toLowerCase();
-  return `${city},${code}`;
-};
 
 type JobPin = { lat: number; lng: number; key: string; label: string; jobs: JobPosting[] };
 
@@ -77,23 +22,17 @@ const ONTARIO_PIN = { key: 'ontario', label: 'Ontario', ...HQ };
 const groupJobsByCity = (jobs: JobPosting[]): JobPin[] => {
   const buckets = new Map<string, JobPin>();
   for (const job of jobs) {
-    const norm = normalizeLocation(job.location);
-    if (!norm) continue;
-    const isOntario = norm.endsWith(',on');
-    const key = isOntario ? ONTARIO_PIN.key : norm;
-    const coords = isOntario ? { lat: ONTARIO_PIN.lat, lng: ONTARIO_PIN.lng } : CITY_COORDS[norm];
-    if (!coords) continue;
+    const place = placeLocation(job.location);
+    if (!place) continue;
+    const isOntario = place.region === 'ON';
+    const key = isOntario ? ONTARIO_PIN.key : place.key;
     const existing = buckets.get(key);
     if (existing) {
       existing.jobs.push(job);
     } else {
-      const parts = job.location.replace(/remote\s*\/\s*/i, '').split(',').map((p) => p.trim());
-      buckets.set(key, {
-        ...coords,
-        key,
-        label: isOntario ? ONTARIO_PIN.label : `${parts[0]}, ${regionCode(parts[parts.length - 1])}`,
-        jobs: [job],
-      });
+      buckets.set(key, isOntario
+        ? { lat: ONTARIO_PIN.lat, lng: ONTARIO_PIN.lng, key, label: ONTARIO_PIN.label, jobs: [job] }
+        : { lat: place.lat, lng: place.lng, key, label: place.label, jobs: [job] });
     }
   }
   return Array.from(buckets.values());
