@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Section } from '../types';
-import { Building2, Phone, Mail, Linkedin, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { Building2, Phone, Mail, ArrowRight } from 'lucide-react';
 
 const Contact: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -152,23 +152,6 @@ const Contact: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Footer / Social - Upgraded */}
-                    <div className="mt-10 md:mt-14 pt-6 md:pt-8 border-t border-white/5">
-                        <a href="#" className="flex items-center justify-between group/link cursor-pointer">
-                            <div className="flex flex-col">
-                                <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1 group-hover/link:text-gray-400 transition-colors">Social</span>
-                                <span className="text-xs md:text-sm font-medium text-white group-hover/link:text-brand-silver transition-colors flex items-center gap-2">
-                                    Follow on Network <ArrowUpRight size={14} className="opacity-0 group-hover/link:opacity-100 transition-opacity translate-y-1 group-hover/link:translate-y-0" />
-                                </span>
-                            </div>
-                            <div className={`
-                                w-8 h-8 md:w-10 md:h-10 rounded-sm border border-white/10 flex items-center justify-center 
-                                ${theme.accent} group-hover/link:bg-white group-hover/link:text-brand-dark transition-all duration-300
-                            `}>
-                                <Linkedin strokeWidth={1.5} className="w-4 h-4 md:w-[18px] md:h-[18px]" />
-                            </div>
-                        </a>
-                    </div>
                 </div>
 
                 {/* Call to Action */}
