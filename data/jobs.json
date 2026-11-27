@@ -1,5 +1,35 @@
 [
   {
+    "id": "road-service-technician-st-johns-trd-5126",
+    "ref": "TRD-5126",
+    "title": "Road Service Technician",
+    "location": "St. John's, Newfoundland and Labrador",
+    "type": "Full-Time",
+    "salary": "$65,000 - $80,000 + overtime",
+    "isFeatured": true,
+    "summary": "An equipment service company is hiring a road service technician for the St. John's area, servicing equipment at customer sites from a company van. Automotive technicians welcome. $65K-$80K plus overtime, benefits, pension and a company van.",
+    "responsibilities": [],
+    "requirements": [],
+    "description": "An established equipment service company is hiring a Road Service Technician for the St. John's area. You'll travel to customer sites in a company van to maintain, diagnose and repair equipment. Automotive technicians are a great fit, and truck, heavy equipment and industrial mechanics are welcome too.\n\nSchedule:\n- Monday to Friday, 8am-5pm, across the St. John's area\n- Overtime after 44 hours a week\n- Company van, gas card and insurance provided\n\nWhat you'll do:\n- Carry out planned maintenance and emergency service calls at customer sites\n- Diagnose and repair mechanical, hydraulic and electrical issues\n- Look up and order parts using technical manuals\n- Document repairs and explain next steps to the customer\n\nWhat you bring:\n- 3+ years of hands-on mechanical experience (automotive, truck, heavy equipment or industrial)\n- Solid diagnostic skills on mechanical and electrical systems\n- Good communication and a customer-friendly attitude\n- Valid driver's license and a clean driver's abstract\n- A spot to park the company van overnight\n\nWhat's offered:\n- $65,000 to $80,000 per year, plus overtime\n- Benefits after 3 months, pension matching after 24 months\n- Company van, gas card, phone and tablet\n- Annual tool and boot allowance, tuition reimbursement\n- Room to grow",
+    "createdAt": "2026-11-27T18:30:00.000Z",
+    "updatedAt": null
+  },
+  {
+    "id": "shop-technician-mississauga-trd-4885",
+    "ref": "TRD-4885",
+    "title": "Shop Technician",
+    "location": "Mississauga, Ontario",
+    "type": "Full-Time",
+    "salary": "$65,000 - $74,000",
+    "isFeatured": true,
+    "summary": "An equipment service company is hiring a shop-based technician in Mississauga for service, repairs and pre-delivery inspections. Automotive technicians welcome, no license required. $65K-$74K, Monday to Friday days, benefits and pension.",
+    "responsibilities": [],
+    "requirements": [],
+    "description": "An established equipment service company is hiring a Shop Technician for its Mississauga shop. You'll handle service, repairs and pre-delivery inspections on a rental and customer fleet, all in a well-equipped shop. Automotive technicians are a great fit, and a trade license is not required.\n\nSchedule:\n- Monday to Friday, 8am-5pm\n- Shop-based, no travel\n\nWhat you'll do:\n- Perform pre-delivery inspections, scheduled service and repairs\n- Diagnose and repair mechanical, hydraulic and electrical issues\n- Rebuild and replace components\n- Use technical manuals to diagnose and order parts\n\nWhat you bring:\n- 3 years of automotive or mechanical experience\n- Comfortable with hand tools and diagnostic equipment\n- Attention to detail and a willingness to learn\n- No trade license required\n\nWhat's offered:\n- $65,000 to $74,000 per year\n- Benefits after 3 months, pension after 24 months\n- Steady day shift in a busy shop",
+    "createdAt": "2026-11-27T18:30:00.000Z",
+    "updatedAt": null
+  },
+  {
     "id": "truck-trailer-mechanic-halifax-trd-7472",
     "ref": "TRD-7472",
     "title": "Truck & Trailer Mechanic",
@@ -175,21 +205,6 @@
     "responsibilities": [],
     "requirements": [],
     "description": "A material-handling equipment provider is hiring a Road Service Technician for the Truro/Dartmouth area. You'll service and repair lift trucks and carousels at customer sites, working from a company van.\n\nSchedule:\n- Field-based role across the Truro/Dartmouth area, Monday to Friday, 8am-5pm\n- Company van, insurance and gas card provided\n- Company iPad and iPhone\n- Overtime paid after 44 hours worked per week\n\nWhat you'll do:\n- Inspect the operational integrity and condition of lift trucks\n- Diagnose mechanical, hydraulic and electrical issues and recommend repairs to the customer\n- Perform scheduled preventative maintenance\n- Diagnose and order parts using technical manuals\n- Document and analyze breakdowns to standard procedures\n- Act as the front-line contact with the customer on site\n\nWhat you bring:\n- 3 to 5 years as a mechanical technician, or equivalent experience (automotive, truck, heavy equipment, trailer or industrial mechanics all considered)\n- Truck and Coach 310T or Heavy Duty Technician certification\n- Knowledge of mechanical and electrical systems on battery and engine-powered material handling equipment\n- Comfortable with hand tools, measuring devices and electrical/electronic diagnostic tools\n- Solid lockout/tagout knowledge\n- Strong communication and customer-service skills\n- Valid driver's license and a clean driving record\n- A place to park the company vehicle overnight (the van needs about 9 ft of clearance)\n\nWhat's offered:\n- $70,000 to $80,000 per year, plus overtime after 44 hours/week\n- Benefits after 3 months, pension matching after 24 months\n- Company van, gas card and insurance covered\n- Annual tool and boot allowance, tuition reimbursement\n- Room to grow",
-    "createdAt": "2026-10-07T15:00:00.000Z",
-    "updatedAt": null
-  },
-  {
-    "id": "road-service-technician-lift-trucks-st-john-s-trd-3421",
-    "ref": "TRD-3421",
-    "title": "Road Service Technician (Lift Trucks)",
-    "location": "St. John's, Newfoundland and Labrador",
-    "type": "Full-Time",
-    "salary": "$65,000 - $80,000",
-    "isFeatured": false,
-    "summary": "A material-handling equipment provider is hiring a road service technician for the St. John's area, servicing lift trucks at customer sites from a company van. $65K-$80K, full benefits, pension, and a company van, iPad and iPhone.",
-    "responsibilities": [],
-    "requirements": [],
-    "description": "A material-handling equipment provider is hiring a Road Service Technician for the St. John's area. You'll service and repair lift trucks and carousels at customer sites, working from a company van.\n\nSchedule:\n- Field-based role across the St. John's area, Monday to Friday, 8am-5pm\n- Company van, insurance and gas card provided\n- Company iPad and iPhone\n\nWhat you'll do:\n- Inspect the operational integrity and condition of lift trucks\n- Diagnose mechanical, hydraulic and electrical issues and recommend repairs to the customer\n- Perform scheduled preventative maintenance\n- Diagnose and order parts using technical manuals\n- Document and analyze breakdowns to standard procedures\n- Act as the front-line contact with the customer on site\n\nWhat you bring:\n- 3 to 5 years as a mechanical technician, or equivalent experience (automotive, truck, heavy equipment, trailer or industrial mechanics all considered)\n- Truck and Coach 310T or Heavy Duty Technician certification\n- Knowledge of mechanical and electrical systems on battery and engine-powered material handling equipment\n- Comfortable with hand tools, measuring devices and electrical/electronic diagnostic tools\n- Solid lockout/tagout knowledge\n- Strong communication and customer-service skills\n- Valid driver's license and a clean driving record\n- A place to park the company vehicle overnight (the van needs about 9 ft of clearance)\n\nWhat's offered:\n- $65,000 to $80,000 per year\n- Benefits after 3 months, pension matching after 24 months\n- Company van, gas card and insurance covered\n- Annual tool and boot allowance, tuition reimbursement\n- Room to grow",
     "createdAt": "2026-10-07T15:00:00.000Z",
     "updatedAt": null
   },
@@ -394,20 +409,6 @@
     "requirements": [],
     "description": "A truck dealership is hiring a 310T Truck & Coach Technician for its Cambridge location. You'll perform maintenance, safeties and repairs on medium and heavy-duty trucks, keeping them safe and reliable. Licensed 310T technicians and 2nd or 3rd year apprentices (under a valid Registered Training Agreement) are both encouraged to apply, and licensed 310S (automotive) technicians open to converting to 310T will be considered.\n\nSchedule:\n- Set 8-hour day shifts, flexible within shop hours\n- Guaranteed 40 hours per week; overtime at time-and-a-half after 44 hours\n- Non-unionized shop\n\nWhat you'll do:\n- Routine maintenance, safety inspections and repairs on heavy-duty trucks (diesel engines, transmissions, brakes, suspension and electrical systems)\n- Diagnose and troubleshoot using advanced diagnostic tools\n- Use manufacturer service manuals and technical data\n- Communicate with customers about the work needed\n- Attend manufacturer and dealer training (paid)\n\nRequirements:\n- Licensed 310T Truck & Coach Technician, or a 2nd/3rd year apprentice under a valid Registered Training Agreement\n- Open to licensed 310S (automotive) technicians willing to convert to 310T\n- Valid G driver's license with a good driving record (Z endorsement an asset)\n- Your own hand tools\n- Strong mechanical aptitude and communication skills\n\nCompensation and benefits:\n- $35.00 to $55.00/hr based on experience\n- Monthly proficiency bonus of up to $1,000 based on efficiency\n- Signing bonus of up to $1,500 (based on license and experience)\n- Technician referral bonus program\n- Annual tool ($300) and boot ($200) allowances\n- Comprehensive benefits after 3 months (health, dental, vision, life, travel)\n- Group RRSP, personal days, and a paid day off during the Christmas holidays\n- Ongoing paid training and career advancement",
     "createdAt": "2026-08-22T10:03:00.000Z"
-  },
-  {
-    "id": "shop-technician-lift-trucks-trd-3370",
-    "ref": "TRD-3370",
-    "title": "Shop Technician (Lift Trucks)",
-    "location": "Mississauga, Ontario",
-    "type": "Full-Time",
-    "salary": "$65,000 - $75,000",
-    "isFeatured": false,
-    "summary": "A material-handling equipment provider is hiring a shop-based technician for its Mississauga shop, maintaining and repairing lift trucks. A good fit for a mechanically minded technician with 1 to 3 years of experience. No license required, and no company vehicle.",
-    "responsibilities": [],
-    "requirements": [],
-    "description": "A material-handling equipment provider is hiring a Shop Technician for its Mississauga shop. This is a shop-based role maintaining and repairing lift trucks and related equipment, a good fit for a mechanically minded technician early in their career who wants hands-on experience in a busy, well-equipped shop.\n\nPlease note: this is a shop-based role with no company vehicle.\n\nWhat you'll do:\n- Preventative maintenance and repairs on lift trucks in the shop\n- Diagnose mechanical and electrical issues and carry out repairs\n- Use technical manuals to diagnose and order parts\n\nRequirements:\n- 1 to 3 years of mechanical experience\n- A trade license is not required\n- Comfortable with hand tools and basic diagnostics\n- Strong attention to detail and a willingness to learn\n\nWhat's offered:\n- $65,000 - $75,000 base salary",
-    "createdAt": "2026-08-22T11:10:00.000Z"
   },
   {
     "id": "road-service-technician-lift-trucks-trd-4583",
