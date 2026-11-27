@@ -58,13 +58,20 @@ const Footer: React.FC<FooterProps> = ({ onNavigate, onViewInsights }) => {
                 
                 {/* Brand Column */}
                 <div className="md:col-span-5 lg:col-span-4 space-y-8">
-                    <div className="flex flex-col">
-                        <span className="font-sans font-bold text-3xl tracking-tight text-white">
-                            CERTUS<span className="text-brand-accent">GROUP</span>
-                        </span>
-                        <span className="text-brand-silver/60 text-[10px] uppercase tracking-[0.4em] mt-1 font-bold">
-                            Technical Search
-                        </span>
+                    <div className="flex items-center select-none">
+                        <img
+                            src="/CertusLOGO_grey_circle.png"
+                            className="w-12 h-12 mr-3 opacity-90"
+                            alt="Certus Technical Search"
+                        />
+                        <div className="flex flex-col">
+                            <span className="font-sans font-bold text-3xl tracking-tight leading-none text-white">
+                                CERTUS<span className="text-brand-accent">GROUP</span>
+                            </span>
+                            <span className="text-brand-silver/60 text-[10px] uppercase tracking-[0.4em] mt-1.5 ml-[2px] font-bold">
+                                Technical Search
+                            </span>
+                        </div>
                     </div>
                     <p className="text-gray-400 text-sm leading-relaxed max-w-sm font-light">
                         Specialized recruitment for Heavy Duty Mechanics, Industrial Maintenance, and Technical Leadership across North America.
