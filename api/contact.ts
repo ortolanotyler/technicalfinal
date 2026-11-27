@@ -8,7 +8,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { email, name, company, message } = req.body ?? {};
+  const { email, name, company, inquiryType, message } = req.body ?? {};
 
   if (!email || !name) {
     return res.status(400).json({ error: 'Name and Email are required' });
@@ -18,7 +18,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // dev placeholder like "a") as "no key" so we log instead of 401-ing.
   const apiKey = process.env.SENDGRID_API_KEY;
   if (!apiKey || !apiKey.startsWith('SG.')) {
-    console.log('[Dev] Contact form submission:', { name, email, company, message });
+    console.log('[Dev] Contact form submission:', { name, email, company, inquiryType, message });
     return res.status(200).json({ success: true, message: 'Dev mode: Email logged to console' });
   }
   sgMail.setApiKey(apiKey);
@@ -26,10 +26,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const msg = {
     to: 'recruit@certusgroup.com',
     from: 'tyler@certusgroup.com',
-    subject: `New Contact: ${name}`,
-    text: `Name: ${name}\nEmail: ${email}\nCompany: ${company || 'N/A'}\nMessage: ${message || 'N/A'}`,
+    subject: `New Contact${inquiryType ? ` [${inquiryType}]` : ''}: ${name}`,
+    text: `Inquiry type: ${inquiryType || 'N/A'}\nName: ${name}\nEmail: ${email}\nCompany: ${company || 'N/A'}\nMessage: ${message || 'N/A'}`,
     html: `
       <h3>New Contact Form Submission</h3>
+      <p><strong>Inquiry type:</strong> ${inquiryType || 'N/A'}</p>
       <p><strong>Name:</strong> ${name}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Company:</strong> ${company || 'N/A'}</p>

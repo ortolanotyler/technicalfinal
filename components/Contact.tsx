@@ -1,223 +1,350 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Section } from '../types';
-import { Building2, Phone, Mail, ArrowRight } from 'lucide-react';
+import { Building2, Phone, Mail, ArrowRight, Loader2, type LucideIcon } from 'lucide-react';
+
+type InquiryType = 'hiring' | 'candidate' | 'other';
+
+const INQUIRY_OPTIONS: Array<{ key: InquiryType; label: string; sub: string }> = [
+  { key: 'hiring', label: 'I am hiring', sub: 'Start a search' },
+  { key: 'candidate', label: 'I am exploring roles', sub: 'Reach the team' },
+  { key: 'other', label: 'Something else', sub: 'Press, partnerships, etc.' },
+];
+
+// Background photo for the contact section. Heavily dimmed via overlay.
+const BG_IMAGE =
+  'https://res.cloudinary.com/dvbubqhpp/image/upload/v1781293969/IMG_5018-edit-1024x683_gwedcu.jpg';
 
 const Contact: React.FC = () => {
-    const [isVisible, setIsVisible] = useState(false);
-    const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
-    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-    const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [company, setCompany] = useState('');
+  const [inquiryType, setInquiryType] = useState<InquiryType>('hiring');
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+  const sectionRef = useRef<HTMLElement>(null);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!email || !name) return;
-
-        setStatus('loading');
-        try {
-            const response = await fetch('/api/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, name }),
-            });
-
-            if (response.ok) {
-                setStatus('success');
-                setEmail('');
-                setName('');
-            } else {
-                setStatus('error');
-            }
-        } catch (error) {
-            console.error('Submission error:', error);
-            setStatus('error');
-        }
-    };
-
-    useEffect(() => {
+  useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  // Theme Config - Monochrome Brand
-  const theme = {
-    accent: 'text-brand-silver',
-    bg: 'bg-brand-steel',
-    borderHover: 'hover:border-brand-steel/50',
-    iconBg: 'group-hover/item:bg-brand-steel',
-    iconColor: 'group-hover/item:text-white',
-    glow: 'bg-brand-steel/5 group-hover:bg-brand-steel/20',
-    button: 'bg-brand-steel hover:bg-white text-white hover:text-brand-dark',
-    gradientText: 'from-brand-silver to-white',
-    sectionBg: 'bg-brand-dark/95'
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !name) return;
+    setStatus('loading');
+    setErrorMessage('');
+
+    const inquiryLabel = INQUIRY_OPTIONS.find((o) => o.key === inquiryType)?.label || inquiryType;
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          company,
+          inquiryType: inquiryLabel,
+          message: message || '(no message)',
+        }),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setName('');
+        setEmail('');
+        setCompany('');
+        setMessage('');
+        setInquiryType('hiring');
+      } else {
+        let detail = `Server returned ${response.status}`;
+        try {
+          const data = await response.json();
+          if (data?.error) detail = data.error;
+        } catch {
+          // ignore
+        }
+        setErrorMessage(detail);
+        setStatus('error');
+      }
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : 'Network error');
+      setStatus('error');
+    }
   };
 
   return (
-    <section 
-      id={Section.CONTACT} 
+    <section
+      id={Section.CONTACT}
       ref={sectionRef}
-      className={`${theme.sectionBg} backdrop-blur-xl py-32 relative overflow-hidden transition-colors duration-700`}
+      className="relative bg-brand-dark overflow-hidden"
     >
-        {/* Abstract Map Background */}
-        <div className="absolute inset-0 opacity-20 pointer-events-none">
-             <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/dvbubqhpp/image/upload/v1770947667/IMG_5018-edit-1024x683_eiabfr.jpg')] bg-cover bg-top grayscale mix-blend-overlay"></div>
-             <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent"></div>
-        </div>
+      {/* Background image */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={BG_IMAGE}
+          alt=""
+          aria-hidden="true"
+          className="w-full h-full object-cover object-top opacity-25 grayscale-[40%]"
+        />
+        <div className="absolute inset-0 bg-brand-dark/70"></div>
+        <div
+          className="absolute inset-0 opacity-10 pointer-events-none"
+          style={{
+            backgroundImage: 'radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)',
+            backgroundSize: '40px 40px',
+          }}
+        ></div>
+      </div>
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                
-                {/* The "Business Card" */}
-                <div 
-                  className={`
-                    lg:order-2
-                    bg-white/5 backdrop-blur-md border border-white/10 p-8 md:p-10 lg:p-14 rounded-sm shadow-2xl relative overflow-hidden group transition-all duration-1000 ease-out
-                    ${theme.borderHover}
-                    ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}
-                  `}
-                >
-                    <div className={`absolute top-0 left-0 w-1 h-full transition-all duration-500 ${theme.bg} ${isVisible ? 'h-full' : 'h-0'}`}></div>
-                    <div className={`absolute -right-20 -top-20 w-64 h-64 rounded-full blur-[80px] transition-all duration-700 ${theme.glow}`}></div>
-
-                    <div className="mb-8 md:mb-12 relative">
-                        <span className="font-sans font-bold text-2xl md:text-3xl text-white tracking-tight block mb-1">
-                            CERTUS<span className="text-brand-accent">GROUP</span>
-                        </span>
-                        <span className="text-gray-500 text-[9px] md:text-[10px] uppercase tracking-[0.4em]">Technical Search</span>
-                    </div>
-
-                    <div className="space-y-8 md:space-y-10">
-                        {/* Address */}
-                        <div className="flex items-start gap-4 md:gap-6 group/item cursor-default">
-                            <div className={`
-                                w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-sm flex-shrink-0
-                                ${theme.accent} transition-all duration-300
-                                ${theme.iconBg} ${theme.iconColor}
-                            `}>
-                                <Building2 strokeWidth={1.5} className="w-[18px] h-[18px] md:w-5 md:h-5 drop-shadow-lg" />
-                            </div>
-                            <div>
-                                <h4 className="text-white text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1 md:mb-2 opacity-80">Headquarters</h4>
-                                <p className="text-gray-400 font-light text-xs md:text-sm leading-relaxed tracking-wide">
-                                    74 Jutland Road, Unit 38<br/>
-                                    Toronto, ON., M8Z 0G7
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Phone */}
-                        <div className="flex items-start gap-4 md:gap-6 group/item cursor-default">
-                            <div className={`
-                                w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-sm flex-shrink-0
-                                ${theme.accent} transition-all duration-300
-                                ${theme.iconBg} ${theme.iconColor}
-                            `}>
-                                <Phone strokeWidth={1.5} className="w-[18px] h-[18px] md:w-5 md:h-5 drop-shadow-lg" />
-                            </div>
-                            <div>
-                                <h4 className="text-white text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1 md:mb-2 opacity-80">Direct Line</h4>
-                                <p className="text-gray-400 font-light text-xs md:text-sm tracking-wide">
-                                    (1 855) 323 7887
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Email */}
-                        <div className="flex items-start gap-4 md:gap-6 group/item cursor-default">
-                            <div className={`
-                                w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-sm flex-shrink-0
-                                ${theme.accent} transition-all duration-300
-                                ${theme.iconBg} ${theme.iconColor}
-                            `}>
-                                <Mail strokeWidth={1.5} className="w-[18px] h-[18px] md:w-5 md:h-5 drop-shadow-lg" />
-                            </div>
-                            <div>
-                                <h4 className="text-white text-[10px] md:text-xs font-bold uppercase tracking-widest mb-1 md:mb-2 opacity-80">Inquiries</h4>
-                                <p className="text-gray-400 font-light text-xs md:text-sm tracking-wide">
-                                    info@certusgroup.com
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-24 md:py-32 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* LEFT - Glass card */}
+          <aside
+            className={`lg:col-span-5 lg:order-2 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+          >
+            <div className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-sm p-8 md:p-10 lg:p-12 flex flex-col gap-10 shadow-2xl">
+              {/* Brand block */}
+              <div className="flex flex-col">
+                <div className="flex items-center gap-3 mb-2">
+                  <img
+                    src="https://res.cloudinary.com/dvbubqhpp/image/upload/v1770919808/CertusLOGO_szfewa.png"
+                    className="w-9 h-9 opacity-90"
+                    alt="Certus Logo"
+                    referrerPolicy="no-referrer"
+                  />
+                  <span className="font-sans font-bold text-2xl md:text-3xl tracking-tight text-white">
+                    CERTUS<span className="text-white/60">GROUP</span>
+                  </span>
                 </div>
+                <span className="text-white/40 text-[10px] uppercase tracking-[0.4em] font-bold ml-[48px]">
+                  Technical Search
+                </span>
+              </div>
 
-                {/* Call to Action */}
-                <div 
-                  className={`
-                    lg:order-1
-                    text-center lg:text-left space-y-6 md:space-y-8 transition-all duration-1000 ease-out delay-200
-                    ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}
-                  `}
-                >
-                    <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight md:leading-[1.1]">
-                        Start Your <br/>
-                        <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.gradientText}`}>Search Today.</span>
-                    </h2>
-                    <p className="text-gray-400 text-base md:text-lg font-light leading-relaxed max-w-md mx-auto lg:mx-0 border-l border-brand-steel/20 pl-6">
-                        Whether you are looking to build a team or seeking your next executive challenge, connect with our specialists.
-                    </p>
-                    
-                    <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto lg:mx-0 pt-2 md:pt-4">
-                        <div className="relative group">
-                             <input
-                                type="text"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                required
-                                aria-label="Your name"
-                                placeholder="Your Name"
-                                className="w-full bg-transparent border-b border-white/30 px-0 py-3 md:py-4 text-white placeholder-gray-400 focus:outline-none focus:border-brand-silver transition-colors text-base md:text-lg font-light" 
-                             />
-                             <div className={`absolute bottom-0 left-0 h-[1px] bg-brand-silver transition-all duration-500 w-0 group-hover:w-full group-focus-within:w-full`}></div>
-                        </div>
-                        <div className="relative group">
-                             <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                                aria-label="Email address"
-                                placeholder="Enter your email"
-                                className="w-full bg-transparent border-b border-white/30 px-0 py-3 md:py-4 text-white placeholder-gray-400 focus:outline-none focus:border-brand-silver transition-colors text-base md:text-lg font-light" 
-                             />
-                             <div className={`absolute bottom-0 left-0 h-[1px] bg-brand-silver transition-all duration-500 w-0 group-hover:w-full group-focus-within:w-full`}></div>
-                        </div>
-                        
-                        {status === 'success' && (
-                            <p className="text-emerald-400 text-xs md:text-sm font-medium animate-pulse">Thank you. We will be in touch shortly.</p>
-                        )}
-                        {status === 'error' && (
-                            <p className="text-red-400 text-xs md:text-sm font-medium">Something went wrong. Please try again.</p>
-                        )}
+              {/* Contact rows */}
+              <div className="space-y-6">
+                <ContactRow icon={Building2} label="Headquarters">
+                  74 Jutland Road, Unit 38
+                  <br />
+                  Toronto, ON · M8Z 0G7
+                </ContactRow>
 
-                        <button 
-                            type="submit"
-                            disabled={status === 'loading'}
-                            className={`w-full group font-bold uppercase tracking-widest py-4 md:py-5 transition-all duration-300 flex items-center justify-center gap-3 mt-4 ${theme.button} ${status === 'loading' ? 'opacity-50 cursor-not-allowed' : ''}`}
-                        >
-                            {status === 'loading' ? 'Sending...' : 'Request Callback'}
-                            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                        </button>
-                    </form>
-                </div>
+                <ContactRow icon={Phone} label="Direct line">
+                  <a href="tel:+18553237887" className="hover:text-white transition-colors">
+                    (1 855) 323 7887
+                  </a>
+                </ContactRow>
+
+                <ContactRow icon={Mail} label="Inquiries">
+                  <a
+                    href="mailto:info@certusgroup.com"
+                    className="hover:text-white transition-colors"
+                  >
+                    info@certusgroup.com
+                  </a>
+                </ContactRow>
+              </div>
 
             </div>
+          </aside>
+
+          {/* RIGHT - Headline + form */}
+          <div
+            className={`lg:col-span-7 lg:order-1 transition-all duration-1000 delay-150 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+          >
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-white tracking-tight leading-[1.05] mb-10">
+              Get in touch
+            </h2>
+
+            <form onSubmit={handleSubmit} className="space-y-7">
+              <Field label="I am…" required>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  {INQUIRY_OPTIONS.map((opt) => {
+                    const selected = inquiryType === opt.key;
+                    return (
+                      <button
+                        key={opt.key}
+                        type="button"
+                        onClick={() => setInquiryType(opt.key)}
+                        className={`text-left p-4 rounded-sm border backdrop-blur-md transition-all duration-200 ${
+                          selected
+                            ? 'border-brand-silver bg-brand-silver/15'
+                            : 'border-white/15 hover:border-white/40 bg-white/[0.03]'
+                        }`}
+                      >
+                        <div className={`text-sm font-medium transition-colors ${selected ? 'text-white' : 'text-white/80'}`}>
+                          {opt.label}
+                        </div>
+                        <div className={`text-[10px] uppercase tracking-[0.2em] mt-1 transition-colors ${selected ? 'text-brand-silver' : 'text-white/50'}`}>
+                          {opt.sub}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </Field>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <UnderlineField label="Name" required>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className={underlineInputClasses}
+                    placeholder="Jane Doe"
+                  />
+                </UnderlineField>
+                <UnderlineField label="Email" required>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className={underlineInputClasses}
+                    placeholder="jane.doe@example.com"
+                  />
+                </UnderlineField>
+              </div>
+
+              <UnderlineField label="Company" hint="Optional">
+                <input
+                  type="text"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  className={underlineInputClasses}
+                  placeholder="Acme Industries"
+                />
+              </UnderlineField>
+
+              <UnderlineField
+                label="Message"
+                hint={inquiryType === 'hiring' ? 'Role, location, timing' : 'Optional'}
+              >
+                <textarea
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  rows={3}
+                  className={`${underlineInputClasses} resize-none`}
+                  placeholder={
+                    inquiryType === 'hiring'
+                      ? "We're hiring a licensed 310T technician in Brampton, ideally starting next month..."
+                      : inquiryType === 'candidate'
+                        ? "I'm a licensed 310S technician looking for a road service role in the GTA..."
+                        : 'How can we help?'
+                  }
+                />
+              </UnderlineField>
+
+              {status === 'error' && (
+                <div className="bg-red-500/10 border border-red-500/30 rounded-sm px-4 py-3">
+                  <p className="text-red-300 text-xs font-medium">
+                    {errorMessage || 'Something went wrong. Please try again.'}
+                  </p>
+                </div>
+              )}
+              {status === 'success' && (
+                <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-sm px-4 py-3">
+                  <p className="text-emerald-300 text-xs font-medium">
+                    Thanks. We&rsquo;ll respond within one business day.
+                  </p>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === 'loading'}
+                className="w-full bg-brand-steel hover:bg-white text-white hover:text-brand-dark disabled:opacity-50 disabled:cursor-not-allowed py-4 font-bold uppercase tracking-[0.25em] text-xs rounded-sm transition-all duration-300 shadow-lg flex items-center justify-center gap-3 mt-2"
+              >
+                {status === 'loading' ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin" />
+                    Sending…
+                  </>
+                ) : (
+                  <>
+                    Request callback
+                    <ArrowRight size={16} />
+                  </>
+                )}
+              </button>
+
+              <p className="text-center text-[10px] text-white/50 font-light tracking-[0.2em] uppercase">
+                Confidentiality guaranteed
+              </p>
+            </form>
+          </div>
         </div>
+      </div>
     </section>
   );
 };
+
+// 16px on mobile to prevent iOS auto-zoom on focus.
+const underlineInputClasses =
+  'w-full bg-transparent border-0 border-b border-white/20 rounded-none px-0 py-3 text-white text-base md:text-base placeholder-white/30 focus:outline-none focus:border-brand-silver transition-colors';
+
+const Field: React.FC<{
+  label: string;
+  required?: boolean;
+  hint?: string;
+  children: React.ReactNode;
+}> = ({ label, required, hint, children }) => (
+  <div className="space-y-3">
+    <div className="flex items-baseline justify-between gap-3">
+      <label className="text-[10px] font-bold text-white/50 uppercase tracking-[0.25em]">
+        {label}
+        {required && <span className="text-brand-silver ml-1">*</span>}
+      </label>
+      {hint && <span className="text-[10px] text-white/40 font-light">{hint}</span>}
+    </div>
+    {children}
+  </div>
+);
+
+const UnderlineField: React.FC<{
+  label: string;
+  required?: boolean;
+  hint?: string;
+  children: React.ReactNode;
+}> = ({ label, required, hint, children }) => (
+  <div className="space-y-1">
+    <div className="flex items-baseline justify-between gap-3">
+      <label className="text-[10px] font-bold text-white/50 uppercase tracking-[0.25em]">
+        {label}
+        {required && <span className="text-brand-silver ml-1">*</span>}
+      </label>
+      {hint && <span className="text-[10px] text-white/40 font-light">{hint}</span>}
+    </div>
+    {children}
+  </div>
+);
+
+const ContactRow: React.FC<{
+  icon: LucideIcon;
+  label: string;
+  children: React.ReactNode;
+}> = ({ icon: Icon, label, children }) => (
+  <div className="flex items-start gap-4">
+    <div className="w-11 h-11 rounded-sm bg-brand-steel/40 border border-white/10 flex items-center justify-center text-brand-silver flex-shrink-0">
+      <Icon size={16} strokeWidth={1.5} />
+    </div>
+    <div>
+      <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/70 mb-1.5">
+        {label}
+      </div>
+      <div className="text-sm text-white/70 font-light leading-relaxed">{children}</div>
+    </div>
+  </div>
+);
 
 export default Contact;
